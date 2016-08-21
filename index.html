@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>さーたはうす</title>
+	 <meta charset="utf-8" />
+ 	<link href="common.css" rel="stylesheet" type="text/css">
+ 	<link href="enter.css" rel="stylesheet" type="text/css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="jquery.easing.1.3.js"></script>
+
+	<script type="text/javascript">
+	ILLUST_NUM = 7;
+	rnd = Math.floor( Math.random()*(ILLUST_NUM) )+1;
+	$(document).ready(function(){
+		$("#top_illust").attr('src','images/random_top/'+rnd+'.png');
+	    	$("#top_illust").animate({'left':'0px','opacity':'1'},4000,'easeOutExpo');
+	    	$("#top_link").animate({'bottom':'10%','opacity':'1'},1000,'easeOutExpo');	    	
+	  });
+	</script>
+
+</head>
+<body>
+	<img id="top_illust" src="images/top_big.png">
+	<div id="gradient"></div>
+	<div id="top_link">
+		<a href="top/index.html">
+			<div id="top_text">sarta house:</div>
+			<div id="top_enter">-ENTER-</div>
+		</a>
+	</div>
+</body>
+</html>
