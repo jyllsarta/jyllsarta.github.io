@@ -47,6 +47,7 @@ header{
 	background-color: #456456;
 }
 
+
 .collapse{
 	display: none;
 }
@@ -68,6 +69,124 @@ header{
 	width: 300px;
 	height: 50px;
 	background-color: #440033;
+}
+
+#menu_collapse_button:hover{
+	opacity: 0.4;
+}
+
+#hire_tab_button{
+	float: right;
+	color: #FFFFFF;
+	padding-top: 6px;
+	text-align: center;
+	width: 150px;
+	height: 30px;
+	background-color: #45A456;
+}
+
+#shop_tab_button{
+	float: right;
+	color: #FFFFFF;
+	padding-top: 6px;
+	text-align: center;
+	width: 150px;
+	height: 30px;
+	background-color: #45C4C6;
+}
+
+#item_detail_area{
+	margin-top: 30px;
+	position: relative;
+	background-color: #123123;
+	height: 160px;
+}
+
+#item_detail_character_name{
+	position: absolute;
+	top:4px;
+	left: 2px;
+	font-size: 24px;
+	color: #FFFFFF;
+}
+
+#item_detail_character_image{
+	position: absolute;
+	top:40px;
+	left: 5px;
+	width: 70px;
+}
+
+#item_detail_character_text{
+	color: #FFCFFF;
+	font-size: 12px;
+	position: absolute;
+	top:43px;
+	left: 90px;
+	width: 200px;
+}
+
+.attributes{
+	color: #FFCFFF;
+	font-size: 9px;	
+}
+
+#cost_text{
+	position: absolute;
+	top:120px;
+	left: 4px;
+}
+
+#level_text{
+	position: absolute;
+	top:120px;
+	left: 120px;
+}
+
+#item_detail_character_cost{
+	position: absolute;
+	top:124px;
+	left: 25px;
+	font-size: 24px;
+	color: #CFFFFF;
+}
+
+#item_detail_character_level{
+	position: absolute;
+	top:124px;
+	left: 142px;
+	font-size: 24px;
+	color: #CFFFFF;
+}
+
+#item_detail_hire_button{
+	padding: 5px 3px;
+	width: 70px;
+	height: 40px;
+	position: absolute;
+	top:114px;
+	left: 222px;
+	font-size: 20px;
+	color: #CFFFFF;
+	background-color: #7563E8;
+}
+
+
+#hire_character_list{
+	padding-left: 0px;
+	margin-left: 0px;
+}
+
+.hire_character{
+	float: left;
+	width: 100px;
+	height: 100px;
+	list-style: none;
+	background-color: #A0C060;
+}
+
+.hire_character:hover{
+	opacity: 0.4;
 }
 
 #lever{
@@ -99,4 +218,9 @@ header{
 
 .siso_image{
 	width: 60px;
+}
+
+#score{
+	font-size: 20px;
+	color: #983485;
 }
