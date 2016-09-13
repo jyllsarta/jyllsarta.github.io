@@ -3,7 +3,7 @@
 <head>
 	<title>さーたはうす</title>
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=375,initial-scale=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="css/touzoku.css" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -13,28 +13,49 @@
 
 <body>
 	<header>
-		<div id="score_area"><span id="score">0</span><span id="score_unit_text">枚</span></div>
+		<div id="score_area"><span id="score">0</span><span id="score_unit_text">枚!</span></div>
 	</header>
 
 	<div id="contents">
 		<span id="menu" class="collapse">
-			<div id="menu_collapse_button">menu<span class="glyphicon glyphicon-triangle-left"></span></div>
-			<span id="shop_tab_button">shop<span class="glyphicon glyphicon-glass"></span></span>
-			<span id="hire_tab_button">hire<span class="glyphicon glyphicon-user"></span></span>
-			<div id="item_detail_area">
+			<div id="menu_collapse_button">menu <span class="glyphicon glyphicon-triangle-left"></span></div>
+			<span id="shop_tab_button">shop <span class="glyphicon glyphicon-glass"></span></span>
+			<span id="hire_tab_button">hire <span class="glyphicon glyphicon-user"></span></span>
+			<div id="item_detail_area" selecting="character_biscla">
 				<div id="item_detail_character_name">ビスクラヴレット</div>
+				<span id="item_detail_sps">263k</span><span id="item_detail_sps_unit">sps/lv</span>
 				<img id="item_detail_character_image" src="images/touzoku/icon/biscla.png">
 				<div id="item_detail_character_text">クッキーを焼いてくれるかわいい人狼。おまんじゅう工場には必要ない。</div>
 				<div id="cost_text" class="attributes">コスト</div><div id="item_detail_character_cost">254.8k</div>
 				<div id="level_text" class="attributes">レベル</div><div id="item_detail_character_level">154</div>
-				<div id="item_detail_hire_button" class="btn btn-primary btn-lg">雇う</div>
+				<div id="item_detail_hire_button" class="btn btn-primary btn-lg hire_button">雇う</div>
 			</div>
 			<ul id="hire_character_list">
-				<li class="hire_character">ビスクラ</li>
-				<li class="hire_character">スカアハ</li>
-				<li class="hire_character">エル</li>
-				<li class="hire_character">クラッキー</li>
-				<li class="hire_character">富豪っち</li>
+				<li id="character_biscla" class="hire_character">
+					<div class="hire_item_character_name">ビスクラ</div>
+					<img src="images/touzoku/icon/biscla.png" class="hire_item_character_image">
+					<div class="hire_item_level">132</div>
+				</li>
+				<li id="character_scathach" class="hire_character">
+					<div class="hire_item_character_name">スカアハ</div>
+					<img src="images/touzoku/icon/biscla.png" class="hire_item_character_image">
+					<div class="hire_item_level">132</div>
+				</li>
+				<li id="character_el" class="hire_character">
+					<div class="hire_item_character_name">エル</div>
+					<img src="images/touzoku/icon/biscla.png" class="hire_item_character_image">
+					<div class="hire_item_level">132</div>
+				</li>
+				<li id="character_clucky" class="hire_character">
+					<div class="hire_item_character_name">クラッキー</div>
+					<img src="images/touzoku/icon/biscla.png" class="hire_item_character_image">
+					<div class="hire_item_level">132</div>
+				</li>
+				<li id="character_ukokkei" class="hire_character">
+					<div class="hire_item_character_name">富豪っち</div>
+					<img src="images/touzoku/icon/biscla.png" class="hire_item_character_image">
+					<div class="hire_item_level">132</div>
+				</li>
 			</ul>
 		</span>
 

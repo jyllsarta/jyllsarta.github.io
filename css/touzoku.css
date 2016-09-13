@@ -53,14 +53,17 @@ header{
 }
 
 #menu{
+	z-index: 1;
 	position: absolute;
-	top: 0px;
+	top: 40px;
 	left: 0px;
 	width: 300px;
-	height: 500px;
-	opacity: 0.8;
+	height: 540px;
+	opacity: 0.9;
 	background-color: #345789;
 }
+
+
 
 #menu_collapse_button{
 	color: #FFFFFF;
@@ -77,22 +80,23 @@ header{
 
 #hire_tab_button{
 	float: right;
-	color: #FFFFFF;
+	color: #EFFFEF;
 	padding-top: 6px;
 	text-align: center;
 	width: 150px;
 	height: 30px;
-	background-color: #45A456;
+	background-color: #123123;
+	border-bottom:1px solid #EFFFEF;
 }
 
 #shop_tab_button{
 	float: right;
-	color: #FFFFFF;
+	color: #EFFFEF;
 	padding-top: 6px;
 	text-align: center;
 	width: 150px;
 	height: 30px;
-	background-color: #45C4C6;
+	background-color: #321321;
 }
 
 #item_detail_area{
@@ -100,6 +104,7 @@ header{
 	position: relative;
 	background-color: #123123;
 	height: 160px;
+	border-bottom: 1px solid #EFFFEF;
 }
 
 #item_detail_character_name{
@@ -110,6 +115,22 @@ header{
 	color: #FFFFFF;
 }
 
+#item_detail_sps{
+	position: absolute;
+	top:4px;
+	left: 202px;
+	font-size: 24px;
+	color: #EFFFEF;	
+}
+
+#item_detail_sps_unit{
+	position: absolute;
+	top:14px;
+	left: 260px;
+	font-size: 15px;
+	color: #AFFFAF;
+}
+
 #item_detail_character_image{
 	position: absolute;
 	top:40px;
@@ -118,7 +139,7 @@ header{
 }
 
 #item_detail_character_text{
-	color: #FFCFFF;
+	color: #EFFFEF;
 	font-size: 12px;
 	position: absolute;
 	top:43px;
@@ -127,19 +148,19 @@ header{
 }
 
 .attributes{
-	color: #FFCFFF;
+	color: #AFFFAF;
 	font-size: 9px;	
 }
 
 #cost_text{
 	position: absolute;
-	top:120px;
+	top:118px;
 	left: 4px;
 }
 
 #level_text{
 	position: absolute;
-	top:120px;
+	top:118px;
 	left: 120px;
 }
 
@@ -148,7 +169,7 @@ header{
 	top:124px;
 	left: 25px;
 	font-size: 24px;
-	color: #CFFFFF;
+	color: #EFFFEF;
 }
 
 #item_detail_character_level{
@@ -156,19 +177,29 @@ header{
 	top:124px;
 	left: 142px;
 	font-size: 24px;
-	color: #CFFFFF;
+	color: #EFFFEF;
 }
 
 #item_detail_hire_button{
 	padding: 5px 3px;
-	width: 70px;
+	width: 90px;
 	height: 40px;
 	position: absolute;
 	top:114px;
-	left: 222px;
+	left: 204px;
 	font-size: 20px;
-	color: #CFFFFF;
-	background-color: #7563E8;
+}
+
+.hire_button{
+	color: #AFFFAF;
+	background-color: #456;
+	border: 1px solid #AFFFAF;	
+}
+
+.available{
+	background-color: #FFA;
+	border:1px solid #EEF;
+	color: #440;	
 }
 
 
@@ -182,12 +213,40 @@ header{
 	width: 100px;
 	height: 100px;
 	list-style: none;
-	background-color: #A0C060;
+	background-color: #123123;
+	/*border:1px solid #AFFFAF;*/
 }
 
 .hire_character:hover{
 	opacity: 0.4;
 }
+
+.hire_item_character_name{
+	position: relative;
+	top: 2px;
+	left: 2px;
+	color: #EFFFEF;
+	font-size: 16px;
+}
+
+.hire_item_character_image{
+	float: left;
+	position: relative;
+	top: 3px;
+	left: 5px;
+	width: 60px;
+}
+
+.hire_item_level{
+	position: relative;
+	top: 55px;
+	left:9px;
+	font-size: 18px;
+	color: #EFFFEF;
+}
+
+
+/*  メニュー以外*/
 
 #lever{
 	position: absolute;
@@ -198,7 +257,7 @@ header{
 
 #siso_line_area{
 	position: absolute;
-	top:500px;
+	top:360px;
 	left: 0px;
 
 }
@@ -212,12 +271,12 @@ header{
 .siso{
 	position: absolute;
 	top: 10px;
-	left: 350px;
+	left: 300px;
 	opacity: 1;
 }
 
 .siso_image{
-	width: 60px;
+	width: 90px;
 }
 
 #score{
