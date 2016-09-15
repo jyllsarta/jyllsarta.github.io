@@ -6,20 +6,29 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="css/touzoku.css" rel="stylesheet" type="text/css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.yurayura.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script src="lib/jquery.easing.1.3.js"></script>
 
 </head>
 
 <body>
-	<header>
-		<div id="score_area"><span id="score">0</span><span id="score_unit_text">枚!</span></div>
-	</header>
-
 	<div id="contents">
+
+		<div id="sps_show_area">
+			<span id="score_area">
+				<span class="score_unit_text">在庫：</span>
+				<span id="score">0</span>
+				<span class="score_unit_text">個</span>
+				<span id="sps">0</span>
+				<span class="score_unit_text">sps</span>
+			</span>
+		</div>
+
 		<span id="menu" class="collapse">
 			<div id="menu_collapse_button">menu <span class="glyphicon glyphicon-triangle-left"></span></div>
-			<span id="shop_tab_button">shop <span class="glyphicon glyphicon-glass"></span></span>
+			<span id="shop_tab_button">shop(未実装) <span class="glyphicon glyphicon-glass"></span></span>
 			<span id="hire_tab_button">hire <span class="glyphicon glyphicon-user"></span></span>
 			<div id="item_detail_area" selecting="character_biscla">
 				<div id="item_detail_character_name">ビスクラヴレット</div>
@@ -34,39 +43,45 @@
 				<li id="character_biscla" class="hire_character">
 					<div class="hire_item_character_name">ビスクラ</div>
 					<img src="images/touzoku/icon/biscla.png" class="hire_item_character_image">
-					<div class="hire_item_level">132</div>
+					<div class="hire_item_level">0</div>
 				</li>
-				<li id="character_scathach" class="hire_character">
-					<div class="hire_item_character_name">スカアハ</div>
-					<img src="images/touzoku/icon/biscla.png" class="hire_item_character_image">
-					<div class="hire_item_level">132</div>
+				<li id="character_eater" class="hire_character">
+					<div class="hire_item_character_name">擬人ﾁｱｲｰﾀｰ</div>
+					<img src="images/touzoku/icon/gijinka_eater.png" class="hire_item_character_image">
+					<div class="hire_item_level">0</div>
 				</li>
 				<li id="character_el" class="hire_character">
 					<div class="hire_item_character_name">エル</div>
-					<img src="images/touzoku/icon/biscla.png" class="hire_item_character_image">
-					<div class="hire_item_level">132</div>
+					<img src="images/touzoku/icon/el.png" class="hire_item_character_image">
+					<div class="hire_item_level">0</div>
 				</li>
 				<li id="character_clucky" class="hire_character">
 					<div class="hire_item_character_name">クラッキー</div>
-					<img src="images/touzoku/icon/biscla.png" class="hire_item_character_image">
-					<div class="hire_item_level">132</div>
+					<img src="images/touzoku/icon/clucky.png" class="hire_item_character_image">
+					<div class="hire_item_level">0</div>
 				</li>
 				<li id="character_ukokkei" class="hire_character">
 					<div class="hire_item_character_name">富豪っち</div>
-					<img src="images/touzoku/icon/biscla.png" class="hire_item_character_image">
-					<div class="hire_item_level">132</div>
+					<img src="images/touzoku/icon/ukokkei.png" class="hire_item_character_image">
+					<div class="hire_item_level">0</div>
 				</li>
 			</ul>
 		</span>
 
-		<div id="sps_show_area">
-			<span id="sps">299.342k</span>
-			<span id="sps_unit_text">sps</span>
-		</div>
-
 		<div id="menu_button" class="btn">menu<span class="glyphicon glyphicon-triangle-right"></div>
 
-		<img id="lever" src="images/touzoku/lever.png">
+		<img id="make_button" src="images/touzoku/material/btn_up.png">
+
+		<div id="characters_position_setter">
+		<div id="characters">
+			<img id="frame_touzoku" class="character_frame" src="images/touzoku/frame/touzoku.png">
+			<img id="frame_biscla" class="character_frame hide" src="images/touzoku/frame/biscla.png">
+			<img id="frame_el" class="character_frame hide" src="images/touzoku/frame/el.png">
+			<img id="frame_ukokkei" class="character_frame hide" src="images/touzoku/frame/ukokkei.png">
+			<img id="frame_clucky" class="character_frame hide" src="images/touzoku/frame/clucky.png">
+			<img id="frame_eater" class="character_frame hide" src="images/touzoku/frame/gijinka_eater.png">
+		</div>
+		</div>
 
 		<div id="siso_line_area">
 			<ul id="siso_list">

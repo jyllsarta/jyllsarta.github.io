@@ -1,3 +1,6 @@
+
+$.cookie.json = true;
+
 //
 // 各種定数
 //
@@ -5,45 +8,49 @@
 //購入ごとに商品価格がどれだけ上昇するか
 var VALUE_INCREASE_RATE = 1.2;
 
+//何ミリ秒ごとに更新処理を行うか これを10にすると100FPS 50にすると20FPS
+var UPDATE_FREQ_MS = 50;
+var SAVE_FREQ_MS = 60000;
+
 var character_data = {
 	"character_biscla" : {
 		cost : 100,
-		sps : 10,
+		sps : 5,
 		name : "ビスクラヴレット",
 		detail : "クッキーを焼いてくれるかわいい人狼。おまんじゅう工場の副産物にどうぞ。",
 		icon_location : "images/touzoku/icon/biscla.png",
 		creates : "siso_cookie",
 	},
-	"character_scathach" : {
+	"character_eater" : {
 		cost : 700,
-		sps : 60,
-		name : "スカアハ",
-		detail : "CV:坂本真綾。バニラ味のおまんじゅうを蒸してくれる。珍しいので少し高く売れる。",
-		icon_location : "images/touzoku/icon/scathach.png",
+		sps : 30,
+		name : "擬人型ﾁｱﾘｰｲｰﾀｰ",
+		detail : "たべちゃうぞー。バイトをはじめた。仕事はする。",
+		icon_location : "images/touzoku/icon/gijinka_eater.png",
 		creates : "siso_vanilla",
 	},
 	"character_el" : {
-		cost : 12000,
-		sps : 800,
+		cost : 8000,
+		sps : 200,
 		name : "エル",
 		detail : "ちーっす。基本ちょっかいしか出さないが、高級なしそﾒﾛﾝｸﾘｰﾑまんじゅうをたまに作る。",
-		icon_location : "images/touzoku/icon/biscla.png",
+		icon_location : "images/touzoku/icon/el.png",
 		creates : "siso_great",
 	},
 	"character_clucky" : {
-		cost : 460000,
-		sps : 7000,
+		cost : 320000,
+		sps : 2400,
 		name : "クラッキー",
 		detail : "まじめに働くので生産効率が良い。イチゴ味のおまんじゅうを手で握って作る。もちろん大きなお友達に高く売れる。",
-		icon_location : "images/touzoku/icon/scathach.png",
+		icon_location : "images/touzoku/icon/clucky.png",
 		creates : "siso_strawberry",
 	},
 	"character_ukokkei" : {
 		cost : 10000000,
-		sps : 200000,
+		sps : 50000,
 		name : "富豪っち",
 		detail : "金のおまんじゅうを産む。",
-		icon_location : "images/touzoku/icon/biscla.png",
+		icon_location : "images/touzoku/icon/ukokkei.png",
 		creates : "siso_golden",
 	}
 }
@@ -86,7 +93,7 @@ function getRandomInt(min, max) {
 var save_data = {
 	level : {
 		character_biscla : 1,
-		character_scathach : 0,
+		character_eater : 0,
 		character_el : 0,
 		character_clucky : 0,
 		character_ukokkei : 0,
@@ -118,6 +125,24 @@ function check_button_state(){
 	}
 	else{		
 		$("#item_detail_hire_button").removeClass("available");
+	}
+}
+
+//画面上にどのレベルまでのキャラを表示するかチェックし、更新
+function update_character_show_state(){
+	for(s in save_data.level){
+		if(save_data.level[s] > 0){
+			//クソなのはわかってる
+			var chara_name = s.split("_")[1];
+			$("#frame_"+chara_name).removeClass("hide");
+		}
+	}
+}
+
+//画面上のキャラレベルを更新する
+function update_menu_character_level(){
+	for(s in save_data.level){
+		$("#"+s).find(".hire_item_level").text(save_data.level[s]);
 	}
 }
 
@@ -153,14 +178,18 @@ var move_siso = function(){
 	$(".siso").each(function(){
 		var now_left = parseFloat($(this).css("left").slice(0,-2));
 		var now_top = parseFloat($(this).css("top").slice(0,-2));
-		$(this).css("left",now_left-2+"px");
-		$(this).css("top",now_top+0.41+"px");
+
+		var mv_left = 200 * UPDATE_FREQ_MS/1000;
+		var mv_top = 73 * UPDATE_FREQ_MS/1000;
+
+		$(this).css("left",now_left-mv_left+"px");
+		$(this).css("top",now_top+mv_top+"px");
 
 		if(now_left < 10){
 			//ギリギリになると消え始める
 			var now_opacity = parseFloat($(this).css("opacity"));
 			//console.log(now_opacity)
-			$(this).css("opacity",now_opacity-0.1);
+			$(this).css("opacity",now_opacity-0.3);
 
 			//消えきったまんじゅうはDOMから削除する
 			if(now_opacity <= 0){
@@ -174,7 +203,7 @@ var move_siso = function(){
 
 //まんじゅうを制作
 function create_siso(name,level){
-	console.log("create siso(" + name + "), lv="+level);
+	//console.log("create siso(" + name + "), lv="+level);
 
 	siso_info = siso_data[name];
 	value = siso_info.value * level;
@@ -182,7 +211,7 @@ function create_siso(name,level){
 
 	$("#siso_list").append('<li class="siso" value="'+value+'"><img class="siso_image" src="'+im_location+'"></li>');
 	//今追加したアイテムの初期位置をいじる
-	$(".siso:last").css("top", getRandomInt(-20,30)+"px");
+	$(".siso:last").css("top", getRandomInt(-13,10)+"px");
 }
 
 
@@ -201,7 +230,7 @@ function update_siso_progress(){
 			continue;
 		}
 
-		var add_value = character_data[c].sps /100 ;
+		var add_value = character_data[c].sps  * UPDATE_FREQ_MS/1000 ;
 		siso_progress[c] += add_value;
 	}	
 
@@ -234,8 +263,29 @@ function update(){
 	update_siso_progress();
 }
 
+//クッキーに記憶
+function save(){
+	$.cookie("save",save_data);
+	console.log("game saved")
+	console.log($.cookie("save"))
+}
+
+//クッキーから呼び出し(ないなら初期化)
+function load_save(){
+	var save = $.cookie("save");
+	if(typeof save === "undefined"){
+		console.log("セーブデータの読み込みに失敗 chromeのローカル環境?");
+	}
+	else{
+		save_data = save;
+		console.log("セーブ読み込みに成功！");
+		console.log(save);
+	}
+}
+
 //10ミリ秒ごとに少しずつ動かす
-window.setInterval(update,10);
+window.setInterval(update,UPDATE_FREQ_MS);
+window.setInterval(save,SAVE_FREQ_MS);
 
 
 //
@@ -255,7 +305,7 @@ $("#menu_collapse_button").click(function(){
 });
 
 //レバークリックでまんじゅうを生産
-$("#lever").click(function(){
+$("#make_button").click(function(){
 	create_siso("siso_plain",1);
 });
 
@@ -284,7 +334,47 @@ $("#item_detail_hire_button").click(function(){
 	$("#score").text(after_siso_value);
 
 	update_detail_area(character_name);
+
+	update_character_show_state();
+	update_menu_character_level();
 	calc_sps();
+
+	save();
+});
+
+//キャラゆらゆら
+$(function(){
+  $('#frame_touzoku').yurayura( {
+    'move' : 2,
+    'delay' : 400,
+    'duration' : 1300
+  } );
+  $('#frame_biscla').yurayura( {
+    'move' : 1,
+    'delay' : 200,
+    'duration' : 400
+  } );
+  $('#frame_el').yurayura( {
+    'move' : 5,
+    'delay' : 800,
+    'duration' : 3000
+  } );
+  $('#frame_ukokkei').yurayura( {
+    'move' : 2,
+    'delay' : 100,
+    'duration' : 500
+  } );
+  $('#frame_clucky').yurayura( {
+    'move' : 1,
+    'delay' : 400,
+    'duration' : 1300
+  } );
+  $('#frame_eater').yurayura( {
+    'move' : 2,
+    'delay' : 700,
+    'duration' : 1300
+  } );
+
 });
 
 //
@@ -294,5 +384,8 @@ $("#item_detail_hire_button").click(function(){
 $(document).ready(function(){
 	update_detail_area("character_biscla");
 	calc_sps();
+	update_character_show_state();
+	update_menu_character_level();
+	load_save();
 });
 

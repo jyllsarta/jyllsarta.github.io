@@ -8,10 +8,15 @@ body{
 
 }
 
+#navigation{
+	z-index: 1000000;
+}
+
 #contents{
 	position: relative;
+	width: 375px;
 	height: 700px;
-	background: url("../images/touzoku/background.png") 0 0 no-repeat;
+	background: url("../images/touzoku/material/background.png") 0 0 no-repeat;
 	background-size:cover;
 }
 
@@ -19,32 +24,38 @@ body{
 	width: 375px;
 }
 
-header{
-	height: 60px;
-	background-color: #c0ffee;
-	opacity: 0.8;
-}
-
 #sps_show_area{
-	width: 200px;
+	height: 50px;
+	width: 100%;
 	padding: 3px 3px;
 	font-family: "Comic Sans MS", cursive, sans-serif;
-	background-color: #ABCDEF;
+	background-color: #123123;
+}
+
+#score{
+	font-size: 30px;
+	color: #EFFFEF;
+}
+
+.score_unit_text{
+	font-size: 14px;
+	color: #AFFFAF;
 }
 
 #sps{
 	font-style: italic;
 	font-size: 25px;
-}
-
-#sps_unit_text{
-	font-size: 20px;
+	color: #EFFFEF;
 }
 
 #menu_button{
+	position: absolute;
+	top: 50px;
+	left: 0px;
+	z-index:10000;
 	color: #FFFFFF;
 	width: 70px;
-	background-color: #456456;
+	background-color: #234234;
 }
 
 
@@ -53,14 +64,14 @@ header{
 }
 
 #menu{
-	z-index: 1;
+	z-index: 10001;
 	position: absolute;
-	top: 40px;
+	top: 50px;
 	left: 0px;
 	width: 300px;
 	height: 540px;
 	opacity: 0.9;
-	background-color: #345789;
+	background-color: #000000;
 }
 
 
@@ -71,7 +82,7 @@ header{
 	text-align: center;
 	width: 300px;
 	height: 50px;
-	background-color: #440033;
+	background-color: #432100;
 }
 
 #menu_collapse_button:hover{
@@ -248,11 +259,12 @@ header{
 
 /*  メニュー以外*/
 
-#lever{
+#make_button{
+	z-index:10000;
 	position: absolute;
 	top: 300px;
-	left: 275px;
-	width: 100px;
+	left: 224px;
+	width: 55px;
 }
 
 #siso_line_area{
@@ -276,10 +288,27 @@ header{
 }
 
 .siso_image{
+	z-index: 100;
 	width: 90px;
 }
 
-#score{
-	font-size: 20px;
-	color: #983485;
+#characters{
+	position: absolute;
+}
+
+#characters_position_setter{
+	position: absolute;
+	top: 18px;
+}
+
+.character_frame{
+	z-index: 500;
+	position: absolute;
+	top:0px;
+	left: 0px;
+	width: 375px;
+}
+
+.hide{
+	display: none;
 }
