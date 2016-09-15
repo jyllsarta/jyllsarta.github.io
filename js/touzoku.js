@@ -382,10 +382,13 @@ $(function(){
 //
 
 $(document).ready(function(){
+	//セーブ読み込み
+	load_save();
+
+	//表示を初期化
 	update_detail_area("character_biscla");
 	calc_sps();
 	update_character_show_state();
 	update_menu_character_level();
-	load_save();
 });
 
