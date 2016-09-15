@@ -97,7 +97,8 @@ var save_data = {
 		character_el : 0,
 		character_clucky : 0,
 		character_ukokkei : 0,
-	}
+	},
+	score : 0,
 }
 
 
@@ -112,9 +113,7 @@ function can_hire(){
 	var current_character_level = save_data.level[character_name];
 	var cost = Math.floor(character_info.cost * Math.pow(VALUE_INCREASE_RATE, (current_character_level)));
 
-	var current_siso_value = parseFloat($("#score").text());
-
-	return current_siso_value >= cost;
+	return save_data.score >= cost;
 }
 
 //雇うボタンが押せるかどうかによって状態遷移
@@ -169,8 +168,8 @@ function update_detail_area(target_id){
 
 //スコアを加算する
 var add_score = function(value){
-	var now = parseFloat($("#score").text());
-	$("#score").text(now + value);
+	save_data.score += value;
+	$("#score").text(save_data.score);
 }
 
 //まんじゅうの移動関連
@@ -326,12 +325,10 @@ $("#item_detail_hire_button").click(function(){
 	var current_character_level = save_data.level[character_name];
 	var cost = Math.floor(character_info.cost * Math.pow(VALUE_INCREASE_RATE, (current_character_level)));
 
-	var current_siso_value = parseFloat($("#score").text());
-
-	var after_siso_value = current_siso_value - cost;
+	save_data.score -= cost;
 	save_data.level[character_name] ++;
 
-	$("#score").text(after_siso_value);
+	$("#score").text(save_data.score);
 
 	update_detail_area(character_name);
 
