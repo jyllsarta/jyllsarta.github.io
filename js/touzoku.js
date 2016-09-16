@@ -12,6 +12,8 @@ var VALUE_INCREASE_RATE = 1.2;
 var UPDATE_FREQ_MS = 50;
 var SAVE_FREQ_MS = 60000;
 
+var NUMERAL_FORMAT = "000.00a";
+
 var character_data = {
 	"character_biscla" : {
 		cost : 100,
@@ -31,14 +33,14 @@ var character_data = {
 	},
 	"character_el" : {
 		cost : 8000,
-		sps : 200,
+		sps : 230,
 		name : "エル",
 		detail : "ちーっす。基本ちょっかいしか出さないが、高級なしそﾒﾛﾝｸﾘｰﾑまんじゅうをたまに作る。",
 		icon_location : "images/touzoku/icon/el.png",
 		creates : "siso_great",
 	},
 	"character_clucky" : {
-		cost : 320000,
+		cost : 220000,
 		sps : 2400,
 		name : "クラッキー",
 		detail : "まじめに働くので生産効率が良い。イチゴ味のおまんじゅうを手で握って作る。もちろん大きなお友達に高く売れる。",
@@ -47,7 +49,7 @@ var character_data = {
 	},
 	"character_ukokkei" : {
 		cost : 10000000,
-		sps : 50000,
+		sps : 22222,
 		name : "富豪っち",
 		detail : "金のおまんじゅうを産む。",
 		icon_location : "images/touzoku/icon/ukokkei.png",
@@ -85,6 +87,26 @@ var siso_data = {
 //ランダム用
 function getRandomInt(min, max) {
 	return Math.floor( Math.random() * (max - min + 1) ) + min;
+}
+
+//大きすぎる数値は略記する
+function formatNumeral(num){
+	var digits = Math.log(num)*Math.LOG10E;
+	if(digits > 4){
+		return numeral(num).format(NUMERAL_FORMAT);
+	}
+	else{
+		return num;
+	}
+}
+
+//略記
+// ~1000 → そのまま
+// ~1000000 → 999k
+// ~ 1,000,000,000 → 999M
+// ~ 1,000,000,000,000 → 999G
+function toMinifiedNumber(){
+
 }
 
 //
@@ -141,8 +163,18 @@ function update_character_show_state(){
 //画面上のキャラレベルを更新する
 function update_menu_character_level(){
 	for(s in save_data.level){
-		$("#"+s).find(".hire_item_level").text(save_data.level[s]);
+		var lv = save_data.level[s];
+		if(lv > 0){
+			$("#"+s).removeClass("hide_from_character_list")
+			$("#"+s).find(".hire_item_level").text(lv);
+		}
+		else{
+			$("#"+s).addClass("hide_from_character_list")
+		}
 	}
+	//次のLv0キャラクターは表示する
+	$(".hide_from_character_list:first").removeClass("hide_from_character_list");
+
 }
 
 //キャラ詳細エリアの画面更新 target_id のものに切り替える
@@ -156,20 +188,26 @@ function update_detail_area(target_id){
 	$("#item_detail_area").attr("selecting",character_name);
 
 	$("#item_detail_character_name").text(character_info.name);
-	$("#item_detail_sps").text(character_info.sps);
+	$("#item_detail_sps").text(formatNumeral(character_info.sps));
 	$("#item_detail_character_image").attr("src", character_info.icon_location);
 	$("#item_detail_character_text").text(character_info.detail);
-	$("#item_detail_character_cost").text(cost);
+	$("#item_detail_character_cost").text(formatNumeral(cost));
 
 	//lv0なら - と表示
 	var lv_text = current_character_level==0?"-":current_character_level;
 	$("#item_detail_character_level").text(lv_text);
 }
 
+
 //スコアを加算する
 var add_score = function(value){
 	save_data.score += value;
-	$("#score").text(save_data.score);
+
+	$('#score').numerator({
+		easing: 'swing',
+		duration: 100,
+		toValue: save_data.score,
+	});
 }
 
 //まんじゅうの移動関連
@@ -198,6 +236,16 @@ var move_siso = function(){
 			}
 		}
 	});
+}
+
+//ふきだしにメッセージを追加
+function cast_message(sentence){
+	console.log(sentence);
+	$("#message_list").append('<li class="message">'+ sentence +'</li>');
+
+	while($(".message").length > 2){
+		$(".message")[0].remove();
+	}
 }
 
 //まんじゅうを制作
@@ -265,21 +313,43 @@ function update(){
 //クッキーに記憶
 function save(){
 	$.cookie("save",save_data);
-	console.log("game saved")
+	cast_message("セーブしましたよー！")
 	console.log($.cookie("save"))
+}
+
+//各レコードNaNチェックを入れる
+function is_valid_save(savefile){
+	//不正値チェック
+	for(lv in savefile.level){
+		if(isNaN(savefile.level[lv])){
+			cast_message(lv + " : "+ savefile.level[lv] + "が不正でしたー")
+			return false;
+		}
+	}
+	if(isNaN(savefile.score)){
+		cast_message("おまんじゅう在庫が不正でしたー")
+		return false;
+	}
+	return true;
 }
 
 //クッキーから呼び出し(ないなら初期化)
 function load_save(){
-	var save = $.cookie("save");
-	if(typeof save === "undefined"){
-		console.log("セーブデータの読み込みに失敗 chromeのローカル環境?");
+	var savefile = $.cookie("save");
+	if(typeof savefile === "undefined"){
+		cast_message("セーブデータの読み込みに失敗しました... chromeのローカル環境でしょうか?");
 	}
 	else{
-		save_data = save;
-		console.log("セーブ読み込みに成功！");
-		console.log(save);
+		if(is_valid_save	(savefile)){
+			save_data = savefile;
+			cast_message("セーブ読み込みに成功！");
+		}
+		else{
+			cast_message("セーブデータがなんかダメっぽいので初めからにしますー");
+		}
+		console.log(savefile);
 	}
+
 }
 
 //10ミリ秒ごとに少しずつ動かす
@@ -328,7 +398,11 @@ $("#item_detail_hire_button").click(function(){
 	save_data.score -= cost;
 	save_data.level[character_name] ++;
 
-	$("#score").text(save_data.score);
+	$('#score').numerator({
+		easing: 'swing',
+		duration: 100,
+		toValue: save_data.score,
+	});
 
 	update_detail_area(character_name);
 
@@ -341,36 +415,36 @@ $("#item_detail_hire_button").click(function(){
 
 //キャラゆらゆら
 $(function(){
-  $('#frame_touzoku').yurayura( {
-    'move' : 2,
-    'delay' : 400,
-    'duration' : 1300
-  } );
-  $('#frame_biscla').yurayura( {
-    'move' : 1,
-    'delay' : 200,
-    'duration' : 400
-  } );
-  $('#frame_el').yurayura( {
-    'move' : 5,
-    'delay' : 800,
-    'duration' : 3000
-  } );
-  $('#frame_ukokkei').yurayura( {
-    'move' : 2,
-    'delay' : 100,
-    'duration' : 500
-  } );
-  $('#frame_clucky').yurayura( {
-    'move' : 1,
-    'delay' : 400,
-    'duration' : 1300
-  } );
-  $('#frame_eater').yurayura( {
-    'move' : 2,
-    'delay' : 700,
-    'duration' : 1300
-  } );
+	$('#frame_touzoku').yurayura( {
+		'move' : 2,
+		'delay' : 400,
+		'duration' : 1300
+	} );
+	$('#frame_biscla').yurayura( {
+		'move' : 1,
+		'delay' : 200,
+		'duration' : 400
+	} );
+	$('#frame_el').yurayura( {
+		'move' : 5,
+		'delay' : 800,
+		'duration' : 3000
+	} );
+	$('#frame_ukokkei').yurayura( {
+		'move' : 2,
+		'delay' : 100,
+		'duration' : 500
+	} );
+	$('#frame_clucky').yurayura( {
+		'move' : 1,
+		'delay' : 400,
+		'duration' : 1300
+	} );
+	$('#frame_eater').yurayura( {
+		'move' : 2,
+		'delay' : 700,
+		'duration' : 1300
+	} );
 
 });
 
@@ -387,5 +461,8 @@ $(document).ready(function(){
 	calc_sps();
 	update_character_show_state();
 	update_menu_character_level();
+
+	cast_message("<br><br><br>");
+	cast_message("私の手元のボタンを押すとおまんじゅうを作れます！");
 });
 
