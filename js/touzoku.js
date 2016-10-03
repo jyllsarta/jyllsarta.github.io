@@ -1,4 +1,5 @@
 
+//jsoncookie対応用
 $.cookie.json = true;
 
 //
@@ -12,6 +13,10 @@ var VALUE_INCREASE_RATE = 1.2;
 var UPDATE_FREQ_MS = 50;
 var SAVE_FREQ_MS = 60000;
 
+//何秒ごとに金クッキーを表示するか(期待値)
+var FREQ_GOLDEN_COOKIE_SPAWN_SEC = 300;
+
+//数値表記ルール
 var NUMERAL_FORMAT = "000.00a";
 
 var character_data = {
@@ -32,7 +37,7 @@ var character_data = {
 		creates : "siso_vanilla",
 	},
 	"character_el" : {
-		cost : 8000,
+		cost : 1000,
 		sps : 230,
 		name : "エル",
 		detail : "ちーっす。基本ちょっかいしか出さないが、高級なしそﾒﾛﾝｸﾘｰﾑまんじゅうをたまに作る。",
@@ -40,7 +45,7 @@ var character_data = {
 		creates : "siso_great",
 	},
 	"character_clucky" : {
-		cost : 220000,
+		cost : 1000,
 		sps : 2400,
 		name : "クラッキー",
 		detail : "まじめに働くので生産効率が良い。イチゴ味のおまんじゅうを手で握って作る。もちろん大きなお友達に高く売れる。",
@@ -48,13 +53,89 @@ var character_data = {
 		creates : "siso_strawberry",
 	},
 	"character_ukokkei" : {
-		cost : 10000000,
+		cost : 1000,
 		sps : 22222,
 		name : "富豪っち",
 		detail : "金のおまんじゅうを産む。",
 		icon_location : "images/touzoku/icon/ukokkei.png",
 		creates : "siso_golden",
-	}
+	},
+	"character_etafle" : {
+		cost : 1000,
+		sps : 22222,
+		name : "エタフレちゃん",
+		detail : "錬成する。",
+		icon_location : "images/touzoku/icon/etafle.png",
+		creates : "siso_golden",
+	},
+	"character_domo" : {
+		cost : 1000,
+		sps : 22222,
+		name : "ドモヴォーイ",
+		detail : "天使パワーがすごい",
+		icon_location : "images/touzoku/icon/domo.png",
+		creates : "siso_golden",
+	},
+	"character_puka" : {
+		cost : 1000,
+		sps : 22222,
+		name : "プーカ",
+		detail : "かわいい",
+		icon_location : "images/touzoku/icon/puka.png",
+		creates : "siso_golden",
+	},
+	"character_utahime" : {
+		cost : 1000,
+		sps : 22222,
+		name : "歌姫アーサー",
+		detail : "金のおまんじゅうを産む。",
+		icon_location : "images/touzoku/icon/utahime.png",
+		creates : "siso_golden",
+	},
+	"character_enyde" : {
+		cost : 1000,
+		sps : 22222,
+		name : "エニード",
+		detail : "金のおまんじゅうを産む。",
+		icon_location : "images/touzoku/icon/enyde.png",
+		creates : "siso_golden",
+	},
+	"character_ganeida" : {
+		cost : 1000,
+		sps : 22222,
+		name : "ガネイダ",
+		detail : "金のおまんじゅうを産む。",
+		icon_location : "images/touzoku/icon/ganeida.png",
+		creates : "siso_golden",
+	},
+}
+
+var achievement_data = {
+	totalclick100 : {
+		title : "見習い卒業",
+		description : "100個以上のおまんじゅうをクリックして作成する。",
+		says : "「手が疲れたのでシフト上がらせてもらいますね！」",
+	},
+	bisclavret100 : {
+		title : "百獣の王",
+		description : "ビスクラをlv100にする。",
+		says : "「やったニャー！就職先決まったニャー！」",
+	},
+	eater100 : {
+		title : "がんばりやさん",
+		description : "擬人型チアリーイーターをlv100にする。",
+		says : "「食べちゃうぞー(つまみ食い)。」",
+	},
+	el100 : {
+		title : "カンスト",
+		description : "エルをlv100にする。",
+		says : "「やったな！おめっとさん！」",
+	},
+	clucky100 : {
+		title : "ファンクラブ入会",
+		description : "クラッキーをlv100にする。",
+		says : "「」",
+	},
 }
 
 var siso_data = {
@@ -100,14 +181,7 @@ function formatNumeral(num){
 	}
 }
 
-//略記
-// ~1000 → そのまま
-// ~1000000 → 999k
-// ~ 1,000,000,000 → 999M
-// ~ 1,000,000,000,000 → 999G
-function toMinifiedNumber(){
 
-}
 
 //
 // 変数(セーブデータ)
@@ -119,14 +193,42 @@ var save_data = {
 		character_el : 0,
 		character_clucky : 0,
 		character_ukokkei : 0,
+		character_etafle : 0,
+		character_domo : 0,
+		character_puka : 0,
+		character_utahime : 0,
+		character_enyde : 0,
+		character_ganeida : 0,
 	},
 	score : 0,
+	total_click : 0,
+	achievements : {
+		bicalavlet100 : 0,
+	},
 }
 
 
 //
 // 状態を変化させる関数
 //
+
+//金クッキーを表示
+function spawn_golden_cookie(){
+	var rand_top = getRandomInt(1,600);
+	var rand_left = getRandomInt(1,270);
+	$("#golden_cookie").css({"top":rand_top,"left":rand_left,"opacity":1})
+	$("#golden_cookie").removeClass("hide");
+}
+
+//金クッキー表示判定
+function golden_cookie_check(){
+	var rand = Math.random();
+	var threshold = 1 / FREQ_GOLDEN_COOKIE_SPAWN_SEC;
+	if(rand < threshold){
+		spawn_golden_cookie();
+	}
+}
+
 
 //今雇うボタンを押すことができるか?
 function can_hire(){
@@ -203,11 +305,7 @@ function update_detail_area(target_id){
 var add_score = function(value){
 	save_data.score += value;
 
-	$('#score').numerator({
-		easing: 'swing',
-		duration: 100,
-		toValue: save_data.score,
-	});
+	$('#score').text(formatNumeral(save_data.score))
 }
 
 //まんじゅうの移動関連
@@ -303,17 +401,32 @@ function calc_sps(){
 	$("#sps").text(sps);
 }
 
+function decay_golden_cookie(){
+	//見えてないときは処理しない
+	if($("#golden_cookie").hasClass("hide")){
+		return;
+	}
+
+	var opacity = $("#golden_cookie").css("opacity");
+	$("#golden_cookie").css("opacity",opacity - 0.005);
+
+	if(opacity <= 0){
+		$("#golden_cookie").addClass("hide");
+	}
+
+}
+
 //毎フレームの更新
 function update(){
 	check_button_state();
 	move_siso();
 	update_siso_progress();
+	decay_golden_cookie();
 }
 
 //クッキーに記憶
 function save(){
 	$.cookie("save",save_data);
-	cast_message("セーブしましたよー！")
 	console.log($.cookie("save"))
 }
 
@@ -332,6 +445,12 @@ function is_valid_save(savefile){
 	}
 	return true;
 }
+
+//各実績クリア状況を上から順にチェック
+function achievement_clear_check(){
+	//なかみをあとでかく
+}
+
 
 //クッキーから呼び出し(ないなら初期化)
 function load_save(){
@@ -355,7 +474,7 @@ function load_save(){
 //10ミリ秒ごとに少しずつ動かす
 window.setInterval(update,UPDATE_FREQ_MS);
 window.setInterval(save,SAVE_FREQ_MS);
-
+window.setInterval(golden_cookie_check,1000);
 
 //
 // ボタンに対する反応
@@ -383,6 +502,17 @@ $(".hire_character").click(function(){
 	update_detail_area(this.id);
 });
 
+//選択中のキャラクター切り替え
+$("#golden_cookie").click(function(){
+	var sps = parseFloat($("#sps").text());
+	var value = sps * getRandomInt(200,300) + getRandomInt(1,1000)
+
+	//お金二倍
+	cast_message("金クッキー！" + value +" 個のおまんじゅうを手に入れましたよ！");
+	add_score(value);
+	$(this).addClass("hide");
+});
+
 //雇うボタンを押した際の処理
 $("#item_detail_hire_button").click(function(){
 	//無効なら何もしない
@@ -398,11 +528,7 @@ $("#item_detail_hire_button").click(function(){
 	save_data.score -= cost;
 	save_data.level[character_name] ++;
 
-	$('#score').numerator({
-		easing: 'swing',
-		duration: 100,
-		toValue: save_data.score,
-	});
+	$('#score').text(formatNumeral(save_data.score));
 
 	update_detail_area(character_name);
 
@@ -411,6 +537,16 @@ $("#item_detail_hire_button").click(function(){
 	calc_sps();
 
 	save();
+});
+
+//レベルアップタブと実績タブ切り替え
+$("#achievement_tab_button").click(function(){
+	$("#achievement_menu").removeClass("hide");
+	$("#hire_menu").addClass("hide");
+});
+$("#hire_tab_button").click(function(){
+	$("#achievement_menu").addClass("hide");
+	$("#hire_menu").removeClass("hide");
 });
 
 //キャラゆらゆら
@@ -445,8 +581,39 @@ $(function(){
 		'delay' : 700,
 		'duration' : 1300
 	} );
+	$('#frame_etafle').yurayura( {
+		'move' : 2,
+		'delay' : 700,
+		'duration' : 1600
+	} );
+	$('#frame_domo').yurayura( {
+		'move' : 2,
+		'delay' : 700,
+		'duration' : 2000
+	} );
+	$('#frame_puka').yurayura( {
+		'move' : 1,
+		'delay' : 2000,
+		'duration' : 1300
+	} );
+	$('#frame_utahime').yurayura( {
+		'move' : 3,
+		'delay' : 200,
+		'duration' : 1000
+	} );
+	$('#frame_enyde').yurayura( {
+		'move' : 2,
+		'delay' : 700,
+		'duration' : 1300
+	} );
+	$('#frame_ganeida').yurayura( {
+		'move' : 1,
+		'delay' : 700,
+		'duration' : 3300
+	} );
 
-});
+});		
+
 
 //
 // 画面初期表示
