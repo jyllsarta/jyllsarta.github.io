@@ -550,6 +550,7 @@ $("#hire_tab_button").click(function(){
 });
 
 //キャラゆらゆら
+/*
 $(function(){
 	$('#frame_touzoku').yurayura( {
 		'move' : 2,
@@ -613,7 +614,7 @@ $(function(){
 	} );
 
 });		
-
+*/
 
 //
 // 画面初期表示

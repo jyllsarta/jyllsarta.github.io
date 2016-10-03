@@ -15,7 +15,7 @@ body{
 #contents{
 	position: relative;
 	width: 375px;
-	height: 700px;
+	height: 595px;
 	background: url("../images/touzoku/material/background.png") 0 0 no-repeat;
 	background-size:cover;
 }
@@ -326,8 +326,8 @@ body{
 
 .hire_character{
 	float: left;
-	width: 100px;
-	height: 100px;
+	width: 75px;
+	height: 75px;
 	list-style: none;
 	background-color: #123123;
 	/*border:1px solid #AFFFAF;*/
@@ -342,7 +342,7 @@ body{
 	top: 2px;
 	left: 2px;
 	color: #EFFFEF;
-	font-size: 16px;
+	font-size: 13px;
 }
 
 .hire_item_character_image{
@@ -350,14 +350,14 @@ body{
 	position: relative;
 	top: 3px;
 	left: 5px;
-	width: 60px;
+	width: 40px;
 }
 
 .hire_item_level{
 	position: relative;
-	top: 55px;
+	top: 35px;
 	left:9px;
-	font-size: 18px;
+	font-size: 16px;
 	color: #EFFFEF;
 }
 
@@ -375,14 +375,14 @@ body{
 #make_button{
 	z-index:10000;
 	position: absolute;
-	top: 300px;
-	left: 224px;
+	top: 187px;
+	left: 227px;
 	width: 55px;
 }
 
 #siso_line_area{
 	position: absolute;
-	top:360px;
+	top:260px;
 	left: 0px;
 
 }
