@@ -22,7 +22,7 @@ var NUMERAL_FORMAT = "000.00a";
 var character_data = {
 	"character_biscla" : {
 		cost : 100,
-		sps : 5,
+		sps  : 5,
 		name : "ビスクラヴレット",
 		detail : "クッキーを焼いてくれるかわいい人狼。おまんじゅう工場の副産物にどうぞ。",
 		icon_location : "images/touzoku/icon/biscla.png",
@@ -30,83 +30,83 @@ var character_data = {
 	},
 	"character_eater" : {
 		cost : 700,
-		sps : 30,
+		sps  : 30,
 		name : "擬人型ﾁｱﾘｰｲｰﾀｰ",
 		detail : "たべちゃうぞー。バイトをはじめた。仕事はする。",
 		icon_location : "images/touzoku/icon/gijinka_eater.png",
 		creates : "siso_vanilla",
 	},
 	"character_el" : {
-		cost : 1000,
-		sps : 230,
+		cost : 3000,
+		sps  : 230,
 		name : "エル",
 		detail : "ちーっす。基本ちょっかいしか出さないが、高級なしそﾒﾛﾝｸﾘｰﾑまんじゅうをたまに作る。",
 		icon_location : "images/touzoku/icon/el.png",
 		creates : "siso_great",
 	},
 	"character_clucky" : {
-		cost : 1000,
-		sps : 2400,
+		cost : 50000,
+		sps  : 1700,
 		name : "クラッキー",
 		detail : "まじめに働くので生産効率が良い。イチゴ味のおまんじゅうを手で握って作る。もちろん大きなお友達に高く売れる。",
 		icon_location : "images/touzoku/icon/clucky.png",
 		creates : "siso_strawberry",
 	},
 	"character_ukokkei" : {
-		cost : 1000,
-		sps : 22222,
+		cost : 600000,
+		sps  : 22222,
 		name : "富豪っち",
 		detail : "金のおまんじゅうを産む。",
 		icon_location : "images/touzoku/icon/ukokkei.png",
 		creates : "siso_golden",
 	},
 	"character_etafle" : {
-		cost : 1000,
-		sps : 22222,
+		cost : 2950000,
+		sps  : 86000,
 		name : "エタフレちゃん",
 		detail : "錬成する。",
 		icon_location : "images/touzoku/icon/etafle.png",
-		creates : "siso_golden",
+		creates : "siso_eta",
 	},
 	"character_domo" : {
-		cost : 1000,
-		sps : 22222,
+		cost : 66666666,
+		sps  : 800000,
 		name : "ドモヴォーイ",
 		detail : "天使パワーがすごい",
 		icon_location : "images/touzoku/icon/domo.png",
-		creates : "siso_golden",
+		creates : "siso_domo",
 	},
 	"character_puka" : {
-		cost : 1000,
-		sps : 22222,
+		cost : 2000000000,
+		sps  : 10000000,
 		name : "プーカ",
 		detail : "かわいい",
 		icon_location : "images/touzoku/icon/puka.png",
-		creates : "siso_golden",
+		creates : "siso_puka",
 	},
 	"character_utahime" : {
-		cost : 1000,
-		sps : 22222,
+		cost : 50620000000,
+		sps  : 417123223,
 		name : "歌姫アーサー",
 		detail : "金のおまんじゅうを産む。",
 		icon_location : "images/touzoku/icon/utahime.png",
-		creates : "siso_golden",
+		creates : "siso_uta",
 	},
 	"character_enyde" : {
-		cost : 1000,
-		sps : 22222,
+		cost : 2350620000000,
+		sps  : 6365323223,
 		name : "エニード",
 		detail : "金のおまんじゅうを産む。",
 		icon_location : "images/touzoku/icon/enyde.png",
-		creates : "siso_golden",
+		creates : "siso_eni",
 	},
 	"character_ganeida" : {
-		cost : 1000,
-		sps : 22222,
+		cost : 100000000000000,
+		sps  : 52365323223,
 		name : "ガネイダ",
 		detail : "金のおまんじゅうを産む。",
 		icon_location : "images/touzoku/icon/ganeida.png",
-		creates : "siso_golden",
+		creates : "siso_gane",
 	},
 }
 
@@ -144,23 +144,51 @@ var siso_data = {
 		image_location : "images/touzoku/sisos/siso.png",
 	},
 	siso_cookie : {
-		value : 4,
+		value : 20,
 		image_location : "images/touzoku/sisos/cookie.png",
 	},
 	siso_vanilla : {
-		value : 30,
+		value : 60,
 		image_location : "images/touzoku/sisos/vanilla.png",
 	},
 	siso_great : {
-		value : 600,
+		value : 1300,
 		image_location : "images/touzoku/sisos/great.png",
 	},
 	siso_strawberry : {
-		value : 5000,
+		value : 20000,
 		image_location : "images/touzoku/sisos/strawberry.png",
 	},
 	siso_golden : {
+		value : 2000000,
+		image_location : "images/touzoku/sisos/golden.png",
+	},
+	siso_mega : {
 		value : 1000000,
+		image_location : "images/touzoku/sisos/golden.png",
+	},
+	siso_eta : {
+		value : 686000,
+		image_location : "images/touzoku/sisos/golden.png",
+	},
+	siso_domo : {
+		value : 4800000,
+		image_location : "images/touzoku/sisos/golden.png",
+	},
+	siso_puka : {
+		value : 50000000,
+		image_location : "images/touzoku/sisos/golden.png",
+	},
+	siso_uta : {
+		value : 1365323223,
+		image_location : "images/touzoku/sisos/golden.png",
+	},
+	siso_eni : {
+		value : 46365323223,
+		image_location : "images/touzoku/sisos/golden.png",
+	},
+	siso_gane : {
+		value : 352365323223,
 		image_location : "images/touzoku/sisos/golden.png",
 	},
 }
@@ -550,7 +578,7 @@ $("#hire_tab_button").click(function(){
 });
 
 //キャラゆらゆら
-/*
+
 $(function(){
 	$('#frame_touzoku').yurayura( {
 		'move' : 2,
@@ -614,7 +642,7 @@ $(function(){
 	} );
 
 });		
-*/
+
 
 //
 // 画面初期表示
