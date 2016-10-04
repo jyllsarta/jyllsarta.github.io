@@ -86,7 +86,7 @@ var character_data = {
 	},
 	"character_utahime" : {
 		cost : 50620000000,
-		sps  : 417123223,
+		sps  : 411113223,
 		name : "歌姫アーサー",
 		detail : "金のおまんじゅうを産む。",
 		icon_location : "images/touzoku/icon/utahime.png",
@@ -111,30 +111,83 @@ var character_data = {
 }
 
 var achievement_data = {
-	totalclick100 : {
+	achievement_totalclick100 : {
 		title : "見習い卒業",
 		description : "100個以上のおまんじゅうをクリックして作成する。",
 		says : "「手が疲れたのでシフト上がらせてもらいますね！」",
+		icon_location : "images/touzoku/icon/touzoku.png",
 	},
-	bisclavret100 : {
+	achievement_goldenclick10 : {
+		title : "ゴールデンマスター",
+		description : "ゴールデンおまんじゅうを10個以上食べる。",
+		says : "「おまーんじゅう！おまーんじゅう！」",
+		icon_location : "images/touzoku/icon/golden.png",
+	},
+	achievement_biscla20 : {
 		title : "百獣の王",
-		description : "ビスクラをlv100にする。",
+		description : "ビスクラをlv20にする。",
 		says : "「やったニャー！就職先決まったニャー！」",
+		icon_location : "images/touzoku/icon/biscla.png",
 	},
-	eater100 : {
+	achievement_eater20 : {
 		title : "がんばりやさん",
-		description : "擬人型チアリーイーターをlv100にする。",
+		description : "擬人型チアリーイーターをlv20にする。",
 		says : "「食べちゃうぞー(つまみ食い)。」",
+		icon_location : "images/touzoku/icon/gijinka_eater.png",
 	},
-	el100 : {
+	achievement_el20 : {
 		title : "カンスト",
-		description : "エルをlv100にする。",
+		description : "エルをlv20にする。",
 		says : "「やったな！おめっとさん！」",
+		icon_location : "images/touzoku/icon/el.png",
 	},
-	clucky100 : {
+	achievement_clucky20 : {
 		title : "ファンクラブ入会",
-		description : "クラッキーをlv100にする。",
+		description : "クラッキーをlv20にする。",
 		says : "「」",
+		icon_location : "images/touzoku/icon/clucky.png",
+	},
+	achievement_ukokkei20 : {
+		title : "大富豪",
+		description : "富豪っちをlv20にする。",
+		says : "「」",
+		icon_location : "images/touzoku/icon/ukokkei.png",
+	},
+	achievement_etafle20 : {
+		title : "とけないこおり",
+		description : "エタフレをlv20にする。",
+		says : "「」",
+		icon_location : "images/touzoku/icon/etafle.png",
+	},
+	achievement_domo20 : {
+		title : "しっかりした",
+		description : "ドモヴォーイをlv20にする。",
+		says : "「」",
+		icon_location : "images/touzoku/icon/domo.png",
+	},
+	achievement_puka20 : {
+		title : "プーカちゃんかわいい",
+		description : "プーカをlv20にする。",
+		says : "「」",
+		icon_location : "images/touzoku/icon/puka.png",
+	},
+	achievement_utahime20 : {
+		title : "CDデビュー",
+		description : "歌姫アーサーをlv20にする。",
+		says : "「」",
+		icon_location : "images/touzoku/icon/utahime.png",
+	},
+	achievement_enyde20 : {
+		title : "むわぁっ",
+		description : "エニードをlv20にする。",
+		says : "「」",
+		icon_location : "images/touzoku/icon/enyde.png",
+	},
+	achievement_genaida20 : {
+		title : "爆裂魔法",
+		description : "ガネイダをlv20にする。",
+		says : "「」",
+		icon_location : "images/touzoku/icon/ganeida.png",
 	},
 }
 
@@ -193,6 +246,9 @@ var siso_data = {
 	},
 }
 
+//生産の進捗 (おまんじゅう作るパワー)を記録
+var siso_progress = {}
+
 //ランダム用
 function getRandomInt(min, max) {
 	return Math.floor( Math.random() * (max - min + 1) ) + min;
@@ -208,8 +264,6 @@ function formatNumeral(num){
 		return num;
 	}
 }
-
-
 
 //
 // 変数(セーブデータ)
@@ -230,8 +284,21 @@ var save_data = {
 	},
 	score : 0,
 	total_click : 0,
+	golden_total_click : 0,
 	achievements : {
-		bicalavlet100 : 0,
+		achievement_biscla20 : 0,
+		achievement_eater20 : 0,
+		achievement_el20 : 0,
+		achievement_clucky20 : 0,
+		achievement_ukokkei20 : 0,
+		achievement_etafle20 : 0,
+		achievement_domo20 : 0,
+		achievement_puka20 : 0,
+		achievement_utahime20 : 0,
+		achievement_enyde20 : 0,
+		achievement_ganeida20 : 0,
+		achievement_totalclick100 : 0,
+		achievement_goldenclick10 : 0,
 	},
 }
 
@@ -257,7 +324,6 @@ function golden_cookie_check(){
 	}
 }
 
-
 //今雇うボタンを押すことができるか?
 function can_hire(){
 	var character_name = 	$("#item_detail_area").attr("selecting");
@@ -280,12 +346,14 @@ function check_button_state(){
 }
 
 //画面上にどのレベルまでのキャラを表示するかチェックし、更新
+//実績表示も同時に開放する
 function update_character_show_state(){
 	for(s in save_data.level){
 		if(save_data.level[s] > 0){
 			//クソなのはわかってる
 			var chara_name = s.split("_")[1];
 			$("#frame_"+chara_name).removeClass("hide");
+			$("#achievement_"+chara_name+"20").removeClass("hide");
 		}
 	}
 }
@@ -304,7 +372,6 @@ function update_menu_character_level(){
 	}
 	//次のLv0キャラクターは表示する
 	$(".hide_from_character_list:first").removeClass("hide_from_character_list");
-
 }
 
 //キャラ詳細エリアの画面更新 target_id のものに切り替える
@@ -328,16 +395,84 @@ function update_detail_area(target_id){
 	$("#item_detail_character_level").text(lv_text);
 }
 
+function get_cleared_achievement_amount(){
+	var cleared_num = 0;
+	for(a in save_data.achievements){
+		if(save_data.achievements[a] ==1){
+			cleared_num += 1;
+		}
+	}
+	return cleared_num;
+}
+
+ //実績の詳細を表示切り替え
+function update_achievement_detail_area(target_id){
+	var achievement_name = target_id;
+	var detail = achievement_data[achievement_name];
+
+	$("#achievement_title").text(detail.title);
+	$("#achievement_description").text(detail.description);
+	$("#achievement_says").text(detail.says);
+	$("#achievement_icon").attr("src", detail.icon_location);
+
+	if(save_data.achievements[achievement_name] == 1){
+		$("#achievement_iscleared").text("達成！");
+	}
+	else{
+		$("#achievement_iscleared").text("未達成");
+	}
+
+	//実績クリア率チェック
+	var cleared_num = get_cleared_achievement_amount();
+
+	$("#cleared_achievements").text(cleared_num);
+	$("#production_multiplier").text(cleared_num * 20);
+
+}
+
+
+//実績のクリア状況を画面に反映する
+function update_achievement_clear_state(){
+	for(s in save_data.achievements){
+		if(save_data.achievements[s] > 0){
+			$("#"+s).addClass("cleared_achievement");
+		}
+	}
+}
+
+//各実績のクリアチェックを行う
+function check_achievement_clear(){
+	//20lv系
+	for(s in save_data.level){
+		if(save_data.level[s] >= 20){
+			var character_name = s.split("_")[1];
+			save_data.achievements["achievement_"+character_name+"20"] = 1;
+		}
+	} 
+
+	//トータルクリック
+	if(save_data.achievements.achievement_totalclick100 ==0 && save_data.total_click >= 100){
+		save_data.achievements.achievement_totalclick100 = 1;		
+	}
+
+	//金クッキー回収
+	if(save_data.achievements.achievement_goldenclick10 ==0 && save_data.golden_click >= 10){
+		save_data.achievements.achievement_goldenclick10 = 1;		
+	}
+}
+
 
 //スコアを加算する
-var add_score = function(value){
-	save_data.score += value;
+function add_score(value){
+	//実績ボーナスで倍率をかける
+	var production_multiplier = 1 + (get_cleared_achievement_amount()*0.2);
 
+	save_data.score += Math.floor(value * production_multiplier);
 	$('#score').text(formatNumeral(save_data.score))
 }
 
 //まんじゅうの移動関連
-var move_siso = function(){
+function move_siso(){
 	$(".siso").each(function(){
 		var now_left = parseFloat($(this).css("left").slice(0,-2));
 		var now_top = parseFloat($(this).css("top").slice(0,-2));
@@ -356,7 +491,7 @@ var move_siso = function(){
 
 			//消えきったまんじゅうはDOMから削除する
 			if(now_opacity <= 0){
-				var value = parseFloat($(this).attr("value"));
+				var value = parseFloat($(this).attr("value"));				
 				add_score(value);
 				$(this).remove();
 			}
@@ -387,10 +522,6 @@ function create_siso(name,level){
 	$(".siso:last").css("top", getRandomInt(-13,10)+"px");
 }
 
-
-//生産の進捗 (おまんじゅう作るパワー)を記録
-var siso_progress = {}
-
 function update_siso_progress(){
 	//おまんじゅう作るパワーを加算
 	for(c in character_data){
@@ -416,7 +547,6 @@ function update_siso_progress(){
 			siso_progress[c] -= siso_cost;
 		}
 	}
-
 }
 
 //sps値の更新・反映
@@ -426,7 +556,12 @@ function calc_sps(){
 		sps += character_data[c].sps * save_data.level[c];
 	}
 
-	$("#sps").text(sps);
+	//実績ボーナス
+	var production_multiplier = 1 + (get_cleared_achievement_amount() * 0.2);
+
+	var total_sps =Math.floor(sps *  production_multiplier);
+
+	$("#sps").text(formatNumeral(total_sps));
 }
 
 function decay_golden_cookie(){
@@ -441,7 +576,6 @@ function decay_golden_cookie(){
 	if(opacity <= 0){
 		$("#golden_cookie").addClass("hide");
 	}
-
 }
 
 //毎フレームの更新
@@ -450,6 +584,8 @@ function update(){
 	move_siso();
 	update_siso_progress();
 	decay_golden_cookie();
+	check_achievement_clear();
+	update_achievement_clear_state();
 }
 
 //クッキーに記憶
@@ -474,12 +610,6 @@ function is_valid_save(savefile){
 	return true;
 }
 
-//各実績クリア状況を上から順にチェック
-function achievement_clear_check(){
-	//なかみをあとでかく
-}
-
-
 //クッキーから呼び出し(ないなら初期化)
 function load_save(){
 	var savefile = $.cookie("save");
@@ -496,7 +626,6 @@ function load_save(){
 		}
 		console.log(savefile);
 	}
-
 }
 
 //10ミリ秒ごとに少しずつ動かす
@@ -510,18 +639,22 @@ window.setInterval(golden_cookie_check,1000);
 
 //メニューを開く
 $("#menu_button").click(function(){
-	console.log("menu open");	
 	$("#menu").removeClass("collapse");
 });
 
 //メニューを閉じる
 $("#menu_collapse_button").click(function(){
-	console.log("menu close");	
 	$("#menu").addClass("collapse");
 });
 
 //レバークリックでまんじゅうを生産
 $("#make_button").click(function(){
+	//クリック数インクリメント
+	save_data.total_click += 1;
+
+	//クリック数上昇で実績達成→SPS上昇があり得るので再計算
+	calc_sps();
+
 	create_siso("siso_plain",1);
 });
 
@@ -538,6 +671,7 @@ $("#golden_cookie").click(function(){
 	//お金二倍
 	cast_message("金クッキー！" + value +" 個のおまんじゅうを手に入れましたよ！");
 	add_score(value);
+	save_data.golden_click += 1;
 	$(this).addClass("hide");
 });
 
@@ -569,12 +703,19 @@ $("#item_detail_hire_button").click(function(){
 
 //レベルアップタブと実績タブ切り替え
 $("#achievement_tab_button").click(function(){
+	update_achievement_detail_area("achievement_biscla20");
 	$("#achievement_menu").removeClass("hide");
 	$("#hire_menu").addClass("hide");
 });
+
 $("#hire_tab_button").click(function(){
 	$("#achievement_menu").addClass("hide");
 	$("#hire_menu").removeClass("hide");
+});
+
+//実績タブの詳細表示切り替え
+$(".achievements").click(function(){
+	update_achievement_detail_area(this.id)
 });
 
 //キャラゆらゆら
@@ -640,7 +781,6 @@ $(function(){
 		'delay' : 700,
 		'duration' : 3300
 	} );
-
 });		
 
 
@@ -657,8 +797,6 @@ $(document).ready(function(){
 	calc_sps();
 	update_character_show_state();
 	update_menu_character_level();
-
-	cast_message("<br><br><br>");
-	cast_message("私の手元のボタンを押すとおまんじゅうを作れます！");
+	update_achievement_detail_area("achievement_biscla20");
 });
 

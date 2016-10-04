@@ -142,9 +142,9 @@ body{
 
 }
 
-.achievement_icon{
+#achievement_icon{
 	position: absolute;
-	top: 90px;
+	top: 190px;
 	left: 210px;
 	width: 75px;
 }
@@ -153,9 +153,48 @@ body{
 	width: 40px;
 }
 
+#achievement_rule{
+	position: absolute;
+	top:80px;
+	left: 0px;
+	width: 300px;
+	height: 100px;
+	border-bottom:1px solid #EFFFEF;
+}
+
+#achievement_rule_title{
+	position: absolute;
+	top: 0px;
+	left: 2px;
+	color: #AFFFAF;
+	font-size: 20px;
+}
+
+#achievement_rule_main{
+	position: absolute;
+	top: 22px;
+	left: 2px;
+	color: #EFFFEF;
+	font-size: 13px;
+}
+
+#achievement_rule_text{
+	position: absolute;
+	top: 42px;
+	left: 2px;
+	color: #EFFFEF;
+	font-size: 13px;
+}
+
+#cleared_achievements, #production_multiplier{
+	font-size: 20px;
+}
+
+
+
 #achievement_title{
 	position: absolute;
-	top:84px;
+	top:184px;
 	left: 2px;
 	font-size: 24px;
 	color: #FFFFFF;
@@ -164,7 +203,7 @@ body{
 	color: #EFFFEF;
 	font-size: 12px;
 	position: absolute;
-	top:130px;
+	top:224px;
 	left: 2px;
 	width: 200px;
 }
@@ -172,7 +211,7 @@ body{
 	color: #EFFFEF;
 	font-size: 12px;
 	position: absolute;
-	top:160px;
+	top:260px;
 	left: 2px;
 	width: 200px;
 }
@@ -180,7 +219,7 @@ body{
 	color: #EFFFEF;
 	font-size: 20px;
 	position: absolute;
-	top:170px;
+	top:270px;
 	left: 200px;
 	width: 100px;
 }
@@ -191,7 +230,7 @@ body{
 #achievement_list_area{
 	margin-left: 0px;
 	position: absolute;
-	top:200px;
+	top:300px;
 	left: 0px;
 }
 
@@ -307,6 +346,7 @@ body{
 	background-color: #456;
 	border: 1px solid #AFFFAF;	
 }
+
 
 .available{
 	background-color: #FFA;
