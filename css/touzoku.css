@@ -144,7 +144,7 @@ body{
 
 #achievement_icon{
 	position: absolute;
-	top: 190px;
+	top: 170px;
 	left: 210px;
 	width: 75px;
 }
@@ -158,7 +158,7 @@ body{
 	top:80px;
 	left: 0px;
 	width: 300px;
-	height: 100px;
+	height: 80px;
 	border-bottom:1px solid #EFFFEF;
 }
 
@@ -194,7 +194,7 @@ body{
 
 #achievement_title{
 	position: absolute;
-	top:184px;
+	top:162px;
 	left: 2px;
 	font-size: 24px;
 	color: #FFFFFF;
@@ -203,7 +203,7 @@ body{
 	color: #EFFFEF;
 	font-size: 12px;
 	position: absolute;
-	top:224px;
+	top:198px;
 	left: 2px;
 	width: 200px;
 }
@@ -211,7 +211,7 @@ body{
 	color: #EFFFEF;
 	font-size: 12px;
 	position: absolute;
-	top:260px;
+	top:230px;
 	left: 2px;
 	width: 200px;
 }
@@ -219,8 +219,8 @@ body{
 	color: #EFFFEF;
 	font-size: 20px;
 	position: absolute;
-	top:270px;
-	left: 200px;
+	top:250px;
+	left: 210px;
 	width: 100px;
 }
 
