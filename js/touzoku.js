@@ -14,7 +14,7 @@ var UPDATE_FREQ_MS = 50;
 var SAVE_FREQ_MS = 60000;
 
 //何秒ごとに金クッキーを表示するか(期待値)
-var FREQ_GOLDEN_COOKIE_SPAWN_SEC = 300;
+var FREQ_GOLDEN_COOKIE_SPAWN_SEC = 100;
 
 //数値表記ルール
 var NUMERAL_FORMAT = "000.00a";
@@ -255,15 +255,31 @@ function getRandomInt(min, max) {
 }
 
 //大きすぎる数値は略記する
-function formatNumeral(num){
-	var digits = Math.log(num)*Math.LOG10E;
-	if(digits > 4){
-		return numeral(num).format(NUMERAL_FORMAT);
-	}
-	else{
-		return num;
-	}
+//自作略記エンジン
+// 999→999 , 1234→1.234k , 65432→65.43k , 10^9→1g
+function formatNumeral(num, roundto=3){
+	//キロ、メガ、ギガ... aa,bb,cc は仮表記
+	var SUFFIXES = ["","k","m","g","t","e","z","y","aa","bb","cc","dd","ee","ff","gg","hh","ii","jj","kk","ll","mm","nn"]
+
+	//10^x 9999→3, 10000→4
+	var digit = Math.floor(Math.log(num) * Math.LOG10E);
+
+	//どの接尾辞になるかのインデックス
+	var index = Math.floor(digit/3);
+
+	//23000 → (2.3 * 10) * k としたい 1000単位で丸めたあまりの指数 
+	var mod = digit % 3;
+
+	// 切り捨て丸め計算 + modぶんの乗算
+	// 123456 → 123 にしたい("k"はこれまでに計算済)
+	// 123456 → 1.23456 → 123.456 → 123
+	// 浮動小数の計算誤差を回避するために指数計算をいっぺんに行っているので読みにくい
+	var app = Math.floor(num*Math.pow(10,roundto) / Math.pow(10,digit)) / Math.pow(10,roundto-mod); 
+
+	// 123 + "k" → "123k" にフォーマットして返す
+	return  app+ SUFFIXES[index];
 }
+
 
 //
 // 変数(セーブデータ)
@@ -309,7 +325,7 @@ var save_data = {
 
 //金クッキーを表示
 function spawn_golden_cookie(){
-	var rand_top = getRandomInt(1,600);
+	var rand_top = getRandomInt(1,500);
 	var rand_left = getRandomInt(1,270);
 	$("#golden_cookie").css({"top":rand_top,"left":rand_left,"opacity":1})
 	$("#golden_cookie").removeClass("hide");
@@ -456,7 +472,7 @@ function check_achievement_clear(){
 	}
 
 	//金クッキー回収
-	if(save_data.achievements.achievement_goldenclick10 ==0 && save_data.golden_click >= 10){
+	if(save_data.achievements.achievement_goldenclick10 ==0 && save_data.golden_total_click >= 10){
 		save_data.achievements.achievement_goldenclick10 = 1;		
 	}
 }
@@ -562,6 +578,21 @@ function calc_sps(){
 	var total_sps =Math.floor(sps *  production_multiplier);
 
 	$("#sps").text(formatNumeral(total_sps));
+	return total_sps;
+}
+
+function get_sps(){
+	var sps = 0;
+	for(c in character_data){
+		sps += character_data[c].sps * save_data.level[c];
+	}
+
+	//実績ボーナス
+	var production_multiplier = 1 + (get_cleared_achievement_amount() * 0.2);
+
+	var total_sps =Math.floor(sps *  production_multiplier);
+
+	return total_sps;
 }
 
 function decay_golden_cookie(){
@@ -665,13 +696,13 @@ $(".hire_character").click(function(){
 
 //選択中のキャラクター切り替え
 $("#golden_cookie").click(function(){
-	var sps = parseFloat($("#sps").text());
-	var value = sps * getRandomInt(200,300) + getRandomInt(1,1000)
+	var sps =get_sps();
+	var value = sps * getRandomInt(250,300) + getRandomInt(1,1000)
 
 	//お金二倍
 	cast_message("金クッキー！" + value +" 個のおまんじゅうを手に入れましたよ！");
 	add_score(value);
-	save_data.golden_click += 1;
+	save_data.golden_total_click += 1;
 	$(this).addClass("hide");
 });
 
