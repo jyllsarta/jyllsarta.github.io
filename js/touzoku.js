@@ -37,32 +37,32 @@ var character_data = {
 		creates : "siso_vanilla",
 	},
 	"character_el" : {
-		cost : 3000,
-		sps  : 230,
+		cost : 5000,
+		sps  : 340,
 		name : "エル",
 		detail : "ちーっす。基本ちょっかいしか出さないが、高級なしそﾒﾛﾝｸﾘｰﾑまんじゅうをたまに作る。",
 		icon_location : "images/touzoku/icon/el.png",
 		creates : "siso_great",
 	},
 	"character_clucky" : {
-		cost : 50000,
-		sps  : 1700,
+		cost : 90000,
+		sps  : 1950,
 		name : "クラッキー",
 		detail : "地下アイドルもそれ一本では食べていけない。イチゴ味のおまんじゅうを手で握って作る。もちろん大きなお友達に高く売れる。",
 		icon_location : "images/touzoku/icon/clucky.png",
 		creates : "siso_strawberry",
 	},
 	"character_ukokkei" : {
-		cost : 600000,
-		sps  : 22222,
+		cost : 1600000,
+		sps  : 29800,
 		name : "富豪っち",
 		detail : "金のおまんじゅうを産む。　ｳｺｯ... ｳｺｺｺｯ...!",
 		icon_location : "images/touzoku/icon/ukokkei.png",
 		creates : "siso_golden",
 	},
 	"character_etafle" : {
-		cost : 2950000,
-		sps  : 86000,
+		cost : 9540000,
+		sps  : 71000,
 		name : "エタフレちゃん",
 		detail : "両手でこねておまんじゅうを作る。焦げないふしぎな素材で作るおまんじゅうは防火のお守りに人気。",
 		icon_location : "images/touzoku/icon/etafle.png",
@@ -70,7 +70,7 @@ var character_data = {
 	},
 	"character_domo" : {
 		cost : 66666666,
-		sps  : 800000,
+		sps  : 650000,
 		name : "ドモヴォーイ",
 		detail : "天使パワーがすごい。富豪っちと同じく金のおまんじゅうを産む。最近1ドローがついた。",
 		icon_location : "images/touzoku/icon/domo.png",
@@ -78,7 +78,7 @@ var character_data = {
 	},
 	"character_puka" : {
 		cost : 2000000000,
-		sps  : 10000000,
+		sps  : 35400000,
 		name : "プーカ",
 		detail : "かわいい。説明不要。その薄くてやわらかいおまんじゅうください。",
 		icon_location : "images/touzoku/icon/puka.png",
@@ -102,12 +102,70 @@ var character_data = {
 	},
 	"character_ganeida" : {
 		cost : 100000000000000,
-		sps  : 52365323223,
+		sps  : 82365323223,
 		name : "ガネイダ",
 		detail : "錬金術に成功したところをスカアハに見つかって無限に金のおまんじゅうを作らされている。",
 		icon_location : "images/touzoku/icon/ganeida.png",
 		creates : "siso_gane",
 	},
+	/*
+	"character_addchara1" : {
+		cost : 1560000000000000,
+		sps  : 4.32432E+12,
+		name : "追加キャラ1",
+		detail : "111111111",
+		icon_location : "images/touzoku/icon/111111.png",
+		creates : "siso_gane",
+	},
+	"character_addchara2" : {
+		cost : 9.34E+16,
+		sps  : 6.47E+13,
+		name : "追加キャラ2",
+		detail : "22222222",
+		icon_location : "images/touzoku/icon/222222.png",
+		creates : "siso_gane",
+	},
+	"character_addchara3" : {
+		cost : 3.77E+18,
+		sps  : 6.66E+17,
+		name : "追加キャラ3",
+		detail : "333333333",
+		icon_location : "images/touzoku/icon/333333.png",
+		creates : "siso_gane",
+	},
+	"character_addchara4" : {
+		cost : 2.44E+20,
+		sps  : 8.13E+19,
+		name : "追加キャラ4",
+		detail : "4444444",
+		icon_location : "images/touzoku/icon/444444.png",
+		creates : "siso_gane",
+	},
+	"character_addchara5" : {
+		cost : 4.55E+22,
+		sps  : 2.11E+21,
+		name : "追加キャラ5",
+		detail : "555555",
+		icon_location : "images/touzoku/icon/555.png",
+		creates : "siso_gane",
+	},
+	"character_addchara6" : {
+		cost : 7.23E+25,
+		sps  : 4.16E+23,
+		name : "追加キャラ6",
+		detail : "666",
+		icon_location : "images/touzoku/icon/666.png",
+		creates : "siso_gane",
+	},
+	"character_addchara7" : {
+		cost : 8.89E+28,
+		sps  : 7.00E+28,
+		name : "追加キャラ7",
+		detail : "777",
+		icon_location : "images/touzoku/icon/777.png",
+		creates : "siso_gane",
+	},
+*/
 }
 
 var achievement_data = {
@@ -189,6 +247,24 @@ var achievement_data = {
 		says : "「錬金術連打で得られた経験値全部火力に振ったらすごい火力手に入ったんですよ、どうですかアーサー様、え、いらない...?」",
 		icon_location : "images/touzoku/icon/ganeida.png",
 	},
+	achievement_totallevel100 : {
+		title : "ルーキー卒業",
+		description : "全キャラの合計レベルが100を超える。",
+		says : "「きゅいーん！(銅回転)」",
+		icon_location : "images/touzoku/icon/lv100.png",
+	},
+	achievement_totallevel300 : {
+		title : "弩級クリア",
+		description : "全キャラの合計レベルが300を超える。",
+		says : "「きゅいーん！(銀回転)」",
+		icon_location : "images/touzoku/icon/lv300.png",
+	},
+	achievement_totallevel500 : {
+		title : "プロアーサー",
+		description : "全キャラの合計レベルが500を超える。",
+		says : "「きゅいーん！(金回転)」",
+		icon_location : "images/touzoku/icon/lv500.png",
+	},
 }
 
 var siso_data = {
@@ -259,7 +335,7 @@ function getRandomInt(min, max) {
 // 999→999 , 1234→1.234k , 65432→65.43k , 10^9→1g
 function formatNumeral(num, roundto=3){
 	//キロ、メガ、ギガ... aa,bb,cc は仮表記
-	var SUFFIXES = ["","k","m","g","t","e","z","y","aa","bb","cc","dd","ee","ff","gg","hh","ii","jj","kk","ll","mm","nn"]
+	var SUFFIXES = ["","k","m","g","t","e","z","y","aa","bb","cc","dd"]
 
 	//10^x 9999→3, 10000→4
 	var digit = Math.floor(Math.log(num) * Math.LOG10E);
@@ -315,6 +391,9 @@ var save_data = {
 		achievement_ganeida20 : 0,
 		achievement_totalclick100 : 0,
 		achievement_goldenclick10 : 0,
+		achievement_totallevel100 : 0,
+		achievement_totallevel300 : 0,
+		achievement_totallevel500 : 0,
 	},
 }
 
@@ -458,13 +537,26 @@ function update_achievement_clear_state(){
 
 //各実績のクリアチェックを行う
 function check_achievement_clear(){
-	//20lv系
+	//20lv系, 合計レベル
+	var total_lv = 0;
 	for(s in save_data.level){
+		total_lv += save_data.level[s];
 		if(save_data.level[s] >= 20){
 			var character_name = s.split("_")[1];
 			save_data.achievements["achievement_"+character_name+"20"] = 1;
 		}
 	} 
+
+	//合計レベル
+	if(total_lv >= 100 && save_data.achievements.achievement_totallevel100 == 0){
+		save_data.achievements.achievement_totallevel100 = 1;
+	}
+	if(total_lv >= 300 && save_data.achievements.achievement_totallevel300 == 0){
+		save_data.achievements.achievement_totallevel300 = 1;
+	}
+	if(total_lv >= 500 && save_data.achievements.achievement_totallevel500 == 0){
+		save_data.achievements.achievement_totallevel500 = 1;
+	}
 
 	//トータルクリック
 	if(save_data.achievements.achievement_totalclick100 ==0 && save_data.total_click >= 100){
@@ -474,6 +566,17 @@ function check_achievement_clear(){
 	//金クッキー回収
 	if(save_data.achievements.achievement_goldenclick10 ==0 && save_data.golden_total_click >= 10){
 		save_data.achievements.achievement_goldenclick10 = 1;		
+	}
+}
+
+//トータルレベル系実績の表示制御
+function update_totallevel_achievement_show(){
+	console.log("aaa");
+	if(save_data.achievements.achievement_totallevel100 == 1 && $("#achievement_totallevel300").hasClass("hide")){
+		$("#achievement_totallevel300").removeClass("hide")
+	}
+	if(save_data.achievements.achievement_totallevel300 == 1 && $("#achievement_totallevel500").hasClass("hide")){
+		$("#achievement_totallevel500").removeClass("hide")
 	}
 }
 
@@ -518,11 +621,7 @@ function move_siso(){
 //ふきだしにメッセージを追加
 function cast_message(sentence){
 	console.log(sentence);
-	$("#message_list").append('<li class="message">'+ sentence +'</li>');
-
-	while($(".message").length > 2){
-		$(".message")[0].remove();
-	}
+	$("#message_area").text(sentence);
 }
 
 //まんじゅうを制作
@@ -556,6 +655,7 @@ function update_siso_progress(){
 
 	//パワーが溜まったキャラがいたら消費しておまんじゅうを生産
 	for(c in character_data){
+
 		var siso_cost = siso_data[character_data[c].creates].value;
 		while(siso_progress[c] > siso_cost){
 			//レベル分だけ価値を増幅しておまんじゅうを生産
@@ -698,9 +798,10 @@ $(".hire_character").click(function(){
 $("#golden_cookie").click(function(){
 	var sps =get_sps();
 	var value = sps * getRandomInt(250,300) + getRandomInt(1,1000)
+	var formatted = formatNumeral(value)
 
 	//お金二倍
-	cast_message("金クッキー！" + value +" 個のおまんじゅうを手に入れましたよ！");
+	cast_message("金のおまんじゅうを拾いました！" + formatted +" 個のおまんじゅうを手に入れましたよ！");
 	add_score(value);
 	save_data.golden_total_click += 1;
 	$(this).addClass("hide");
@@ -735,6 +836,7 @@ $("#item_detail_hire_button").click(function(){
 //レベルアップタブと実績タブ切り替え
 $("#achievement_tab_button").click(function(){
 	update_achievement_detail_area("achievement_biscla20");
+	update_totallevel_achievement_show();
 	$("#achievement_menu").removeClass("hide");
 	$("#hire_menu").addClass("hide");
 });
@@ -829,5 +931,6 @@ $(document).ready(function(){
 	update_character_show_state();
 	update_menu_character_level();
 	update_achievement_detail_area("achievement_biscla20");
+	update_totallevel_achievement_show();
 });
 

@@ -466,3 +466,16 @@ body{
 	display: none;
 }
 
+#message_board{
+	position: absolute;
+	top: 55px;
+	left: 80px;
+	height: 43px;
+	width: 290px;
+	background-color: #EFFFEF;
+}
+
+#message_area{
+	padding: 2px 2px;
+	color: #223;
+}

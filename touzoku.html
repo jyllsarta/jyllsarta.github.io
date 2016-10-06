@@ -12,6 +12,17 @@
 	<script type="text/javascript" src="js/jquery-numerator.js"></script>
 	<script src="lib/jquery.easing.1.3.js"></script>
 
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-85276428-1', 'auto');
+		ga('send', 'pageview');
+
+	</script>
+
 </head>
 
 <body>
@@ -153,6 +164,15 @@
 						<li id="achievement_goldenclick10" class="achievements">
 							<img src="images/touzoku/icon/golden.png" class="achievement_icon_mini">
 						</li>
+						<li id="achievement_totallevel100" class="achievements">
+							<img src="images/touzoku/icon/lv100.png" class="achievement_icon_mini">
+						</li>
+						<li id="achievement_totallevel300" class="achievements hide">
+							<img src="images/touzoku/icon/lv300.png" class="achievement_icon_mini">
+						</li>
+						<li id="achievement_totallevel500" class="achievements hide">
+							<img src="images/touzoku/icon/lv500.png" class="achievement_icon_mini">
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -164,21 +184,25 @@
 
 		<img id="golden_cookie" class="hide" src="images/touzoku/material/golden_cookie.png">
 
-		<div id="characters_position_setter">
-		<div id="characters">
-			<img id="frame_touzoku" class="character_frame" src="images/touzoku/frame/touzoku.png">
-			<img id="frame_el" class="character_frame hide" src="images/touzoku/frame/el.png">
-			<img id="frame_utahime" class="character_frame hide" src="images/touzoku/frame/utahime.png">
-			<img id="frame_puka" class="character_frame hide" src="images/touzoku/frame/puka.png">
-			<img id="frame_ganeida" class="character_frame hide" src="images/touzoku/frame/ganeida.png">
-			<img id="frame_biscla" class="character_frame hide" src="images/touzoku/frame/biscla.png">
-			<img id="frame_ukokkei" class="character_frame hide" src="images/touzoku/frame/ukokkei.png">
-			<img id="frame_clucky" class="character_frame hide" src="images/touzoku/frame/clucky.png">
-			<img id="frame_etafle" class="character_frame hide" src="images/touzoku/frame/etafle.png">
-			<img id="frame_domo" class="character_frame hide" src="images/touzoku/frame/domo.png">
-			<img id="frame_enyde" class="character_frame hide" src="images/touzoku/frame/enyde.png">
-			<img id="frame_eater" class="character_frame hide" src="images/touzoku/frame/gijinka_eater.png">
+		<div id="message_board">
+			<p id="message_area">メッセージがここに出ます～ちょっと長いとこんな感じです～～～～～</p>
 		</div>
+
+		<div id="characters_position_setter">
+			<div id="characters">
+				<img id="frame_touzoku" class="character_frame" src="images/touzoku/frame/touzoku.png">
+				<img id="frame_el" class="character_frame hide" src="images/touzoku/frame/el.png">
+				<img id="frame_utahime" class="character_frame hide" src="images/touzoku/frame/utahime.png">
+				<img id="frame_puka" class="character_frame hide" src="images/touzoku/frame/puka.png">
+				<img id="frame_ganeida" class="character_frame hide" src="images/touzoku/frame/ganeida.png">
+				<img id="frame_biscla" class="character_frame hide" src="images/touzoku/frame/biscla.png">
+				<img id="frame_ukokkei" class="character_frame hide" src="images/touzoku/frame/ukokkei.png">
+				<img id="frame_clucky" class="character_frame hide" src="images/touzoku/frame/clucky.png">
+				<img id="frame_etafle" class="character_frame hide" src="images/touzoku/frame/etafle.png">
+				<img id="frame_domo" class="character_frame hide" src="images/touzoku/frame/domo.png">
+				<img id="frame_enyde" class="character_frame hide" src="images/touzoku/frame/enyde.png">
+				<img id="frame_eater" class="character_frame hide" src="images/touzoku/frame/gijinka_eater.png">
+			</div>
 		</div>
 
 		<div id="siso_line_area">
