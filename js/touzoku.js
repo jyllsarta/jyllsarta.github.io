@@ -20,7 +20,7 @@ var FREQ_GOLDEN_COOKIE_SPAWN_SEC = 100;
 var NUMERAL_FORMAT = "000.00a";
 
 //○秒メッセージが流れなかったらランダムつぶやきを投げる
-var MESSAGE_CAST_FREQ = 5;
+var MESSAGE_CAST_FREQ = 60;
 
 var character_data = {
 	"character_biscla" : {
