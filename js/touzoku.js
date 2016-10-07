@@ -19,6 +19,9 @@ var FREQ_GOLDEN_COOKIE_SPAWN_SEC = 100;
 //数値表記ルール
 var NUMERAL_FORMAT = "000.00a";
 
+//○秒メッセージが流れなかったらランダムつぶやきを投げる
+var MESSAGE_CAST_FREQ = 5;
+
 var character_data = {
 	"character_biscla" : {
 		cost : 100,
@@ -27,6 +30,9 @@ var character_data = {
 		detail : "クッキーを焼いてくれるかわいい人狼。おまんじゅう工場の副産物にどうぞ。",
 		icon_location : "images/touzoku/icon/biscla.png",
 		creates : "siso_cookie",
+		lv1_hire_message : "にゃ！",
+		lv3_hire_message : "にゃ！",
+		lv20_hire_message : "にゃ！！！",
 	},
 	"character_eater" : {
 		cost : 700,
@@ -35,6 +41,9 @@ var character_data = {
 		detail : "たべちゃうぞー。鍵クエに押し込められて暇なのでバイトをはじめた。結構まじめなのでそこそこの生産効率を誇る。",
 		icon_location : "images/touzoku/icon/gijinka_eater.png",
 		creates : "siso_vanilla",
+		lv1_hire_message : "にゃ！",
+		lv3_hire_message : "にゃ！！",
+		lv20_hire_message : "にゃ！！！",
 	},
 	"character_el" : {
 		cost : 5000,
@@ -43,6 +52,9 @@ var character_data = {
 		detail : "ちーっす。基本ちょっかいしか出さないが、高級なしそﾒﾛﾝｸﾘｰﾑまんじゅうをたまに作る。",
 		icon_location : "images/touzoku/icon/el.png",
 		creates : "siso_great",
+		lv1_hire_message : "にゃ！",
+		lv3_hire_message : "にゃ！！",
+		lv20_hire_message : "にゃ！！！",
 	},
 	"character_clucky" : {
 		cost : 90000,
@@ -51,6 +63,9 @@ var character_data = {
 		detail : "地下アイドルもそれ一本では食べていけない。イチゴ味のおまんじゅうを手で握って作る。もちろん大きなお友達に高く売れる。",
 		icon_location : "images/touzoku/icon/clucky.png",
 		creates : "siso_strawberry",
+		lv1_hire_message : "にゃ！",
+		lv3_hire_message : "にゃ！！",
+		lv20_hire_message : "にゃ！！！",
 	},
 	"character_ukokkei" : {
 		cost : 1600000,
@@ -59,6 +74,9 @@ var character_data = {
 		detail : "金のおまんじゅうを産む。　ｳｺｯ... ｳｺｺｺｯ...!",
 		icon_location : "images/touzoku/icon/ukokkei.png",
 		creates : "siso_golden",
+		lv1_hire_message : "にゃ！",
+		lv3_hire_message : "にゃ！！",
+		lv20_hire_message : "にゃ！！！",
 	},
 	"character_etafle" : {
 		cost : 9540000,
@@ -67,6 +85,9 @@ var character_data = {
 		detail : "両手でこねておまんじゅうを作る。焦げないふしぎな素材で作るおまんじゅうは防火のお守りに人気。",
 		icon_location : "images/touzoku/icon/etafle.png",
 		creates : "siso_eta",
+		lv1_hire_message : "にゃ！",
+		lv3_hire_message : "にゃ！！",
+		lv20_hire_message : "にゃ！！！",
 	},
 	"character_domo" : {
 		cost : 66666666,
@@ -75,6 +96,9 @@ var character_data = {
 		detail : "天使パワーがすごい。富豪っちと同じく金のおまんじゅうを産む。最近1ドローがついた。",
 		icon_location : "images/touzoku/icon/domo.png",
 		creates : "siso_domo",
+		lv1_hire_message : "にゃ！",
+		lv3_hire_message : "にゃ！！",
+		lv20_hire_message : "にゃ！！！",
 	},
 	"character_puka" : {
 		cost : 2000000000,
@@ -83,6 +107,9 @@ var character_data = {
 		detail : "かわいい。説明不要。その薄くてやわらかいおまんじゅうください。",
 		icon_location : "images/touzoku/icon/puka.png",
 		creates : "siso_puka",
+		lv1_hire_message : "にゃ！",
+		lv3_hire_message : "にゃ！！",
+		lv20_hire_message : "にゃ！！！",
 	},
 	"character_utahime" : {
 		cost : 50620000000,
@@ -91,6 +118,9 @@ var character_data = {
 		detail : "嫁入り修行にと料理の勉強中。不慣れだが、誰よりも心のこもったおまんじゅうを作る。",
 		icon_location : "images/touzoku/icon/utahime.png",
 		creates : "siso_uta",
+		lv1_hire_message : "にゃ！",
+		lv3_hire_message : "にゃ！！",
+		lv20_hire_message : "にゃ！！！",
 	},
 	"character_enyde" : {
 		cost : 2350620000000,
@@ -99,6 +129,9 @@ var character_data = {
 		detail : "むーむー。むむむーむむー、むむぁっ。(アーサー様のためにおまんじゅうを作る練習中です。)",
 		icon_location : "images/touzoku/icon/enyde.png",
 		creates : "siso_eni",
+		lv1_hire_message : "にゃ！",
+		lv3_hire_message : "にゃ！！",
+		lv20_hire_message : "にゃ！！！",
 	},
 	"character_ganeida" : {
 		cost : 100000000000000,
@@ -107,65 +140,32 @@ var character_data = {
 		detail : "錬金術に成功したところをスカアハに見つかって無限に金のおまんじゅうを作らされている。",
 		icon_location : "images/touzoku/icon/ganeida.png",
 		creates : "siso_gane",
+		lv1_hire_message : "にゃ！",
+		lv3_hire_message : "にゃ！！",
+		lv20_hire_message : "にゃ！！！",
 	},
-	/*
-	"character_addchara1" : {
+	"character_fede" : {
 		cost : 1560000000000000,
 		sps  : 4.32432E+12,
-		name : "追加キャラ1",
-		detail : "111111111",
-		icon_location : "images/touzoku/icon/111111.png",
-		creates : "siso_gane",
+		name : "フェデルマ",
+		detail : "何故かサポート妖精として実装されない不遇キャラ。",
+		icon_location : "images/touzoku/icon/fede.png",
+		creates : "siso_fede",
+		lv1_hire_message : "にゃ！",
+		lv3_hire_message : "にゃ！！",
+		lv20_hire_message : "にゃ！！！",
 	},
-	"character_addchara2" : {
+	"character_nimue" : {
 		cost : 9.34E+16,
 		sps  : 6.47E+13,
-		name : "追加キャラ2",
-		detail : "22222222",
-		icon_location : "images/touzoku/icon/222222.png",
-		creates : "siso_gane",
+		name : "ニムエ",
+		detail : "ニムエです。",
+		icon_location : "images/touzoku/icon/nimue.png",
+		creates : "siso_nimue",
+		lv1_hire_message : "にゃ！",
+		lv3_hire_message : "にゃ！！",
+		lv20_hire_message : "にゃ！！！",
 	},
-	"character_addchara3" : {
-		cost : 3.77E+18,
-		sps  : 6.66E+17,
-		name : "追加キャラ3",
-		detail : "333333333",
-		icon_location : "images/touzoku/icon/333333.png",
-		creates : "siso_gane",
-	},
-	"character_addchara4" : {
-		cost : 2.44E+20,
-		sps  : 8.13E+19,
-		name : "追加キャラ4",
-		detail : "4444444",
-		icon_location : "images/touzoku/icon/444444.png",
-		creates : "siso_gane",
-	},
-	"character_addchara5" : {
-		cost : 4.55E+22,
-		sps  : 2.11E+21,
-		name : "追加キャラ5",
-		detail : "555555",
-		icon_location : "images/touzoku/icon/555.png",
-		creates : "siso_gane",
-	},
-	"character_addchara6" : {
-		cost : 7.23E+25,
-		sps  : 4.16E+23,
-		name : "追加キャラ6",
-		detail : "666",
-		icon_location : "images/touzoku/icon/666.png",
-		creates : "siso_gane",
-	},
-	"character_addchara7" : {
-		cost : 8.89E+28,
-		sps  : 7.00E+28,
-		name : "追加キャラ7",
-		detail : "777",
-		icon_location : "images/touzoku/icon/777.png",
-		creates : "siso_gane",
-	},
-*/
 }
 
 var achievement_data = {
@@ -247,6 +247,18 @@ var achievement_data = {
 		says : "「錬金術連打で得られた経験値全部火力に振ったらすごい火力手に入ったんですよ、どうですかアーサー様、え、いらない...?」",
 		icon_location : "images/touzoku/icon/ganeida.png",
 	},
+	achievement_fede20 : {
+		title : "フェデルマニア",
+		description : "フェデルマをlv20にする。",
+		says : "「おおきにー」",
+		icon_location : "images/touzoku/icon/fede.png",
+	},
+	achievement_nimue20 : {
+		title : "シュレーディンガー・ハート",
+		description : "ニムエをlv20にする。",
+		says : "「」",
+		icon_location : "images/touzoku/icon/nimue.png",
+	},
 	achievement_totallevel100 : {
 		title : "ルーキー卒業",
 		description : "全キャラの合計レベルが100を超える。",
@@ -320,10 +332,35 @@ var siso_data = {
 		value : 352365323223,
 		image_location : "images/touzoku/sisos/golden.png",
 	},
+	siso_fede : {
+		value : 11352365323223,
+		image_location : "images/touzoku/sisos/golden.png",
+	},
+	siso_nimue : {
+		value : 1111352365323223,
+		image_location : "images/touzoku/sisos/golden.png",
+	},
 }
+
+var random_message = [
+"少しねむくなってきました...",
+"おまんじゅうはちゃんと箱詰めされてブリテン全域に出荷していますよ！",
+"実績はちゃんと埋めてます？5個埋めれば効率100%上昇ですよ！",
+"リセットするときにはお使いのブラウザのcookieを消してくださいね！",
+"スマホで遊ぶと6~7キャラくらいで重くなってきて辛いですよ、PC推奨です！",
+"ときたま金のおまんじゅうが浮かんできます！一気に稼げるので見つけたら即タップです！",
+"金のおまんじゅうは、完全に消えない限りいつ取っても同じだけ稼げますよー！",
+"衛生管理とか何も考えてないんですが、大丈夫なのかな...",
+]
 
 //生産の進捗 (おまんじゅう作るパワー)を記録
 var siso_progress = {}
+
+//前回のお知らせ掲載から何秒経過したか
+var no_message_count = 0;
+
+//次に優先して喋らせたい言葉
+var message_queue = [];
 
 //ランダム用
 function getRandomInt(min, max) {
@@ -373,7 +410,10 @@ var save_data = {
 		character_utahime : 0,
 		character_enyde : 0,
 		character_ganeida : 0,
+		character_fede : 0,
+		character_nimue : 0,
 	},
+	tutorial_message_state : 0,
 	score : 0,
 	total_click : 0,
 	golden_total_click : 0,
@@ -389,6 +429,8 @@ var save_data = {
 		achievement_utahime20 : 0,
 		achievement_enyde20 : 0,
 		achievement_ganeida20 : 0,
+		achievement_fede20 : 0,
+		achievement_nimue20 : 0,
 		achievement_totalclick100 : 0,
 		achievement_goldenclick10 : 0,
 		achievement_totallevel100 : 0,
@@ -571,7 +613,6 @@ function check_achievement_clear(){
 
 //トータルレベル系実績の表示制御
 function update_totallevel_achievement_show(){
-	console.log("aaa");
 	if(save_data.achievements.achievement_totallevel100 == 1 && $("#achievement_totallevel300").hasClass("hide")){
 		$("#achievement_totallevel300").removeClass("hide")
 	}
@@ -622,7 +663,142 @@ function move_siso(){
 function cast_message(sentence){
 	console.log(sentence);
 	$("#message_area").text(sentence);
+	message_show();
+	no_message_count = 0;
 }
+
+//1文字ずつ文字を流す
+function message_show(){
+// ここで文字を<span></span>で囲む
+$('#message_area').children().andSelf().contents().each(function() {
+	if (this.nodeType == 3) {
+		$(this).replaceWith($(this).text().replace(/(\S)/g, '<span>$1</span>'));
+	}
+});
+// 一文字ずつフェードインさせる
+$('#message_area').css({'opacity':1});
+for (var i = 0; i <= $('#message_area').children().size(); i++) {
+	$('#message_area').children('span:eq('+i+')').delay(30*i).animate({'opacity':1},50);
+};
+}
+
+//メッセージが規定時間流れなかったら表示する
+function message_check(){
+
+	no_message_count++;
+
+	//まだだったら返す
+	if(no_message_count < MESSAGE_CAST_FREQ){
+		return;
+	}
+	//回数をインクリメントしながらメッセージを流す
+	switch(save_data.tutorial_message_state++){
+		case 0:
+			cast_message("左上の「menu▷」ボタンを押すと工場に新しい仲間を呼べます！");
+			break;
+		case 1:
+			cast_message("「1分経つ」か「誰かをレベルアップさせる」とセーブします！安心してくださいねっ");
+			break;
+		case 2:
+			cast_message("「sps」は平均で1秒あたりに増える在庫です！どんどんレベルアップして効率を上げてくださいね");
+			break;
+		case 3:
+			cast_message("キャラによってはなかなか生産しない子もいますが、その分一度にたくさん在庫が増えますよ");
+			break;
+		case 4:
+			cast_message("メニュー内の実績タブも要チェックです！クリア数によってspsにボーナスがかかりますよ");
+			break;
+		case 5:
+			cast_message("それでは、がんばってくださいね、アーサー！");
+			break;
+		default:
+			cast_random();
+			break;
+	}
+
+}
+
+//ランダムメッセージを放流、キューに何かあったらその内容を喋る
+function cast_random(){
+	//もしキューに何かあればそれを喋って終わる
+	if(message_queue.length > 0){
+		cast_message(message_queue.shift());
+		return;
+	}
+
+	//10%で在庫に関するセリフ
+	if(Math.random() < 0.2){
+		cast_message(get_message_for_stock());
+		return;
+	}
+
+	//のこりの90%中11% = 全体としてだいたい10%でSPSに関するセリフ
+	if(Math.random() < 0.25){
+		cast_message(get_message_for_sps());
+		return;
+	}
+
+	//完全に何もない場合のランダムメッセージ
+	var message = random_message[getRandomInt(0,random_message.length-1)];
+	cast_message(message);
+
+}
+
+//現在の在庫数に関してコメントを返す
+function get_message_for_stock(){
+	var digit = Math.floor(Math.log(save_data.score) * Math.LOG10E);
+
+	switch(true){
+		case digit<3:
+			return "工場内に収まりきるくらいの在庫ですね！もっともっと作りましょう！";
+		case digit<6:
+			return "工場らしい生産量になりましたねー！";
+		case digit<9:
+			return "ブリテン全域に配っても余るくらいですかね? 結構たくさん作りました！";
+		case digit<12:
+			return "なんというか、ここまで在庫が増えると意味がわからなくなってきますね...";
+		case digit<15:
+			return "おまんじゅうとは、おまんじゅうとは何なんですかね...";
+		case digit<20:
+			return "きっとウチが今世界で一番大きなおまんじゅう工場ですよ！";
+		case digit<30:
+			return "にぎやかになりましたねー... 遊んでくれて、本当にありがとうございます！";
+		default:
+			return "え、あれ?何でそんなに持ってるんですか?今の設計だと持ちようがない数なんですが...";
+	}
+}
+
+//現在のSPSに関してコメントを返す
+function get_message_for_sps(){
+	var sps = calc_sps();
+	var digit = Math.floor(Math.log(sps) * Math.LOG10E);
+	switch(true){
+		case digit<3:
+			return "じゃんじゃん作りますよー！";
+		case digit<6:
+			return "大型工場ならこれくらいは作らないと満足できませんよねー！";
+		case digit<9:
+			return "もはやブリテンいちの工場ですね！";
+		case digit<12:
+			return "カップヌードルが累計で400m食販売したそうですよ！もう私達のほうが上ですね！";
+		case digit<15:
+			return "バイトじゃなければ私も大儲けしていたんだろうなあ...";
+		case digit<20:
+			return "もうこれは宇宙一の工場ですね！";
+		case digit<30:
+			return "(自動でヨタ単位のおまんじゅうを生成できるのに何で私がここに...?)";
+		default:
+			return "え、あれ?何でそんなに生産できるんです?天文学的な時間をかけないと到達できませんよね?";
+	}
+
+}
+
+
+//次のメッセージ更新タイミングで喋ってもらう
+function queue_message(message){
+	message_queue.push(message);
+}
+
 
 //まんじゅうを制作
 function create_siso(name,level){
@@ -745,15 +921,15 @@ function is_valid_save(savefile){
 function load_save(){
 	var savefile = $.cookie("save");
 	if(typeof savefile === "undefined"){
-		cast_message("セーブデータの読み込みに失敗しました... chromeのローカル環境でしょうか?");
+		cast_message("はじめまして、こんにちは！私の手元のボタンを押すとおまんじゅうを作れますよ！");
 	}
 	else{
 		if(is_valid_save	(savefile)){
 			save_data = savefile;
-			cast_message("セーブ読み込みに成功！");
+			cast_message("セーブデータ読み込みに成功！おかえりなさい、アーサー！");
 		}
 		else{
-			cast_message("セーブデータがなんかダメっぽいので初めからにしますー");
+			cast_message("セーブデータがなんかダメっぽいですねー... クッキー消してやり直してください");
 		}
 		console.log(savefile);
 	}
@@ -763,6 +939,7 @@ function load_save(){
 window.setInterval(update,UPDATE_FREQ_MS);
 window.setInterval(save,SAVE_FREQ_MS);
 window.setInterval(golden_cookie_check,1000);
+window.setInterval(message_check,1000);
 
 //
 // ボタンに対する反応
@@ -821,6 +998,17 @@ $("#item_detail_hire_button").click(function(){
 
 	save_data.score -= cost;
 	save_data.level[character_name] ++;
+
+	//初回、20lv到達時には専用セリフをqueueに入れる
+	if(save_data.level[character_name] ==1){
+		queue_message(character_data[character_name].lv1_hire_message);
+	}
+	if(save_data.level[character_name] ==3){
+		queue_message(character_data[character_name].lv3_hire_message);
+	}
+	if(save_data.level[character_name] ==20){
+		queue_message(character_data[character_name].lv20_hire_message);
+	}
 
 	$('#score').text(formatNumeral(save_data.score));
 
@@ -913,6 +1101,16 @@ $(function(){
 		'move' : 1,
 		'delay' : 700,
 		'duration' : 3300
+	} );
+	$('#frame_fede').yurayura( {
+		'move' : 5,
+		'delay' : 700,
+		'duration' : 3100
+	} );
+	$('#frame_nimue').yurayura( {
+		'move' : 3,
+		'delay' : 100,
+		'duration' : 5300
 	} );
 });		
 

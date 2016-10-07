@@ -467,15 +467,22 @@ body{
 }
 
 #message_board{
+	z-index: 1000;
 	position: absolute;
-	top: 55px;
-	left: 80px;
-	height: 43px;
+	top: 53px;
+	left: 78px;
+	height: 45px;
 	width: 290px;
-	background-color: #EFFFEF;
+	background-color: #FCFFFC;
+	border:2px dashed #123123;
 }
 
 #message_area{
 	padding: 2px 2px;
 	color: #223;
+	opacity: 0;
+}
+
+#message_area span{
+	opacity: 0;
 }
