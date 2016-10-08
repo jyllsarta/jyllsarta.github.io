@@ -486,3 +486,11 @@ body{
 #message_area span{
 	opacity: 0;
 }
+
+#fixed_footer{
+    z-index: 999;
+    position: absolute;  
+    right: 0;  
+    bottom: 0;  	
+    width: 375px;
+}

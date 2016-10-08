@@ -14,7 +14,7 @@ var UPDATE_FREQ_MS = 50;
 var SAVE_FREQ_MS = 60000;
 
 //何秒ごとに金クッキーを表示するか(期待値)
-var FREQ_GOLDEN_COOKIE_SPAWN_SEC = 100;
+var FREQ_GOLDEN_COOKIE_SPAWN_SEC = 140;
 
 //数値表記ルール
 var NUMERAL_FORMAT = "000.00a";
@@ -30,141 +30,141 @@ var character_data = {
 		detail : "クッキーを焼いてくれるかわいい人狼。おまんじゅう工場の副産物にどうぞ。",
 		icon_location : "images/touzoku/icon/biscla.png",
 		creates : "siso_cookie",
-		lv1_hire_message : "にゃ！",
-		lv3_hire_message : "にゃ！",
-		lv20_hire_message : "にゃ！！！",
+		lv1_hire_message : "ビスクラ「クッキーを焼くのよー！よろしくニャー！」",
+		lv3_hire_message : "ビスクラ「強くなったニャ！」",
+		lv20_hire_message : "ビスクラ「これで最強ニャ！やったニャー」",
 	},
 	"character_eater" : {
 		cost : 700,
-		sps  : 30,
+		sps  : 25,
 		name : "擬人型ﾁｱﾘｰｲｰﾀｰ",
 		detail : "たべちゃうぞー。鍵クエに押し込められて暇なのでバイトをはじめた。結構まじめなのでそこそこの生産効率を誇る。",
 		icon_location : "images/touzoku/icon/gijinka_eater.png",
 		creates : "siso_vanilla",
-		lv1_hire_message : "にゃ！",
-		lv3_hire_message : "にゃ！！",
-		lv20_hire_message : "にゃ！！！",
+		lv1_hire_message : "チ「よろしくお願い...します」",
+		lv3_hire_message : "チ「強くなった...」",
+		lv20_hire_message : "チ「ありがとう...チーちゃんの籠、新しいの買うね...」",
 	},
 	"character_el" : {
-		cost : 5000,
-		sps  : 340,
+		cost : 7600,
+		sps  : 660,
 		name : "エル",
 		detail : "ちーっす。基本ちょっかいしか出さないが、高級なしそﾒﾛﾝｸﾘｰﾑまんじゅうをたまに作る。",
 		icon_location : "images/touzoku/icon/el.png",
 		creates : "siso_great",
-		lv1_hire_message : "にゃ！",
-		lv3_hire_message : "にゃ！！",
-		lv20_hire_message : "にゃ！！！",
+		lv1_hire_message : "エル「ちーっす。ビスクラちゃんと働いてる？」",
+		lv3_hire_message : "エル「オイ結構楽しいなオイ！やるなアーサー！」",
+		lv20_hire_message : "エル「ありっと！これで最強だな！アリーナ初手感電死は任せな」",
 	},
 	"character_clucky" : {
-		cost : 90000,
-		sps  : 1950,
+		cost : 140000,
+		sps  : 3100,
 		name : "クラッキー",
 		detail : "地下アイドルもそれ一本では食べていけない。イチゴ味のおまんじゅうを手で握って作る。もちろん大きなお友達に高く売れる。",
 		icon_location : "images/touzoku/icon/clucky.png",
 		creates : "siso_strawberry",
-		lv1_hire_message : "にゃ！",
-		lv3_hire_message : "にゃ！！",
-		lv20_hire_message : "にゃ！！！",
+		lv1_hire_message : "クラ「よろしくねーっ！」",
+		lv3_hire_message : "クラ「3lv到達ね！着実に頑張りましょ」",
+		lv20_hire_message : "クラ「ありがとうねっ☆　これからも頑張って働くよ！」",
 	},
 	"character_ukokkei" : {
-		cost : 1600000,
-		sps  : 29800,
+		cost : 4400000,
+		sps  : 27900,
 		name : "富豪っち",
 		detail : "金のおまんじゅうを産む。　ｳｺｯ... ｳｺｺｺｯ...!",
 		icon_location : "images/touzoku/icon/ukokkei.png",
 		creates : "siso_golden",
-		lv1_hire_message : "にゃ！",
-		lv3_hire_message : "にゃ！！",
-		lv20_hire_message : "にゃ！！！",
+		lv1_hire_message : "烏「ｺｺｺｺ...」",
+		lv3_hire_message : "烏「ｺｺｺｺ...!!!」",
+		lv20_hire_message : "烏「ｳｪｯ... ｳｪﾋｯ......ﾋｯ...!!」",
 	},
 	"character_etafle" : {
-		cost : 9540000,
-		sps  : 71000,
+		cost : 745400000,
+		sps  : 1511000,
 		name : "エタフレちゃん",
 		detail : "両手でこねておまんじゅうを作る。焦げないふしぎな素材で作るおまんじゅうは防火のお守りに人気。",
 		icon_location : "images/touzoku/icon/etafle.png",
 		creates : "siso_eta",
-		lv1_hire_message : "にゃ！",
-		lv3_hire_message : "にゃ！！",
-		lv20_hire_message : "にゃ！！！",
+		lv1_hire_message : "エタフレ「消毒は任せて...」",
+		lv3_hire_message : "エタフレ「強くなった...」",
+		lv20_hire_message : "エタフレ「これでクルースニクにも鉄パイプにも負けない... ありがとう...」",
 	},
 	"character_domo" : {
-		cost : 66666666,
-		sps  : 650000,
+		cost : 16666666666,
+		sps  : 213000000,
 		name : "ドモヴォーイ",
 		detail : "天使パワーがすごい。富豪っちと同じく金のおまんじゅうを産む。最近1ドローがついた。",
 		icon_location : "images/touzoku/icon/domo.png",
 		creates : "siso_domo",
-		lv1_hire_message : "にゃ！",
-		lv3_hire_message : "にゃ！！",
-		lv20_hire_message : "にゃ！！！",
+		lv1_hire_message : "ドモ「おまんじゅうを作りに来たぞ」",
+		lv3_hire_message : "ドモ「おもったより難しいのう...」",
+		lv20_hire_message : "ドモ「どうじゃ！　かなりこなれてきたぞ！」",
 	},
 	"character_puka" : {
-		cost : 2000000000,
-		sps  : 35400000,
+		cost : 1.00E+13,
+		sps  : 798400000000,
 		name : "プーカ",
 		detail : "かわいい。説明不要。その薄くてやわらかいおまんじゅうください。",
 		icon_location : "images/touzoku/icon/puka.png",
 		creates : "siso_puka",
-		lv1_hire_message : "にゃ！",
-		lv3_hire_message : "にゃ！！",
-		lv20_hire_message : "にゃ！！！",
+		lv1_hire_message : "プーカ「アーサーがお菓子くれるって言うから来たけど... ここ、なに...?」",
+		lv3_hire_message : "プーカ「ちょっと... たのしい...」",
+		lv20_hire_message : "プーカ「えへへ...アーサー、どう？じょうず？」",
 	},
 	"character_utahime" : {
-		cost : 50620000000,
-		sps  : 411113223,
+		cost : 1.61E+16,
+		sps  : 2.11111E+14,
 		name : "歌姫アーサー",
 		detail : "嫁入り修行にと料理の勉強中。不慣れだが、誰よりも心のこもったおまんじゅうを作る。",
 		icon_location : "images/touzoku/icon/utahime.png",
 		creates : "siso_uta",
-		lv1_hire_message : "にゃ！",
-		lv3_hire_message : "にゃ！！",
-		lv20_hire_message : "にゃ！！！",
+		lv1_hire_message : "歌「こんにちは、アーサー！えへへ、嫁入り修行しにきたよ」",
+		lv3_hire_message : "歌「どうかしら？ 結構上手になってきた気がするのだけど！」",
+		lv20_hire_message : "歌「あの、アーサー、実績ページの台詞も見てね...?」",
 	},
 	"character_enyde" : {
-		cost : 2350620000000,
-		sps  : 6365323223,
+		cost : 1.35062E+19,
+		sps  : 6.54E+17,
 		name : "エニード",
 		detail : "むーむー。むむむーむむー、むむぁっ。(アーサー様のためにおまんじゅうを作る練習中です。)",
 		icon_location : "images/touzoku/icon/enyde.png",
 		creates : "siso_eni",
-		lv1_hire_message : "にゃ！",
-		lv3_hire_message : "にゃ！！",
-		lv20_hire_message : "にゃ！！！",
+		lv1_hire_message : "エニ「むむー。(よろしく、アーサー様)」",
+		lv3_hire_message : "エニ「むむーむ(さすがです、アーサー様)」",
+		lv20_hire_message : "エニ「だーいすきですよ、アーサー様っ。(むむぇー)」",
 	},
 	"character_ganeida" : {
-		cost : 100000000000000,
-		sps  : 82365323223,
+		cost : 2.00E+22,
+		sps  : 1.00E+20,
 		name : "ガネイダ",
 		detail : "錬金術に成功したところをスカアハに見つかって無限に金のおまんじゅうを作らされている。",
 		icon_location : "images/touzoku/icon/ganeida.png",
 		creates : "siso_gane",
-		lv1_hire_message : "にゃ！",
-		lv3_hire_message : "にゃ！！",
-		lv20_hire_message : "にゃ！！！",
+		lv1_hire_message : "ガネ「あの......帰りたいです......」",
+		lv3_hire_message : "ガネ「あっ...定時......ああ......」",
+		lv20_hire_message : "ガネ「アーサー様のお役に立てているのはうれしいのですが...」",
 	},
 	"character_fede" : {
-		cost : 1560000000000000,
-		sps  : 4.32432E+12,
+		cost : 7.56E+24,
+		sps  : 2.32E+23,
 		name : "フェデルマ",
 		detail : "何故かサポート妖精として実装されない不遇キャラ。",
 		icon_location : "images/touzoku/icon/fede.png",
 		creates : "siso_fede",
-		lv1_hire_message : "にゃ！",
-		lv3_hire_message : "にゃ！！",
-		lv20_hire_message : "にゃ！！！",
+		lv1_hire_message : "フェデ「よろしゅうなー！全力で作るで！」",
+		lv3_hire_message : "フェデ「強くなったで！どやどや！」",
+		lv20_hire_message : "フェデ「ここまで育ててくれるなんて、アーサーには感謝してもしきれへんわ...」",
 	},
 	"character_nimue" : {
-		cost : 9.34E+16,
-		sps  : 6.47E+13,
+		cost : 3E+28,
+		sps  : 5E+27,
 		name : "ニムエ",
 		detail : "ニムエです。",
 		icon_location : "images/touzoku/icon/nimue.png",
 		creates : "siso_nimue",
-		lv1_hire_message : "にゃ！",
-		lv3_hire_message : "にゃ！！",
-		lv20_hire_message : "にゃ！！！",
+		lv1_hire_message : "ニム「最後のキャラです。あと100キャラいます。」",
+		lv3_hire_message : "ニム「バランス崩壊パワーです。nerfされました。」",
+		lv20_hire_message : "ニム「これで完クリです。リセットしてもう一周です。」",
 	},
 }
 
@@ -256,7 +256,7 @@ var achievement_data = {
 	achievement_nimue20 : {
 		title : "シュレーディンガー・ハート",
 		description : "ニムエをlv20にする。",
-		says : "「」",
+		says : "「これで終わりです。ここからが本番です。」",
 		icon_location : "images/touzoku/icon/nimue.png",
 	},
 	achievement_totallevel100 : {
@@ -289,11 +289,11 @@ var siso_data = {
 		image_location : "images/touzoku/sisos/cookie.png",
 	},
 	siso_vanilla : {
-		value : 60,
+		value : 70,
 		image_location : "images/touzoku/sisos/vanilla.png",
 	},
 	siso_great : {
-		value : 1300,
+		value : 2300,
 		image_location : "images/touzoku/sisos/great.png",
 	},
 	siso_strawberry : {
@@ -304,40 +304,36 @@ var siso_data = {
 		value : 2000000,
 		image_location : "images/touzoku/sisos/golden.png",
 	},
-	siso_mega : {
-		value : 1000000,
-		image_location : "images/touzoku/sisos/golden.png",
-	},
 	siso_eta : {
-		value : 686000,
+		value : 4511000,
 		image_location : "images/touzoku/sisos/golden.png",
 	},
 	siso_domo : {
-		value : 4800000,
+		value : 1013000000,
 		image_location : "images/touzoku/sisos/golden.png",
 	},
 	siso_puka : {
-		value : 50000000,
+		value : 3798400000000,
 		image_location : "images/touzoku/sisos/golden.png",
 	},
 	siso_uta : {
-		value : 1365323223,
+		value : 711111322300000,
 		image_location : "images/touzoku/sisos/golden.png",
 	},
 	siso_eni : {
-		value : 46365323223,
+		value : 1654000000000000000,
 		image_location : "images/touzoku/sisos/golden.png",
 	},
 	siso_gane : {
-		value : 352365323223,
+		value : 500000000000000000000,
 		image_location : "images/touzoku/sisos/golden.png",
 	},
 	siso_fede : {
-		value : 11352365323223,
+		value : 8.324324324322E+23,
 		image_location : "images/touzoku/sisos/golden.png",
 	},
 	siso_nimue : {
-		value : 1111352365323223,
+		value : 2E+28,
 		image_location : "images/touzoku/sisos/golden.png",
 	},
 }
@@ -372,7 +368,7 @@ function getRandomInt(min, max) {
 // 999→999 , 1234→1.234k , 65432→65.43k , 10^9→1g
 function formatNumeral(num, roundto=3){
 	//キロ、メガ、ギガ... aa,bb,cc は仮表記
-	var SUFFIXES = ["","k","m","g","t","e","z","y","aa","bb","cc","dd"]
+	var SUFFIXES = ["","k","m","g","t","p","e","z","y","aa","bb","cc","dd","ee","ff","gg","hh"]
 
 	//10^x 9999→3, 10000→4
 	var digit = Math.floor(Math.log(num) * Math.LOG10E);
@@ -843,6 +839,9 @@ function update_siso_progress(){
 
 //sps値の更新・反映
 function calc_sps(){
+
+	check_achievement_clear();
+
 	var sps = 0;
 	for(c in character_data){
 		sps += character_data[c].sps * save_data.level[c];
@@ -878,7 +877,7 @@ function decay_golden_cookie(){
 	}
 
 	var opacity = $("#golden_cookie").css("opacity");
-	$("#golden_cookie").css("opacity",opacity - 0.005);
+	$("#golden_cookie").css("opacity",opacity - 0.001);
 
 	if(opacity <= 0){
 		$("#golden_cookie").addClass("hide");
@@ -891,7 +890,6 @@ function update(){
 	move_siso();
 	update_siso_progress();
 	decay_golden_cookie();
-	check_achievement_clear();
 	update_achievement_clear_state();
 }
 
@@ -971,10 +969,12 @@ $(".hire_character").click(function(){
 	update_detail_area(this.id);
 });
 
-//選択中のキャラクター切り替え
+//金クッキー回収
 $("#golden_cookie").click(function(){
+	check_achievement_clear();
+
 	var sps =get_sps();
-	var value = sps * getRandomInt(250,300) + getRandomInt(1,1000)
+	var value = sps * getRandomInt(80,220) + getRandomInt(1,1000)
 	var formatted = formatNumeral(value)
 
 	//お金二倍
@@ -1023,6 +1023,7 @@ $("#item_detail_hire_button").click(function(){
 
 //レベルアップタブと実績タブ切り替え
 $("#achievement_tab_button").click(function(){
+	check_achievement_clear();
 	update_achievement_detail_area("achievement_biscla20");
 	update_totallevel_achievement_show();
 	$("#achievement_menu").removeClass("hide");
