@@ -156,8 +156,8 @@ var character_data = {
 		lv20_hire_message : "フェデ「ここまで育ててくれるなんて、アーサーには感謝してもしきれへんわ...」",
 	},
 	"character_nimue" : {
-		cost : 3E+28,
-		sps  : 5E+27,
+		cost : 3E+29,
+		sps  : 5E+28,
 		name : "ニムエ",
 		detail : "ニムエです。",
 		icon_location : "images/touzoku/icon/nimue.png",
