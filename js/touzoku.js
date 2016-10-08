@@ -333,7 +333,7 @@ var siso_data = {
 		image_location : "images/touzoku/sisos/golden.png",
 	},
 	siso_nimue : {
-		value : 2E+28,
+		value : 2E+29,
 		image_location : "images/touzoku/sisos/golden.png",
 	},
 }
