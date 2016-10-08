@@ -366,7 +366,12 @@ function getRandomInt(min, max) {
 //大きすぎる数値は略記する
 //自作略記エンジン
 // 999→999 , 1234→1.234k , 65432→65.43k , 10^9→1g
-function formatNumeral(num, roundto=3){
+function formatNumeral(num, roundto){
+
+	//IEだと実引数に初期値を与えたら死んだので一旦固定
+	var roundto=3;
+
+
 	//キロ、メガ、ギガ... aa,bb,cc は仮表記
 	var SUFFIXES = ["","k","m","g","t","p","e","z","y","aa","bb","cc","dd","ee","ff","gg","hh"]
 
