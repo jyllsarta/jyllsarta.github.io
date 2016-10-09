@@ -241,7 +241,7 @@ var achievement_data = {
 		says : "「むむむーむ、むーむむ」",
 		icon_location : "images/touzoku/icon/enyde.png",
 	},
-	achievement_genaida20 : {
+	achievement_geneida20 : {
 		title : "爆裂魔法",
 		description : "ガネイダをlv20にする。",
 		says : "「錬金術連打で得られた経験値全部火力に振ったらすごい火力手に入ったんですよ、どうですかアーサー様、え、いらない...?」",
