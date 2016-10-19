@@ -115,3 +115,7 @@ dd{
 .em_link:hover{
 	opacity: 0.5;
 }
+
+.bigger{
+	font-size: 25px;
+}
