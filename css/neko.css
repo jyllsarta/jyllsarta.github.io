@@ -1,0 +1,264 @@
+/****************************************/
+/* ゲームウィンドウの外側のスタイル */
+/****************************************/
+
+body{
+	margin:0px 0px 0px 0px;
+	font-family: "Rounded Mplus 1c";
+	background-color: #CEFCEF;
+}
+
+header{
+	width: 1200px;
+	height: 100px;
+}
+
+.prov{
+	border:1px solid #00CCFF;
+}
+
+/****************************************/
+/* ゲームウィンドウ内のスタイル */
+/****************************************/
+
+
+#game_window{
+	width: 1200px;
+	height: 800px;
+	background-color: #FFFFFF;
+}
+
+.hidden{
+	display: none;
+}
+
+
+/****************************************/
+/* タイトル画面 */
+/****************************************/
+
+#title{
+	width: 1200px;
+	height: 800px;
+	background-color: #ABCABC;
+}
+/****************************************/
+/* ステージ選択画面 */
+/****************************************/
+
+#stage{
+	width: 1200px;
+	height: 800px;
+	background-color: #654456;
+
+}
+
+/****************************************/
+/*メイン */
+/****************************************/
+#main{
+	position: relative;
+	width: 1200px;
+	height: 800px;
+	background-color: #000000;
+	color:#FFFFFF;	
+}
+#background{
+	width: 1200px;
+	height: 800px;
+}
+
+#datetime_info_area{
+	position: absolute;
+	top: 18px;
+	left: 15px;
+	width:850px;
+	height: 100px;
+	border: 1px solid #FFFFFF;
+}
+
+.calender_letter{
+	font-size: 20px;
+}
+
+#datetime_info_area #date{
+	position: absolute;
+	top:10px;
+	left: 10px;
+	font-size: 0px;
+}
+
+#datetime_info_area #time{
+	position: absolute;
+	top:10px;
+	left: 180px;
+	font-size: 0px;
+}
+
+#current_dungeon_text{
+	position: absolute;
+	top:10px;
+	left: 400px;
+	font-size: 16px;
+}
+
+#dungeon_info_area{
+	position: absolute;
+	top:30px;
+	left: 405px;
+	font-size: 30px;
+}
+
+.dungeon_name{
+	color:#FFFF99;
+}
+
+.floor_sepalator, .floor_unit, .next_event_sec_unit{
+	font-size: 25px;
+}
+
+.time_sepalator{
+	font-size: 25px;
+	display:inline-block;
+}
+
+#month,#day,#hour, #minute, #second{
+	font-size: 40px;
+	display:inline-block;
+}
+
+#next_event_text{
+	position: absolute;
+	top:10px;
+	left: 650px;
+	font-size: 16px;	
+}
+
+#next_event_info_area{
+	position: absolute;
+	top:30px;
+	left: 730px;
+	font-size: 30px;
+}
+
+#next_event_sec{
+	font-size: 30px;	
+}
+
+#menu_button_area{
+	position: absolute;
+	top: 50px;
+	left: 930px;
+	width: 220px;
+	height: 500px;
+	border: 1px dotted #FFFFFF;
+}
+
+#menu_list{
+	list-style: none;
+}
+
+.menu_item{
+	margin: 2px 2px;
+	background-color: #111431;
+	color: #FFFFFF;
+	font-size: 20px;
+	font-family: "Sawarabi Gothic";
+}
+
+.menu_item:hover{
+	background-color: #313451;
+}
+
+#character_data_area{
+	position: absolute;
+	top: 130px;
+	left: 15px;
+	width: 350px;
+	height: 100px;
+	border: 1px dotted #FFFFFF;	
+}
+
+#message_log_area{
+	position: absolute;
+	top: 240px;
+	left: 15px;
+	width: 200px;
+	height: 340px;
+	border: 1px dotted #FFFFFF;	
+}
+
+#message_logs{
+	list-style: none;
+}
+
+.log{
+}
+
+.character_chip{
+	width: 150px;
+	height: 180px;
+}
+
+.flip{
+    transform: scale(-1, 1);
+}
+
+#character_siro{
+	position: absolute;
+	top: 350px;
+	left: 440px;
+	width: 150px;
+	height: 180px;
+	border: 1px dotted #FFFFFF;	
+}
+
+#character_kuro{
+	position: absolute;
+	top: 350px;
+	left: 510px;
+	width: 140px;
+	height: 170px;
+	border: 1px dotted #FFFFFF;	
+}
+
+#character_message_area{
+	position: absolute;
+	top: 600px;
+	left: 15px;
+	width: 800px;
+	height: 170px;
+	border: 1px dotted #FFFFFF;	
+}
+
+
+#window_frame{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+#window_frame_image{
+	width: 1200px;
+	height: 800px;
+}
+
+/****************************************/
+/*バトル */
+/****************************************/
+#battle{
+	width: 1200px;
+	height: 800px;
+	background-color: #114514;
+	
+}
+
+
+
+/*webフォント関連*/
+/*
+.noto { font-family: "Noto Sans Japanese"; }
+.mp { font-family: "Mplus 1p"; }
+.rmp { font-family: "Rounded Mplus 1c"; }
+.sw { font-family: "Sawarabi Gothic"; }
+*/

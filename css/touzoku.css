@@ -1,3 +1,4 @@
+
 body{
 	background-color: #EEEEEE;
 	width: 375px;
@@ -5,8 +6,9 @@ body{
 	margin-left : auto;
 	margin-top: 0px;
 	margin-bottom: 0px;
-
 }
+
+
 
 #navigation{
 	z-index: 1000000;
@@ -478,13 +480,16 @@ body{
 }
 
 #message_area{
-	padding: 2px 2px;
+	padding: 4px 2px;
 	color: #223;
 	opacity: 0;
+	line-height:120%;
 }
 
 #message_area span{
+	font-family: 'lat';	
 	opacity: 0;
+	color:#564;
 }
 
 #fixed_footer{

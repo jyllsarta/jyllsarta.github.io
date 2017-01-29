@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>ねこのやつ</title>
+	<link href="css/reset.css" rel="stylesheet" type="text/css">
+	<link href="css/neko.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/earlyaccess/notosansjapanese.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/earlyaccess/mplus1p.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/earlyaccess/sawarabigothic.css" rel="stylesheet" />
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="js/jquery-numerator.js"></script>
+	<script src="lib/jquery.easing.1.3.js"></script>
+
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-85276428-1', 'auto');
+		ga('send', 'pageview');
+
+	</script>
+</head>
+<body>
+	<header class="prov">ヘッダーです</header>
+	<div id="game_window" class="prov">
+		<div id="title" class="hidden">タイトル画面のdiv</div>
+		<div id="stage" class="hidden">ステージ画面のdiv</div>
+		<!-- メイン画面 -->
+		<div id="main" class="hidden">
+			<img src="images/neko/bg/bg.png" id="background">
+			<div id="datetime_info_area">
+				<div id="date">
+					<span id="month">12</span>
+					<span class="calender_letter">月</span>
+					<span id="day">23</span>
+					<span class="calender_letter">日</span>
+				</div>
+				<div id="time">
+					<span id="hour">12</span>
+					<span class="time_sepalator">:</span>
+					<span id="minute">34</span>
+					<span class="time_sepalator">:</span>
+					<span id="second">45</span>
+				</div>
+				<div id="current_dungeon_text">現在のダンジョン:</div>				
+				<div id="dungeon_info_area">
+					<span class="dungeon_name">闇の回廊</span>
+					<span class="current_floor">8</span>
+					<span class="floor_sepalator">/</span>
+					<span class="max_floor">12</span>
+					<span class="floor_unit">F</span>
+				</div>
+				<div id="next_event_text">次イベントまで:</div>				
+				<div id="next_event_info_area">
+					<span id="next_event_sec">0</span>
+					<span class="next_event_sec_unit">秒</span>
+				</div>
+			</div>
+			<div id="menu_button_area">
+				<ul id="menu_list">
+					<li class="menu_item">回復</li>
+					<li class="menu_item">装備</li>
+					<li class="menu_item">入り口に戻る</li>
+				</ul>
+			</div>
+			<div id="character_data_area">
+				きゃらでーた
+			</div>
+			<div id="message_log_area">
+				<ul id="message_logs"></ul>
+			</div>
+			<div id="character_siro">
+				<img src="images/neko/chara/neko.png" class="character_chip">
+				しろこ
+			</div>
+			<div id="character_kuro">
+				くろこ
+			</div>
+			<div id="character_message_area">
+				キャラが喋るとこ
+			</div>
+
+			<div id="window_frame">
+			<!-- フレーム置くとボタンが押せなくなる(当たり前)なのでなんか対処考えつくまで保留
+				<img src="images/neko/etc/frame.png" id="window_frame_image">
+				-->
+			</div>
+
+		</div>
+		<div id="battle" class="hidden">バトル画面のdiv</div>
+	</div>
+	<!-- ゲームのロジック-->
+	<script src="js/neko.js"></script>
+
+</body>
+</html>
