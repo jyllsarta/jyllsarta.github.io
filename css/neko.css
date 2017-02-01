@@ -243,14 +243,13 @@ header{
 	height: 800px;
 }
 
-/****************************************/
-/*バトル */
-/****************************************/
-#battle{
-	width: 1200px;
-	height: 800px;
-	background-color: #114514;
-	
+#sprite_image{
+	position: absolute;
+	opacity: 0;
+	top: 110px;
+	left: 240px;	
+	width: 700px;
+	height: 467px;	
 }
 
 

@@ -11,7 +11,33 @@ var data = {
 	kuro : {
 		x : 510,
 		vx : 0
+	},
+	item_data:[
+	{
+		id:0,
+		name:"空の剣",
+		rarity:1,
+		str:255,
+		def:200,
+		dex:300,
+		agi:-255,
+		pow:1000,
+		caption:"誰も掴むことのできない、実体のない剣。"
 	}
+	]
+
+}
+
+var save = {
+	equipment :{
+		siro:{
+
+		},
+		kuro:{
+
+		}
+	},
+	items:[]
 }
 
 /*******************************************/
@@ -26,6 +52,9 @@ var MAX_MESSAGE_ITEM = 10
 
 //メインループの更新間隔(ミリ秒)
 var LOOP_FREQUENCY = 50
+
+//アイテムリストCSVの相対位置
+var ITEM_LIST_LOCATION = "etc/itemlist.csv"
 
 /*******************************************/
 /* ユーティリティ・ヘルパー */
@@ -47,6 +76,9 @@ function randInt(min, max) {
 function init(){
 	changeGameMode(FIRST_GAME_MODE)
 	castMessage("ここにログが流れます")
+
+	loadItemList()
+
 	castMessage("initされましたよん")
 }
 
@@ -66,8 +98,8 @@ function mainLoop_1sec(){
 	updateClock()
 	updateNextEventTimer()
 
-	//次イベントまでの時刻が0 == 次のイベントの時間になったなら
-	if (getNextEventLastTime() == 0){
+	//次イベント時刻がリセットされたら
+	if (getNextEventLastTime() ==300){
 		event()
 	}
 }
@@ -91,6 +123,52 @@ function castMessage(message){
 	if ($("#message_logs .log").length > MAX_MESSAGE_ITEM){
 		$("#message_logs .log:first-child").remove()
 	}
+}
+
+//アイテムリストをcsvファイルから読み込む
+function loadItemList(){
+	$(function() {
+		$.ajax({
+			beforeSend: function(xhr){
+				xhr.overrideMimeType('text/html;charset=Shift_JIS');
+			},
+			type: "GET",
+			url: ITEM_LIST_LOCATION,
+			timeout: 1000
+		})
+		.done(function(response, textStatus, jqXHR) {
+			loadCSV(response)
+			castMessage("CSVのロードに成功したよ！")
+		})
+		.fail(function(jqXHR, textStatus, errorThrown ) {
+			castMessage("CSVのロードだめー(chromeのローカル環境を疑ってね)")
+		});
+	});
+}
+
+//文字列化したcsvをパースしてデータ内に収める
+function loadCSV(csvtext){
+	var lines = csvtext.split("\n")
+
+	//最初の一行を見出しとして、アイテムデータのプロパティとする
+	var csv_schema = lines.shift().split(",")
+
+	//行ごとにデータを格納
+	for (line of lines){
+		var params = line.split(",")
+		//CSVの最初のカラムをIDとする
+		var item_id = params[0]
+
+		//data.item_dataに対して
+		//key : item_id
+		//value : 残りのパラメータを見出し名をプロパティ名にしたobject
+		//で格納する
+		data.item_data[item_id]={}
+		for(var i=1;i<csv_schema.length;++i){
+			data.item_data[item_id][csv_schema[i]] = params[i]
+		}
+	} 
+
 }
 
 //しろがゆらゆら移動
@@ -196,19 +274,43 @@ function event(){
 	var event_type = randInt(1,3)
 	switch(event_type){
 		case 1:
-			castMessage("アイテムを拾ったことにします")
-			break
+		spriteSlidein("item")
+		castMessage("アイテムを拾いました！")
+		break
 		case 2:
-			castMessage("階段を降りたことにします")
-			break
+		spriteSlidein("artifact")
+		castMessage("階段を降りた！")
+		break
 		case 3:
-			castMessage("バトルが発生したことにします")
-			break
+		spriteSlidein("battle")
+		castMessage("バトルが発生した！")
+		break
 		default:
-			castMessage("これはでないはずなので気にしない")
-			break
+		castMessage("これはでないはずなので気にしない")
+		break
 	}
 }
+
+//対応したスプライトがスライドインする
+//imagename : image/neko/spriteにおいてあるファイル名
+function spriteSlidein(imagename){
+	$("#sprite_image")
+	.attr("src","images/neko/sprite/"+imagename+".png")
+	.removeClass("hidden")
+	.animate({
+		opacity:1,
+		top:"120px"
+	}, 500, "swing")
+	.delay(3000)
+	.animate({
+		opacity	:0,
+		top:"110px",
+	},200,"swing")
+	.queue(function () {
+		$(this).addClass	("hidden").dequeue();
+	})
+}
+
 
 /*******************************************/
 /* イベントハンドラ */
@@ -216,13 +318,18 @@ function event(){
 
 //タイトルのクリックでステージ画面に遷移
 $("#title").click(function(){
-	changeGameMode("stage");
-});
+	changeGameMode("stage")
+})
 
 //ステージ画面のクリックでメイン画面に遷移
 $("#stage").click(function(){
-	changeGameMode("main");
-});
+	changeGameMode("main")
+})
+
+//スプライト画像はクリックされたら消す
+$("#sprite_image").click(function(){
+	$("#sprite_image").addClass("hidden")
+})
 
 
 /*******************************************/
