@@ -201,7 +201,7 @@ header{
 }
 
 .flip{
-    transform: scale(-1, 1);
+	transform: scale(-1, 1);
 }
 
 #character_siro{
@@ -231,7 +231,6 @@ header{
 	border: 1px dotted #FFFFFF;	
 }
 
-
 #window_frame{
 	position: absolute;
 	top: 0px;
@@ -252,6 +251,252 @@ header{
 	height: 467px;	
 }
 
+#equipment_menu{
+	position: absolute;	
+	opacity: 0;
+	top: 30px;
+	left: 50px;
+	width: 1100px;
+	height: 700px;
+	background-color: #050512;
+}
+
+#equipment_back_button{
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 100px;
+	height: 60px;
+	background-color: #434343;
+	border:1px dotted #FFFFFF; 
+}
+
+#equipment_back_button:hover{
+	background-color: #565656 ;
+}
+
+#equip_menu_text{
+	position: absolute;
+	top: 3px;
+	left: 150px;
+	font-size: 50px;
+}
+
+#equip_character_toggle_button{
+	position: absolute;
+	top: 100px;
+	left: 50px;
+	background-color: #434343;
+	font-size: 25px;
+}
+
+#equip_character_toggle_button:hover{
+	background-color: #565656;	
+}
+
+#equip_charagter_image{
+	position: absolute;
+	top:100px;
+	left: -100px;
+	width: 550px;
+	height: 660px;
+	transform: scale(-1, 1);
+}
+
+#equip_select_area{
+	position: absolute;
+	top: 20px;
+	left: 395px;
+	width: 700px;
+	height: 400px;
+	background-color: #222222;
+}
+
+#pager{
+	position: absolute;
+	top: 10px;
+	left: 20px;
+}
+
+#pager_button_area{
+	position: absolute;
+	top: 10px;
+	left: 183px;
+	font-size: 20px;
+}
+
+#pager_button_prev{
+	margin: 10px 10px;
+	width: 40px;
+	height: 40px;
+}
+
+#pager_button_next{
+	margin: 10px 10px;
+	width: 40px;
+	height: 40px;
+}
+
+#equipment_list{
+	list-style: none;
+	position: absolute;
+	top: 45px;
+	left: 10px;
+}
+
+.equip_item{
+	position: relative;
+	padding: 2px 2px;
+	width: 400px;
+	height: 30px;
+}
+
+.equip_item:hover{
+	opacity: 0.7;
+}
+
+.equip_list_icon{
+	position: relative;
+	width: 30px;
+	height: 30px;
+	float: left;
+}
+
+.equip_list_text{
+	position: relative;
+	top: 2px;
+	left: 5px;
+	font-size: 20px;
+}
+
+.rare{
+	color:#FFFF55;
+}
+
+.epic{
+	color:#33FFFF;
+}
+
+.legendary{
+	color:#FF88EE;
+}
+
+#equip_detail_area{
+	position: absolute;
+	top: 5px;
+	left: 440px;
+	width: 250px;
+	height: 390px;
+	background-color: #121212;
+}
+
+#equipment_detail_icon{
+	position: relative;
+	top: 5px;
+	left: 5px;
+	width: 30px;
+	height: 30px;
+	float: left;	
+}
+
+#equip_detail_name{
+	position: relative;
+	top: 11px;
+	left: 5px;
+	font-size: 18px;
+}
+
+#equip_param_area{
+	position: absolute;
+	top: 50px;
+	left: 15px;
+	width: 240px;
+	height: 240px;
+}
+
+#equip_param_list{
+	list-style: none;
+}
+
+.param_unit{
+	position: relative;
+	padding: 4px 4px;
+	left: 5px;
+	width: 200px;
+	height: 30px;
+	font-size: 20px;
+}
+
+#flavor_text{
+	position: relative;
+	top: 25px;
+	left: 0px;
+	width: 230px;
+	height: 100px;
+	font-size: 18px;
+}
+
+#character_status_area{
+	position: absolute;
+	top: 430px;	
+	left: 395px;
+	width: 700px;
+	height: 255px;
+	background-color: #222222;
+}
+
+#current_equip_list{
+	position: relative;
+	top: 20px;
+	left: 30px;
+	list-style: none;
+	font-size: 24px;
+}
+
+.current_equip_item{
+	margin: 15px 15px;
+	width: 270px;
+	background-color: #111111;
+}
+
+.equip_first{
+	margin-left: 0px;
+}
+
+.equip_second{
+	margin-left: 6px;
+}
+
+.equip_third{
+	margin-left: 12px;
+}
+
+.equip_fourth{
+	margin-left: 18px;
+}
+
+#status_list{
+	list-style: none;
+	position: absolute;
+	top: 35px;
+	left: 340px;
+	font-size: 25px;
+}
+
+.status_unit{
+	height: 50px;
+	margin: 0px 20px;
+}
+
+.status_text{
+	display: inline-block;
+	width: 50px;
+}
+
+.status_param{
+	display: inline-block;
+	width: 140px;
+}
 
 
 /*webフォント関連*/

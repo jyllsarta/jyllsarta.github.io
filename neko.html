@@ -64,7 +64,7 @@
 			<div id="menu_button_area">
 				<ul id="menu_list">
 					<li class="menu_item">回復</li>
-					<li class="menu_item">装備</li>
+					<li id="menu_equip_button" class="menu_item">装備</li>
 					<li class="menu_item">ステータス</li>
 					<li class="menu_item">入り口に戻る</li>
 				</ul>
@@ -91,7 +91,128 @@
 				<img src="images/neko/etc/frame.png" id="window_frame_image">
 			-->
 		</div>
-	<img id="sprite_image" src="images/neko/sprite/battle.png">	
+		<img id="sprite_image" src="images/neko/sprite/battle.png">
+
+		<!--装備メニューエリア-->
+		<div id="equipment_menu" class="hidden">
+			<div id="equipment_back_button">戻るボタン！</div>
+			<div id="equip_menu_text">装備</div>
+			<div id="equip_character_toggle_button">しろこ|くろこ</div>
+			<img src="images/neko/chara/neko.png" id="equip_charagter_image">
+			<div id="equip_select_area">
+				<div id="pager">
+					<span id="equip_pager_page_text">ページ</span>
+					<span id="current_page">1</span>
+					<span id="pager_sepalator">/</span>
+					<span id="total_page">23</span>
+				</div>
+			<div id="pager_button_area">
+				<span id="pager_button_prev">◀</span>
+				<span id="pager_button_next">▶</span>
+			</div>
+				<ul id="equipment_list">
+					<li class="equip_item">
+						<img src="images/neko/icons/equip.png" class="equip_list_icon">
+						<div class="equip_list_text">棒きれ</div>
+					</li>
+					<li class="equip_item">
+						<img src="images/neko/icons/equip.png" class="equip_list_icon">
+						<div class="equip_list_text">よもぎだんご</div>
+					</li>
+					<li class="equip_item">
+						<img src="images/neko/icons/equip.png" class="equip_list_icon">
+						<div class="equip_list_text">革の盾</div>
+					</li>
+					<li class="equip_item">
+						<img src="images/neko/icons/equip.png" class="equip_list_icon">
+						<div class="equip_list_text">木刀+2</div>
+					</li>
+					<li class="equip_item">
+						<img src="images/neko/icons/equip.png" class="equip_list_icon">
+						<div class="equip_list_text rare">*羽ペン</div>
+					</li>
+					<li class="equip_item">
+						<img src="images/neko/icons/equip.png" class="equip_list_icon">
+						<div class="equip_list_text epic">☆スクール水着</div>
+					</li>
+					<li class="equip_item">
+						<img src="images/neko/icons/equip.png" class="equip_list_icon">
+						<div class="equip_list_text">チョコレート</div>
+					</li>
+					<li class="equip_item">
+						<img src="images/neko/icons/equip.png" class="equip_list_icon">
+						<div class="equip_list_text">ジャベリン</div>
+					</li>
+					<li class="equip_item">
+						<img src="images/neko/icons/equip.png" class="equip_list_icon">
+						<div class="equip_list_text">フライパン</div>
+					</li>
+					<li class="equip_item">
+						<img src="images/neko/icons/equip.png" class="equip_list_icon">
+						<div class="equip_list_text legendary">★円卓模型</div>
+					</li>
+				</ul>
+				<div id="equip_detail_area">
+					<img src="images/neko/icons/equip.png" id="equipment_detail_icon">
+					<div id="equip_detail_name">★食品サンプル</div>
+					<div id="equip_param_area">
+						<ul id="equip_param_list">
+							<li class="param_unit">
+								<span class="status_text">STR</span>
+								<span class="status_param">+10</span>
+							</li>
+							<li class="param_unit">
+								<span class="status_text">DEX</span>
+								<span class="status_param">+10</span>
+							</li>
+							<li class="param_unit">
+								<span class="status_text">DEF</span>
+								<span class="status_param">+10</span>
+							</li>
+							<li class="param_unit">
+								<span class="status_text">AGI</span>
+								<span class="status_param">+10</span>
+							</li>
+						</ul>
+						<div id="flavor_text">おいしそうなスパゲッティのサンプルだ。投げて使う。</div>	
+					</div>
+				</div>
+			</div>
+			<div id="character_status_area">
+				<ul id="current_equip_list">
+					<li class="current_equip_item equip_first">装備1</li>
+					<li class="current_equip_item equip_second">装備2</li>
+					<li class="current_equip_item equip_third">装備3</li>
+					<li class="current_equip_item equip_fourth">装備4</li>
+				</ul>
+				<div id="status_show_area">
+					<ul id="status_list">
+						<li class="status_unit">
+							<span class="status_text">STR</span>
+							<span class="status_param">10</span>
+							<span class="status_param_diff"></span>
+						</li>
+						<li class="status_unit">
+							<span class="status_text">DEX</span>
+							<span class="status_param">10</span>
+							<span class="status_param_diff"></span>
+						</li>
+						<li class="status_unit">
+							<span class="status_text">DEF</span>
+							<span class="status_param">10</span>
+							<span class="status_param_diff"></span>
+						</li>
+						<li class="status_unit">
+							<span class="status_text">AGI</span>
+							<span class="status_param">10</span>
+							<span class="status_param_diff"></span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+
 	</div>
 </div>
 <!-- ゲームのロジック-->

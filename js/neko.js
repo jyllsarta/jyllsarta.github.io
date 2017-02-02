@@ -29,16 +29,33 @@ var data = {
 }
 
 var save = {
-	equipment :{
+	status:{
 		siro:{
-
+			hp:100,
 		},
 		kuro:{
-
+			hp:100,
 		}
+	},
+	current_dungeon_id:0,
+	current_floor:1,
+	equipment :{
+		siro:[],
+		kuro:[],
 	},
 	items:[]
 }
+
+var dungeon_data=[
+{
+	name:"もり",
+	background_image:"images/neko/bg/mori.png"
+},
+{
+	name:"そら",
+	background_image:"images/neko/bg/sora.png"
+},
+]
 
 /*******************************************/
 /* 定数 */
@@ -271,24 +288,40 @@ function updateNextEventTimer(){
 
 //イベントを発生させる
 function event(){
+	//とりあえず階段：アイテム：バトルは均等に割り振る
 	var event_type = randInt(1,3)
 	switch(event_type){
 		case 1:
-		spriteSlidein("item")
-		castMessage("アイテムを拾いました！")
+		eventItem()
 		break
 		case 2:
-		spriteSlidein("artifact")
-		castMessage("階段を降りた！")
+		eventStairs()
 		break
 		case 3:
-		spriteSlidein("battle")
-		castMessage("バトルが発生した！")
+		eventBattle()
 		break
 		default:
 		castMessage("これはでないはずなので気にしない")
 		break
 	}
+}
+
+//アイテム拾得イベントを起こす
+function eventItem(){
+	spriteSlidein("item")
+	castMessage("アイテムを拾いました！")
+}
+
+//階段降りイベントを起こす
+function eventStairs(){
+	spriteSlidein("artifact")
+	castMessage("階段を降りた！")
+}
+
+//バトルイベントを起こす
+function eventBattle(){
+	spriteSlidein("battle")
+	castMessage("バトルが発生した！")
 }
 
 //対応したスプライトがスライドインする
@@ -311,9 +344,32 @@ function spriteSlidein(imagename){
 	})
 }
 
+//装備メニューの展開
+function showEquipmentMenu(){
+	$("#equipment_menu")
+	.removeClass("hidden")
+	.animate({
+		opacity:0.98,
+		top:"50px",
+	},200,"easeOutQuart")
+}
+
+//装備メニューの開放
+function fadeEquipmentMenu(){
+	$("#equipment_menu")
+	.animate({
+		opacity:0,
+		top:"30px",
+	},300,"easeOutQuart")
+	.queue(function () {
+		$(this).addClass	("hidden").dequeue();
+	})
+}
 
 /*******************************************/
 /* イベントハンドラ */
+/* ロジックはここに書かない */
+/* ボタンの挙動は個別の関数に分離する*/
 /*******************************************/
 
 //タイトルのクリックでステージ画面に遷移
@@ -331,6 +387,15 @@ $("#sprite_image").click(function(){
 	$("#sprite_image").addClass("hidden")
 })
 
+//メニューボタンクリックでメニューを開く
+$("#menu_equip_button").click(function(){
+	showEquipmentMenu()
+})
+
+//装備メニュー戻るボタンクリックでメニュー閉じる
+$("#equipment_back_button").click(function(){
+	fadeEquipmentMenu()
+})
 
 /*******************************************/
 /* 初期化とメインループ実行 */
