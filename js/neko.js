@@ -1,3 +1,6 @@
+//jsoncookie対応用
+$.cookie.json = true;
+
 /*******************************************/
 /* ゲームの状態 */
 /*******************************************/
@@ -24,8 +27,10 @@ var data = {
 		pow:1000,
 		caption:"誰も掴むことのできない、実体のない剣。"
 	}
-	]
-
+	],
+	equipment_menu : {
+		current_page : 1
+	}
 }
 
 var save = {
@@ -72,6 +77,9 @@ var LOOP_FREQUENCY = 50
 
 //アイテムリストCSVの相対位置
 var ITEM_LIST_LOCATION = "etc/itemlist.csv"
+
+//自然につくプラス値の最大
+var MAX_EQUIP_BUILD = 9
 
 /*******************************************/
 /* ユーティリティ・ヘルパー */
@@ -166,10 +174,8 @@ function loadItemList(){
 //文字列化したcsvをパースしてデータ内に収める
 function loadCSV(csvtext){
 	var lines = csvtext.split("\n")
-
 	//最初の一行を見出しとして、アイテムデータのプロパティとする
 	var csv_schema = lines.shift().split(",")
-
 	//行ごとにデータを格納
 	for (line of lines){
 		var params = line.split(",")
@@ -185,7 +191,6 @@ function loadCSV(csvtext){
 			data.item_data[item_id][csv_schema[i]] = params[i]
 		}
 	} 
-
 }
 
 //しろがゆらゆら移動
@@ -250,7 +255,6 @@ function  loiteringKuro(){
 	else{
 		$("#character_kuro").removeClass("flip")
 	}
-	
 }
 
 //時計を更新
@@ -306,9 +310,19 @@ function event(){
 	}
 }
 
+//指定したアイテムIDのアイテムを取得
+function aquireItem(item_id){
+	var after = (save.items[item_id] || 0) +1
+	after = Math.min(after,MAX_EQUIP_BUILD)
+
+	save.items[item_id] = after
+}
+
 //アイテム拾得イベントを起こす
 function eventItem(){
 	spriteSlidein("item")
+	var item_id = randInt(1,10)
+	aquireItem(item_id)
 	castMessage("アイテムを拾いました！")
 }
 
@@ -366,6 +380,102 @@ function fadeEquipmentMenu(){
 	})
 }
 
+//装備メニューの準備
+function prepareEquipMenu(){
+	updatePagerTotalPage()
+	updateEquipList()
+	updatePagerButtonState()
+
+}
+
+//ページャーの総ページ数を反映
+function updatePagerTotalPage(){
+	var max_page = Math.floor(data.item_data.length/10)+1
+	$("#total_page").text(max_page)
+}
+
+//装備リストの表示項目を反映
+function updateEquipList(){
+	var equip_name_list = $("#equipment_list .equip_item").children(".equip_list_text")
+	var current_page = data.equipment_menu.current_page
+
+	//li にアイテムIDを埋め込み
+	var lists =  $("#equipment_list").children()
+	for(var i=0;i<lists.length;++i){
+		lists[i].setAttribute("item_id",(current_page-1)*10+i)
+	} 
+
+	//テキストの更新
+	for(var i=0;i<equip_name_list.length;++i){
+		var target_item_id = (current_page-1)*10 + i
+		var target_item_lv = save.items[target_item_id] || 0
+		var equip_name  = target_item_lv ? data.item_data[target_item_id].name : "？？？？？"
+
+		equip_name_list[i].innerText = equip_name
+	}	
+}
+
+
+//ページャーのボタンの活性不活性を反映
+function updatePagerButtonState(){
+	var current_page = data.equipment_menu.current_page
+	var max_page = Math.floor(data.item_data.length/10)+1
+	$("#pager_button_prev").removeClass("disabled")
+	$("#pager_button_next").removeClass("disabled")
+
+	if(current_page == 1){
+		$("#pager_button_prev").addClass("disabled")		
+	}
+	if(current_page == max_page){
+		$("#pager_button_next").addClass("disabled")		
+	}
+}
+
+//詳細画面に表示する項目を item_id にする
+function updateEquipDetailAreaTo(item_id){
+	var item = data.item_data[item_id]
+
+	$("#equip_detail_name").text(item.name)
+	$("#status_detail_str").text(item.str)
+	$("#status_detail_dex").text(item.dex)
+	$("#status_detail_def").text(item.def)
+	$("#status_detail_agi").text(item.agi)
+	$("#flavor_text").text(item.caption)
+
+}
+
+//マウスオーバー時
+function equipDetailMouseOver(domobject){
+	var item_id = domobject.attributes.item_id.textContent
+
+	updateEquipDetailAreaTo(item_id)
+}
+
+//ページャー前のページにもどる
+function equipListPrevPage(){
+	var after_page = Math.max(data.equipment_menu.current_page-1,1)
+	data.equipment_menu.current_page = after_page
+	$("#current_page").text(after_page)
+
+	prepareEquipMenu()
+}
+
+//ページャー次のページに移動
+function equipListNextPage(){
+	var max_page = Math.floor(data.item_data.length/10)+1
+	var after_page = Math.min(data.equipment_menu.current_page+1,max_page)
+	data.equipment_menu.current_page = after_page
+	$("#current_page").text(after_page)
+
+	prepareEquipMenu()
+}
+
+//クッキーに記憶
+function save(){
+	$.cookie("save",save);
+	log($.cookie("save"))
+}
+
 /*******************************************/
 /* イベントハンドラ */
 /* ロジックはここに書かない */
@@ -389,12 +499,28 @@ $("#sprite_image").click(function(){
 
 //メニューボタンクリックでメニューを開く
 $("#menu_equip_button").click(function(){
+	prepareEquipMenu()
 	showEquipmentMenu()
 })
 
 //装備メニュー戻るボタンクリックでメニュー閉じる
 $("#equipment_back_button").click(function(){
 	fadeEquipmentMenu()
+})
+
+//装備リストページャの操作:次のページ
+$("#pager_button_prev").click(function(){
+	equipListPrevPage()
+})
+
+//装備リストページャの操作:前のページ
+$("#pager_button_next").click(function(){
+	equipListNextPage()
+})
+
+//各装備マウスオーバーで詳細画面に対応したものを表示
+$(".equip_item").mouseover(function(){
+	equipDetailMouseOver(this)
 })
 
 /*******************************************/

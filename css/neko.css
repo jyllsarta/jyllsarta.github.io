@@ -325,6 +325,10 @@ header{
 	font-size: 20px;
 }
 
+.disabled{
+	color: #888888;
+}
+
 #pager_button_prev{
 	margin: 10px 10px;
 	width: 40px;
