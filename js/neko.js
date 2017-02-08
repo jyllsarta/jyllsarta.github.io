@@ -1,6 +1,3 @@
-//jsoncookie対応用
-$.cookie.json = true;
-
 /*******************************************/
 /* ゲームの状態 */
 /*******************************************/
@@ -29,7 +26,8 @@ var data = {
 	}
 	],
 	equipment_menu : {
-		current_page : 1
+		current_page : 1,
+		current_character : "siro"
 	}
 }
 
@@ -44,11 +42,11 @@ var save = {
 	},
 	current_dungeon_id:0,
 	current_floor:1,
-	equipment :{
+	equip :{
 		siro:[],
 		kuro:[],
 	},
-	items:[]
+	item:[]
 }
 
 var dungeon_data=[
@@ -79,7 +77,7 @@ var LOOP_FREQUENCY = 50
 var ITEM_LIST_LOCATION = "etc/itemlist.csv"
 
 //自然につくプラス値の最大
-var MAX_EQUIP_BUILD = 9
+var MAX_EQUIP_BUILD = 11
 
 /*******************************************/
 /* ユーティリティ・ヘルパー */
@@ -310,12 +308,22 @@ function event(){
 	}
 }
 
+//アイテムいっぱい取得
+function __debugAquireItemIppai(){
+	for(var i=0;i<100;++i){
+		var rand = randInt(0,50)
+		aquireItem(rand)
+	}
+	//viewの反映
+	updateEquipList()
+}
+
 //指定したアイテムIDのアイテムを取得
 function aquireItem(item_id){
-	var after = (save.items[item_id] || 0) +1
+	var after = (save.item[item_id] || 0) +1
 	after = Math.min(after,MAX_EQUIP_BUILD)
 
-	save.items[item_id] = after
+	save.item[item_id] = after
 }
 
 //アイテム拾得イベントを起こす
@@ -394,6 +402,75 @@ function updatePagerTotalPage(){
 	$("#total_page").text(max_page)
 }
 
+//レアリティに応じた記号を返す
+function getRaritySymbol(rarity){
+	switch(rarity){
+		case "0":
+		return ""
+		break
+		case "1":
+		return "*"
+		break
+		case "2":
+		return "☆"
+		break
+		case "3":
+		return "★"
+		break
+		default:
+		log(rarity)
+		log("なんか変なレアリティ投げられた.")
+		break
+	}
+}
+
+//レアリティに応じたクラス名を返す
+function getRarityClassName(rarity){
+	switch(rarity){
+		case "0":
+		return ""
+		break
+		case "1":
+		return "rare"
+		break
+		case "2":
+		return "epic"
+		break
+		case "3":
+		return "legendary"
+		break
+		default:
+		log(rarity)
+		log("なんか変なレアリティ投げられた.")
+		break
+	}	
+}
+
+//プラス値、レア度を反映した装備のフルネームを返す
+function makeFullEquipName(item_id){
+		//アイテムがないなら？？？？？を表示させる
+		if(!data.item_data[item_id]){
+			return "？？？？？"
+		}
+
+		//まだもってないなら？？？？？を返す
+		if(!save.item[item_id]){
+			return "？？？？？"
+		}
+
+		//レアリティのやつ
+		var rarity = data.item_data[item_id].rarity
+		var rarity_symbol = ""
+		if(rarity){
+			rarity_symbol = getRaritySymbol(rarity)
+		}
+
+		var item_lv = save.item[item_id]
+		var plus_lv = item_lv==1?"":"+"+(item_lv-1)
+		return rarity_symbol + data.item_data[item_id].name + plus_lv
+
+	}
+
 //装備リストの表示項目を反映
 function updateEquipList(){
 	var equip_name_list = $("#equipment_list .equip_item").children(".equip_list_text")
@@ -405,14 +482,36 @@ function updateEquipList(){
 		lists[i].setAttribute("item_id",(current_page-1)*10+i)
 	} 
 
-	//テキストの更新
+	//表示項目の更新
 	for(var i=0;i<equip_name_list.length;++i){
-		var target_item_id = (current_page-1)*10 + i
-		var target_item_lv = save.items[target_item_id] || 0
-		var equip_name  = target_item_lv ? data.item_data[target_item_id].name : "？？？？？"
 
-		equip_name_list[i].innerText = equip_name
+		var target_item_id = (current_page-1)*10 + i
+		var target_item_lv = save.item[target_item_id] || 0
+
+		var item_full_name = makeFullEquipName(target_item_id)
+
+		//一旦クラスリセット
+		equip_name_list[i].setAttribute("class","equip_list_text")
+
+		//レアリティ反映
+		if(data.item_data[target_item_id]){
+			var rarity = data.item_data[target_item_id].rarity
+			var rarity_class_name = ""
+			if(target_item_lv){
+				rarity_class_name = getRarityClassName(rarity)
+			}	
+			equip_name_list[i].setAttribute("class","equip_list_text "+rarity_class_name)
+		}
+
+		equip_name_list[i].innerText = item_full_name
 	}	
+}
+
+//プラス値を考慮したパラメータを返す
+function getBuildedParameter(item_id,paramName){
+	var lv = save.item[item_id]
+	var param = Math.floor(parseInt(data.item_data[item_id][paramName]) * (lv-1+5)/5)
+	return param
 }
 
 
@@ -431,23 +530,101 @@ function updatePagerButtonState(){
 	}
 }
 
+//詳細エリアのフラッシュ
+function resetDetailArea(){
+	$("#equip_detail_name").text("----")
+	$("#status_detail_str").text("-")
+	$("#status_detail_dex").text("-")
+	$("#status_detail_def").text("-")
+	$("#status_detail_agi").text("-")
+	$("#flavor_text").text("-")
+
+	$("#status_diff_str").text("-")
+	$("#status_diff_dex").text("-")
+	$("#status_diff_def").text("-")
+	$("#status_diff_agi").text("-")
+
+	$("#status_diff_str").removeClass("decrease")
+	$("#status_diff_dex").removeClass("decrease")
+	$("#status_diff_def").removeClass("decrease")
+	$("#status_diff_agi").removeClass("decrease")
+}
+
+//charaのparamNameを算出
+function getTotalParameter(charaname,paramName){
+	var total = 10
+	for(var equip of save.equip[charaname]){
+		total += getBuildedParameter(equip,paramName)
+	}
+	return total
+}
+
+//現在のキャラのパラメータを反映
+function updateCurrentTotalParameter(){
+	var current_chara_name = data.equipment_menu.current_character
+
+	var str = getTotalParameter(current_chara_name,"str")
+	var dex = getTotalParameter(current_chara_name,"dex")
+	var def = getTotalParameter(current_chara_name,"def")
+	var agi = getTotalParameter(current_chara_name,"agi")
+
+	$("#status_total_str").text(str)
+	$("#status_total_dex").text(dex)
+	$("#status_total_def").text(def)
+	$("#status_total_agi").text(agi)
+}
+
 //詳細画面に表示する項目を item_id にする
 function updateEquipDetailAreaTo(item_id){
 	var item = data.item_data[item_id]
 
+	var lv = save.item[item_id] || 0
+	if(lv == 0){
+		resetDetailArea()
+		return
+	}
+
+	//詳細エリアの反映
+	var str = getBuildedParameter(item_id,"str")
+	var dex = getBuildedParameter(item_id,"dex")
+	var def = getBuildedParameter(item_id,"def")
+	var agi = getBuildedParameter(item_id,"agi")
+
 	$("#equip_detail_name").text(item.name)
-	$("#status_detail_str").text(item.str)
-	$("#status_detail_dex").text(item.dex)
-	$("#status_detail_def").text(item.def)
-	$("#status_detail_agi").text(item.agi)
+	$("#status_detail_str").text(str)
+	$("#status_detail_dex").text(dex)
+	$("#status_detail_def").text(def)
+	$("#status_detail_agi").text(agi)
 	$("#flavor_text").text(item.caption)
 
+	//パラメータ関連の反映
+	$("#status_diff_str").text(str)
+	$("#status_diff_dex").text(dex)
+	$("#status_diff_def").text(def)
+	$("#status_diff_agi").text(agi)
+
+	$("#status_diff_str").removeClass("decrease")
+	$("#status_diff_dex").removeClass("decrease")
+	$("#status_diff_def").removeClass("decrease")
+	$("#status_diff_agi").removeClass("decrease")
+
+	if(str<0){
+		$("#status_diff_str").addClass("decrease")
+	}	
+	if(dex<0){
+		$("#status_diff_dex").addClass("decrease")
+	}	
+	if(def<0){
+		$("#status_diff_def").addClass("decrease")
+	}	
+	if(agi<0){
+		$("#status_diff_agi").addClass("decrease")
+	}	
 }
 
 //マウスオーバー時
 function equipDetailMouseOver(domobject){
 	var item_id = domobject.attributes.item_id.textContent
-
 	updateEquipDetailAreaTo(item_id)
 }
 
@@ -470,10 +647,142 @@ function equipListNextPage(){
 	prepareEquipMenu()
 }
 
-//クッキーに記憶
-function save(){
-	$.cookie("save",save);
-	log($.cookie("save"))
+//既に装備してたら装備できない
+function isAlreadyEquipped(item_id){
+	for(charaname in save.equip ){
+		for(var equip of save.equip[charaname]){
+			if (equip == item_id){
+				return true
+			}
+		}
+	}
+	return false
+}
+
+//装備を試みる
+function equip(domobject){
+	var item_id = domobject.attributes.item_id.textContent
+	var current_chara_name = data.equipment_menu.current_character
+	var equip_num = save.equip[current_chara_name].length
+
+	//すでに4つ以上装備していたら装備できない
+	if(equip_num >= 4){
+		log("装備しすぎ")
+		return
+	}
+
+	//既に誰かが装備していたら装備できない
+	if(isAlreadyEquipped(item_id)){
+		log("それもう装備してるわ")
+		return
+	}
+
+	//未開放の装備は装備できない
+	if(!save.item[item_id]){
+		log("未開放の装備だよね")
+		return
+	}
+
+	//装備処理
+	save.equip[current_chara_name].push(item_id)
+
+	//viewの反映
+	updateCurrentEquipListArea()
+	updateCurrentTotalParameter()
+
+}
+
+//クリック経由で装備を外す のdompbjectからスライスを取り出して処理
+function unEquipClick(domobject){
+	log("発火")
+	var item_id = domobject.attributes.item_id.textContent
+	var current_chara_name = data.equipment_menu.current_character
+
+	//アイテムIDが埋まってないやつは未装備の装備欄なので処理しない
+	if(!item_id){
+		return
+	}
+
+	for(var i=0;i<4;++i){
+		if(item_id == save.equip[current_chara_name][i]){
+			log(i)
+			unEquip(i)
+		}
+	}
+
+
+}
+
+//装備を外す
+function unEquip(slice=false){
+	log(slice)
+	var current_chara_name = data.equipment_menu.current_character
+	//既に装備してないなら何もしない
+	if(save.equip[current_chara_name].length == 0){
+		return
+	}	
+
+	if(slice===false){
+		save.equip[current_chara_name].pop()
+	}
+	else{
+		save.equip[current_chara_name].splice(slice,1)		
+	}
+
+	//viewの反映
+	updateCurrentEquipListArea()
+	updateCurrentTotalParameter()
+
+}
+
+//現在装備エリアの表示反映を行う
+function  updateCurrentEquipListArea(){
+	var current_chara_name = data.equipment_menu.current_character
+	var equip_num = save.equip[current_chara_name].length
+
+	for(var i=0;i<4;++i){
+		$("#current_equip_list").children()[i].innerText = "-"
+	}
+
+	for(var i=0;i<equip_num;++i){
+		var item_id = save.equip[current_chara_name][i]
+		var item_name = data.item_data[item_id]
+		$("#current_equip_list").children()[i].innerText = makeFullEquipName(item_id)
+	}
+
+	//アイテムIDのリセット
+	for(var i=0;i<4;++i){
+		$("#current_equip_list").children()[i].setAttribute("item_id","")
+	}
+
+	//アイテムIDの埋め込み
+	for(var i=0;i<equip_num;++i){
+		var item_id = save.equip[current_chara_name][i]
+		$("#current_equip_list").children()[i].setAttribute("item_id",item_id)
+	}
+}
+
+//装備キャラの切り替え
+function toggleEquipEditCharacter(){
+	var current_chara_name = data.equipment_menu.current_character
+
+	//変更後キャラ名
+	var after = "neko" //current_chara_name=="siro"?"kuro":"siro"
+
+
+	//データ上も反映
+	data.equipment_menu.current_chara_name = "siro" //after	
+
+	//キャラの切り替え
+	$("#equip_charagter_image").attr("src","images/neko/chara/"+after+".png")
+	.css("left","-200px")
+	.css("opacity",0)
+	.animate({
+		opacity:1,
+		left:"-100px"
+	},300,"easeOutQuart")
+
+
 }
 
 /*******************************************/
@@ -521,6 +830,32 @@ $("#pager_button_next").click(function(){
 //各装備マウスオーバーで詳細画面に対応したものを表示
 $(".equip_item").mouseover(function(){
 	equipDetailMouseOver(this)
+})
+
+//各装備マウスオーバーで詳細画面に対応したものを表示
+$(".equip_item").click(function(){
+	equip(this)
+})
+
+//装備ウィンドウ右クリで装備を外す
+$("#equipment_menu").bind("contextmenu",function(){
+	unEquip()
+	return false
+})
+
+//装備詳細にマウスオーバーでも詳細を表示
+$(".current_equip_item").mouseover(function(){
+	equipDetailMouseOver(this)
+})
+
+//装備詳細クリックは装備を外す
+$(".current_equip_item").click(function(){
+	unEquipClick(this)
+})
+
+//装備キャラ切り替えボタンでトグル
+$("#equip_character_toggle_button").click(function(){
+	toggleEquipEditCharacter()
 })
 
 /*******************************************/

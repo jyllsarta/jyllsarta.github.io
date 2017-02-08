@@ -97,8 +97,8 @@
 		<div id="equipment_menu" class="hidden">
 			<div id="equipment_back_button">戻るボタン！</div>
 			<div id="equip_menu_text">装備</div>
-			<div id="equip_character_toggle_button">しろこ|くろこ</div>
 			<img src="images/neko/chara/neko.png" id="equip_charagter_image">
+			<div id="equip_character_toggle_button">しろこ|くろこ</div>
 			<div id="equip_select_area">
 				<div id="pager">
 					<span id="equip_pager_page_text">ページ</span>
@@ -106,10 +106,10 @@
 					<span id="pager_sepalator">/</span>
 					<span id="total_page">23</span>
 				</div>
-			<div id="pager_button_area">
-				<span id="pager_button_prev">◀</span>
-				<span id="pager_button_next">▶</span>
-			</div>
+				<div id="pager_button_area">
+					<span id="pager_button_prev">◀</span>
+					<span id="pager_button_next">▶</span>
+				</div>
 				<ul id="equipment_list">
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
@@ -129,11 +129,11 @@
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
-						<div class="equip_list_text rare">*羽ペン</div>
+						<div class="equip_list_text">*羽ペン</div>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
-						<div class="equip_list_text epic">☆スクール水着</div>
+						<div class="equip_list_text">☆スクール水着</div>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
@@ -149,7 +149,7 @@
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
-						<div class="equip_list_text legendary">★円卓模型</div>
+						<div class="equip_list_text">★円卓模型</div>
 					</li>
 				</ul>
 				<div id="equip_detail_area">
@@ -180,32 +180,32 @@
 			</div>
 			<div id="character_status_area">
 				<ul id="current_equip_list">
-					<li class="current_equip_item equip_first">装備1</li>
-					<li class="current_equip_item equip_second">装備2</li>
-					<li class="current_equip_item equip_third">装備3</li>
-					<li class="current_equip_item equip_fourth">装備4</li>
+					<li class="current_equip_item equip_first" item_id="">-</li>
+					<li class="current_equip_item equip_second" item_id="">-</li>
+					<li class="current_equip_item equip_third" item_id="">-</li>
+					<li class="current_equip_item equip_fourth" item_id="">-</li>
 				</ul>
 				<div id="status_show_area">
 					<ul id="status_list">
 						<li class="status_unit">
 							<span class="status_text">STR</span>
-							<span class="status_param">10</span>
-							<span class="status_param_diff"></span>
+							<span id="status_total_str" class="status_param">10</span>
+							<span id="status_diff_str" class="status_param_diff"></span>
 						</li>
 						<li class="status_unit">
 							<span class="status_text">DEX</span>
-							<span class="status_param">10</span>
-							<span class="status_param_diff"></span>
+							<span id="status_total_dex" class="status_param">10</span>
+							<span id="status_diff_dex" class="status_param_diff"></span>
 						</li>
 						<li class="status_unit">
 							<span class="status_text">DEF</span>
-							<span class="status_param">10</span>
-							<span class="status_param_diff"></span>
+							<span id="status_total_def" class="status_param">10</span>
+							<span id="status_diff_def" class="status_param_diff"></span>
 						</li>
 						<li class="status_unit">
 							<span class="status_text">AGI</span>
-							<span class="status_param">10</span>
-							<span class="status_param_diff"></span>
+							<span id="status_total_agi" class="status_param">10</span>
+							<span id="status_diff_agi" class="status_param_diff"></span>
 						</li>
 					</ul>
 				</div>

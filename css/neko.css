@@ -499,9 +499,17 @@ header{
 
 .status_param{
 	display: inline-block;
-	width: 140px;
+	width: 100px;
 }
 
+.status_param_diff{
+	display: inline-block;
+	width: 100px;
+}
+
+.decrease{
+	color: #FF0000;
+}
 
 /*webフォント関連*/
 /*
