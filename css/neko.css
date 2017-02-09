@@ -179,11 +179,29 @@ header{
 	border: 1px dotted #FFFFFF;	
 }
 
+#condition_area_siro{
+	position: absolute;
+	top: 0px;
+	left: 5px;
+	width: 300px;
+	height: 48px;
+	border: 1px dotted #345345;		
+}
+
+#condition_area_kuro{
+	position: absolute;
+	top: 50px;
+	left: 5px;
+	width: 300px;
+	height: 48px;
+	border: 1px dotted #345345;		
+}
+
 #message_log_area{
 	position: absolute;
 	top: 240px;
 	left: 15px;
-	width: 200px;
+	width: 370px;
 	height: 340px;
 	border: 1px dotted #FFFFFF;	
 }
@@ -249,6 +267,26 @@ header{
 	left: 240px;	
 	width: 700px;
 	height: 467px;	
+}
+
+#dungeon_select_menu{
+	position: absolute;	
+	opacity: 0;
+	top: 30px;
+	left: 50px;
+	width: 1100px;
+	height: 700px;
+	background-color: #123123;
+}
+
+#status_menu{
+	position: absolute;	
+	opacity: 0;
+	top: 30px;
+	left: 50px;
+	width: 1100px;
+	height: 700px;
+	background-color: #432432;
 }
 
 #equipment_menu{
@@ -383,6 +421,10 @@ header{
 
 .legendary{
 	color:#FF88EE;
+}
+
+.equipped{
+	opacity: 0.4;
 }
 
 #equip_detail_area{

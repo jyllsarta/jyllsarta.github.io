@@ -79,6 +79,13 @@ var ITEM_LIST_LOCATION = "etc/itemlist.csv"
 //自然につくプラス値の最大
 var MAX_EQUIP_BUILD = 11
 
+//アイテム抽選関係
+//アイテムの出現比率
+var LOT_FREQ_NORMAL = 5
+var LOT_FREQ_RARE = 4
+var LOT_FREQ_EPIC = 3
+var LOT_FREQ_LEGENDARY = 2
+
 /*******************************************/
 /* ユーティリティ・ヘルパー */
 /*******************************************/
@@ -98,11 +105,7 @@ function randInt(min, max) {
 
 function init(){
 	changeGameMode(FIRST_GAME_MODE)
-	castMessage("ここにログが流れます")
-
 	loadItemList()
-
-	castMessage("initされましたよん")
 }
 
 /*******************************************/
@@ -326,23 +329,96 @@ function aquireItem(item_id){
 	save.item[item_id] = after
 }
 
+//レアリティの数値から出現比率を計算
+function getBoxAmount(rarity){
+	switch(rarity){
+		case "0":
+			return LOT_FREQ_NORMAL
+		break
+		case "1":
+			return LOT_FREQ_RARE
+		break
+		case "2":
+			return LOT_FREQ_EPIC
+		break
+		case "3":
+			return LOT_FREQ_LEGENDARY
+		break
+		default:
+			log("変なレアリティ")
+		break
+	}
+}
+
+//現在ダンジョンなどを考慮して何を拾うのか抽選を行う
+//抽選結果のアイテムIDを返す
+function lotItem(){
+	var dungeon_index = save.current_dungeon_id*10
+	var floor_up = Math.floor(save.current_floor/2)
+	var item_range = 10
+	var min = dungeon_index+floor_up
+	var max = dungeon_index+floor_up+item_range
+
+	//アイテム抽選箱
+	//こいつにレア度ごとに定めた個数アイテムをぶっこんで一個取り出す
+	var lot_box = []
+	for(var i=min;i<max;++i){
+		var box_amount = getBoxAmount(data.item_data[i].rarity)
+		for(var j=0;j<box_amount;++j){
+			lot_box.push(i)
+		}
+	}
+	var elected_item = lot_box[randInt(0,lot_box.length)]
+	return  elected_item
+}
+
+function updateStairsArea(){
+	$("#current_floor").text(save.current_floor)
+}
+
+//バトル処理を行う
+function processBattle(){
+	//とりあえずダンジョン使用決まってから
+	save.status.siro.hp -= randInt(1,10)
+	save.status.kuro.hp -= randInt(1,10)
+
+	save.status.siro.hp < 0?save.status.siro.hp=0:false
+	save.status.kuro.hp < 0?save.status.kuro.hp=0:false
+}
+
+//階段処理
+function processStairs(){
+	save.current_floor ++
+	updateStairsArea()
+}
+
 //アイテム拾得イベントを起こす
 function eventItem(){
 	spriteSlidein("item")
-	var item_id = randInt(1,10)
+	var item_id = lotItem()
 	aquireItem(item_id)
-	castMessage("アイテムを拾いました！")
+
+	//新規取得ならレベル1になっているはず
+	if(save.item[item_id] == 1){
+		castMessage(data.item_data[item_id].name + "を拾った!")
+	}
+	else{
+		castMessage(data.item_data[item_id].name+"を+"+(save.item[item_id]-1)+"に強化した!")		
+	}
+
 }
 
 //階段降りイベントを起こす
 function eventStairs(){
 	spriteSlidein("artifact")
+	processStairs()
 	castMessage("階段を降りた！")
 }
 
 //バトルイベントを起こす
 function eventBattle(){
 	spriteSlidein("battle")
+	processBattle()
 	castMessage("バトルが発生した！")
 }
 
@@ -360,10 +436,39 @@ function spriteSlidein(imagename){
 	.animate({
 		opacity	:0,
 		top:"110px",
-	},200,"swing")
+	},800,"easeOutQuart")
 	.queue(function () {
 		$(this).addClass	("hidden").dequeue();
+		//バトル結果の画面反映はスプライト消えたあと
+		updateCurrentHP() 
 	})
+}
+
+//HPの表記反映
+function updateCurrentHP(){
+	$("#hp_siro").text(save.status.siro.hp)
+	$("#hp_kuro").text(save.status.kuro.hp)
+}
+
+
+//ダンジョン選択画面のメニューを展開
+function showDungeonSelectMenu(){
+	$("#dungeon_select_menu")
+	.removeClass("hidden")
+	.animate({
+		opacity:0.98,
+		top:"50px",
+	},200,"easeOutQuart")	
+}
+
+//ステータス画面のメニューを展開
+function showStatusMenu(){
+	$("#status_menu")
+	.removeClass("hidden")
+	.animate({
+		opacity:0.98,
+		top:"50px",
+	},200,"easeOutQuart")
 }
 
 //装備メニューの展開
@@ -493,16 +598,22 @@ function updateEquipList(){
 		//一旦クラスリセット
 		equip_name_list[i].setAttribute("class","equip_list_text")
 
-		//レアリティ反映
+		//レアリティ・装備済反映
 		if(data.item_data[target_item_id]){
 			var rarity = data.item_data[target_item_id].rarity
-			var rarity_class_name = ""
-			if(target_item_lv){
-				rarity_class_name = getRarityClassName(rarity)
-			}	
-			equip_name_list[i].setAttribute("class","equip_list_text "+rarity_class_name)
-		}
+			var additional_class_name = ""
 
+			if(target_item_lv){
+				additional_class_name = getRarityClassName(rarity)
+			}	
+
+			//装備済反映
+			if(isAlreadyEquipped(target_item_id)){
+				additional_class_name += " equipped"
+			}
+
+		}
+		equip_name_list[i].setAttribute("class","equip_list_text "+additional_class_name)
 		equip_name_list[i].innerText = item_full_name
 	}	
 }
@@ -689,12 +800,11 @@ function equip(domobject){
 	//viewの反映
 	updateCurrentEquipListArea()
 	updateCurrentTotalParameter()
-
+	updateEquipList()
 }
 
 //クリック経由で装備を外す のdompbjectからスライスを取り出して処理
 function unEquipClick(domobject){
-	log("発火")
 	var item_id = domobject.attributes.item_id.textContent
 	var current_chara_name = data.equipment_menu.current_character
 
@@ -705,7 +815,6 @@ function unEquipClick(domobject){
 
 	for(var i=0;i<4;++i){
 		if(item_id == save.equip[current_chara_name][i]){
-			log(i)
 			unEquip(i)
 		}
 	}
@@ -715,7 +824,6 @@ function unEquipClick(domobject){
 
 //装備を外す
 function unEquip(slice=false){
-	log(slice)
 	var current_chara_name = data.equipment_menu.current_character
 	//既に装備してないなら何もしない
 	if(save.equip[current_chara_name].length == 0){
@@ -767,11 +875,10 @@ function toggleEquipEditCharacter(){
 	var current_chara_name = data.equipment_menu.current_character
 
 	//変更後キャラ名
-	var after = "neko" //current_chara_name=="siro"?"kuro":"siro"
-
+	var after = current_chara_name=="siro"?"kuro":"siro"
 
 	//データ上も反映
-	data.equipment_menu.current_chara_name = "siro" //after	
+	data.equipment_menu.current_character = after	
 
 	//キャラの切り替え
 	$("#equip_charagter_image").attr("src","images/neko/chara/"+after+".png")
@@ -782,6 +889,9 @@ function toggleEquipEditCharacter(){
 		left:"-100px"
 	},300,"easeOutQuart")
 
+	updateCurrentEquipListArea()
+	updateCurrentTotalParameter()
+	updateEquipList()
 
 }
 
@@ -804,6 +914,16 @@ $("#stage").click(function(){
 //スプライト画像はクリックされたら消す
 $("#sprite_image").click(function(){
 	$("#sprite_image").addClass("hidden")
+})
+
+//ダンジョンリスト画面に戻るメニューを表示
+$("#dungeon_list_show_button").click(function(){
+	showDungeonSelectMenu()
+})
+
+//ステータス画面を開く
+$("#status_show_button").click(function(){
+	showStatusMenu()
 })
 
 //メニューボタンクリックでメニューを開く

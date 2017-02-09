@@ -50,7 +50,7 @@
 				<div id="current_dungeon_text">現在のダンジョン:</div>				
 				<div id="dungeon_info_area">
 					<span class="dungeon_name">闇の回廊</span>
-					<span class="current_floor">8</span>
+					<span id="current_floor" class="current_floor">8</span>
 					<span class="floor_sepalator">/</span>
 					<span class="max_floor">12</span>
 					<span class="floor_unit">F</span>
@@ -65,12 +65,29 @@
 				<ul id="menu_list">
 					<li class="menu_item">回復</li>
 					<li id="menu_equip_button" class="menu_item">装備</li>
-					<li class="menu_item">ステータス</li>
-					<li class="menu_item">入り口に戻る</li>
+					<li id="status_show_button" class="menu_item">ステータス</li>
+					<li id="dungeon_list_show_button" class="menu_item">入り口に戻る</li>
 				</ul>
 			</div>
 			<div id="character_data_area">
-				きゃらでーた
+				<div id="condition_area_siro">
+				<div id="chara_condition_name_siro">しろこ:</div>
+					<div id="hp_show_area_kuro">
+						<span class="condition_text">HP:</span>
+						<span id="hp_siro">100</span>
+						<span class="condition_text">/</span>
+						<span id="hp_max_siro">100</span>
+					</div>
+				</div>
+				<div id="condition_area_kuro">
+				<div id="chara_condition_name_siro">くろこ:</div>
+					<div id="hp_show_area_kuro">
+						<span class="condition_text">HP:</span>
+						<span id="hp_kuro">100</span>
+						<span class="condition_text">/</span>
+						<span id="hp_max_kuro">100</span>
+					</div>
+				</div>
 			</div>
 			<div id="message_log_area">
 				<ul id="message_logs"></ul>
@@ -92,12 +109,16 @@
 			-->
 		</div>
 		<img id="sprite_image" src="images/neko/sprite/battle.png">
+		<div id="dungeon_select_menu" class="hidden">
+		</div>
+		<div id="status_menu" class="hidden">
+		</div>
 
 		<!--装備メニューエリア-->
 		<div id="equipment_menu" class="hidden">
 			<div id="equipment_back_button">戻るボタン！</div>
 			<div id="equip_menu_text">装備</div>
-			<img src="images/neko/chara/neko.png" id="equip_charagter_image">
+			<img src="images/neko/chara/siro.png" id="equip_charagter_image">
 			<div id="equip_character_toggle_button">しろこ|くろこ</div>
 			<div id="equip_select_area">
 				<div id="pager">
