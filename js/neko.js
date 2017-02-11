@@ -313,8 +313,8 @@ function event(){
 
 //アイテムいっぱい取得
 function __debugAquireItemIppai(){
-	for(var i=0;i<100;++i){
-		var rand = randInt(0,50)
+	for(var i=0;i<200;++i){
+		var rand = randInt(0,data.item_data.length)
 		aquireItem(rand)
 	}
 	//viewの反映
@@ -819,7 +819,7 @@ function unEquipClick(domobject){
 		}
 	}
 
-
+	updateCurrentEquipListArea()
 }
 
 //装備を外す
