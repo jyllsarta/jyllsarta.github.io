@@ -32,8 +32,11 @@
 		<div id="stage" class="hidden">ステージ画面のdiv</div>
 		<!-- メイン画面 -->
 		<div id="main" class="hidden">
-			<img src="images/neko/bg/bg.png" id="background">
+			<div id="background">
+				<img src="images/neko/bg/bg.png" id="background_image">
+			</div>
 			<div id="datetime_info_area">
+				<div id="clock_text">時刻:</div>	
 				<div id="date">
 					<span id="month">12</span>
 					<span class="calender_letter">月</span>
@@ -47,7 +50,8 @@
 					<span class="time_sepalator">:</span>
 					<span id="second">45</span>
 				</div>
-				<div id="current_dungeon_text">現在のダンジョン:</div>				
+				<div id="current_dungeon_text">現在のダンジョン:</div>	
+				<div id="depth_text">フロア:</div>	
 				<div id="dungeon_info_area">
 					<span class="dungeon_name">闇の回廊</span>
 					<span id="current_floor" class="current_floor">8</span>
@@ -71,7 +75,7 @@
 			</div>
 			<div id="character_data_area">
 				<div id="condition_area_siro">
-				<div id="chara_condition_name_siro">しろこ:</div>
+					<div id="chara_condition_name_siro">しろこ:</div>
 					<div id="hp_show_area_kuro">
 						<span class="condition_text">HP:</span>
 						<span id="hp_siro">100</span>
@@ -80,7 +84,7 @@
 					</div>
 				</div>
 				<div id="condition_area_kuro">
-				<div id="chara_condition_name_siro">くろこ:</div>
+					<div id="chara_condition_name_siro">くろこ:</div>
 					<div id="hp_show_area_kuro">
 						<span class="condition_text">HP:</span>
 						<span id="hp_kuro">100</span>
@@ -110,15 +114,43 @@
 		</div>
 		<img id="sprite_image" src="images/neko/sprite/battle.png">
 		<div id="dungeon_select_menu" class="hidden">
+			<div id="dungeon_select_back_button">戻るボタン！</div>
+			<div id="dungeon_menu_text">ダンジョン選択</div>
+			<ul id="dungeon_list">
+				<li class="dungeon_item" stage_id="0">ダンジョンいっこめ</li>
+				<li class="dungeon_item" stage_id="1">ダンジョンにこめ</li>
+				<li class="dungeon_item" stage_id="2">ダンジョンさんこめ</li>
+				<li class="dungeon_item" stage_id="3">ダンジョンよんこめ</li>
+				<li class="dungeon_item" stage_id="4">ダンジョンいつつめ</li>
+			</ul>
+			<img src="images/neko/bg/st1.png" id="dungeon_select_preview_image">
+			<div id="dungeon_detail_area">
+				<div id="dungeon_detail_name">ダンジョンの名前がここに</div>
+				<div id="dungeon_detail_text">すご～く暗くて深い闇のそこに育つ草を抜きにいこう。</div>
+			</div>
+
+			<div id="dungeon_detail_total_floor_area">
+				<span class="floor_text">深さ:</span>
+				<span id="dungeon_detail_total_floor">100</span>
+				<span class="floor_text">F</span>
+			</div>
+
+			<div id="dungeon_detail_completed_floor_area">
+				<span class="floor_text">攻略:</span>
+				<span id="dungeon_detail_total_floor">23</span>
+				<span class="floor_text">F</span>
+			</div>
+
 		</div>
 		<div id="status_menu" class="hidden">
+			<div id="status_back_button">戻るボタン！</div>
 		</div>
 
 		<!--装備メニューエリア-->
 		<div id="equipment_menu" class="hidden">
 			<div id="equipment_back_button">戻るボタン！</div>
 			<div id="equip_menu_text">装備</div>
-			<img src="images/neko/chara/siro.png" id="equip_charagter_image">
+			<img src="images/neko/chara/siro_active.png" id="equip_charagter_image">
 			<div id="equip_character_toggle_button">しろこ|くろこ</div>
 			<div id="equip_select_area">
 				<div id="pager">
@@ -131,51 +163,63 @@
 					<span id="pager_button_prev">◀</span>
 					<span id="pager_button_next">▶</span>
 				</div>
+				<div id="power_show_text">
+					総パラメータ
+				</div>
 				<ul id="equipment_list">
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
-						<div class="equip_list_text">棒きれ</div>
+						<span class="equip_list_text">棒きれ</span>
+						<span class="equip_list_param">-</span>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
-						<div class="equip_list_text">よもぎだんご</div>
+						<span class="equip_list_text">棒きれ</span>
+						<span class="equip_list_param">-</span>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
-						<div class="equip_list_text">革の盾</div>
+						<span class="equip_list_text">棒きれ</span>
+						<span class="equip_list_param">-</span>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
-						<div class="equip_list_text">木刀+2</div>
+						<span class="equip_list_text">棒きれ</span>
+						<span class="equip_list_param">-</span>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
-						<div class="equip_list_text">*羽ペン</div>
+						<span class="equip_list_text">棒きれ</span>
+						<span class="equip_list_param">-</span>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
-						<div class="equip_list_text">☆スクール水着</div>
+						<span class="equip_list_text">棒きれ</span>
+						<span class="equip_list_param">-</span>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
-						<div class="equip_list_text">チョコレート</div>
+						<span class="equip_list_text">棒きれ</span>
+						<span class="equip_list_param">-</span>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
-						<div class="equip_list_text">ジャベリン</div>
+						<span class="equip_list_text">棒きれ</span>
+						<span class="equip_list_param">-</span>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
-						<div class="equip_list_text">フライパン</div>
+						<span class="equip_list_text">棒きれ</span>
+						<span class="equip_list_param">-</span>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
-						<div class="equip_list_text">★円卓模型</div>
+						<span class="equip_list_text">棒きれ</span>
+						<span class="equip_list_param">-</span>
 					</li>
 				</ul>
 				<div id="equip_detail_area">
 					<img src="images/neko/icons/equip.png" id="equipment_detail_icon">
-					<div id="equip_detail_name">★食品サンプル</div>
 					<div id="equip_param_area">
 						<ul id="equip_param_list">
 							<li class="param_unit">
@@ -231,6 +275,10 @@
 					</ul>
 				</div>
 			</div>
+		</div>
+		<div id="fadeouter">
+			<div id="kirikae_text">少女移動中</div>
+			<img src="images/neko/etc/kirikae.png" id="kirikae_animation">
 		</div>
 
 

@@ -46,17 +46,41 @@ var save = {
 		siro:[],
 		kuro:[],
 	},
-	item:[]
+	item:[],
+	dungeon_open:[1,0,0,0,0],
+	dungeon_process:[0,0,0,0,0]
 }
 
 var dungeon_data=[
 {
-	name:"もり",
-	background_image:"images/neko/bg/mori.png"
+	name:"一つめのダンジョン",
+	caption:"最初のダンジョン。",
+	start_ir:0,
+	depth:100
 },
 {
-	name:"そら",
-	background_image:"images/neko/bg/sora.png"
+	name:"目黒オフィス",
+	caption:"二つ目のダンジョン。ここでなんかちょっと世界観が披露され始める。",
+	start_ir:50,	
+	depth:400
+},
+{
+	name:"氷っぽいところ",
+	caption:"３つめのダンジョン。背景が幻想的できれいなやつにする。",
+	start_ir:250,	
+	depth:500
+},
+{
+	name:"よっつめのだんじょん",
+	caption:"よっつめ。敵が強くなる。",
+	start_ir:500,	
+	depth:1000
+},
+{
+	name:"ごこめー",
+	caption:"ラスダンっぽいところ。たいへん。クリア後はアイテム掘りに使うのでそこそこ背景がきれいなやつ",
+	start_ir:1000,
+	depth:2000,	
 },
 ]
 
@@ -321,6 +345,16 @@ function __debugAquireItemIppai(){
 	updateEquipList()
 }
 
+//ダンジョンフルオープン
+function __debugDungeonFullOpen(){
+	for(var i=0;i<dungeon_data.length;++i){
+		log(i)
+		save.dungeon_open[i] = 1
+		save.dungeon_process[i] = dungeon_data[i].depth
+	}
+	prepareDungeonList()
+}
+
 //指定したアイテムIDのアイテムを取得
 function aquireItem(item_id){
 	var after = (save.item[item_id] || 0) +1
@@ -333,19 +367,19 @@ function aquireItem(item_id){
 function getBoxAmount(rarity){
 	switch(rarity){
 		case "0":
-			return LOT_FREQ_NORMAL
+		return LOT_FREQ_NORMAL
 		break
 		case "1":
-			return LOT_FREQ_RARE
+		return LOT_FREQ_RARE
 		break
 		case "2":
-			return LOT_FREQ_EPIC
+		return LOT_FREQ_EPIC
 		break
 		case "3":
-			return LOT_FREQ_LEGENDARY
+		return LOT_FREQ_LEGENDARY
 		break
 		default:
-			log("変なレアリティ")
+		log("変なレアリティ")
 		break
 	}
 }
@@ -453,6 +487,7 @@ function updateCurrentHP(){
 
 //ダンジョン選択画面のメニューを展開
 function showDungeonSelectMenu(){
+	prepareDungeonList()
 	$("#dungeon_select_menu")
 	.removeClass("hidden")
 	.animate({
@@ -473,6 +508,8 @@ function showStatusMenu(){
 
 //装備メニューの展開
 function showEquipmentMenu(){
+	prepareEquipMenu()
+
 	$("#equipment_menu")
 	.removeClass("hidden")
 	.animate({
@@ -493,8 +530,33 @@ function fadeEquipmentMenu(){
 	})
 }
 
+//ダンジョン選択メニューの開放
+function fadeDungeonSelectMenu(){
+	$("#dungeon_select_menu")
+	.animate({
+		opacity:0,
+		top:"30px",
+	},300,"easeOutQuart")
+	.queue(function () {
+		$(this).addClass	("hidden").dequeue();
+	})
+}
+
+//ダンジョン選択メニューの開放
+function fadeStatusMenu(){
+	$("#status_menu")
+	.animate({
+		opacity:0,
+		top:"30px",
+	},300,"easeOutQuart")
+	.queue(function () {
+		$(this).addClass	("hidden").dequeue();
+	})
+}
+
 //装備メニューの準備
 function prepareEquipMenu(){
+
 	updatePagerTotalPage()
 	updateEquipList()
 	updatePagerButtonState()
@@ -576,8 +638,50 @@ function makeFullEquipName(item_id){
 
 	}
 
-//装備リストの表示項目を反映
-function updateEquipList(){
+
+//プラス値を考慮して総パラメータを更新する
+function calcTotalItemParam(item_id){
+	var lv = save.item[item_id] || 0
+	var {str, dex, def, agi} = data.item_data[item_id]
+	var orig_params = [str, dex, def, agi].map(x=>parseInt(x,10))
+
+		//プラス補正の反映
+		var builded = orig_params.map(x=>Math.floor(x*(lv-1+5)/5))
+
+		//全部足し合わせる
+		var sum = builded.reduce((x,y)=>x+y)
+
+		return sum
+	}
+
+//装備リストのパラメータ部分を更新
+function updateEquipListParam(){
+	var equip_name_list = $("#equipment_list .equip_item").children(".equip_list_param")
+	var current_page = data.equipment_menu.current_page
+
+	//表示項目の更新
+	for(var i=0;i<equip_name_list.length;++i){
+
+		var target_item_id = (current_page-1)*10 + i
+		var target_item_lv = save.item[target_item_id] || 0
+
+		if(!data.item_data[target_item_id]){
+			equip_name_list[i].innerText = "-"
+			continue
+		}
+
+		if(!target_item_lv){
+			equip_name_list[i].innerText = "-"
+			continue
+		}
+
+		var full_score = calcTotalItemParam(target_item_id)
+		equip_name_list[i].innerText = full_score
+	}
+}
+
+//装備リストの装備名部分を更新
+function updateEquipListName(){
 	var equip_name_list = $("#equipment_list .equip_item").children(".equip_list_text")
 	var current_page = data.equipment_menu.current_page
 
@@ -616,6 +720,13 @@ function updateEquipList(){
 		equip_name_list[i].setAttribute("class","equip_list_text "+additional_class_name)
 		equip_name_list[i].innerText = item_full_name
 	}	
+	
+}
+
+//装備リストの表示項目を反映
+function updateEquipList(){
+	updateEquipListName()
+	updateEquipListParam()
 }
 
 //プラス値を考慮したパラメータを返す
@@ -661,7 +772,7 @@ function resetDetailArea(){
 	$("#status_diff_agi").removeClass("decrease")
 }
 
-//charaのparamNameを算出
+//該当キャラの{str,dex,def,agi}の合計値を計算
 function getTotalParameter(charaname,paramName){
 	var total = 10
 	for(var equip of save.equip[charaname]){
@@ -819,7 +930,6 @@ function unEquipClick(domobject){
 		}
 	}
 
-	updateCurrentEquipListArea()
 }
 
 //装備を外す
@@ -840,6 +950,7 @@ function unEquip(slice=false){
 	//viewの反映
 	updateCurrentEquipListArea()
 	updateCurrentTotalParameter()
+	updateEquipList()
 
 }
 
@@ -881,17 +992,123 @@ function toggleEquipEditCharacter(){
 	data.equipment_menu.current_character = after	
 
 	//キャラの切り替え
-	$("#equip_charagter_image").attr("src","images/neko/chara/"+after+".png")
-	.css("left","-200px")
-	.css("opacity",0)
+	$("#equip_charagter_image").attr("src","images/neko/chara/"+after+"_active.png")
+	.css("left","-40px")
+	.css("opacity",.7)
 	.animate({
 		opacity:1,
-		left:"-100px"
+		left:"-30px"
 	},300,"easeOutQuart")
 
 	updateCurrentEquipListArea()
 	updateCurrentTotalParameter()
 	updateEquipList()
+
+}
+
+//ステージの切り替え
+function changeStageTo(stage_id,depth){
+	save.current_dungeon_id = stage_id
+	save.current_floor = depth
+	$("#fadeouter")
+	.css("display","block")
+	.animate({
+		opacity:1
+	},300,"easeOutQuart")
+	.queue(function(){
+		$("#background_image").attr("src","images/neko/bg/st"+stage_id+".png")	
+		$(".dungeon_name").text(dungeon_data[stage_id].name)
+		$("#current_floor").text(save.current_floor)
+		$(".max_floor").text(dungeon_data[stage_id].depth)
+		$(this).dequeue();
+	})
+	.delay(1000)
+	.animate({
+		opacity:0
+	},200,"easeOutQuart")
+	.queue(	function(){
+		$(this).css("display","none")
+		$(this).dequeue();
+	})
+
+	$("#kirikae_animation")
+	.css("left","400px")
+	.css("opacity",0.7)
+	.animate({
+		opacity:1,
+		left:"600px",
+	},500,"linear")
+	.delay(300)
+	.animate({
+		top:480
+	},30,"swing")
+	.animate({
+		top:500
+	},30,"linear")
+
+	$("#kirikae_text")
+	.text("少女移動中 ")
+	.delay(200)
+	.queue(	function(){
+		$(this).append(".")
+		$(this).dequeue();
+	})
+	.delay(250)
+	.queue(	function(){
+		$(this).append(".")
+		$(this).dequeue();
+	})
+	.delay(300)
+	.queue(	function(){
+		$(this).append(".")
+		$(this).dequeue();
+	})
+
+}
+
+//ダンジョン選択画面の詳細表示をdungeon_idのものに切り替える
+function updateDungeonDetailTo(dungeon_id){
+	$("#dungeon_select_preview_image")
+	.animate({
+		opacity:0.6,
+	},50,"easeOutQuart")
+	.queue(function(){
+		$(this).attr("src","images/neko/bg/st"+dungeon_id+".png")
+		$(this).dequeue();
+	})
+	.animate({
+		opacity:1,
+	},30,"easeOutQuart")
+
+	$("#dungeon_detail_name").text(dungeon_data[dungeon_id].name)
+	$("#dungeon_detail_text").text(dungeon_data[dungeon_id].caption)
+}
+
+//クリックされたオブジェクトからステージIDを取り出して詳細画面を切り替える
+function updateDungeonDetailClick(domobject){
+	var stage_id = domobject.attributes.stage_id.textContent
+	updateDungeonDetailTo(stage_id)
+}
+
+//ダンジョンの開放状況に合わせてリストを用意する
+function prepareDungeonList(){
+	//いったんフラッシュ
+	$("#dungeon_list").text("")
+
+	//開放済のダンジョンを見せる
+	for(var i=0;i<save.dungeon_process.length;++i){
+		var stage_id = i
+		var name = dungeon_data[stage_id].name
+		var item = '<li class="dungeon_item" stage_id="'+stage_id+'">'+name+'</li>'
+		if(save.dungeon_open[stage_id]){
+			$("#dungeon_list").append(item)
+		}
+	}
+
+	//新しく付与した要素をクリックした際の挙動を定義しておく
+	$(".dungeon_item").click(function(){
+		updateDungeonDetailClick(this)
+	})
 
 }
 
@@ -928,8 +1145,17 @@ $("#status_show_button").click(function(){
 
 //メニューボタンクリックでメニューを開く
 $("#menu_equip_button").click(function(){
-	prepareEquipMenu()
 	showEquipmentMenu()
+})
+
+//装備メニュー戻るボタンクリックでメニュー閉じる
+$("#dungeon_select_back_button").click(function(){
+	fadeDungeonSelectMenu()
+})
+
+//ステータスメニュー戻るボタンクリックでメニュー閉じる
+$("#status_back_button").click(function(){
+	fadeStatusMenu()
 })
 
 //装備メニュー戻るボタンクリックでメニュー閉じる
@@ -977,6 +1203,7 @@ $(".current_equip_item").click(function(){
 $("#equip_character_toggle_button").click(function(){
 	toggleEquipEditCharacter()
 })
+
 
 /*******************************************/
 /* 初期化とメインループ実行 */
