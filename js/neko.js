@@ -702,6 +702,9 @@ function updateEquipListName(){
 		//一旦クラスリセット
 		equip_name_list[i].setAttribute("class","equip_list_text")
 
+		//一旦アイコンをデフォのやつに
+		$(".equip_list_icon")[i].setAttribute("src","images/neko/icons/unachieved.png")
+
 		//レアリティ・装備済反映
 		if(data.item_data[target_item_id]){
 			var rarity = data.item_data[target_item_id].rarity
@@ -709,12 +712,16 @@ function updateEquipListName(){
 
 			if(target_item_lv){
 				additional_class_name = getRarityClassName(rarity)
+				//アイコン反映
+				var icon_name = getItemIconNameFromTypeID(data.item_data[target_item_id].category)
+				$(".equip_list_icon")[i].setAttribute("src","images/neko/icons/"+icon_name+".png")
 			}	
 
 			//装備済反映
 			if(isAlreadyEquipped(target_item_id)){
 				additional_class_name += " equipped"
 			}
+
 
 		}
 		equip_name_list[i].setAttribute("class","equip_list_text "+additional_class_name)
@@ -952,6 +959,30 @@ function unEquip(slice=false){
 	updateCurrentTotalParameter()
 	updateEquipList()
 
+}
+
+function getItemIconNameFromTypeID(type_id){
+	switch(type_id){
+		case "0":
+		return "unachieved"
+		break
+		case "1":
+		return "weapon"
+		break
+		case "2":
+		return "shield"
+		break
+		case "3":
+		return "other"
+		break
+		case "4":
+		return "meal"
+		break
+		default:
+		log(type_id)
+		log("なんか変なタイプ名投げられた.")
+		break
+	}
 }
 
 //現在装備エリアの表示反映を行う
