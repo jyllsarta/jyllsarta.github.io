@@ -135,14 +135,111 @@
 			</div>
 
 			<div id="dungeon_detail_completed_floor_area">
-				<span class="floor_text">攻略:</span>
-				<span id="dungeon_detail_total_floor">23</span>
+				<span class="floor_text">到達:</span>
+				<span id="dungeon_detail_completed_floor">23</span>
 				<span class="floor_text">F</span>
 			</div>
+
+			<div id="dungeon_decide_button">潜る</div>
+
+			<div id="depth_select_area">
+				<span id="dungeon_decide_current_depth">1</span>
+				<span class="floor_text">F</span>				
+			</div>
+
+			<div id="depth_increment_area">
+				<span id="depth_plus_100" class="depth_select_button">▲</span>
+				<span id="depth_plus_10" class="depth_select_button">▲</span>
+				<span id="depth_plus_1" class="depth_select_button">▲</span>
+			</div>
+
+			<div id="depth_decrement_area">
+				<span id="depth_minus_100" class="depth_select_button">▼</span>
+				<span id="depth_minus_10" class="depth_select_button">▼</span>
+				<span id="depth_minus_1" class="depth_select_button">▼</span>
+			</div>
+			
 
 		</div>
 		<div id="status_menu" class="hidden">
 			<div id="status_back_button">戻るボタン！</div>
+			<div id="status_show_text">ステータス画面</div>
+			<img src="images/neko/chara/siro_active.png" id="status_character_siro">
+			<img src="images/neko/chara/kuro_active.png" id="status_character_kuro">
+			<ul id="status_siro">
+				<li class="status">
+				<span class="status_index">HP</span>
+					<span class="status_value">-</span>
+				</li>
+				<li class="status">
+					<span class="status_index">STR</span>
+					<span class="status_value">-</span>
+				</li>
+				<li class="status">
+					<span class="status_index">DEX</span>
+					<span class="status_value">-</span>
+				</li>
+				<li class="status">
+					<span class="status_index">DEF</span>
+					<span class="status_value">-</span>
+				</li>
+				<li class="status">
+					<span class="status_index">DEF</span>
+					<span class="status_value">-</span>
+				</li>
+			</ul>
+			<ul id="status_kuro">
+				<li class="status">
+				<span class="status_index">HP</span>
+					<span class="status_value">-</span>
+				</li>
+				<li class="status">
+					<span class="status_index">STR</span>
+					<span class="status_value">-</span>
+				</li>
+				<li class="status">
+					<span class="status_index">DEX</span>
+					<span class="status_value">-</span>
+				</li>
+				<li class="status">
+					<span class="status_index">VIT</span>
+					<span class="status_value">-</span>
+				</li>
+				<li class="status">
+					<span class="status_index">AGI</span>
+					<span class="status_value">-</span>
+				</li>
+			</ul>
+			<ul id="equip_siro">
+				<li class="status_equip_item">-</li>
+				<li class="status_equip_item">-</li>
+				<li class="status_equip_item">-</li>
+				<li class="status_equip_item">-</li>
+			</ul>
+			<ul id="equip_kuro">
+				<li class="status_equip_item">-</li>
+				<li class="status_equip_item">-</li>
+				<li class="status_equip_item">-</li>
+				<li class="status_equip_item">-</li>
+			</ul>
+			<ul id="status_achievement_list">
+				<li class="achievement_item">
+					<span class="achievement_title">発見アイテム数</span>
+					<span class="achievement_procedure">68</span>
+				</li>
+				<li class="achievement_item">
+					<span class="achievement_title">+10まで強化したアイテム数</span>
+					<span class="achievement_procedure">5</span>
+				</li>
+				<li class="achievement_item">
+					<span class="achievement_title">コイン総計取得枚数</span>
+					<span class="achievement_procedure">2</span>
+				</li>
+				<li class="achievement_item">
+					<span class="achievement_title">最深到達階数</span>
+					<span class="achievement_procedure">43F</span>
+				</li>
+			</ul>
 		</div>
 
 		<!--装備メニューエリア-->
@@ -218,7 +315,8 @@
 					</li>
 				</ul>
 				<div id="equip_detail_area">
-					<img src="images/neko/icons/equip.png" id="equipment_detail_icon">
+					<img src="images/neko/icons/unachieved.png" id="equipment_detail_icon">
+					<div id="equip_detail_name">---</div>
 					<div id="equip_param_area">
 						<ul id="equip_param_list">
 							<li class="param_unit">
@@ -285,6 +383,9 @@
 </div>
 <!-- ゲームのロジック-->
 <script src="js/neko.js"></script>
+<script src="js/handlers.js"></script>
+<script src="js/view.js"></script>
+<script src="js/values.js"></script>
 
 </body>
 </html>

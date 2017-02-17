@@ -1,0 +1,685 @@
+/*******************************************/
+/* メイン画面 */
+/*******************************************/
+
+//ゲームモードの切り替え
+function updateGameModeTo(game_mode){
+	//viewを更新
+	$("#title").addClass("hidden")
+	$("#stage").addClass("hidden")
+	$("#main").addClass("hidden")
+	$("#battle").addClass("hidden")
+	$("#"+game_mode).removeClass("hidden")
+}
+
+//次のイベントまでの時刻を表示しているところを更新
+function updateNextEventTimer(){
+	var sec = getNextEventLastTime()
+	$("#next_event_sec").text(sec)
+}
+
+//画面内のログ表示エリアにデータを吐く
+function castMessage(message){
+	$("#message_logs").append('<li class="log">'+message+'</li>');
+	if ($("#message_logs .log").length > MAX_MESSAGE_ITEM){
+		$("#message_logs .log:first-child").remove()
+	}
+}
+
+//しろがゆらゆら移動
+function  loiteringSiro(){
+	data.siro.x += data.siro.vx
+	$("#character_siro").css("left",data.siro.x)
+	//毎フレーム速度を更新するとカタカタ震えるだけになるので
+	//10フレームに1回のみ更新する
+	if (data.frame % 10 != 0){
+		return
+	}
+	//[-0.25,0.25]
+	var delta = (Math.random() -0.5)/2
+	data.siro.vx += delta
+	//両端に寄り過ぎてるときは逆向きに力を加える
+	if (data.siro.x < 400 && data.siro.vx < 0){
+		data.siro.vx += 0.2
+	}
+	if (data.siro.x > 800 && data.siro.vx > 0){
+		data.siro.vx -= 0.2
+	}
+	if (data.siro.vx > 0){
+		$("#character_siro").addClass("flip")
+	}
+	else{
+		$("#character_siro").removeClass("flip")
+	}
+}
+
+//くろがゆらゆら移動
+function  loiteringKuro(){
+	data.kuro.x += data.kuro.vx
+	$("#character_kuro").css("left",data.kuro.x)
+	//毎フレーム速度を更新するとカタカタ震えるだけになるので
+	//10フレームに1回のみ更新する
+	if (data.frame % 10 != 0){
+		return
+	}
+	//[-0.25,0.25]
+	var delta = (Math.random() -0.5)/2
+	data.kuro.vx += delta/2
+	//両端に寄り過ぎてるときは逆向きに力を加える
+	if (data.kuro.x < 400 && data.kuro.vx < 0){
+		data.kuro.vx += 0.2
+	}
+	if (data.kuro.x > 800 && data.kuro.vx > 0){
+		data.kuro.vx -= 0.2
+	}
+	if (data.kuro.vx > 0){
+		$("#character_kuro").addClass("flip")
+	}
+	else{
+		$("#character_kuro").removeClass("flip")
+	}
+}
+
+//時計を更新
+function updateClock(){
+	var now = new Date()
+	$("#month").text(now.getMonth()+1)
+	$("#day").text(now.getDate())
+	$("#hour").text(now.getHours())
+	$("#minute").text(now.getMinutes())
+	$("#second").text(now.getSeconds())
+}
+
+//現在フロア表示をデータ上のものに反映
+function updateStairsArea(){
+	$("#current_floor").text(save.current_floor)
+}
+
+//対応したスプライトがスライドインする
+//imagename : image/neko/spriteにおいてあるファイル名
+function spriteSlidein(imagename){
+	$("#sprite_image")
+	.attr("src","images/neko/sprite/"+imagename+".png")
+	.removeClass("hidden")
+	.animate({
+		opacity:1,
+		top:"120px"
+	}, 500, "swing")
+	.delay(3000)
+	.animate({
+		opacity	:0,
+		top:"110px",
+	},800,"easeOutQuart")
+	.queue(function () {
+		$(this).addClass("hidden").dequeue();
+		//バトル結果の画面反映はスプライト消えたあと
+		updateCurrentHP() 
+	})
+}
+
+//HPの表記反映
+function updateCurrentHP(){
+	$("#hp_siro").text(save.status.siro.hp)
+	$("#hp_kuro").text(save.status.kuro.hp)
+}
+
+
+//ダンジョン選択画面のメニューを展開
+function showDungeonSelectMenu(){
+	prepareDungeonList()
+	$("#dungeon_select_menu")
+	.removeClass("hidden")
+	.animate({
+		opacity:0.98,
+		top:"50px",
+	},200,"easeOutQuart")	
+}
+
+//ステータス画面のメニューを展開
+function showStatusMenu(){
+	prepareStatusParameters()
+	hideAllStatusBoardElements()
+	$("#status_menu")
+	.removeClass("hidden")
+	.animate({
+		opacity:0.98,
+		top:"50px",
+	},140,"easeOutQuart")
+	.queue(function(){
+		constructStatusBoardAnimation()
+		$(this).dequeue();
+	})
+}
+
+//装備メニューの展開
+function showEquipmentMenu(){
+	prepareEquipMenu()
+
+	$("#equipment_menu")
+	.removeClass("hidden")
+	.animate({
+		opacity:0.98,
+		top:"50px",
+	},200,"easeOutQuart")
+}
+
+//装備メニューの開放
+function fadeEquipmentMenu(){
+	$("#equipment_menu")
+	.animate({
+		opacity:0,
+		top:"30px",
+	},300,"easeOutQuart")
+	.queue(function () {
+		$(this).addClass("hidden").dequeue();
+	})
+}
+
+//ダンジョン選択メニューの開放
+function fadeDungeonSelectMenu(){
+	$("#dungeon_select_menu")
+	.animate({
+		opacity:0,
+		top:"30px",
+	},300,"easeOutQuart")
+	.queue(function () {
+		$(this).addClass("hidden").dequeue();
+	})
+}
+
+//ダンジョン選択メニューの開放
+function fadeStatusMenu(){
+	$("#status_menu")
+	.animate({
+		opacity:0,
+		top:"30px",
+	},300,"easeOutQuart")
+	.queue(function () {
+		$(this).addClass("hidden").dequeue();
+	})
+}
+
+
+
+
+/*******************************************/
+/* 装備画面 */
+/*******************************************/
+
+//ページャーの総ページ数を反映
+function updatePagerTotalPage(){
+	var max_page = Math.floor(data.item_data.length/10)+1
+	$("#total_page").text(max_page)
+}
+
+//装備メニューの準備
+function prepareEquipMenu(){
+	updatePagerTotalPage()
+	updateEquipList()
+	updatePagerButtonState()
+}
+
+//装備リストのパラメータ部分を更新
+function updateEquipListParam(){
+	var equip_name_list = $("#equipment_list .equip_item").children(".equip_list_param")
+	var current_page = data.equipment_menu.current_page
+
+	//表示項目の更新
+	for(var i=0;i<equip_name_list.length;++i){
+		var target_item_id = (current_page-1)*10 + i
+		var target_item_lv = save.item[target_item_id] || 0
+
+		if(!data.item_data[target_item_id]){
+			equip_name_list[i].innerText = "-"
+			continue
+		}
+
+		if(!target_item_lv){
+			equip_name_list[i].innerText = "-"
+			continue
+		}
+
+		var full_score = calcTotalItemParam(target_item_id)
+		equip_name_list[i].innerText = full_score
+	}
+}
+
+//装備リストの装備名部分を更新
+function updateEquipListName(){
+	var equip_name_list = $("#equipment_list .equip_item").children(".equip_list_text")
+	var current_page = data.equipment_menu.current_page
+
+	//li にアイテムIDを埋め込み
+	var lists =  $("#equipment_list").children()
+	for(var i=0;i<lists.length;++i){
+		lists[i].setAttribute("item_id",(current_page-1)*10+i)
+	} 
+
+	//表示項目の更新
+	for(var i=0;i<equip_name_list.length;++i){
+
+		var target_item_id = (current_page-1)*10 + i
+		var target_item_lv = save.item[target_item_id] || 0
+		var item_full_name = makeFullEquipName(target_item_id)
+
+		//一旦クラスリセット
+		equip_name_list[i].setAttribute("class","equip_list_text")
+
+		//一旦アイコンをデフォのやつに
+		$(".equip_list_icon")[i].setAttribute("src","images/neko/icons/unachieved.png")
+
+		//レアリティ・装備済反映
+		if(data.item_data[target_item_id]){
+			var rarity = data.item_data[target_item_id].rarity
+			var additional_class_name = ""
+
+			if(target_item_lv){
+				additional_class_name = getRarityClassName(rarity)
+				//アイコン反映
+				var icon_name = getItemIconNameFromTypeID(data.item_data[target_item_id].category)
+				$(".equip_list_icon")[i].setAttribute("src","images/neko/icons/"+icon_name+".png")
+			}	
+			//装備済反映
+			if(isAlreadyEquipped(target_item_id)){
+				additional_class_name += " equipped"
+			}
+		}
+		equip_name_list[i].setAttribute("class","equip_list_text "+additional_class_name)
+		equip_name_list[i].innerText = item_full_name
+	}	
+}
+
+//装備リストの表示項目を反映
+function updateEquipList(){
+	updateEquipListName()
+	updateEquipListParam()
+}
+
+function updatePagerCurrentPage(){
+	$("#current_page").text(data.equipment_menu.current_page)
+}
+
+//ページャーのボタンの活性不活性を反映
+function updatePagerButtonState(){
+	var current_page = data.equipment_menu.current_page
+	var max_page = Math.floor(data.item_data.length/10)+1
+	$("#pager_button_prev").removeClass("disabled")
+	$("#pager_button_next").removeClass("disabled")
+
+	if(current_page == 1){
+		$("#pager_button_prev").addClass("disabled")		
+	}
+	if(current_page == max_page){
+		$("#pager_button_next").addClass("disabled")		
+	}
+}
+
+//詳細エリアのフラッシュ
+function resetDetailArea(){
+	$("#equipment_detail_icon").attr("src","images/neko/icons/unachieved.png")
+	$("#equip_detail_name").text("----")
+	$("#status_detail_str").text("-")
+	$("#status_detail_dex").text("-")
+	$("#status_detail_def").text("-")
+	$("#status_detail_agi").text("-")
+	$("#flavor_text").text("-")
+
+	$("#status_diff_str").text("-")
+	$("#status_diff_dex").text("-")
+	$("#status_diff_def").text("-")
+	$("#status_diff_agi").text("-")
+
+	$("#status_diff_str").removeClass("decrease")
+	$("#status_diff_dex").removeClass("decrease")
+	$("#status_diff_def").removeClass("decrease")
+	$("#status_diff_agi").removeClass("decrease")
+}
+
+//現在のキャラのパラメータを反映
+function updateCurrentTotalParameter(){
+	var current_chara_name = data.equipment_menu.current_character
+
+	var str = getTotalParameter(current_chara_name,"str")
+	var dex = getTotalParameter(current_chara_name,"dex")
+	var def = getTotalParameter(current_chara_name,"def")
+	var agi = getTotalParameter(current_chara_name,"agi")
+
+	$("#status_total_str").text(str)
+	$("#status_total_dex").text(dex)
+	$("#status_total_def").text(def)
+	$("#status_total_agi").text(agi)
+}
+
+//詳細画面に表示する項目を item_id にする
+function updateEquipDetailAreaTo(item_id){
+	var item = data.item_data[item_id]
+
+	var lv = save.item[item_id] || 0
+	if(lv == 0){
+		resetDetailArea()
+		return
+	}
+
+	//詳細エリアの反映
+	var str = getBuildedParameter(item_id,"str")
+	var dex = getBuildedParameter(item_id,"dex")
+	var def = getBuildedParameter(item_id,"def")
+	var agi = getBuildedParameter(item_id,"agi")
+
+	var icon_name = getItemIconNameFromTypeID(item.category)
+
+	$("#equip_detail_name").text(item.name)
+	$("#equipment_detail_icon").attr("src","images/neko/icons/"+icon_name +".png")
+	$("#status_detail_str").text(str)
+	$("#status_detail_dex").text(dex)
+	$("#status_detail_def").text(def)
+	$("#status_detail_agi").text(agi)
+	$("#flavor_text").text(item.caption)
+
+	//パラメータ関連の反映
+	$("#status_diff_str").text(str)
+	$("#status_diff_dex").text(dex)
+	$("#status_diff_def").text(def)
+	$("#status_diff_agi").text(agi)
+
+	$("#status_diff_str").removeClass("decrease")
+	$("#status_diff_dex").removeClass("decrease")
+	$("#status_diff_def").removeClass("decrease")
+	$("#status_diff_agi").removeClass("decrease")
+
+	if(str<0){
+		$("#status_diff_str").addClass("decrease")
+	}	
+	if(dex<0){
+		$("#status_diff_dex").addClass("decrease")
+	}	
+	if(def<0){
+		$("#status_diff_def").addClass("decrease")
+	}	
+	if(agi<0){
+		$("#status_diff_agi").addClass("decrease")
+	}	
+}
+
+//現在装備エリアの表示反映を行う
+function  updateCurrentEquipListArea(){
+	var current_chara_name = data.equipment_menu.current_character
+	var equip_num = save.equip[current_chara_name].length
+
+	for(var i=0;i<4;++i){
+		$("#current_equip_list").children()[i].innerText = "-"
+	}
+
+	for(var i=0;i<equip_num;++i){
+		var item_id = save.equip[current_chara_name][i]
+		var item_name = data.item_data[item_id]
+		$("#current_equip_list").children()[i].innerText = makeFullEquipName(item_id)
+	}
+
+	//アイテムIDのリセット
+	for(var i=0;i<4;++i){
+		$("#current_equip_list").children()[i].setAttribute("item_id","")
+	}
+
+	//アイテムIDの埋め込み
+	for(var i=0;i<equip_num;++i){
+		var item_id = save.equip[current_chara_name][i]
+		$("#current_equip_list").children()[i].setAttribute("item_id",item_id)
+	}
+}
+
+//しろこかくろこに編集キャラクターを切り替える
+function toggleEquipEditCharacterViewTo(chara_name){
+	//キャラの切り替え
+	$("#equip_charagter_image").attr("src","images/neko/chara/"+chara_name+"_active.png")
+	.css("left","-40px")
+	.css("opacity",.7)
+	.animate({
+		opacity:1,
+		left:"-30px"
+	},300,"easeOutQuart")
+}
+
+
+/*******************************************/
+/* ステータス画面 */
+/*******************************************/
+
+//ステータス画面のパラメータを整理
+function prepareStatusParameters(){
+	$("#status_siro .status .status_value")[0].textContent = save.status.siro.hp
+	$("#status_siro .status .status_value")[1].textContent =  getTotalParameter("siro","str")
+	$("#status_siro .status .status_value")[2].textContent =  getTotalParameter("siro","dex")
+	$("#status_siro .status .status_value")[3].textContent =  getTotalParameter("siro","def")
+	$("#status_siro .status .status_value")[4].textContent =  getTotalParameter("siro","agi")
+
+	$("#status_kuro .status .status_value")[0].textContent = save.status.kuro.hp
+	$("#status_kuro .status .status_value")[1].textContent =  getTotalParameter("kuro","str")
+	$("#status_kuro .status .status_value")[2].textContent =  getTotalParameter("kuro","dex")
+	$("#status_kuro .status .status_value")[3].textContent =  getTotalParameter("kuro","def")
+	$("#status_kuro .status .status_value")[4].textContent =  getTotalParameter("kuro","agi")
+
+	for(var i=0;i<4;++i){
+		if(save.equip.siro[i]){
+			$("#equip_siro .status_equip_item")[i].textContent = makeFullEquipName(save.equip.siro[i])
+		}
+		else{
+			$("#equip_siro .status_equip_item")[i].textContent = "-"		
+		}
+	}
+
+	for(var i=0;i<4;++i){
+		if(save.equip.kuro[i]){
+			$("#equip_kuro .status_equip_item")[i].textContent = makeFullEquipName(save.equip.kuro[i])
+		}
+		else{
+			$("#equip_kuro .status_equip_item")[i].textContent = "-"		
+		}
+	}
+}
+
+//ステータス画面中の要素を一旦全部隠す
+function hideAllStatusBoardElements(){
+	$("#status_character_siro").css({
+		left : "-100px",
+		opacity:0
+	})
+	$("#status_character_kuro").css({
+		left : "710px",
+		opacity:0
+	})
+	$("#status_siro").css({
+		opacity:0
+	})
+	$("#status_kuro").css({
+		opacity:0
+	})
+	$("#equip_siro").css({
+		opacity:0
+	})
+	$("#equip_kuro").css({
+		opacity:0
+	})
+	$(".status_equip_item").css({
+		opacity:0
+	})
+	$("#status_achievement_list").css({
+		opacity:0
+	})
+	//status_equip_item
+}
+
+//画面内の要素がスススッてフェードインしてくる昔のwebサイトでよく見たアレ
+function constructStatusBoardAnimation(){
+	//コンテ
+	//しろこ・くろこの画像スライドイン
+	//ステがopacity1に遷移
+	//装備枠がopacity1に遷移
+	//装備要素が一個ずつスライドイン
+	//実績が1秒架けてopacity1に遷移
+	$("#status_character_siro").animate({
+		left:"-40px",
+		opacity:1
+	},2000,"easeOutQuart")
+
+	$("#status_character_kuro").animate({
+		left:"650px",
+		opacity:1
+	},2000,"easeOutQuart")
+
+	$("#status_siro").delay(300)
+	.animate({
+		opacity:0.8
+	},2000,"easeOutQuart")
+
+	$("#status_kuro").delay(300)
+	.animate({
+		opacity:0.8
+	},2000,"easeOutQuart")
+
+	$("#equip_siro").delay(900)
+	.animate({
+		opacity:0.8
+	},200,"swing")
+
+	$("#equip_kuro").delay(900)
+	.animate({
+		opacity:0.8
+	},200,"swing")
+
+	$(".status_equip_item").animate({
+		opacity:0.8
+	},1000,"easeOutQuart")
+
+	$("#status_achievement_list").delay(2000)
+	.animate({
+		opacity:0.8
+	},1000,"swing")
+
+
+}
+/*******************************************/
+/* ダンジョン選択画面 */
+/*******************************************/
+
+function changeStageToView(stage_id,depth){
+
+	//ダンジョン選択画面を閉じる
+	$("#dungeon_select_menu")
+	.animate({
+		opacity:0,
+		top:"30px",
+	},1,"linear")
+	.queue(function () {
+		$(this).addClass("hidden").dequeue();
+	})
+
+
+	//切り替え用アニメーションを再生
+	$("#fadeouter")
+	.css("display","block")
+	.animate({
+		opacity:1
+	},300,"easeOutQuart")
+	.queue(function(){
+		$("#background_image").attr("src","images/neko/bg/st"+stage_id+".png")	
+		$(".dungeon_name").text(dungeon_data[stage_id].name)
+		$("#current_floor").text(save.current_floor)
+		$(".max_floor").text(dungeon_data[stage_id].depth)
+		$(this).dequeue();
+	})
+	.delay(1000)
+	.animate({
+		opacity:0
+	},200,"easeOutQuart")
+	.queue(	function(){
+		$(this).css("display","none")
+		$(this).dequeue();
+	})
+
+	$("#kirikae_animation")
+	.css("left","400px")
+	.css("opacity",0.7)
+	.animate({
+		opacity:1,
+		left:"600px",
+	},500,"linear")
+	.delay(300)
+	.animate({
+		top:480
+	},30,"swing")
+	.animate({
+		top:500
+	},30,"linear")
+
+	$("#kirikae_text")
+	.text("少女移動中 ")
+	.delay(200)
+	.queue(	function(){
+		$(this).append(".")
+		$(this).dequeue();
+	})
+	.delay(250)
+	.queue(	function(){
+		$(this).append(".")
+		$(this).dequeue();
+	})
+	.delay(300)
+	.queue(	function(){
+		$(this).append(".")
+		$(this).dequeue();
+	})
+
+}
+
+
+//ダンジョン選択画面の詳細表示をdungeon_idのものに切り替える
+function updateDungeonDetailTo(dungeon_id){
+	$("#dungeon_select_preview_image")
+	.animate({
+		opacity:0.6,
+	},50,"easeOutQuart")
+	.queue(function(){
+		$(this).attr("src","images/neko/bg/st"+dungeon_id+".png")
+		$(this).dequeue();
+	})
+	.animate({
+		opacity:1,
+	},30,"easeOutQuart")
+
+	$("#dungeon_detail_name").text(dungeon_data[dungeon_id].name)
+	$("#dungeon_detail_text").text(dungeon_data[dungeon_id].caption)
+}
+
+
+//ダンジョンの開放状況に合わせてリストを用意する
+function prepareDungeonList(){
+	//いったんフラッシュ
+	$("#dungeon_list").text("")
+
+	//開放済のダンジョンを見せる
+	for(var i=0;i<save.dungeon_process.length;++i){
+		var stage_id = i
+		var name = dungeon_data[stage_id].name
+		var item = '<li class="dungeon_item" stage_id="'+stage_id+'">'+name+'</li>'
+		if(save.dungeon_open[stage_id]){
+			$("#dungeon_list").append(item)
+		}
+	}
+
+	//新しく付与した要素をクリックした際の挙動を定義しておく
+	$(".dungeon_item").click(function(){
+		updateDungeonDetailClick(this)
+	})
+
+}
+
+//階層メニューの反映
+function updateDungeonSelectFloorData(){
+	var stage_id = data.dungeon_select_menu.stage_id
+	var depth = data.dungeon_select_menu.depth
+	$("#dungeon_detail_total_floor").text(dungeon_data[stage_id].depth)
+	$("#dungeon_detail_completed_floor").text(save.dungeon_process[stage_id])
+	$("#dungeon_decide_current_depth").text(data.dungeon_select_menu.depth)
+}
+
