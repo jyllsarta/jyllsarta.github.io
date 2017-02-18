@@ -233,8 +233,8 @@ header{
 }
 
 .character_chip{
-	width: 120px;
-	height: 180px;
+	width: 140px;
+	height: 210px;
 }
 
 .flip{
@@ -243,7 +243,7 @@ header{
 
 #character_siro{
 	position: absolute;
-	top: 350px;
+	top: 300px;
 	left: 440px;
 	width: 150px;
 	height: 180px;
@@ -251,7 +251,7 @@ header{
 
 #character_kuro{
 	position: absolute;
-	top: 370px;
+	top: 310px;
 	left: 510px;
 	width: 140px;
 	height: 170px;
