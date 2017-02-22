@@ -102,7 +102,7 @@ function loadCSV(csvtext){
 //アイテムいっぱい取得
 function __debugAquireItemIppai(){
 	for(var i=0;i<200;++i){
-		var rand = randInt(0,data.item_data.length)
+		var rand = randInt(0,data.item_data.length-1)
 		aquireItem(rand)
 	}
 	//viewの反映
@@ -212,14 +212,6 @@ function lotItem(){
 	return  elected_item
 }
 
-//バトル処理を行う
-function processBattle(){
-	//とりあえずダンジョン使用決まってから
-	save.status.siro.hp -= randInt(1,10)
-	save.status.kuro.hp -= randInt(1,10)
-	save.status.siro.hp < 0?save.status.siro.hp=0:false
-	save.status.kuro.hp < 0?save.status.kuro.hp=0:false
-}
 
 //階段処理
 function processStairs(){
@@ -251,6 +243,7 @@ function eventStairs(){
 //バトルイベントを起こす
 function eventBattle(){
 	spriteSlidein("battle")
+	// in battle.js
 	processBattle()
 	castMessage("バトルが発生した！")
 }
@@ -334,7 +327,7 @@ function calcTotalItemParam(item_id){
 	var {str, dex, def, agi} = data.item_data[item_id]
 	var orig_params = [str, dex, def, agi].map(x=>parseInt(x,10))
 		//プラス補正の反映
-		var builded = orig_params.map(x=>Math.floor(x*(lv-1+5)/5))
+		var builded = orig_params.map(x=>Math.floor(x*(lv-1+10)/10))
 		//全部足し合わせる
 		var sum = builded.reduce((x,y)=>x+y)
 		return sum
@@ -343,7 +336,7 @@ function calcTotalItemParam(item_id){
 //プラス値を考慮したパラメータを返す
 function getBuildedParameter(item_id,paramName){
 	var lv = save.item[item_id]
-	var param = Math.floor(parseInt(data.item_data[item_id][paramName]) * (lv-1+5)/5)
+	var param = Math.floor(parseInt(data.item_data[item_id][paramName]) * (lv-1+10)/10)
 	return param
 }
 
