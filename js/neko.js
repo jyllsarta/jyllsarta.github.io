@@ -246,6 +246,9 @@ function eventBattle(){
 	// in battle.js
 	processBattle()
 	castMessage("バトルが発生した！")
+
+	//しろことくろこの死亡判定
+	updateLoiteringCharactersState()
 }
 
 

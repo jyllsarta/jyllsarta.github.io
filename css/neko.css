@@ -232,9 +232,18 @@ header{
 .log{
 }
 
-.character_chip{
+.character_chip_alive{
+	position: relative;
+	top: 0px;
 	width: 140px;
 	height: 210px;
+}
+
+.character_chip_dead{
+	position: relative;
+	top: 60px;
+	width: 210px;
+	height: 140px;
 }
 
 .flip{
@@ -245,16 +254,12 @@ header{
 	position: absolute;
 	top: 300px;
 	left: 440px;
-	width: 150px;
-	height: 180px;
 }
 
 #character_kuro{
 	position: absolute;
 	top: 310px;
 	left: 510px;
-	width: 140px;
-	height: 170px;
 }
 
 #character_message_area{

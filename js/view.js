@@ -1,3 +1,8 @@
+//初期化必要系オブジェクトを一斉に攫って更新しておく
+function prepareAllView(){
+	updateLoiteringCharactersState()
+}
+
 /*******************************************/
 /* メイン画面 */
 /*******************************************/
@@ -26,8 +31,42 @@ function castMessage(message){
 	}
 }
 
+//あるきまわるキャラたちの状態を反映
+function updateLoiteringCharactersState(){
+	if(save.status.siro.hp <= 0){
+		//しろこ死亡時
+		$("#character_siro img").attr("src","images/neko/chara/siro_dead.png")
+		$("#character_siro img").removeClass("character_chip_alive")
+		$("#character_siro img").addClass("character_chip_dead")
+	}
+	else{
+		//しろこ生存
+		$("#character_siro img").attr("src","images/neko/chara/siro.png")
+		$("#character_siro img").addClass("character_chip_alive")
+		$("#character_siro img").removeClass("character_chip_dead")
+	}
+
+	if(save.status.kuro.hp <= 0){
+		//くろこ死亡時
+		$("#character_kuro img").attr("src","images/neko/chara/kuro_dead.png")
+		$("#character_kuro img").removeClass("character_chip_alive")
+		$("#character_kuro img").addClass("character_chip_dead")
+	}
+	else{
+		//くろこ生存
+		$("#character_kuro img").attr("src","images/neko/chara/kuro.png")
+		$("#character_kuro img").addClass("character_chip_alive")
+		$("#character_kuro img").removeClass("character_chip_dead")
+	}
+
+}
+
 //しろがゆらゆら移動
 function  loiteringSiro(){
+	if(save.status.siro.hp <= 0){
+		return
+	}
+
 	data.siro.x += data.siro.vx
 	$("#character_siro").css("left",data.siro.x)
 	//毎フレーム速度を更新するとカタカタ震えるだけになるので
@@ -55,6 +94,10 @@ function  loiteringSiro(){
 
 //くろがゆらゆら移動
 function  loiteringKuro(){
+	if(save.status.kuro.hp <= 0){
+		return
+	}
+
 	data.kuro.x += data.kuro.vx
 	$("#character_kuro").css("left",data.kuro.x)
 	//毎フレーム速度を更新するとカタカタ震えるだけになるので
