@@ -19,8 +19,17 @@ function updateGameModeTo(game_mode){
 
 //次のイベントまでの時刻を表示しているところを更新
 function updateNextEventTimer(){
-	var sec = getNextEventLastTime()
+	var sec = save.next_event_timer
 	$("#next_event_sec").text(sec)
+}
+
+//画面上の数値をreduceValueだけチャリチャリ減らす
+function reduceNextEventTimerAnimation(reduceValue){
+	var to = Math.max(save.next_event_timer,0)
+	$("#next_event_sec").numerator({
+		duration : 900,
+		toValue : to
+	})
 }
 
 //画面内のログ表示エリアにデータを吐く
@@ -59,6 +68,14 @@ function updateLoiteringCharactersState(){
 		$("#character_kuro img").removeClass("character_chip_dead")
 	}
 
+	//どっちも死んでたら復活タイマー
+	if(!isCharacterAlive()){
+		$("#ressurect_count_area").removeClass("hidden")
+	}
+	else{
+		$("#ressurect_count_area").addClass("hidden")		
+	}
+
 }
 
 //しろがゆらゆら移動
@@ -78,17 +95,17 @@ function  loiteringSiro(){
 	var delta = (Math.random() -0.5)/2
 	data.siro.vx += delta
 	//両端に寄り過ぎてるときは逆向きに力を加える
-	if (data.siro.x < 400 && data.siro.vx < 0){
+	if (data.siro.x < 450 && data.siro.vx < 0){
 		data.siro.vx += 0.2
 	}
-	if (data.siro.x > 800 && data.siro.vx > 0){
+	if (data.siro.x > 700 && data.siro.vx > 0){
 		data.siro.vx -= 0.2
 	}
 	if (data.siro.vx > 0){
-		$("#character_siro").addClass("flip")
+		$("#character_siro img").addClass("flip")
 	}
 	else{
-		$("#character_siro").removeClass("flip")
+		$("#character_siro img").removeClass("flip")
 	}
 }
 
@@ -109,18 +126,45 @@ function  loiteringKuro(){
 	var delta = (Math.random() -0.5)/2
 	data.kuro.vx += delta/2
 	//両端に寄り過ぎてるときは逆向きに力を加える
-	if (data.kuro.x < 400 && data.kuro.vx < 0){
+	if (data.kuro.x < 450 && data.kuro.vx < 0){
 		data.kuro.vx += 0.2
 	}
-	if (data.kuro.x > 800 && data.kuro.vx > 0){
+	if (data.kuro.x > 700 && data.kuro.vx > 0){
 		data.kuro.vx -= 0.2
 	}
 	if (data.kuro.vx > 0){
-		$("#character_kuro").addClass("flip")
+		$("#character_kuro img").addClass("flip")
 	}
 	else{
-		$("#character_kuro").removeClass("flip")
+		$("#character_kuro img").removeClass("flip")
 	}
+}
+
+//自動復活タイマーの更新
+function updateAutoRessurectionCount(){
+	$("#ressurect_count").text(save.auto_ressurect_timer)
+}
+
+//復活演出
+function ressurectAnimation(){
+	$("#ressurection_light")
+	.removeClass("hidden")
+	.animate({
+		opacity:1
+	},1000,"easeOutQuart")
+	.delay(800)
+	.queue(	function(){
+		updateLoiteringCharactersState()
+		updateCurrentHP()
+		$(this).dequeue();
+	})
+	.animate({
+		opacity:0
+	},2000,"easeOutQuart")
+	.queue(	function(){
+		$(this).addClass("hidden")
+		$(this).dequeue();
+	})
 }
 
 //時計を更新

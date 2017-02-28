@@ -53,7 +53,9 @@ var save = {
 	},
 	item:[],
 	dungeon_open:[1,0,0,0,0],
-	dungeon_process:[0,0,0,0,0]
+	dungeon_process:[0,0,0,0,0],
+	next_event_timer : 300,
+	auto_ressurect_timer : 5000
 }
 
 var dungeon_data=[
@@ -114,3 +116,10 @@ var LOT_FREQ_NORMAL = 5
 var LOT_FREQ_RARE = 4
 var LOT_FREQ_EPIC = 3
 var LOT_FREQ_LEGENDARY = 2
+
+//イベント抽選関係
+//イベントの出現比率
+var EVENT_FREQ_STAIRS = 20
+var EVENT_FREQ_ITEM = 38
+var EVENT_FREQ_ITEM_FLOOD = 2
+var EVENT_FREQ_BATTLE = 40

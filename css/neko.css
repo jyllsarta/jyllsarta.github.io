@@ -262,6 +262,37 @@ header{
 	left: 510px;
 }
 
+#ressurect_count_area{
+	position: absolute;
+	top: -10px;
+	left: 50px;
+	width: 250px;
+	height: 50px;
+	background-color: #292029;
+	border-radius: 3px 3px;
+	border : dotted 4px #FFFFFF;
+	text-align: center;
+}
+
+#ressurection_light{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 1200px;
+	height: 800px;
+	opacity: 0;
+	background-color: #FFFFFF;
+	mix-blend-mode:color-dodge;
+}
+
+.ressurect_text{
+	font-size: 24px;
+}
+
+#ressurect_count{
+	font-size: 30px;
+}
+
 #character_message_area{
 	position: absolute;
 	top: 600px;

@@ -2,6 +2,9 @@
 /* バトル関連 */
 /*******************************************/
 
+var enemy_data = {
+
+}
 
 //敵の作成
 function Enemy(rank,type="normal", enchant="none"){
@@ -9,13 +12,22 @@ function Enemy(rank,type="normal", enchant="none"){
 		//ランク50以下の場合は特別処理
 		this.atk = rank*2
 		this.sld = 0
-		this.hp = rank * 3
+		this.hp = rank * 3 + 10
+		this.maxHp = rank*3 + 10
+		this.isDead  = false
+		this.maxDamagedPersentage = 0
 		return this
 	}
-	this.atk = Math.floor(Math.pow(rank-50,1.8) * 1.45) 
+	this.atk = Math.floor(Math.pow(rank-50,1.8) * 1.45) + 140
 	this.sld = 0
-	this.hp = Math.floor(Math.pow(rank-50,1.8) * 3)
+	this.hp = Math.floor(Math.pow(rank-50,1.8) * 3) + 240
+	this.maxHp = Math.floor(Math.pow(rank-50,1.8) * 3) + 240
 	this.isDead  = false
+	this.maxDamagedPersentage = 0
+
+	if(rank > 200){
+		this.sld = rank * 2
+	}
 
 	//TODO type か enchantに指定が入った際のパラメータ補正
 }
@@ -30,7 +42,14 @@ function Ally(charaname){
 	this.atk = (str + dex)/2 + Math.min(str,dex)
 	this.sld = (def + agi)/2 + Math.min(def,agi)
 	this.hp = save.status[charaname].hp
-	this.isDead  = false
+	this.maxHp = 100
+	if(this.hp > 0){
+		this.isDead  = false
+	}
+	else{
+		this.isDead  = true
+	}
+	this.maxDamagedPersentage = 0
 
 }
 
@@ -51,7 +70,6 @@ function calcDamage(from, to){
 //fromがそれぞれtoの生きているキャラに攻撃する
 function attackAllCharacterToRandomTarget(from,to){
 	for(attacker of from){
-		log(attacker)
 		if(attacker.isDead){
 			continue
 		}
@@ -59,7 +77,12 @@ function attackAllCharacterToRandomTarget(from,to){
 		if(target === null){
 			continue
 		}
-		to[target].hp -= calcDamage(attacker,to[target])
+		var damage = calcDamage(attacker,to[target])
+		to[target].hp -= damage
+		var  damagePersentage = Math.floor(damage*100 / to[target].maxHp)
+		if(damagePersentage > to[target].maxDamagedPersentage){
+			to[target].maxDamagedPersentage = damagePersentage
+		}
 		if(to[target].hp <= 0){
 			to[target].isDead = true
 		}
@@ -101,10 +124,19 @@ function listupAliveCharacter(charactersArray){
 	return idxes
 }
 
+//敵一覧から与えたダメージ率の最も大きいものを返す
+function getBiggestMaxDamage(enemies){
+	var max = 0
+	for(en of enemies){
+		if(max < en.maxDamagedPersentage){
+			max = en.maxDamagedPersentage
+		}
+	}
+	return max
+}
 
 //バトル処理を行う
 function processBattle(){
-	var battle_log = []
 	var enemies  = []
 	var allies = []
 
@@ -119,16 +151,48 @@ function processBattle(){
 	allies.push(new Ally("siro"))
 	allies.push(new Ally("kuro"))
 
-	var turnCount = 1
+	var turnCount = 0
+
+	castMessage("戦闘開始！")
+
 	//敵と味方どちらかが全滅すると終了
 	while(listupAliveCharacter(enemies).length > 0 && listupAliveCharacter(allies).length > 0 && turnCount	< 10){
-		log("**ターン開始**")
 		take1turn(enemies,allies)
 		turnCount++
+	}
+	var damage_siro =  save.status.siro.hp - allies[0].hp
+	var damage_kuro =  save.status.kuro.hp - allies[1].hp
+
+	if(allies[0].hp > 0 || allies[1].hp > 0){
+	//勝利していた場合のメッセージ
+	var message = ""
+	if(turnCount == 10){
+		message += "タイムアップ!"
+	}
+	else{
+		message += turnCount + "ターンで勝利し、" 
+	}
+	message += "しろこに" + damage_siro +"%、くろこに" + damage_kuro + "%のダメージ。"
+	castMessage(message)
+
+	var biggestMaxDamage = getBiggestMaxDamage(enemies)
+	if(biggestMaxDamage > 30){
+		var reduceTime = Math.min( biggestMaxDamage*2,100)
+		castMessage(Math.min(biggestMaxDamage,200) + "%オーバーキル！" +reduceTime+ "秒ぶん次イベントが早く回ってきます")
+		reduceNextEventTime(reduceTime)
+	}
+}
+else{
+		//全滅時のメッセージ
+		var message = ""
+		message += "しろこに" + damage_siro +"%、くろこに" + damage_kuro + "%のダメージ。"
+		message += "全滅した... " 
+		castMessage(message)
 	}
 
 	save.status.siro.hp = Math.max(allies[0].hp,0)
 	save.status.kuro.hp = Math.max(allies[1].hp,0)
 	updateCurrentHP()
+	updateLoiteringCharactersState()
 
 }

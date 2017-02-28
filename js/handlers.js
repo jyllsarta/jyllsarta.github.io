@@ -126,6 +126,10 @@ $("#depth_minus_100").click(function(){
 	changeDepth(-100)
 })
 
+//深さ-100ボタン
+$("#ressurect_button").click(function(){
+	ressurect()
+})
 
 
 

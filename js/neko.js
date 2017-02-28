@@ -34,19 +34,32 @@ function mainLoop(){
 
 //1秒ごとの更新で十分な項目
 function mainLoop_1sec(){
+	if(isCharacterAlive()){
+		//生きてる間はイベントタイマーが回る
+		save.next_event_timer --
+		if(save.next_event_timer <= 0){
+			save.next_event_timer = 300
+			event()
+		}
+	}
+	else{
+		//死んでたらリザレクトタイマーが回る
+		save.auto_ressurect_timer --
+		if(save.auto_ressurect_timer == 0){
+			ressurect()
+		}
+		updateAutoRessurectionCount()
+
+	}
+
 	updateClock()
 	updateNextEventTimer()
-
-	//次イベント時刻がリセットされたら
-	if (getNextEventLastTime() ==300){
-		event()
-	}
 }
 
 //ゲームモードをmodeに変更
 function changeGameMode(mode){
 	//logicを更新
-	data.game_mode=mode
+	data.game_mode = mode
 	updateGameModeTo(mode)
 }
 
@@ -123,24 +136,35 @@ function __debugDungeonFullOpen(){
 /* メイン画面 */
 /*******************************************/
 
+//生きてるキャラは居る?
+function isCharacterAlive(){
+	return save.status.siro.hp > 0 || save.status.kuro.hp > 0
+}
 
-//次のイベントまでの残り時間を返す
-function getNextEventLastTime(){
-	var now = new Date()
-	// 5分刻みで次のイベントの時刻を返す
-	var getNextEventMinute = (x) => {return (x - x % 5 + 5)}
-	//あと○分
-	var last_minutes = getNextEventMinute(now.getMinutes())-now.getMinutes() - 1
-	//あと○秒
-	var last_seconds = 60 - now.getSeconds()
-	var sec = last_minutes*60 + last_seconds
-	return sec
+//イベントの抽選を行い、イベントIDを返す
+function lotEvent(){
+	var event_box = []
+	for(var i=0;i<EVENT_FREQ_ITEM;++i){
+		event_box.push(1)
+	}
+	for(var i=0;i<EVENT_FREQ_STAIRS;++i){
+		event_box.push(2)
+	}
+	for(var i=0;i<EVENT_FREQ_BATTLE;++i){
+		event_box.push(3)
+	}
+	for(var i=0;i<EVENT_FREQ_ITEM_FLOOD;++i){
+		event_box.push(4)
+	}
+	return event_box[randInt(0,event_box.length-1)]
+
 }
 
 //イベントを発生させる
 function event(){
-	//とりあえず階段：アイテム：バトルは均等に割り振る
-	var event_type = randInt(1,3)
+	//イベントの抽選を行う	
+	var event_type = lotEvent()
+
 	switch(event_type){
 		case 1:
 		eventItem()
@@ -150,6 +174,9 @@ function event(){
 		break
 		case 3:
 		eventBattle()
+		break
+		case 4:
+		eventItemFlood()
 		break
 		default:
 		castMessage("これはでないはずなので気にしない")
@@ -208,7 +235,7 @@ function lotItem(){
 			lot_box.push(i)
 		}
 	}
-	var elected_item = lot_box[randInt(0,lot_box.length)]
+	var elected_item = lot_box[randInt(0,lot_box.length-1)]
 	return  elected_item
 }
 
@@ -233,6 +260,23 @@ function eventItem(){
 	}
 }
 
+//アイテム拾得イベントを起こす
+function eventItemFlood(){
+	castMessage("ラッキーだ！宝箱を見つけた！")
+	spriteSlidein("item")
+	for(var i=0;i<5;++i){
+		var item_id = lotItem()
+		aquireItem(item_id)
+		//新規取得ならレベル1になっているはず
+		if(save.item[item_id] == 1){
+			castMessage(data.item_data[item_id].name + "を拾った!")
+		}
+		else{
+			castMessage(data.item_data[item_id].name+"を+"+(save.item[item_id]-1)+"に強化した!")		
+		}
+	}
+}
+
 //階段降りイベントを起こす
 function eventStairs(){
 	spriteSlidein("artifact")
@@ -243,15 +287,36 @@ function eventStairs(){
 //バトルイベントを起こす
 function eventBattle(){
 	spriteSlidein("battle")
+	castMessage("バトルが発生した！")
 	// in battle.js
 	processBattle()
-	castMessage("バトルが発生した！")
 
 	//しろことくろこの死亡判定
 	updateLoiteringCharactersState()
 }
 
+//次イベントまでの時間をsecond秒短縮する
+function reduceNextEventTime(second){
+	save.next_event_timer = Math.max(save.next_event_timer - second,0)
+	reduceNextEventTimerAnimation(second)
+}
 
+function ressurect(){
+	//fadeouterを掴んでいるのは完全に適当
+	$("#fadeouter").queue(function(){
+		ressurectAnimation()	
+		castMessage("全回復！")
+		$(this).dequeue();
+	})
+	.delay(1000)
+	.queue(function(){
+		save.auto_ressurect_timer = 5000
+		save.status.siro.hp = 100
+		save.status.kuro.hp = 100
+		$(this).dequeue();
+	})
+
+}
 
 /*******************************************/
 /* 装備画面 */
