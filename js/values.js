@@ -32,7 +32,8 @@ var data = {
 	dungeon_select_menu : {
 		depth : 1,
 		stage_id : 0
-	}
+	},
+	background_image_scroll_position : 0
 
 }
 

@@ -55,6 +55,8 @@ function mainLoop_1sec(){
 	}
 	updateClock()
 	updateNextEventTimer()
+	scrollBackgroundImage()
+	updateBackgroundImagePosition()
 }
 
 //ゲームモードをmodeに変更
@@ -135,6 +137,16 @@ function __debugDungeonFullOpen(){
 /*******************************************/
 /* メイン画面 */
 /*******************************************/
+
+//画面を1pxだけ右にスクロールさせる
+function scrollBackgroundImage(){
+	data.background_image_scroll_position ++
+}
+
+//背景画面をpositionの位置にする
+function scrollBackgroundImageTo(position){
+	data.background_image_scroll_position = position
+}
 
  //現在のイベント更新間隔はいくら?
  function getEventInterval(){
@@ -263,7 +275,7 @@ function lotItem(){
 //階段処理
 function processStairs(){
 	save.current_floor ++
-	updateStairsArea()
+	fadeOutAndFadeInStairs()
 }
 
 //アイテム拾得イベントを起こす

@@ -33,8 +33,22 @@
 		<!-- メイン画面 -->
 		<div id="main" class="hidden">
 			<div id="background">
-				<img src="images/neko/bg/bg.png" id="background_image">
+				<img src="images/neko/bg/st0.png" id="background_image">
 			</div>
+			<div id="character_siro">
+				<img src="images/neko/chara/siro_st0.png" class="character_chip_alive">
+				<div id="ressurect_count_area" class="hidden">
+					<span class="ressurect_text">復活まで：</span>
+					<span id="ressurect_count">5000</span>
+					<span class="ressurect_text">秒</span>
+				</div>
+			</div>
+			<div id="character_kuro">
+				<img src="images/neko/chara/kuro_st0.png" class="character_chip_alive">
+			</div>
+
+			<div id="stairs_fadeouter" class="hidden"></div>
+
 			<div id="datetime_info_area" class="shadow_background">
 				<div id="clock_text">時刻:</div>	
 				<div id="date">
@@ -96,17 +110,6 @@
 			<div id="message_log_area" class="shadow_background">
 				<ul id="message_logs"></ul>
 			</div>
-			<div id="character_siro">
-				<img src="images/neko/chara/siro.png" class="character_chip_alive">
-				<div id="ressurect_count_area" class="hidden">
-					<span class="ressurect_text">復活まで：</span>
-					<span id="ressurect_count">5000</span>
-					<span class="ressurect_text">秒</span>
-				</div>
-			</div>
-			<div id="character_kuro">
-				<img src="images/neko/chara/kuro.png" class="character_chip_alive">
-			</div>
 			<div id="character_message_area" class="shadow_background">
 				キャラが喋るとこ
 			</div>
@@ -116,6 +119,7 @@
 				<img src="images/neko/etc/frame.png" id="window_frame_image">
 			-->
 		</div>
+
 		<img id="sprite_image" src="images/neko/sprite/battle.png">
 		<div id="dungeon_select_menu" class="hidden">
 			<div id="dungeon_select_back_button">戻るボタン！</div>
@@ -388,7 +392,6 @@
 		</div>
 		<div id="ressurection_light" class="hidden">にゃにゃ</div>
 		<div id="ressurection_overlay" class="hidden">にゃあん！</div>
-
 	</div>
 </div>
 <!-- ゲームのロジック-->

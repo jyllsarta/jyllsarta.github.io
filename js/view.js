@@ -32,6 +32,37 @@ function reduceNextEventTimerAnimation(reduceValue){
 	})
 }
 
+//背景のスクロール位置を更新
+function updateBackgroundImagePosition(){
+	$("#background_image").css("left","-"+data.background_image_scroll_position+"px")	
+}
+
+//階段降り時のフェードアウトイン
+function fadeOutAndFadeInStairs(){
+	$("#stairs_fadeouter")
+	.delay(2000)
+	.removeClass("hidden")
+	.animate({
+		opacity:1
+	},1200,"easeOutQuart")
+	.queue(	function(){
+		//viewにロジックが書いてあって非常に良くないけど1秒ごとの1pxスクロールと競合し
+		//暗転後に景色が変わってる演出ができなくなるので諦める
+		var background_pos = randInt(0,2100)
+		scrollBackgroundImageTo(background_pos)
+		updateBackgroundImagePosition()
+		updateStairsArea()
+		$(this).dequeue();
+	})
+	.animate({
+		opacity:0
+	},300,"easeOutQuart")
+	.queue(	function(){
+		$(this).addClass("hidden")
+		$(this).dequeue();
+	})
+}
+
 //画面内のログ表示エリアにデータを吐く
 function castMessage(message){
 	$("#message_logs").append('<li class="log">'+message+'</li>');
