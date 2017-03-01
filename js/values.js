@@ -55,7 +55,9 @@ var save = {
 	dungeon_open:[1,0,0,0,0],
 	dungeon_process:[0,0,0,0,0],
 	next_event_timer : 300,
-	auto_ressurect_timer : 5000
+	auto_ressurect_timer : 5000,
+	coin : 0,
+	total_coin_achieved : 0
 }
 
 var dungeon_data=[
@@ -99,7 +101,7 @@ var dungeon_data=[
 var FIRST_GAME_MODE = "main"
 
 //ログ保存件数
-var MAX_MESSAGE_ITEM = 10
+var MAX_MESSAGE_ITEM = 30
 
 //メインループの更新間隔(ミリ秒)
 var LOOP_FREQUENCY = 50
@@ -123,3 +125,6 @@ var EVENT_FREQ_STAIRS = 20
 var EVENT_FREQ_ITEM = 38
 var EVENT_FREQ_ITEM_FLOOD = 2
 var EVENT_FREQ_BATTLE = 40
+
+//デフォルトのイベント発生間隔(秒)
+var DEFAULT_EVENT_FREQ = 300

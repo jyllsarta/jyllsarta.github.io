@@ -151,8 +151,8 @@ function ressurectAnimation(){
 	.removeClass("hidden")
 	.animate({
 		opacity:1
-	},1000,"easeOutQuart")
-	.delay(800)
+	},200,"easeOutQuart")
+	.delay(300)
 	.queue(	function(){
 		updateLoiteringCharactersState()
 		updateCurrentHP()
@@ -160,11 +160,27 @@ function ressurectAnimation(){
 	})
 	.animate({
 		opacity:0
-	},2000,"easeOutQuart")
+	},2000,"linear")
 	.queue(	function(){
 		$(this).addClass("hidden")
 		$(this).dequeue();
 	})
+
+	$("#ressurection_overlay")
+	.removeClass("hidden")
+	.delay(100)
+	.animate({
+		opacity:0.4
+	},100,"easeOutQuart")
+	.delay(0)
+	.animate({
+		opacity:0
+	},1200,"easeOutQuart")
+	.queue(	function(){
+		$(this).addClass("hidden")
+		$(this).dequeue();
+	})
+
 }
 
 //時計を更新
@@ -295,15 +311,17 @@ function fadeStatusMenu(){
 
 //ページャーの総ページ数を反映
 function updatePagerTotalPage(){
-	var max_page = Math.floor(data.item_data.length/10)+1
+	var max_page = findLatestEquipPageIndex()
 	$("#total_page").text(max_page)
 }
 
 //装備メニューの準備
 function prepareEquipMenu(){
+	updatePagerCurrentPage()
 	updatePagerTotalPage()
 	updateEquipList()
 	updatePagerButtonState()
+	updateEquipListCoinAmount()
 }
 
 //装備リストのパラメータ部分を更新
@@ -527,6 +545,10 @@ function toggleEquipEditCharacterViewTo(chara_name){
 	},300,"easeOutQuart")
 }
 
+//コイン枚数を画面反映
+function updateEquipListCoinAmount(){
+	$("#equip_coin_amount").text(save.coin)
+}
 
 /*******************************************/
 /* ステータス画面 */

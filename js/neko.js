@@ -19,6 +19,9 @@ function randInt(min, max) {
 function init(){
 	changeGameMode(FIRST_GAME_MODE)
 	loadItemList()
+
+	//装備メニューの初期表示
+	data.equipment_menu.current_page = findLatestEquipPageIndex()
 }
 
 /*******************************************/
@@ -38,7 +41,7 @@ function mainLoop_1sec(){
 		//生きてる間はイベントタイマーが回る
 		save.next_event_timer --
 		if(save.next_event_timer <= 0){
-			save.next_event_timer = 300
+			save.next_event_timer = getEventInterval()
 			event()
 		}
 	}
@@ -49,9 +52,7 @@ function mainLoop_1sec(){
 			ressurect()
 		}
 		updateAutoRessurectionCount()
-
 	}
-
 	updateClock()
 	updateNextEventTimer()
 }
@@ -62,7 +63,6 @@ function changeGameMode(mode){
 	data.game_mode = mode
 	updateGameModeTo(mode)
 }
-
 
 //アイテムリストをcsvファイルから読み込む
 function loadItemList(){
@@ -119,7 +119,7 @@ function __debugAquireItemIppai(){
 		aquireItem(rand)
 	}
 	//viewの反映
-	updateEquipList()
+	prepareEquipMenu()
 }
 
 //ダンジョンフルオープン
@@ -135,6 +135,11 @@ function __debugDungeonFullOpen(){
 /*******************************************/
 /* メイン画面 */
 /*******************************************/
+
+ //現在のイベント更新間隔はいくら?
+ function getEventInterval(){
+ 	return DEFAULT_EVENT_FREQ
+ }
 
 //生きてるキャラは居る?
 function isCharacterAlive(){
@@ -190,10 +195,25 @@ function event(){
 
 //指定したアイテムIDのアイテムを取得
 function aquireItem(item_id){
-	var after = (save.item[item_id] || 0) +1
+	var before =  (save.item[item_id] || 0)
+	var after = before+1
 	after = Math.min(after,MAX_EQUIP_BUILD)
-
 	save.item[item_id] = after
+
+	//新規取得ならレベル1になっているはず
+	if(save.item[item_id] == 1){
+		castMessage(data.item_data[item_id].name + "を拾った!")
+	}
+	else if(before == MAX_EQUIP_BUILD){
+		//もうすでに最大強化されてた場合
+		save.coin ++
+		save.total_coin_achieved ++
+		castMessage(data.item_data[item_id].name + "を拾った!")
+		castMessage("("+data.item_data[item_id].name+"は既に+10なのでコインに変換しました)")
+	}
+	else{
+		castMessage(data.item_data[item_id].name+"を+"+(save.item[item_id]-1)+"に強化した!")		
+	}
 }
 
 //レアリティの数値から出現比率を計算
@@ -251,13 +271,7 @@ function eventItem(){
 	spriteSlidein("item")
 	var item_id = lotItem()
 	aquireItem(item_id)
-	//新規取得ならレベル1になっているはず
-	if(save.item[item_id] == 1){
-		castMessage(data.item_data[item_id].name + "を拾った!")
-	}
-	else{
-		castMessage(data.item_data[item_id].name+"を+"+(save.item[item_id]-1)+"に強化した!")		
-	}
+
 }
 
 //アイテム拾得イベントを起こす
@@ -267,13 +281,6 @@ function eventItemFlood(){
 	for(var i=0;i<5;++i){
 		var item_id = lotItem()
 		aquireItem(item_id)
-		//新規取得ならレベル1になっているはず
-		if(save.item[item_id] == 1){
-			castMessage(data.item_data[item_id].name + "を拾った!")
-		}
-		else{
-			castMessage(data.item_data[item_id].name+"を+"+(save.item[item_id]-1)+"に強化した!")		
-		}
 	}
 }
 
@@ -440,6 +447,12 @@ function equipListNextPage(){
 	prepareEquipMenu()
 }
 
+//装備ボタンのページをpage目にする
+function updateEquipPageTo(page){
+	data.equipment_menu.current_page = page
+	updatePagerCurrentPage()
+}
+
 //既に装備してたら装備できない
 function isAlreadyEquipped(item_id){
 	for(charaname in save.equip ){
@@ -550,6 +563,11 @@ function toggleEquipEditCharacter(){
 	updateCurrentEquipListArea()
 	updateCurrentTotalParameter()
 	updateEquipList()
+}
+
+//現在の装備のページのインデックスを返す
+function findLatestEquipPageIndex(){
+	return Math.floor(save.item.length / 10)+1
 }
 
 
