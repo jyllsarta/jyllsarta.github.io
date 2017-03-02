@@ -65,9 +65,24 @@ $(".equip_item").mouseover(function(){
 	equipDetailMouseOver(this)
 })
 
-//各装備マウスオーバーで詳細画面に対応したものを表示
+//各装備クリックで該当の装備を装備
 $(".equip_item").click(function(){
 	equip(this)
+})
+
+//各装備の強化ボタンクリックで該当の装備強化ウィンドウを表示
+$(".equip_build_button").click(function(){
+	showEquipBuildMenu(this)
+})
+
+//装備強化メニューを閉じる
+$("#equip_build_popup_quit_button").click(function(){
+	hideEquipBuildMenu(this)
+})
+
+//装備強化メニューを閉じる
+$("#build_decide_button").click(function(){
+	buildButtonHandle()
 })
 
 //装備ウィンドウ右クリで装備を外す
@@ -130,12 +145,4 @@ $("#depth_minus_100").click(function(){
 $("#ressurect_button").click(function(){
 	ressurect()
 })
-
-
-
-
-
-
-
-
 

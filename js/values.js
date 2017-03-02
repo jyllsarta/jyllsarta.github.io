@@ -33,8 +33,8 @@ var data = {
 		depth : 1,
 		stage_id : 0
 	},
-	background_image_scroll_position : 0
-
+	background_image_scroll_position : 0,
+	current_build_item_id : 0
 }
 
 var save = {
@@ -102,7 +102,7 @@ var dungeon_data=[
 var FIRST_GAME_MODE = "main"
 
 //ログ保存件数
-var MAX_MESSAGE_ITEM = 30
+var MAX_MESSAGE_ITEM = 60
 
 //メインループの更新間隔(ミリ秒)
 var LOOP_FREQUENCY = 50

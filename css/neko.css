@@ -193,11 +193,16 @@ header{
 }
 
 .menu_item{
-	margin: 2px 2px;
-	background-color: #111431;
+	margin: 4px 4px;
+	background-color: #030107;
 	color: #FFFFFF;
-	font-size: 20px;
+	font-size: 22px;
+	padding-top: 7px;
+	padding-left: 30px;
+	height: 40px;
 	font-family: "Sawarabi Gothic";
+	border-radius: 4px 4px;
+	border: 2px solid #000000;
 }
 
 .menu_item:hover{
@@ -208,7 +213,7 @@ header{
 	position: absolute;
 	top: 130px;
 	left: 20px;
-	width: 350px;
+	width: 400px;
 	height: 100px;
 }
 
@@ -233,7 +238,7 @@ header{
 	overflow: scroll;
 	top: 250px;
 	left: 20px;
-	width: 350px;
+	width: 400px;
 	height: 340px;
 }
 
@@ -267,6 +272,19 @@ header{
 }
 
 .log{
+	margin-left: 2px;
+}
+
+.log_time{
+	display: inline-block;
+	width: 80px;
+	border-right: dotted 2px #AAEEFF;
+}
+
+.log_message{
+	display: inline-block;
+	width: 290px;
+	margin-left: 8px;
 }
 
 .character_chip_alive{
@@ -286,6 +304,8 @@ header{
 .flip{
 	transform: scale(-1, 1);
 }
+
+
 
 #character_siro{
 	position: absolute;
@@ -471,7 +491,7 @@ header{
 	left: 50px;
 	width: 1100px;
 	height: 700px;
-	background-color: #050512;
+	background-color: #081e26;
 }
 
 #equipment_back_button{
@@ -518,10 +538,9 @@ header{
 #equip_select_area{
 	position: absolute;
 	top: 20px;
-	left: 395px;
+	left: 380px;
 	width: 700px;
 	height: 400px;
-	background-color: #222222;
 }
 
 #pager{
@@ -563,19 +582,23 @@ header{
 #equip_coin_show_area{
 	position: absolute;
 	top: 10px;
-	left: 450px;
+	left: 455px;
 	width: 350px;
 	font-size: 24px;
 }
 
-.equip_coin_text{
-	display: inline-block;
-	width: 140px;
+#equip_area_coin_icon{
+	position: absolute;
+	top: -4px;
+	left: 40px;
+	width: 40px;
+	height: 40px;
 }
+
 
 #equip_coin_amount{
 	display: inline-block;
-	width: 90px;
+	width: 150px;
 	text-align: right;
 	padding-right: 10px;
 }
@@ -584,15 +607,15 @@ header{
 #equipment_list{
 	list-style: none;
 	position: absolute;
-	top: 45px;
+	top: 55px;
 	left: 10px;
 }
 
 .equip_item{
 	position: relative;
 	padding: 2px 2px;
-	width: 400px;
-	height: 30px;
+	width: 480px;
+	height: 29px;
 }
 
 .equip_item:hover{
@@ -609,16 +632,29 @@ header{
 .equip_list_text{
 	display: inline-block;
 	position: relative;
-	top: 2px;
+	top: 1px;
 	left: 5px;
 	font-size: 20px;
-	width: 270px;
+	width: 240px;
 }
 
 .equip_list_param{
 	display: inline-block;
-	width: 60px;	
+	width: 100px;	
 	font-size: 20px;
+}
+
+.equip_build_button{
+	display: inline-block;
+	width: 50px;
+	text-align: center;
+	background-color: #090901;
+	border: 2px dotted #FFFFFF;
+	border-radius: 20px 20px;
+}
+
+.equip_build_button:hover{
+	background-color: #7471A3;
 }
 
 .rare{
@@ -639,10 +675,10 @@ header{
 
 #equip_detail_area{
 	position: absolute;
-	top: 50px;
-	left: 440px;
-	width: 250px;
-	height: 345px;
+	top: 55px;
+	left: 470px;
+	width: 210px;
+	height: 330px;
 	background-color: #121212;
 }
 
@@ -664,9 +700,9 @@ header{
 
 #equip_param_area{
 	position: absolute;
-	top: 50px;
+	top: 45px;
 	left: 15px;
-	width: 240px;
+	width: 200px;
 	height: 240px;
 }
 
@@ -676,34 +712,126 @@ header{
 
 .param_unit{
 	position: relative;
-	padding: 4px 4px;
+	padding: 4px 1px;
 	left: 5px;
-	width: 200px;
-	height: 30px;
+	width: 180px;
+	height: 25px;
 	font-size: 20px;
 }
 
 #flavor_text{
 	position: relative;
-	top: 25px;
-	left: 0px;
-	width: 230px;
+	top: 5px;
+	left: -3px;
+	width: 190px;
 	height: 100px;
-	font-size: 18px;
+	font-size: 15px;
 }
+
+#equip_build_popup_area{
+	position: absolute;
+	top: 150px;
+	left: 250px;
+	width: 600px;
+	height: 400px;
+	background-color: #444850;
+	border: 10px dotted #FFFFFF;
+}
+
+#equip_build_popup_text{
+	position: absolute;
+	top: 10px;
+	left: 150px;
+	font-size: 40px;
+}
+
+#equip_build_popup_quit_button{
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 100px;
+	height: 60px;
+	background-color: #434343;
+	border:4px dotted #FFFFFF; 	
+}
+
+#build_amount_coin_have_show_area{
+	position: absolute;
+	top: 10px;
+	left: 400px;
+}
+
+.coin_icon{
+	position: relative;
+	top: 10px;
+	width: 50px;
+	height: 50px;
+}
+
+#build_cost{
+	font-size: 40px;
+}
+
+#coin_amount{
+	display: inline-block;
+	width: 110px;
+	font-size: 40px;
+	text-align: right;
+}
+
+#equip_build_item_name_area{
+	position: absolute;
+	top: 90px;
+	left: 60px;
+	font-size: 25px;
+}
+
+#equip_build_param_list{
+	position: absolute;
+	top: 150px;
+	left: 100px;
+	font-size: 25px;
+	list-style: none;
+}
+
+.build_index, .build_sepalator{
+display: inline-block;
+width: 60px;
+}
+
+.param_prev,.param_after{
+display: inline-block;
+width: 80px;
+text-align: right;
+}
+
+.build_decide_text{
+	font-size: 30px;
+}
+
+#build_decide_button{
+	position: absolute;
+	padding: 0px 10px;
+	top: 307px;
+	left: 195px;
+	height: 70px;
+	background-color: #987987;
+	border: 5px dotted #FFFFFF;
+
+}
+
 
 #character_status_area{
 	position: absolute;
-	top: 430px;	
-	left: 395px;
+	top: 440px;	
+	left: 380px;
 	width: 700px;
-	height: 255px;
-	background-color: #222222;
+	height: 240px;
 }
 
 #current_equip_list{
 	position: relative;
-	top: 20px;
+	top: 3px;
 	left: 30px;
 	list-style: none;
 	font-size: 24px;
@@ -711,8 +839,9 @@ header{
 
 .current_equip_item{
 	margin: 15px 15px;
+	padding-left: 10px;
 	width: 270px;
-	background-color: #111111;
+	background-color: #212933;
 }
 
 .equip_first{
@@ -720,21 +849,21 @@ header{
 }
 
 .equip_second{
-	margin-left: 6px;
+	margin-left: 7px;
 }
 
 .equip_third{
-	margin-left: 12px;
+	margin-left: 14px;
 }
 
 .equip_fourth{
-	margin-left: 18px;
+	margin-left: 21px;
 }
 
 #status_list{
 	list-style: none;
 	position: absolute;
-	top: 35px;
+	top: 25px;
 	left: 340px;
 	font-size: 25px;
 }
@@ -751,12 +880,14 @@ header{
 
 .status_param{
 	display: inline-block;
-	width: 100px;
+	width: 80px;
+	text-align: right;
 }
 
 .status_param_diff{
 	display: inline-block;
-	width: 100px;
+	width: 80px;
+	text-align: right;
 }
 
 .decrease{

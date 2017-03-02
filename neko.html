@@ -257,7 +257,7 @@
 			<div id="equip_menu_text">装備</div>
 			<img src="images/neko/chara/siro_active.png" id="equip_charagter_image">
 			<div id="equip_character_toggle_button">しろこ|くろこ</div>
-			<div id="equip_select_area">
+			<div id="equip_select_area" class="shadow_background">
 				<div id="pager">
 					<span id="equip_pager_page_text">ページ</span>
 					<span id="current_page">1</span>
@@ -272,7 +272,7 @@
 					総パラメータ
 				</div>
 				<div id="equip_coin_show_area">
-					<span class="equip_coin_text">コイン枚数:</span>
+					<img src="images/neko/icons/coin.png" id="equip_area_coin_icon">
 					<span id="equip_coin_amount">120</span>
 				</div>
 				<ul id="equipment_list">
@@ -280,54 +280,64 @@
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
 						<span class="equip_list_text">棒きれ</span>
 						<span class="equip_list_param">-</span>
+						<span class="equip_build_button">強化</span>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
 						<span class="equip_list_text">棒きれ</span>
 						<span class="equip_list_param">-</span>
+						<span class="equip_build_button">強化</span>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
 						<span class="equip_list_text">棒きれ</span>
 						<span class="equip_list_param">-</span>
+						<span class="equip_build_button">強化</span>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
 						<span class="equip_list_text">棒きれ</span>
 						<span class="equip_list_param">-</span>
+						<span class="equip_build_button">強化</span>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
 						<span class="equip_list_text">棒きれ</span>
 						<span class="equip_list_param">-</span>
+						<span class="equip_build_button">強化</span>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
 						<span class="equip_list_text">棒きれ</span>
 						<span class="equip_list_param">-</span>
+						<span class="equip_build_button">強化</span>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
 						<span class="equip_list_text">棒きれ</span>
 						<span class="equip_list_param">-</span>
+						<span class="equip_build_button">強化</span>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
 						<span class="equip_list_text">棒きれ</span>
 						<span class="equip_list_param">-</span>
+						<span class="equip_build_button">強化</span>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
 						<span class="equip_list_text">棒きれ</span>
 						<span class="equip_list_param">-</span>
+						<span class="equip_build_button">強化</span>
 					</li>
 					<li class="equip_item">
 						<img src="images/neko/icons/equip.png" class="equip_list_icon">
 						<span class="equip_list_text">棒きれ</span>
 						<span class="equip_list_param">-</span>
+						<span class="equip_build_button">強化</span>
 					</li>
 				</ul>
-				<div id="equip_detail_area">
+				<div id="equip_detail_area" class="shadow_background">
 					<img src="images/neko/icons/unachieved.png" id="equipment_detail_icon">
 					<div id="equip_detail_name">---</div>
 					<div id="equip_param_area">
@@ -353,12 +363,12 @@
 					</div>
 				</div>
 			</div>
-			<div id="character_status_area">
+			<div id="character_status_area" class="shadow_background">
 				<ul id="current_equip_list">
-					<li class="current_equip_item equip_first" item_id="">-</li>
-					<li class="current_equip_item equip_second" item_id="">-</li>
-					<li class="current_equip_item equip_third" item_id="">-</li>
-					<li class="current_equip_item equip_fourth" item_id="">-</li>
+					<li class="current_equip_item equip_first shadow_background" item_id="">-</li>
+					<li class="current_equip_item equip_second  shadow_background" item_id="">-</li>
+					<li class="current_equip_item equip_third  shadow_background" item_id="">-</li>
+					<li class="current_equip_item equip_fourth  shadow_background" item_id="">-</li>
 				</ul>
 				<div id="status_show_area">
 					<ul id="status_list">
@@ -383,6 +393,51 @@
 							<span id="status_diff_agi" class="status_param_diff"></span>
 						</li>
 					</ul>
+				</div>
+			</div>
+			<div id="equip_build_popup_area" class="hidden">
+				<div id="equip_build_popup_text">装備強化</div>
+				<div id="equip_build_popup_quit_button">閉じる</div>
+				<div id="build_amount_coin_have_show_area">
+					<img src="images/neko/icons/coin.png" class="coin_icon">
+					<span id="coin_amount">876</span>					
+				</div>
+				<div id="equip_build_item_name_area">
+					<span class="equip_name">超絶はがねのつるぎ</span>
+					<span class="build_prev">+7</span>
+					<span class="build_sepalator">→</span>
+					<span class="build_after">+8</span>
+				</div>
+				<ul id="equip_build_param_list">
+					<li class="build_param_item">
+						<span class="build_index">STR</span>
+						<span class="param_prev">0</span>
+						<span class="build_sepalator">→</span>
+						<span class="param_after">0</span>
+					</li>
+					<li class="build_param_item">
+						<span class="build_index">DEX</span>
+						<span class="param_prev">0</span>
+						<span class="build_sepalator">→</span>
+						<span class="param_after">0</span>
+					</li>
+					<li class="build_param_item">
+						<span class="build_index">DEF</span>
+						<span class="param_prev">0</span>
+						<span class="build_sepalator">→</span>
+						<span class="param_after">0</span>
+					</li>
+					<li class="build_param_item">
+						<span class="build_index">AGI</span>
+						<span class="param_prev">0</span>
+						<span class="build_sepalator">→</span>
+						<span class="param_after">0</span>
+					</li>
+				</ul>
+				<div id="build_decide_button">
+					<span class="build_decide_text">強化</span>
+					<img src="images/neko/icons/coin.png" class="coin_icon">
+					<span id="build_cost">143</span>
 				</div>
 			</div>
 		</div>

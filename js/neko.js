@@ -12,6 +12,13 @@ function log(o){
 function randInt(min, max) {
 	return Math.floor( Math.random() * (max - min + 1) ) + min;
 }
+
+//現在時刻をhh:mm:ddの形式の文字列で返す
+function getCurrentTimeString(){
+	var d = new Date()
+	var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds()
+	return time
+}
 /*******************************************/
 /* 初期化系 */
 /*******************************************/
@@ -327,7 +334,7 @@ function ressurect(){
 		castMessage("全回復！")
 		$(this).dequeue();
 	})
-	.delay(1000)
+	.delay(500)
 	.queue(function(){
 		save.auto_ressurect_timer = 5000
 		save.status.siro.hp = 100
@@ -452,7 +459,7 @@ function equipListPrevPage(){
 
 //ページャー次のページに移動
 function equipListNextPage(){
-	var max_page = Math.floor(data.item_data.length/10)+1
+	var max_page =  findLatestEquipPageIndex()
 	var after_page = Math.min(data.equipment_menu.current_page+1,max_page)
 	data.equipment_menu.current_page = after_page
 	updatePagerCurrentPage()
@@ -582,7 +589,48 @@ function findLatestEquipPageIndex(){
 	return Math.floor(save.item.length / 10)+1
 }
 
+//クリック結果を受取り該当の装備内容で装備強化メニューを開く
+function showEquipBuildMenu(domobject){
+	var item_id = $(domobject).parent().attr("item_id")
+	data.current_build_item_id = item_id
+	showEquipBuildMenuView(item_id)
+}
 
+
+//強化コストを返す
+function getBuildCost(item_id){
+	return 10
+}
+
+//item_idの強化を試みる
+function build(item_id){
+	var cost = getBuildCost(item_id)
+	if(cost > save.coin){
+		log("お金が足りないよ")
+		return
+	}
+
+	if(!save.item[item_id]){
+		log("未開放の装備だよね?")
+		return
+	}
+
+	if(save.item[item_id] >= MAX_EQUIP_BUILD){
+		log("すでに最大強化済だよ")
+		return
+	}
+
+	save.coin -= cost
+	save.item[item_id] ++
+	prepareEquipBuildMenu(item_id)
+	updateEquipListCoinAmount()
+}
+
+//強化を実行するボタンを押したときの挙動
+function buildButtonHandle(){
+	//ウィンドウを開くときに記憶しておいた「その時操作中のアイテムID」で強化を行う
+	build(data.current_build_item_id) 
+}
 
 /*******************************************/
 /* ステータス画面 */

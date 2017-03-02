@@ -65,7 +65,9 @@ function fadeOutAndFadeInStairs(){
 
 //画面内のログ表示エリアにデータを吐く
 function castMessage(message){
-	$("#message_logs").append('<li class="log">'+message+'</li>');
+	var tag = '<li class="log"><span class="log_time">'+getCurrentTimeString()+'</span>'
+	tag += '<span class="log_message">'+message+'</span></li>'
+	$("#message_logs").append(tag);
 	if ($("#message_logs .log").length > MAX_MESSAGE_ITEM){
 		$("#message_logs .log:first-child").remove()
 	}
@@ -288,13 +290,54 @@ function showStatusMenu(){
 //装備メニューの展開
 function showEquipmentMenu(){
 	prepareEquipMenu()
-
 	$("#equipment_menu")
 	.removeClass("hidden")
 	.animate({
-		opacity:0.98,
+		opacity:0.96,
 		top:"50px",
 	},200,"easeOutQuart")
+}
+
+//装備強化メニューの表示項目をitem_idのものに更新
+function prepareEquipBuildMenu(item_id){
+	$("#coin_amount").text(save.coin)
+	$(".equip_name").text(data.item_data[item_id].name)
+	$(".build_prev").text("+"+(save.item[item_id]-1))
+	$(".build_after").text("+"+Math.min(MAX_EQUIP_BUILD-1,save.item[item_id]))
+	$("#build_cost").text(getBuildCost(item_id))
+
+
+	var param_prevs = $(".param_prev")
+	var param_afters = $(".param_after")
+	param_prevs[0].textContent = (getBuildedParameter(item_id,"str"))
+	param_prevs[1].textContent = (getBuildedParameter(item_id,"dex"))
+	param_prevs[2].textContent = (getBuildedParameter(item_id,"def"))
+	param_prevs[3].textContent = (getBuildedParameter(item_id,"agi"))
+	if(save.item[item_id] < MAX_EQUIP_BUILD){
+		param_afters[0].textContent = (Math.floor(getBuildedParameter(item_id,"str")*1.1))
+		param_afters[1].textContent = (Math.floor(getBuildedParameter(item_id,"dex")*1.1))
+		param_afters[2].textContent = (Math.floor(getBuildedParameter(item_id,"def")*1.1))
+		param_afters[3].textContent = (Math.floor(getBuildedParameter(item_id,"agi")*1.1))
+	}
+	else{
+		param_afters[0].textContent = (Math.floor(getBuildedParameter(item_id,"str")))
+		param_afters[1].textContent = (Math.floor(getBuildedParameter(item_id,"dex")))
+		param_afters[2].textContent = (Math.floor(getBuildedParameter(item_id,"def")))
+		param_afters[3].textContent = (Math.floor(getBuildedParameter(item_id,"agi")))
+	}
+}
+
+
+
+//item_idの装備強化メニューを開く
+function showEquipBuildMenuView(item_id){
+	prepareEquipBuildMenu(item_id)
+	$("#equip_build_popup_area").removeClass("hidden")
+}
+
+//装備強化メニューを閉じる
+function hideEquipBuildMenu(){
+	$("#equip_build_popup_area").addClass("hidden")
 }
 
 //装備メニューの開放
@@ -438,7 +481,7 @@ function updatePagerCurrentPage(){
 //ページャーのボタンの活性不活性を反映
 function updatePagerButtonState(){
 	var current_page = data.equipment_menu.current_page
-	var max_page = Math.floor(data.item_data.length/10)+1
+	var max_page = findLatestEquipPageIndex()
 	$("#pager_button_prev").removeClass("disabled")
 	$("#pager_button_next").removeClass("disabled")
 
