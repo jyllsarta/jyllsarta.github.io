@@ -7,6 +7,14 @@ function prepareAllView(){
 /* メイン画面 */
 /*******************************************/
 
+//画面の初期表示
+function initView(){
+	var stage_id = save.current_dungeon_id
+	$("#current_floor").text(save.current_floor)
+	$(".dungeon_name").text(dungeon_data[stage_id].name)
+	$("#next_event_sec").text(save.next_event_timer)
+}
+
 //ゲームモードの切り替え
 function updateGameModeTo(game_mode){
 	//viewを更新
@@ -63,14 +71,38 @@ function fadeOutAndFadeInStairs(){
 	})
 }
 
-//画面内のログ表示エリアにデータを吐く
-function castMessage(message){
+//メッセージを流す
+function showMessage(message){
 	var tag = '<li class="log"><span class="log_time">'+getCurrentTimeString()+'</span>'
 	tag += '<span class="log_message">'+message+'</span></li>'
 	$("#message_logs").append(tag);
 	if ($("#message_logs .log").length > MAX_MESSAGE_ITEM){
 		$("#message_logs .log:first-child").remove()
 	}
+	$("#message_logs .log:last-child")
+	.css({
+		opacity : 0,
+		"margin-left" :"-20px"
+	})
+	.animate({
+		opacity:1,
+		"margin-left" :"0px"
+	},700,"easeOutQuart")
+
+	//増やした分だけスクロール
+	$("#message_log_area").animate(
+		{scrollTop:$("#message_log_area")[0].scrollHeight
+	},400,"easeOutExpo")
+}
+
+//画面内のログ表示エリアにデータを吐く
+function castMessage(message){
+	$("#message_log_queue_dummy")
+	.delay(150)
+	.queue(function(){
+		showMessage(message)
+		$(this).dequeue()
+	})
 }
 
 //あるきまわるキャラたちの状態を反映
@@ -121,11 +153,11 @@ function  loiteringSiro(){
 	$("#character_siro").css("left",data.siro.x)
 	//毎フレーム速度を更新するとカタカタ震えるだけになるので
 	//10フレームに1回のみ更新する
-	if (data.frame % 10 != 0){
+	if (data.frame % 4 != 0){
 		return
 	}
 	//[-0.25,0.25]
-	var delta = (Math.random() -0.5)/2
+	var delta = (Math.random() -0.5)
 	data.siro.vx += delta
 	//両端に寄り過ぎてるときは逆向きに力を加える
 	if (data.siro.x < 450 && data.siro.vx < 0){
@@ -152,11 +184,11 @@ function  loiteringKuro(){
 	$("#character_kuro").css("left",data.kuro.x)
 	//毎フレーム速度を更新するとカタカタ震えるだけになるので
 	//10フレームに1回のみ更新する
-	if (data.frame % 10 != 0){
+	if (data.frame % 6 != 0){
 		return
 	}
 	//[-0.25,0.25]
-	var delta = (Math.random() -0.5)/2
+	var delta = (Math.random() -0.5)
 	data.kuro.vx += delta/2
 	//両端に寄り過ぎてるときは逆向きに力を加える
 	if (data.kuro.x < 450 && data.kuro.vx < 0){
@@ -222,8 +254,8 @@ function updateClock(){
 	$("#month").text(now.getMonth()+1)
 	$("#day").text(now.getDate())
 	$("#hour").text(now.getHours())
-	$("#minute").text(now.getMinutes())
-	$("#second").text(now.getSeconds())
+	$("#minute").text(("0"+now.getMinutes()).slice(-2))
+	$("#second").text(("0"+now.getSeconds()).slice(-2))
 }
 
 //現在フロア表示をデータ上のものに反映
@@ -396,6 +428,8 @@ function prepareEquipMenu(){
 	updateEquipList()
 	updatePagerButtonState()
 	updateEquipListCoinAmount()
+	resetDetailArea()
+	updateEquipDetailATKDEF()
 }
 
 //装備リストのパラメータ部分を更新
@@ -472,6 +506,7 @@ function updateEquipListName(){
 function updateEquipList(){
 	updateEquipListName()
 	updateEquipListParam()
+	updateEquipBuildButtonShowState()
 }
 
 function updatePagerCurrentPage(){
@@ -580,7 +615,7 @@ function updateEquipDetailAreaTo(item_id){
 	}	
 }
 
-//現在装備エリアの表示反映を行う
+//現在装備エリアの表示反映を行うequi
 function  updateCurrentEquipListArea(){
 	var current_chara_name = data.equipment_menu.current_character
 	var equip_num = save.equip[current_chara_name].length
@@ -607,6 +642,13 @@ function  updateCurrentEquipListArea(){
 	}
 }
 
+//ATK,DEF参考値を画面に描画
+function updateEquipDetailATKDEF(){
+	var current_chara_name = data.equipment_menu.current_character
+	$("#atk_value").text(calcAttack(current_chara_name))
+	$("#def_value").text(calcDefence(current_chara_name))
+}
+
 //しろこかくろこに編集キャラクターを切り替える
 function toggleEquipEditCharacterViewTo(chara_name){
 	//キャラの切り替え
@@ -623,6 +665,25 @@ function toggleEquipEditCharacterViewTo(chara_name){
 function updateEquipListCoinAmount(){
 	$("#equip_coin_amount").text(save.coin)
 }
+
+//強化ボタンの表示・非表示の更新を行う
+function updateEquipBuildButtonShowState(){
+	var buttons = $(".equip_build_button")
+	for(var i=0;i<buttons.length;++i){
+		var  button = buttons[i]
+		var item_id = $(button).parent().attr("item_id")
+		if(save.item[item_id] === undefined || save.item[item_id] ==0){
+			$(button).css("display","none")
+		}
+		else if(save.item[item_id] == MAX_EQUIP_BUILD){
+			$(button).css("display","none")
+		}
+		else{
+			$(button).css("display","inline-block")
+		}
+	}
+}
+
 
 /*******************************************/
 /* ステータス画面 */
@@ -768,7 +829,6 @@ function changeStageToView(stage_id,depth){
 		$("#background_image").attr("src","images/neko/bg/st"+stage_id+".png")	
 		$(".dungeon_name").text(dungeon_data[stage_id].name)
 		$("#current_floor").text(save.current_floor)
-		$(".max_floor").text(dungeon_data[stage_id].depth)
 		$(this).dequeue();
 	})
 	.delay(1000)

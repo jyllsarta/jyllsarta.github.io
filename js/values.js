@@ -55,7 +55,7 @@ var save = {
 	item:[],
 	dungeon_open:[1,0,0,0,0],
 	dungeon_process:[0,0,0,0,0],
-	next_event_timer : 300,
+	next_event_timer : 120,
 	auto_ressurect_timer : 5000,
 	coin : 0,
 	total_coin_achieved : 0
@@ -71,25 +71,25 @@ var dungeon_data=[
 {
 	name:"目黒オフィス",
 	caption:"二つ目のダンジョン。ここでなんかちょっと世界観が披露され始める。",
-	start_ir:50,	
+	start_ir:25,
 	depth:400
 },
 {
 	name:"氷っぽいところ",
 	caption:"３つめのダンジョン。背景が幻想的できれいなやつにする。",
-	start_ir:250,	
+	start_ir:125,	
 	depth:500
 },
 {
 	name:"よっつめのだんじょん",
 	caption:"よっつめ。敵が強くなる。",
-	start_ir:500,	
+	start_ir:250,	
 	depth:1000
 },
 {
 	name:"ごこめー",
 	caption:"ラスダンっぽいところ。たいへん。クリア後はアイテム掘りに使うのでそこそこ背景がきれいなやつ",
-	start_ir:1000,
+	start_ir:500,
 	depth:2000,	
 },
 ]
@@ -102,7 +102,7 @@ var dungeon_data=[
 var FIRST_GAME_MODE = "main"
 
 //ログ保存件数
-var MAX_MESSAGE_ITEM = 60
+var MAX_MESSAGE_ITEM = 200
 
 //メインループの更新間隔(ミリ秒)
 var LOOP_FREQUENCY = 50
@@ -128,4 +128,4 @@ var EVENT_FREQ_ITEM_FLOOD = 2
 var EVENT_FREQ_BATTLE = 40
 
 //デフォルトのイベント発生間隔(秒)
-var DEFAULT_EVENT_FREQ = 300
+var DEFAULT_EVENT_FREQ = 120

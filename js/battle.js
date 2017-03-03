@@ -39,8 +39,8 @@ function Ally(charaname){
 	var def = getTotalParameter(charaname,"def")
 	var agi = getTotalParameter(charaname,"agi")
 
-	this.atk = (str + dex)/2 + Math.min(str,dex)
-	this.sld = (def + agi)/2 + Math.min(def,agi)
+	this.atk = calcAttack(charaname)
+	this.sld = calcDefence(charaname)
 	this.hp = save.status[charaname].hp
 	this.maxHp = 100
 	if(this.hp > 0){
@@ -170,24 +170,31 @@ function processBattle(){
 		message += "タイムアップ!"
 	}
 	else{
-		message += turnCount + "ターンで勝利し、" 
+		message += turnCount + "ターンで勝利！" 
 	}
-	message += "しろこに" + damage_siro +"%、くろこに" + damage_kuro + "%のダメージ。"
 	castMessage(message)
+
+	castMessage( "しろこ" + damage_siro +"%,くろこ" + damage_kuro + "%のダメージ。")
 
 	var biggestMaxDamage = getBiggestMaxDamage(enemies)
 	if(biggestMaxDamage > 30){
 		var reduceTime = Math.min( biggestMaxDamage*2,100)
-		castMessage(Math.min(biggestMaxDamage,200) + "%オーバーキル！" +reduceTime+ "秒ぶん次イベントが早く回ってきます")
+		castMessage(Math.min(biggestMaxDamage,200) + "%オーバーキル！")
+		castMessage(reduceTime+ "秒次イベントが早く回ってきます。")
 		reduceNextEventTime(reduceTime)
+	}
+
+	var coinEarned = randInt(0,2)
+	if(coinEarned > 0){
+		save.coin += coinEarned
+		save.total_coin_achieved += coinEarned
+		castMessage(coinEarned+"枚のコインを拾った！")
 	}
 }
 else{
 		//全滅時のメッセージ
-		var message = ""
-		message += "しろこに" + damage_siro +"%、くろこに" + damage_kuro + "%のダメージ。"
-		message += "全滅した... " 
-		castMessage(message)
+		castMessage( "しろこ" + damage_siro +"%,くろこ" + damage_kuro + "%ダメージ。")
+		castMessage( "全滅した... ") 
 	}
 
 	save.status.siro.hp = Math.max(allies[0].hp,0)

@@ -130,28 +130,29 @@ header{
 #depth_text{
 	position: absolute;
 	top:10px;
-	left: 560px;
+	left: 610px;
 	font-size: 16px;	
 }
 
 #next_event_text{
 	position: absolute;
 	top:10px;
-	left: 710px;
+	left: 740px;
 	font-size: 16px;	
 }
 
 #dungeon_info_area{
 	position: absolute;
 	top:30px;
-	left: 355px;
+	left: 385px;
 	font-size: 30px;
 }
 
 .dungeon_name{
 	display: inline-block;
-	width: 200px;
+	width: 280px;
 	color:#FFFF99;
+	font-size: 24px;
 }
 
 .floor_sepalator, .floor_unit, .next_event_sec_unit{
@@ -172,7 +173,7 @@ header{
 #next_event_info_area{
 	position: absolute;
 	top:30px;
-	left: 730px;
+	left: 800px;
 	font-size: 30px;
 }
 
@@ -242,6 +243,10 @@ header{
 	height: 340px;
 }
 
+#message_log_queue_dummy{
+	display: none;
+}
+
 #message_logs{
 	list-style: none;
 }
@@ -278,7 +283,7 @@ header{
 .log_time{
 	display: inline-block;
 	width: 80px;
-	border-right: dotted 2px #AAEEFF;
+	border-right: dotted 2px #88AAFF;
 }
 
 .log_message{
@@ -817,7 +822,6 @@ text-align: right;
 	height: 70px;
 	background-color: #987987;
 	border: 5px dotted #FFFFFF;
-
 }
 
 
@@ -832,7 +836,7 @@ text-align: right;
 #current_equip_list{
 	position: relative;
 	top: 3px;
-	left: 30px;
+	left: 20px;
 	list-style: none;
 	font-size: 24px;
 }
@@ -864,35 +868,82 @@ text-align: right;
 	list-style: none;
 	position: absolute;
 	top: 25px;
-	left: 340px;
-	font-size: 25px;
+	left: 320px;
+	font-size: 21px;
 }
 
 .status_unit{
 	height: 50px;
-	margin: 0px 20px;
+	margin: 0px 30px;
 }
 
 .status_text{
 	display: inline-block;
-	width: 50px;
+	width: 40px;
 }
 
 .status_param{
 	display: inline-block;
-	width: 80px;
+	width: 70px;
 	text-align: right;
 }
 
 .status_param_diff{
 	display: inline-block;
-	width: 80px;
+	width: 70px;
 	text-align: right;
 }
 
 .decrease{
 	color: #FF0000;
 }
+
+#goryu_arrow_atk{
+	position: absolute;
+	top: 32px;
+	left: 560px;
+	width: 40px;
+	height: 70px;
+}
+
+#goryu_arrow_def{
+	position: absolute;
+	top: 132px;
+	left: 560px;
+	width: 40px;
+	height: 70px;
+}
+
+#atk_text{
+	position: absolute;
+	top: 32px;
+	left: 600px;
+	font-size: 15px;
+}
+
+#def_text{
+	position: absolute;
+	top: 132px;
+	left: 600px;
+	font-size: 15px;
+}
+
+#atk_value{
+	position: absolute;
+	top: 52px;
+	left: 610px;
+	font-size: 20px;
+}
+
+#def_value{
+	position: absolute;
+	top: 152px;
+	left: 610px;
+	font-size: 20px;
+}
+
+
+
 
 #fadeouter{
 	display: none;

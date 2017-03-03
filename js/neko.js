@@ -16,7 +16,7 @@ function randInt(min, max) {
 //現在時刻をhh:mm:ddの形式の文字列で返す
 function getCurrentTimeString(){
 	var d = new Date()
-	var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds()
+	var time = d.getHours() + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0"+d.getSeconds()).slice(-2)
 	return time
 }
 /*******************************************/
@@ -26,9 +26,12 @@ function getCurrentTimeString(){
 function init(){
 	changeGameMode(FIRST_GAME_MODE)
 	loadItemList()
+	load()
 
 	//装備メニューの初期表示
 	data.equipment_menu.current_page = findLatestEquipPageIndex()
+
+	initView()
 }
 
 /*******************************************/
@@ -142,6 +145,51 @@ function __debugDungeonFullOpen(){
 }
 
 /*******************************************/
+/* セーブ・ロード */
+/*******************************************/
+
+var Base64 = {
+    encode: function(str) {
+        return btoa(unescape(encodeURIComponent(str)));
+    },
+    decode: function(str) {
+        return decodeURIComponent(escape(atob(str)));
+    }
+};
+
+//セーブ
+function save(){
+	var savestring = JSON.stringify(save)
+	var base64save = Base64.encode(savestring)
+
+	$.cookie("savedata", base64save, { expires: 10000 });
+	log("セーブしました★")
+}
+
+//ロード
+function load(){
+	var cookie = $.cookie("savedata")
+	if(cookie === undefined){
+		castMessage("セーブデータが見つかりませんでした！")
+		return
+	}
+
+	var savestring = Base64.decode(cookie)
+	var savedata = JSON.parse(savestring)
+
+	if(isValidSave(savedata) === false){
+		castMessage("cookieのセーブデータは")
+		castMessage("不正なデータでした！")
+		castMessage("このまま初期状態で起動します")
+		return
+	}
+
+	save = savedata
+
+}
+
+
+/*******************************************/
 /* メイン画面 */
 /*******************************************/
 
@@ -206,6 +254,8 @@ function event(){
 		castMessage("これはでないはずなので気にしない")
 		break
 	}
+	//イベントごとにセーブしとく
+	save()
 }
 
 /*******************************************/
@@ -260,7 +310,7 @@ function getBoxAmount(rarity){
 //抽選結果のアイテムIDを返す
 function lotItem(){
 	var dungeon_index = save.current_dungeon_id*10
-	var floor_up = Math.floor(save.current_floor/2)
+	var floor_up = Math.floor(save.current_floor/4)
 	var item_range = 10
 	var min = dungeon_index+floor_up
 	var max = dungeon_index+floor_up+item_range
@@ -287,6 +337,7 @@ function processStairs(){
 
 //アイテム拾得イベントを起こす
 function eventItem(){
+	castMessage("◆何か落ちている！")
 	spriteSlidein("item")
 	var item_id = lotItem()
 	aquireItem(item_id)
@@ -295,7 +346,7 @@ function eventItem(){
 
 //アイテム拾得イベントを起こす
 function eventItemFlood(){
-	castMessage("ラッキーだ！宝箱を見つけた！")
+	castMessage("◆ラッキーだ！宝箱を見つけた！")
 	spriteSlidein("item")
 	for(var i=0;i<5;++i){
 		var item_id = lotItem()
@@ -307,13 +358,13 @@ function eventItemFlood(){
 function eventStairs(){
 	spriteSlidein("artifact")
 	processStairs()
-	castMessage("階段を降りた！")
+	castMessage("◆階段を降りた！")
 }
 
 //バトルイベントを起こす
 function eventBattle(){
 	spriteSlidein("battle")
-	castMessage("バトルが発生した！")
+	castMessage("◆バトルが発生した！")
 	// in battle.js
 	processBattle()
 
@@ -443,6 +494,20 @@ function getTotalParameter(charaname,paramName){
 	return total
 }
 
+//charanameのatkを返す
+function calcAttack(charaname){
+	var str = getTotalParameter(charaname,"str")	
+	var dex = getTotalParameter(charaname,"dex")
+	return Math.floor((str + dex)/2 + Math.min(str,dex))
+}
+
+//charanameのatkを返す
+function calcDefence(charaname){
+	var def = getTotalParameter(charaname,"def")	
+	var agi = getTotalParameter(charaname,"agi")
+	return Math.floor((def + agi)/2 + Math.min(def,agi))
+}
+
 //マウスオーバー時
 function equipDetailMouseOver(domobject){
 	var item_id = domobject.attributes.item_id.textContent
@@ -511,6 +576,7 @@ function equip(domobject){
 	updateCurrentEquipListArea()
 	updateCurrentTotalParameter()
 	updateEquipList()
+	updateEquipDetailATKDEF()
 }
 
 //クリック経由で装備を外す のdompbjectからスライスを取り出して処理
@@ -545,6 +611,7 @@ function unEquip(slice=false){
 	updateCurrentEquipListArea()
 	updateCurrentTotalParameter()
 	updateEquipList()
+	updateEquipDetailATKDEF()
 }
 
 function getItemIconNameFromTypeID(type_id){
@@ -582,6 +649,7 @@ function toggleEquipEditCharacter(){
 	updateCurrentEquipListArea()
 	updateCurrentTotalParameter()
 	updateEquipList()
+	updateEquipDetailATKDEF()
 }
 
 //現在の装備のページのインデックスを返す
@@ -599,7 +667,10 @@ function showEquipBuildMenu(domobject){
 
 //強化コストを返す
 function getBuildCost(item_id){
-	return 10
+	var lv = save.item[item_id]
+	var rarity = parseInt(data.item_data[item_id].rarity)
+	var cost = (lv+2) * (rarity+1)
+	return cost
 }
 
 //item_idの強化を試みる
@@ -624,6 +695,7 @@ function build(item_id){
 	save.item[item_id] ++
 	prepareEquipBuildMenu(item_id)
 	updateEquipListCoinAmount()
+	updateEquipList()
 }
 
 //強化を実行するボタンを押したときの挙動
@@ -720,7 +792,7 @@ function changeDepth(difference){
 $(document).ready(function(){
 	init();
 })
-setInterval(mainLoop,50);
+setInterval(mainLoop,200);
 setInterval(mainLoop_1sec,1000);
 
 
