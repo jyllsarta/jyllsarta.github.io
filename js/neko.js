@@ -157,6 +157,10 @@ var Base64 = {
     }
 };
 
+function isValidSave(){
+	return true //TODO セーブ項目を精査
+}
+
 //セーブ
 function save(){
 	var savestring = JSON.stringify(save)
