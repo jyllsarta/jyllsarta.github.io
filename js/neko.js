@@ -162,7 +162,7 @@ function isValidSave(){
 }
 
 //セーブ
-function save(){
+function makesave(){
 	var savestring = JSON.stringify(save)
 	var base64save = Base64.encode(savestring)
 
@@ -259,7 +259,7 @@ function event(){
 		break
 	}
 	//イベントごとにセーブしとく
-	save()
+	makesave()
 }
 
 /*******************************************/
