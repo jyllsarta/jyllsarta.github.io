@@ -167,7 +167,6 @@ function makesave(){
 	var base64save = Base64.encode(savestring)
 
 	$.cookie("savedata", base64save, { expires: 10000 });
-	log("セーブしました★")
 }
 
 //ロード
