@@ -269,6 +269,9 @@ function getSpliteImageSource(splite_kind){
 		case "item":
 		return "images/neko/sprite/item/all.png"
 		break
+		case "battle":
+		return "images/neko/sprite/battle/all.png"
+		break
 		default:
 		return "images/neko/sprite/"+splite_kind+".png"
 		break
