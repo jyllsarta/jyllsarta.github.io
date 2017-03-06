@@ -263,11 +263,27 @@ function updateStairsArea(){
 	$("#current_floor").text(save.current_floor)
 }
 
+//スプライト画像のソースを返す
+function getSpliteImageSource(splite_kind){
+	switch(splite_kind){
+		case "item":
+		return "images/neko/sprite/item/all.png"
+		break
+		default:
+		return "images/neko/sprite/"+splite_kind+".png"
+		break
+	}
+
+}
+
 //対応したスプライトがスライドインする
 //imagename : image/neko/spriteにおいてあるファイル名
 function spriteSlidein(imagename){
+
+	var image_source = getSpliteImageSource(imagename)
+
 	$("#sprite_image")
-	.attr("src","images/neko/sprite/"+imagename+".png")
+	.attr("src",image_source)
 	.removeClass("hidden")
 	.animate({
 		opacity:1,
