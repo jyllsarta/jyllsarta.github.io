@@ -691,7 +691,7 @@ function updateEquipBuildButtonShowState(){
 	for(var i=0;i<buttons.length;++i){
 		var  button = buttons[i]
 		var item_id = $(button).parent().attr("item_id")
-		if(save.item[item_id] === undefined || save.item[item_id] ==0){
+		if(save.item[item_id] === undefined || save.item[item_id] === null || save.item[item_id] ==0){
 			$(button).css("display","none")
 		}
 		else if(save.item[item_id] == MAX_EQUIP_BUILD){

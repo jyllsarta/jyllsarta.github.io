@@ -106,7 +106,7 @@
 				</div>
 			</div>
 			<div id="message_log_area" class="shadow_background">
-			<div id="message_log_queue_dummy"></div>
+				<div id="message_log_queue_dummy"></div>
 				<ul id="message_logs"></ul>
 			</div>
 			<div id="character_message_area" class="shadow_background">
@@ -121,7 +121,7 @@
 
 		<img id="sprite_image" src="images/neko/sprite/battle.png">
 		<div id="dungeon_select_menu" class="hidden">
-			<div id="dungeon_select_back_button">戻るボタン！</div>
+			<div id="dungeon_select_back_button" class="back_button"></div>
 			<div id="dungeon_menu_text">ダンジョン選択</div>
 			<ul id="dungeon_list">
 				<li class="dungeon_item" stage_id="0">ダンジョンいっこめ</li>
@@ -170,7 +170,7 @@
 
 		</div>
 		<div id="status_menu" class="hidden">
-			<div id="status_back_button">戻るボタン！</div>
+			<div id="status_back_button" class="back_button"></div>
 			<div id="status_show_text">ステータス画面</div>
 			<img src="images/neko/chara/siro_active.png" id="status_character_siro">
 			<img src="images/neko/chara/kuro_active.png" id="status_character_kuro">
@@ -252,10 +252,12 @@
 
 		<!--装備メニューエリア-->
 		<div id="equipment_menu" class="hidden">
-			<div id="equipment_back_button">戻るボタン！</div>
+			<div id="equipment_back_button" class="back_button"></div>
 			<div id="equip_menu_text">装備</div>
 			<img src="images/neko/chara/siro_active.png" id="equip_charagter_image">
-			<div id="equip_character_toggle_button">しろこ|くろこ</div>
+			<div id="equip_character_toggle_button">
+				<img src="images/neko/icons/change_chara.png"  id="change_chara_image">
+			</div>
 			<div id="equip_select_area" class="shadow_background">
 				<div id="pager">
 					<span id="equip_pager_page_text">ページ</span>
