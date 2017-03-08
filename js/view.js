@@ -304,6 +304,113 @@ function spriteSlidein(imagename){
 	})
 }
 
+//アイテム取得スプライトを初期状態に戻す
+function resetItemSprite(){
+	$("#item_sprite").addClass("hidden")
+	$("#sprite_item_background").css("opacity",0)
+	$("#item_sprite").css({
+		top:80,
+		opacity:0		
+	})
+	$("#sprite_item_treasure").css({
+		top:-10,
+		opacity:0		
+	})
+	$("#sprite_item_kuro").css({
+		top:-10,
+		opacity:0		
+	})
+	$("#sprite_item_siro").css({
+		top:-10,
+		opacity:0		
+	})
+	$("#sprite_item_text").css({
+		top:-10,
+		opacity:0		
+	})
+}
+
+//アイテム取得スプライトをスライドインする
+function showItemSprite(){
+	resetItemSprite()
+	$("#item_sprite").removeClass("hidden")
+
+	$("#item_sprite")
+	.animate({
+		top:110,
+		opacity:1
+	},500,"swing")
+	.delay(3000)
+	.animate({
+		top:80,
+		opacity:0
+	},1500,"easeOutQuart")
+	.queue(function(){
+		$(this).addClass("hidden")
+		$(this).dequeue()
+	})
+
+
+	$("#sprite_item_background").css("opacity",1)
+
+	$("#sprite_item_treasure")
+	.delay(100)
+	.animate({
+		top:0,
+		opacity:1
+	},100,"easeOutQuart")
+
+	$("#sprite_item_kuro")
+	.delay(500)
+	.animate({
+		top:0,
+		opacity:1,
+	},800,"easeOutQuart")
+	.delay(800)
+	.animate({
+		top:-30
+	},100,"linear")
+	.animate({
+		top:0
+	},100,"linear")
+	.delay(80)
+	.animate({
+		top:-20
+	},100,"linear")
+	.animate({
+		top:0
+	},100,"linear")
+
+	$("#sprite_item_siro")
+	.delay(600)
+	.animate({
+		top:0,
+		opacity:1,
+	},800,"easeOutQuart")
+	.delay(750)
+	.animate({
+		top:-30
+	},100,"linear")
+	.animate({
+		top:0
+	},100,"linear")
+	.delay(10)
+	.animate({
+		top:-30
+	},100,"linear")
+	.animate({
+		top:0
+	},100,"linear")
+
+	$("#sprite_item_text")
+	.delay(100)
+	.animate({
+		top:0,
+		opacity:1,
+	},800,"easeOutQuart")
+}
+
+
 //HPの表記反映
 function updateCurrentHP(){
 	$("#hp_siro").text(save.status.siro.hp)

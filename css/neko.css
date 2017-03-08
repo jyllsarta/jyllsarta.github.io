@@ -393,6 +393,24 @@ header{
 	height: 467px;	
 }
 
+#item_sprite{
+	position: absolute;
+	opacity: 0;
+	top: 110px;
+	left: 240px;	
+	width: 700px;
+	height: 467px;		
+}
+
+.sprite{
+	position: absolute;
+	opacity: 0;
+	top: 0px;
+	left: 0px;	
+	width: 700px;
+	height: 467px;	
+}
+
 #dungeon_select_menu{
 	position: absolute;	
 	opacity: 0;
@@ -540,9 +558,6 @@ header{
 	width: 460px;
 	height: 690px;
 }
-
-
-
 
 #equip_select_area{
 	position: absolute;

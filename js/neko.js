@@ -341,7 +341,7 @@ function processStairs(){
 //アイテム拾得イベントを起こす
 function eventItem(){
 	castMessage("◆何か落ちている！")
-	spriteSlidein("item")
+	showItemSprite()
 	var item_id = lotItem()
 	aquireItem(item_id)
 
@@ -350,7 +350,7 @@ function eventItem(){
 //アイテム拾得イベントを起こす
 function eventItemFlood(){
 	castMessage("◆ラッキーだ！宝箱を見つけた！")
-	spriteSlidein("item")
+	showItemSprite()
 	for(var i=0;i<5;++i){
 		var item_id = lotItem()
 		aquireItem(item_id)
