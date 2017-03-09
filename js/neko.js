@@ -85,7 +85,7 @@ function loadItemList(){
 			},
 			type: "GET",
 			url: ITEM_LIST_LOCATION,
-			timeout: 1000
+			timeout: 10000
 		})
 		.done(function(response, textStatus, jqXHR) {
 			loadCSV(response)
