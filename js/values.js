@@ -37,13 +37,22 @@ var data = {
 	current_build_item_id : 0
 }
 
+
+//セーブデータ
+//status以外を入れ子にする場合ValidateSave()を更新すること
 var save = {
 	status:{
 		siro:{
 			hp:100,
+			max_hp:100,
+			lv:0,
+			exp:0
 		},
 		kuro:{
 			hp:100,
+			max_hp:100,
+			lv:0,
+			exp:0
 		}
 	},
 	current_dungeon_id:0,
@@ -122,10 +131,10 @@ var LOT_FREQ_LEGENDARY = 2
 
 //イベント抽選関係
 //イベントの出現比率
-var EVENT_FREQ_STAIRS = 20
-var EVENT_FREQ_ITEM = 38
+var EVENT_FREQ_STAIRS = 25
+var EVENT_FREQ_ITEM = 23
 var EVENT_FREQ_ITEM_FLOOD = 2
-var EVENT_FREQ_BATTLE = 40
+var EVENT_FREQ_BATTLE = 50
 
 //デフォルトのイベント発生間隔(秒)
 var DEFAULT_EVENT_FREQ = 120

@@ -6,22 +6,28 @@ var enemy_data = {
 
 }
 
+//敵の攻撃力を算出
+function calcEnemyAtk(rank){
+	if(rank < 40){
+		return Math.max(rank*6 - 50,1)
+	}
+	return Math.floor(Math.pow(rank-40,1.8)/2.7) + rank*5 + 80
+}
+
+//敵HPを算出
+function calcEnemyHp(rank){
+	if(rank < 40){
+		return Math.max(rank*6 - 50,1)*2
+	}
+	return Math.floor(Math.pow(rank-40,1.8)/2.7)*2 +rank*10 + 130 
+}
+
 //敵の作成
 function Enemy(rank,type="normal", enchant="none"){
-	if(rank < 50){
-		//ランク50以下の場合は特別処理
-		this.atk = rank*2
-		this.sld = 0
-		this.hp = rank * 3 + 10
-		this.maxHp = rank*3 + 10
-		this.isDead  = false
-		this.maxDamagedPersentage = 0
-		return this
-	}
-	this.atk = Math.floor(Math.pow(rank-50,1.8) * 1.45) + 140
+	this.atk = calcEnemyAtk(rank)
 	this.sld = 0
-	this.hp = Math.floor(Math.pow(rank-50,1.8) * 3) + 240
-	this.maxHp = Math.floor(Math.pow(rank-50,1.8) * 3) + 240
+	this.hp = calcEnemyHp(rank)
+	this.maxHp = calcEnemyAtk(rank)
 	this.isDead  = false
 	this.maxDamagedPersentage = 0
 
@@ -58,12 +64,21 @@ function getCurrentEnemyRank(){
 	var start_ir = dungeon_data[save.current_dungeon_id].start_ir
 	var depth = save.current_floor
 
-	return Math.floor(start_ir+( depth/2))
+	return Math.floor(start_ir+( depth/4))
 }
+
+//敵のランクを加味した経験値を計算して返す
+function getExp(rank){
+	var average_lv = (save.status.siro.lv + save.status.kuro.lv)/2
+	var gap = Math.max((rank - average_lv),0)
+	var exp = gap * randInt(5,10) + randInt(1,10)
+	return  exp
+}
+
 
 //fromがtoに攻撃した際のダメージを返す
 function calcDamage(from, to){
-	var damage = Math.max(from.atk - to.sld,1)
+	var damage = Math.max(from.atk - to.sld,Math.floor(to.maxHp/100))
 	return damage
 }
 
@@ -164,34 +179,46 @@ function processBattle(){
 	var damage_kuro =  save.status.kuro.hp - allies[1].hp
 
 	if(allies[0].hp > 0 || allies[1].hp > 0){
-	//勝利していた場合のメッセージ
-	var message = ""
-	if(turnCount == 10){
-		message += "タイムアップ!"
+		//勝利していた場合のメッセージ
+		var message = ""
+		if(turnCount == 10){
+			message += "タイムアップ!"
+		}
+		else{
+			message += turnCount + "ターンで勝利！" 
+		}
+		castMessage(message)
+
+		castMessage( "しろこ" + damage_siro +"%,くろこ" + damage_kuro + "%のダメージ。")
+
+		var biggestMaxDamage = getBiggestMaxDamage(enemies)
+		if(biggestMaxDamage > 30){
+			var reduceTime = Math.min( biggestMaxDamage*2,100)
+			castMessage(Math.min(biggestMaxDamage,200) + "%オーバーキル！")
+			castMessage(reduceTime+ "秒次イベントが早く回ってきます。")
+			reduceNextEventTime(reduceTime)
+		}
+
+		//経験値を獲得
+		var expEarned = getExp(enemy_rank)
+		if(allies[0].hp > 0){
+			save.status.siro.exp += expEarned
+		}
+		if(allies[1].hp > 0){
+			save.status.kuro.exp += expEarned
+		}
+		castMessage(expEarned+"の経験値を獲得！")
+		checkLevelUp()
+
+		//コインを獲得
+		var coinEarned = randInt(0,2)
+		if(coinEarned > 0){
+			save.coin += coinEarned
+			save.total_coin_achieved += coinEarned
+			castMessage(coinEarned+"枚のコインを拾った！")
+		}
 	}
 	else{
-		message += turnCount + "ターンで勝利！" 
-	}
-	castMessage(message)
-
-	castMessage( "しろこ" + damage_siro +"%,くろこ" + damage_kuro + "%のダメージ。")
-
-	var biggestMaxDamage = getBiggestMaxDamage(enemies)
-	if(biggestMaxDamage > 30){
-		var reduceTime = Math.min( biggestMaxDamage*2,100)
-		castMessage(Math.min(biggestMaxDamage,200) + "%オーバーキル！")
-		castMessage(reduceTime+ "秒次イベントが早く回ってきます。")
-		reduceNextEventTime(reduceTime)
-	}
-
-	var coinEarned = randInt(0,2)
-	if(coinEarned > 0){
-		save.coin += coinEarned
-		save.total_coin_achieved += coinEarned
-		castMessage(coinEarned+"枚のコインを拾った！")
-	}
-}
-else{
 		//全滅時のメッセージ
 		castMessage( "しろこ" + damage_siro +"%,くろこ" + damage_kuro + "%ダメージ。")
 		castMessage( "全滅した... ") 
@@ -201,5 +228,28 @@ else{
 	save.status.kuro.hp = Math.max(allies[1].hp,0)
 	updateCurrentHP()
 	updateLoiteringCharactersState()
+}
 
+//経験値テーブルを見てレベルを更新する
+function checkLevelUp(){
+	while(save.status.siro.exp > 100  || save.status.kuro.exp > 100){
+		if(save.status.siro.exp > 100){
+			save.status.siro.lv ++
+			save.status.siro.exp -= 100
+			castMessage("しろこは"+save.status.siro.lv+"レベルになった！")
+		}
+		if(save.status.kuro.exp > 100){
+			save.status.kuro.lv ++
+			save.status.kuro.exp -= 100
+			castMessage("くろこは"+save.status.kuro.lv+"レベルになった！")
+		}
+	}
+	updateMaxHP()
+	updateCurrentHP()
+}
+
+//レベルに応じた最大HPを計算し直す
+function updateMaxHP(){
+	save.status.siro.max_hp = save.status.siro.lv * 10 + 100
+	save.status.kuro.max_hp = save.status.kuro.lv * 10 + 100
 }

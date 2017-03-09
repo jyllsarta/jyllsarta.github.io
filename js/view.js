@@ -415,6 +415,8 @@ function showItemSprite(){
 function updateCurrentHP(){
 	$("#hp_siro").text(save.status.siro.hp)
 	$("#hp_kuro").text(save.status.kuro.hp)
+	$("#hp_max_siro").text(save.status.siro.max_hp)
+	$("#hp_max_kuro").text(save.status.kuro.max_hp)
 }
 
 

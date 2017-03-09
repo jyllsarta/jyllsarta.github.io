@@ -149,16 +149,35 @@ function __debugDungeonFullOpen(){
 /*******************************************/
 
 var Base64 = {
-    encode: function(str) {
-        return btoa(unescape(encodeURIComponent(str)));
-    },
-    decode: function(str) {
-        return decodeURIComponent(escape(atob(str)));
-    }
+	encode: function(str) {
+		return btoa(unescape(encodeURIComponent(str)));
+	},
+	decode: function(str) {
+		return decodeURIComponent(escape(atob(str)));
+	}
 };
 
-function isValidSave(){
-	return true //TODO セーブ項目を精査
+//セーブデータの足りないパラメータを探す
+function validateSave(savedata){
+	for(var item in save){
+		if(savedata[item] === undefined){
+			savedata[item] = save[item]
+			castMessage(item+"がセーブデータになかったので"+save[item]+"にしました。")
+		}
+	}
+	for(var item in save.status.siro){
+		log(item)
+		if(savedata.status.siro[item] === undefined){
+			savedata.status.siro[item] = save.status.siro[item]
+			castMessage("save.status.siro."+item+"がセーブデータになかったので"+save.status.siro[item]+"にしました。")
+		}
+	}
+	for(var item in save.status.kuro){
+		if(savedata.status.kuro[item] === undefined){
+			savedata.status.kuro[item] = save.status.kuro[item]
+			castMessage("save.status.kuro."+item+"がセーブデータになかったので"+save.status.kuro[item]+"にしました。")
+		}
+	}
 }
 
 //セーブ
@@ -180,12 +199,7 @@ function load(){
 	var savestring = Base64.decode(cookie)
 	var savedata = JSON.parse(savestring)
 
-	if(isValidSave(savedata) === false){
-		castMessage("cookieのセーブデータは")
-		castMessage("不正なデータでした！")
-		castMessage("このまま初期状態で起動します")
-		return
-	}
+	validateSave(savedata)
 
 	save = savedata
 
@@ -312,7 +326,7 @@ function getBoxAmount(rarity){
 //現在ダンジョンなどを考慮して何を拾うのか抽選を行う
 //抽選結果のアイテムIDを返す
 function lotItem(){
-	var dungeon_index = save.current_dungeon_id*10
+	var dungeon_index = dungeon_data[save.current_dungeon_id].start_ir
 	var floor_up = Math.floor(save.current_floor/4)
 	var item_range = 10
 	var min = dungeon_index+floor_up
@@ -335,6 +349,9 @@ function lotItem(){
 //階段処理
 function processStairs(){
 	save.current_floor ++
+	if(save.dungeon_process[save.current_dungeon_id] <= save.current_floor ){
+		save.dungeon_process = save.current_floor
+	}
 	fadeOutAndFadeInStairs()
 }
 
