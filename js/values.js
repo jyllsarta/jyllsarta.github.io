@@ -27,7 +27,8 @@ var data = {
 	],
 	equipment_menu : {
 		current_page : 1,
-		current_character : "siro"
+		current_character : "siro",
+		sort_order : 0,
 	},
 	dungeon_select_menu : {
 		depth : 1,
@@ -61,7 +62,7 @@ var save = {
 		siro:[],
 		kuro:[],
 	},
-	item:[],
+	item:[1,1,1,1],
 	dungeon_open:[1,0,0,0,0],
 	dungeon_process:[0,0,0,0,0],
 	next_event_timer : 120,

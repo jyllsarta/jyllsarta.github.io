@@ -564,19 +564,19 @@ header{
 	top: 20px;
 	left: 380px;
 	width: 700px;
-	height: 400px;
+	height: 410px;
 }
 
 #pager{
 	position: absolute;
-	top: 17px;
+	top: 25px;
 	left: 20px;
 }
 
 #pager_button_area{
 	position: absolute;
-	top: 10px;
-	left: 183px;
+	top: 25px;
+	left: 143px;
 	font-size: 20px;
 }
 
@@ -598,9 +598,25 @@ header{
 
 #power_show_text{
 	position: absolute;
-	top: 17px;
-	left: 316px;
+	top: 25px;
+	left: 276px;
 	font-size: 16px;	
+}
+
+#sort_toggle_button{
+	position: absolute;
+	top: 23px;
+	left: 350px;
+	width: 100px;
+	height: 30px;
+	background-color: #535393;
+	border-radius: 3px 3px;
+	font-size: 20px;
+	text-align: center;
+}
+
+#sort_toggle_button:hover{
+	background-color: #C1C2C3;
 }
 
 #equip_coin_show_area{
@@ -631,7 +647,7 @@ header{
 #equipment_list{
 	list-style: none;
 	position: absolute;
-	top: 55px;
+	top: 65px;
 	left: 10px;
 }
 
@@ -699,7 +715,7 @@ header{
 
 #equip_detail_area{
 	position: absolute;
-	top: 55px;
+	top: 65px;
 	left: 470px;
 	width: 210px;
 	height: 330px;
@@ -846,10 +862,10 @@ text-align: right;
 
 #character_status_area{
 	position: absolute;
-	top: 440px;	
+	top: 450px;	
 	left: 380px;
 	width: 700px;
-	height: 240px;
+	height: 230px;
 }
 
 #current_equip_list{

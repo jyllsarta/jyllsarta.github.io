@@ -19,6 +19,22 @@ function getCurrentTimeString(){
 	var time = d.getHours() + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0"+d.getSeconds()).slice(-2)
 	return time
 }
+
+//ソート(qiitaからコピペ)
+//data : ソートしたい配列
+//key : data内オブジェクトのソートキー
+function object_array_sort(data,key){
+	data = data.sort(function(a, b){
+		var x = a[key];
+		var y = b[key];
+		if (x > y) return -1;
+		if (x < y) return 1;
+		return 0;
+	});
+	return data
+}
+
+
 /*******************************************/
 /* 初期化系 */
 /*******************************************/
@@ -212,7 +228,10 @@ function load(){
 
 //画面を1pxだけ右にスクロールさせる
 function scrollBackgroundImage(){
-	data.background_image_scroll_position ++
+	//死んでたら歩かない
+	if(isCharacterAlive()){
+		data.background_image_scroll_position ++	
+	}
 }
 
 //背景画面をpositionの位置にする
@@ -350,7 +369,7 @@ function lotItem(){
 function processStairs(){
 	save.current_floor ++
 	if(save.dungeon_process[save.current_dungeon_id] <= save.current_floor ){
-		save.dungeon_process = save.current_floor
+		save.dungeon_process[save.current_dungeon_id] = save.current_floor
 	}
 	fadeOutAndFadeInStairs()
 }
@@ -491,12 +510,12 @@ function calcTotalItemParam(item_id){
 	var lv = save.item[item_id] || 0
 	var {str, dex, def, agi} = data.item_data[item_id]
 	var orig_params = [str, dex, def, agi].map(x=>parseInt(x,10))
-		//プラス補正の反映
-		var builded = orig_params.map(x=>Math.floor(x*(lv-1+10)/10))
-		//全部足し合わせる
-		var sum = builded.reduce((x,y)=>x+y)
-		return sum
-	}
+	//プラス補正の反映
+	var builded = orig_params.map(x=>Math.floor(x*(lv-1+10)/10))
+	//全部足し合わせる
+	var sum = builded.reduce((x,y)=>x+y)
+	return sum
+}
 
 //プラス値を考慮したパラメータを返す
 function getBuildedParameter(item_id,paramName){
@@ -723,6 +742,43 @@ function buildButtonHandle(){
 	//ウィンドウを開くときに記憶しておいた「その時操作中のアイテムID」で強化を行う
 	build(data.current_build_item_id) 
 }
+
+
+//装備を合計パラメータ順にソートして10個アイテムIDを返す
+function getItemIDListOrderByTotalParameter(page){
+
+	var power_list = []
+	//IDとパラメータ合計値を持ったオブジェクトを作成
+	for(var i=0;i<data.item_data.length;++i){
+		if(save.item[i] > 0){
+			power_list.push({id:i, power:calcTotalItemParam(i)})
+		}
+	}
+	//今作ったオブジェクトをソート
+	var sorted = object_array_sort(power_list,"power")
+
+	//ソート済オブジェクトから指定された10個を抜き出して返す
+	var sliced = sorted.splice((page-1)*10,10)
+
+	var result = []
+	for(var s of sliced){
+		result.push(s.id)
+	}
+	return result
+
+}
+
+//ソート順を切り替える
+function toggleSortOrder(){
+	if(data.equipment_menu.sort_order === 0){
+		data.equipment_menu.sort_order = 1
+	}
+	else{
+		data.equipment_menu.sort_order = 0
+	}
+	updateEquipList()
+}
+
 
 /*******************************************/
 /* ステータス画面 */

@@ -17,7 +17,7 @@ function calcEnemyAtk(rank){
 //敵HPを算出
 function calcEnemyHp(rank){
 	if(rank < 40){
-		return Math.max(rank*6 - 50,1)*2
+		return Math.max(rank*6 - 50,1)*5
 	}
 	return Math.floor(Math.pow(rank-40,1.8)/2.7)*2 +rank*10 + 130 
 }
@@ -27,7 +27,7 @@ function Enemy(rank,type="normal", enchant="none"){
 	this.atk = calcEnemyAtk(rank)
 	this.sld = 0
 	this.hp = calcEnemyHp(rank)
-	this.maxHp = calcEnemyAtk(rank)
+	this.maxHp = calcEnemyHp(rank)
 	this.isDead  = false
 	this.maxDamagedPersentage = 0
 
@@ -48,7 +48,7 @@ function Ally(charaname){
 	this.atk = calcAttack(charaname)
 	this.sld = calcDefence(charaname)
 	this.hp = save.status[charaname].hp
-	this.maxHp = 100
+	this.maxHp = save.status[charaname].max_hp
 	if(this.hp > 0){
 		this.isDead  = false
 	}
@@ -95,6 +95,7 @@ function attackAllCharacterToRandomTarget(from,to){
 		var damage = calcDamage(attacker,to[target])
 		to[target].hp -= damage
 		var  damagePersentage = Math.floor(damage*100 / to[target].maxHp)
+		log(damagePersentage)
 		if(damagePersentage > to[target].maxDamagedPersentage){
 			to[target].maxDamagedPersentage = damagePersentage
 		}
@@ -189,7 +190,7 @@ function processBattle(){
 		}
 		castMessage(message)
 
-		castMessage( "しろこ" + damage_siro +"%,くろこ" + damage_kuro + "%のダメージ。")
+		castMessage( "しろこ" + damage_siro +",くろこ" + damage_kuro + "のダメージ。")
 
 		var biggestMaxDamage = getBiggestMaxDamage(enemies)
 		if(biggestMaxDamage > 30){
@@ -220,7 +221,7 @@ function processBattle(){
 	}
 	else{
 		//全滅時のメッセージ
-		castMessage( "しろこ" + damage_siro +"%,くろこ" + damage_kuro + "%ダメージ。")
+		castMessage( "しろこ" + damage_siro +",くろこ" + damage_kuro + "ダメージ。")
 		castMessage( "全滅した... ") 
 	}
 

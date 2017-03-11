@@ -13,6 +13,8 @@ function initView(){
 	$("#current_floor").text(save.current_floor)
 	$(".dungeon_name").text(dungeon_data[stage_id].name)
 	$("#next_event_sec").text(save.next_event_timer)
+
+	updateCurrentHP()
 }
 
 //ゲームモードの切り替え
@@ -560,14 +562,38 @@ function prepareEquipMenu(){
 	updateEquipDetailATKDEF()
 }
 
+//現在装備エリアに表示されるべきアイテムIDのリストを作成する
+function getCurrentPageItemList(){
+	var item_ids = []
+	var sort_order = data.equipment_menu.sort_order
+	var current_page = data.equipment_menu.current_page
+
+	//sort_order==0 -> ID順
+	//sort_order==1 -> 総パラメータ順
+	if(sort_order === 0){
+		for(var i=0;i<10;++i){
+			item_ids.push((current_page-1)*10 + i)
+		}
+		return item_ids
+	}
+
+	if(sort_order === 1){
+		item_ids = getItemIDListOrderByTotalParameter(current_page)
+		return item_ids
+	}
+
+	castMessage("不正なソート順が指定されています！")
+
+}
+
 //装備リストのパラメータ部分を更新
 function updateEquipListParam(){
 	var equip_name_list = $("#equipment_list .equip_item").children(".equip_list_param")
-	var current_page = data.equipment_menu.current_page
+	var item_ids = getCurrentPageItemList()
 
 	//表示項目の更新
 	for(var i=0;i<equip_name_list.length;++i){
-		var target_item_id = (current_page-1)*10 + i
+		var target_item_id = item_ids[i]
 		var target_item_lv = save.item[target_item_id] || 0
 
 		if(!data.item_data[target_item_id]){
@@ -589,17 +615,18 @@ function updateEquipListParam(){
 function updateEquipListName(){
 	var equip_name_list = $("#equipment_list .equip_item").children(".equip_list_text")
 	var current_page = data.equipment_menu.current_page
+	var item_ids = getCurrentPageItemList()
 
 	//li にアイテムIDを埋め込み
 	var lists =  $("#equipment_list").children()
 	for(var i=0;i<lists.length;++i){
-		lists[i].setAttribute("item_id",(current_page-1)*10+i)
+		lists[i].setAttribute("item_id",item_ids[i])
 	} 
 
 	//表示項目の更新
 	for(var i=0;i<equip_name_list.length;++i){
 
-		var target_item_id = (current_page-1)*10 + i
+		var target_item_id = item_ids[i]
 		var target_item_lv = save.item[target_item_id] || 0
 		var item_full_name = makeFullEquipName(target_item_id)
 
@@ -635,10 +662,25 @@ function updateEquipList(){
 	updateEquipListName()
 	updateEquipListParam()
 	updateEquipBuildButtonShowState()
+	updateSortOrderButtonState()
 }
+
 
 function updatePagerCurrentPage(){
 	$("#current_page").text(data.equipment_menu.current_page)
+}
+
+
+function updateSortOrderButtonState(){
+	var lavel = ""
+	if(data.equipment_menu.sort_order === 0){
+		lavel = "[ID順]"
+	}
+	else{
+		lavel = "[つよさ順]"
+	}
+
+	$("#sort_toggle_button").text(lavel)
 }
 
 //ページャーのボタンの活性不活性を反映
@@ -743,7 +785,7 @@ function updateEquipDetailAreaTo(item_id){
 	}	
 }
 
-//現在装備エリアの表示反映を行うequi
+//現在装備エリアの表示反映を行う
 function  updateCurrentEquipListArea(){
 	var current_chara_name = data.equipment_menu.current_character
 	var equip_num = save.equip[current_chara_name].length

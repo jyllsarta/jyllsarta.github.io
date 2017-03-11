@@ -60,6 +60,11 @@ $("#pager_button_next").click(function(){
 	equipListNextPage()
 })
 
+//ソート順クリックでソートルール変更
+$("#sort_toggle_button").click(function(){
+	toggleSortOrder()
+})
+
 //各装備マウスオーバーで詳細画面に対応したものを表示
 $(".equip_item").mouseover(function(){
 	equipDetailMouseOver(this)
