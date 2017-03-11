@@ -861,6 +861,10 @@ function updateEquipBuildButtonShowState(){
 
 //ステータス画面のパラメータを整理
 function prepareStatusParameters(){
+
+	//実績エリア更新
+	updateAchievementArea()
+
 	$("#status_siro .status .status_value")[0].textContent = save.status.siro.hp
 	$("#status_siro .status .status_value")[1].textContent =  getTotalParameter("siro","str")
 	$("#status_siro .status .status_value")[2].textContent =  getTotalParameter("siro","dex")
@@ -970,8 +974,16 @@ function constructStatusBoardAnimation(){
 		opacity:0.8
 	},1000,"swing")
 
-
 }
+
+//実績部分を更新
+function updateAchievementArea(){
+	$("#achievement_item_found").text(getSumItemFounded())
+	$("#achievement_item_builded").text(getSumItemFoundedFullBuilded())
+	$("#achievement_coin_earned").text(save.total_coin_achieved)
+	$("#achievement_depth").text(getDeepestDepthCrawled())
+}
+
 /*******************************************/
 /* ダンジョン選択画面 */
 /*******************************************/

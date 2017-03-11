@@ -708,7 +708,7 @@ function showEquipBuildMenu(domobject){
 function getBuildCost(item_id){
 	var lv = save.item[item_id]
 	var rarity = parseInt(data.item_data[item_id].rarity)
-	var cost = (lv+2) * (rarity+1)
+	var cost = (lv+2) * (rarity+1) + Math.floor(item_id /10)
 	return cost
 }
 
@@ -784,41 +784,39 @@ function toggleSortOrder(){
 /* ステータス画面 */
 /*******************************************/
 
-//ステータス画面のパラメータを整理
-function prepareStatusParameters(){
-	$("#status_siro .status .status_value")[0].textContent = save.status.siro.hp
-	$("#status_siro .status .status_value")[1].textContent =  getTotalParameter("siro","str")
-	$("#status_siro .status .status_value")[2].textContent =  getTotalParameter("siro","dex")
-	$("#status_siro .status .status_value")[3].textContent =  getTotalParameter("siro","def")
-	$("#status_siro .status .status_value")[4].textContent =  getTotalParameter("siro","agi")
 
-	$("#status_kuro .status .status_value")[0].textContent = save.status.kuro.hp
-	$("#status_kuro .status .status_value")[1].textContent =  getTotalParameter("kuro","str")
-	$("#status_kuro .status .status_value")[2].textContent =  getTotalParameter("kuro","dex")
-	$("#status_kuro .status .status_value")[3].textContent =  getTotalParameter("kuro","def")
-	$("#status_kuro .status .status_value")[4].textContent =  getTotalParameter("kuro","agi")
-
-	for(var i=0;i<4;++i){
-		if(save.equip.siro[i]){
-			$("#equip_siro .status_equip_item")[i].textContent = makeFullEquipName(save.equip.siro[i])
-		}
-		else{
-			$("#equip_siro .status_equip_item")[i].textContent = "-"		
+//発見アイテム数を返す
+function getSumItemFounded(){
+	var total = 0
+	for(var i=0;i<data.item_data.length;++i){
+		if(save.item[i] > 0){
+			total ++
 		}
 	}
-
-	for(var i=0;i<4;++i){
-		if(save.equip.kuro[i]){
-			$("#equip_kuro .status_equip_item")[i].textContent = makeFullEquipName(save.equip.kuro[i])
-		}
-		else{
-			$("#equip_kuro .status_equip_item")[i].textContent = "-"		
-		}
-	}
+	return total
 }
 
+// +10まで強化したアイテム数を返す
+function getSumItemFoundedFullBuilded(){
+	var total = 0
+	for(var i=0;i<data.item_data.length;++i){
+		if(save.item[i] == MAX_EQUIP_BUILD){
+			total ++
+		}
+	}
+	return total
+}
 
-
+//潜った最も深いところ
+function getDeepestDepthCrawled(){
+	var max = 0
+	for(var dep of save.dungeon_process){
+		if(dep > max){
+			max = dep
+		}
+	}
+	return max
+}
 
 /*******************************************/
 /* ダンジョン選択画面 */

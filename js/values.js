@@ -64,7 +64,7 @@ var save = {
 	},
 	item:[1,1,1,1],
 	dungeon_open:[1,0,0,0,0],
-	dungeon_process:[0,0,0,0,0],
+	dungeon_process:[1,0,0,0,0],
 	next_event_timer : 120,
 	auto_ressurect_timer : 5000,
 	coin : 0,
