@@ -416,6 +416,7 @@ function eventStairs(){
 				save.total_coin_achieved += coinEarned
 				castMessage(coinEarned+"枚のコインを獲得！")
 				castMessage("ボスの隠し持っていた宝箱を見つけた！")
+				castMessage("(通常よりレア装備が出やすくなります)")
 				for(var i=0;i<15;++i){
 					var item_id = lotItem(flatten=true)
 					aquireItem(item_id)
