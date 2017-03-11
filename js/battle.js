@@ -95,7 +95,6 @@ function attackAllCharacterToRandomTarget(from,to){
 		var damage = calcDamage(attacker,to[target])
 		to[target].hp -= damage
 		var  damagePersentage = Math.floor(damage*100 / to[target].maxHp)
-		log(damagePersentage)
 		if(damagePersentage > to[target].maxDamagedPersentage){
 			to[target].maxDamagedPersentage = damagePersentage
 		}
