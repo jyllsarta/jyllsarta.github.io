@@ -305,19 +305,21 @@ function aquireItem(item_id){
 	after = Math.min(after,MAX_EQUIP_BUILD)
 	save.item[item_id] = after
 
+	var item_name = getRaritySymbol(data.item_data[item_id].rarity) + data.item_data[item_id].name
+
 	//新規取得ならレベル1になっているはず
 	if(save.item[item_id] == 1){
-		castMessage(data.item_data[item_id].name + "を拾った!")
+		castMessage(item_name + "を拾った!")
 	}
 	else if(before == MAX_EQUIP_BUILD){
 		//もうすでに最大強化されてた場合
 		save.coin ++
 		save.total_coin_achieved ++
-		castMessage(data.item_data[item_id].name + "を拾った!")
-		castMessage("("+data.item_data[item_id].name+"は既に+10なのでコインに変換しました)")
+		castMessage(item_name + "を拾った!")
+		castMessage("("+item_name+"は既に+10なのでコインに変換しました)")
 	}
 	else{
-		castMessage(data.item_data[item_id].name+"を+"+(save.item[item_id]-1)+"に強化した!")		
+		castMessage(item_name+"を+"+(save.item[item_id]-1)+"に強化した!")		
 	}
 }
 
@@ -344,7 +346,8 @@ function getBoxAmount(rarity){
 
 //現在ダンジョンなどを考慮して何を拾うのか抽選を行う
 //抽選結果のアイテムIDを返す
-function lotItem(){
+//flatten=trueで重み付けを行わない
+function lotItem(flatten=false){
 	var dungeon_index = dungeon_data[save.current_dungeon_id].start_ir
 	var floor_up = Math.floor(save.current_floor/4)
 	var item_range = 10
@@ -356,6 +359,10 @@ function lotItem(){
 	var lot_box = []
 	for(var i=min;i<max;++i){
 		var box_amount = getBoxAmount(data.item_data[i].rarity)
+		if(flatten){
+			//平滑化モードオンの場合どのアイテムも箱に一個しか入れない
+			box_amount = 1
+		}
 		for(var j=0;j<box_amount;++j){
 			lot_box.push(i)
 		}
@@ -395,9 +402,34 @@ function eventItemFlood(){
 
 //階段降りイベントを起こす
 function eventStairs(){
-	spriteSlidein("artifact")
-	processStairs()
-	castMessage("◆階段を降りた！")
+
+	if(save.current_floor % 100 === 99){
+		spriteSlidein("battle")
+		processBattle(bossBattle=true)
+		//生き残っていれば次の階に進む
+		if(isCharacterAlive()){
+			save.current_floor ++
+			if(save.dungeon_process[save.current_dungeon_id] <= save.current_floor ){
+				castMessage("ボスの初回討伐ボーナス！")
+				var coinEarned = getCurrentEnemyRank() * 5 + randInt(1,20)
+				save.coin += coinEarned
+				save.total_coin_achieved += coinEarned
+				castMessage(coinEarned+"枚のコインを獲得！")
+				castMessage("ボスの隠し持っていた宝箱を見つけた！")
+				for(var i=0;i<15;++i){
+					var item_id = lotItem(flatten=true)
+					aquireItem(item_id)
+				}
+			}
+			save.dungeon_process[save.current_dungeon_id] = save.current_floor
+			fadeOutAndFadeInStairs()
+		}
+	}
+	else{
+		spriteSlidein("artifact")
+		processStairs()
+		castMessage("◆階段を降りた！")
+	}
 }
 
 //バトルイベントを起こす

@@ -35,6 +35,11 @@ function Enemy(rank,type="normal", enchant="none"){
 		this.sld = rank * 2
 	}
 
+	if(type==="boss"){
+		this.hp *= 20
+		this.maxHp *= 20
+	}
+
 	//TODO type か enchantに指定が入った際のパラメータ補正
 }
 
@@ -72,7 +77,7 @@ function getExp(rank){
 	var average_lv = (save.status.siro.lv + save.status.kuro.lv)/2
 	var gap = Math.max((rank - average_lv),0)
 	var exp = gap * randInt(5,10) + randInt(1,10)
-	return  exp
+	return  Math.floor(exp)
 }
 
 
@@ -151,16 +156,26 @@ function getBiggestMaxDamage(enemies){
 }
 
 //バトル処理を行う
-function processBattle(){
+function processBattle(bossBattle=false){
 	var enemies  = []
 	var allies = []
 
 	var enemy_rank = getCurrentEnemyRank()
 
+	if(bossBattle){
+		castMessage("ボス戦だ！")
+		enemy_rank += 10
+	}
+
 	//敵を追加
-	enemies.push(new Enemy(enemy_rank))
-	enemies.push(new Enemy(enemy_rank))
-	enemies.push(new Enemy(enemy_rank))
+	if(!bossBattle){
+		enemies.push(new Enemy(enemy_rank))
+		enemies.push(new Enemy(enemy_rank))
+		enemies.push(new Enemy(enemy_rank))
+	}
+	else{
+		enemies.push(new Enemy(enemy_rank,type="boss"))		
+	}
 
 	//味方を追加
 	allies.push(new Ally("siro"))
@@ -182,7 +197,7 @@ function processBattle(){
 		//勝利していた場合のメッセージ
 		var message = ""
 		if(turnCount == 10){
-			message += "タイムアップ!"
+			message += "タイムアップ!なんとか攻撃を耐えきった!"
 		}
 		else{
 			message += turnCount + "ターンで勝利！" 
@@ -210,12 +225,14 @@ function processBattle(){
 		castMessage(expEarned+"の経験値を獲得！")
 		checkLevelUp()
 
-		//コインを獲得
-		var coinEarned = randInt(0,2)
-		if(coinEarned > 0){
-			save.coin += coinEarned
-			save.total_coin_achieved += coinEarned
-			castMessage(coinEarned+"枚のコインを拾った！")
+		//コインを獲得(ボス戦では初回討伐ボーナスのみ)
+		if(!bossBattle){
+			var coinEarned = randInt(0,2)
+			if(coinEarned > 0){
+				save.coin += coinEarned
+				save.total_coin_achieved += coinEarned
+				castMessage(coinEarned+"枚のコインを拾った！")
+			}
 		}
 	}
 	else{
@@ -253,3 +270,4 @@ function updateMaxHP(){
 	save.status.siro.max_hp = save.status.siro.lv * 10 + 100
 	save.status.kuro.max_hp = save.status.kuro.lv * 10 + 100
 }
+
