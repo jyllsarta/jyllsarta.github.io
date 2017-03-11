@@ -112,27 +112,27 @@ function updateLoiteringCharactersState(){
 	if(save.status.siro.hp <= 0){
 		//しろこ死亡時
 		$("#character_siro img").attr("src","images/neko/chara/siro_dead.png")
-		$("#character_siro img").removeClass("character_chip_alive")
-		$("#character_siro img").addClass("character_chip_dead")
+		.removeClass("character_chip_alive")
+		.addClass("character_chip_dead")
 	}
 	else{
 		//しろこ生存
 		$("#character_siro img").attr("src","images/neko/chara/siro.png")
-		$("#character_siro img").addClass("character_chip_alive")
-		$("#character_siro img").removeClass("character_chip_dead")
+		.addClass("character_chip_alive")
+		.removeClass("character_chip_dead")
 	}
 
 	if(save.status.kuro.hp <= 0){
 		//くろこ死亡時
 		$("#character_kuro img").attr("src","images/neko/chara/kuro_dead.png")
-		$("#character_kuro img").removeClass("character_chip_alive")
-		$("#character_kuro img").addClass("character_chip_dead")
+		.removeClass("character_chip_alive")
+		.addClass("character_chip_dead")
 	}
 	else{
 		//くろこ生存
 		$("#character_kuro img").attr("src","images/neko/chara/kuro.png")
-		$("#character_kuro img").addClass("character_chip_alive")
-		$("#character_kuro img").removeClass("character_chip_dead")
+		.addClass("character_chip_alive")
+		.removeClass("character_chip_dead")
 	}
 
 	//どっちも死んでたら復活タイマー
@@ -148,6 +148,17 @@ function updateLoiteringCharactersState(){
 //しろがゆらゆら移動
 function  loiteringSiro(){
 	if(save.status.siro.hp <= 0){
+		//たまーにピクピクする
+
+		if(randInt(1,100) < 5){
+			$("#character_siro")	
+			.animate({
+				left : data.siro.x-1
+			},100,"linear")
+			.animate({
+				left : data.siro.x
+			},70,"linear")
+		}
 		return
 	}
 
@@ -178,9 +189,20 @@ function  loiteringSiro(){
 
 //くろがゆらゆら移動
 function  loiteringKuro(){
-	if(save.status.kuro.hp <= 0){
+	if(save.status.siro.hp <= 0){
+		//たまーにピクピクする
+		if(randInt(1,100) < 5){
+			$("#character_kuro")	
+			.animate({
+				left : data.kuro.x-1
+			},60,"linear")
+			.animate({
+				left : data.kuro.x
+			},40,"linear")
+		}
 		return
 	}
+
 
 	data.kuro.x += data.kuro.vx
 	$("#character_kuro").css("left",data.kuro.x)
