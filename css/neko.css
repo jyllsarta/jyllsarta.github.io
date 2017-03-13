@@ -599,14 +599,14 @@ header{
 #power_show_text{
 	position: absolute;
 	top: 25px;
-	left: 276px;
+	left: 306px;
 	font-size: 16px;	
 }
 
 #sort_toggle_button{
 	position: absolute;
 	top: 23px;
-	left: 350px;
+	left: 370px;
 	width: 100px;
 	height: 30px;
 	background-color: #535393;
@@ -680,8 +680,10 @@ header{
 
 .equip_list_param{
 	display: inline-block;
-	width: 100px;	
+	width: 70px;	
 	font-size: 20px;
+	padding-right: 30px;
+	text-align: right;
 }
 
 .equip_build_button{
