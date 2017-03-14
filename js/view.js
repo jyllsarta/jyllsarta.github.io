@@ -15,7 +15,7 @@ function initView(){
 	$("#next_event_sec").text(save.next_event_timer)
 
 	updateCurrentHP()
-updateCurrentLVEXP()
+	updateCurrentLVEXP()
 }
 
 //ゲームモードの切り替え
@@ -304,6 +304,14 @@ function getSpliteImageSource(splite_kind){
 
 }
 
+
+
+/**************************************************/
+/************** スプライト関係 *********************/
+/**************************************************/
+
+
+
 //対応したスプライトがスライドインする
 //imagename : image/neko/spriteにおいてあるファイル名
 function spriteSlidein(imagename){
@@ -375,7 +383,6 @@ function showItemSprite(){
 		$(this).dequeue()
 	})
 
-
 	$("#sprite_item_background").css("opacity",1)
 
 	$("#sprite_item_treasure")
@@ -435,6 +442,335 @@ function showItemSprite(){
 	},800,"easeOutQuart")
 }
 
+function resetBattleSprite(){
+	$("#sprite_battle_enemy1").css({
+		opacity:0,
+		top:0,
+		left:-50
+	})
+	$("#sprite_battle_enemy2").css({
+		opacity:0,
+		top:0,
+		left:-50
+	})
+	$("#sprite_battle_enemy3").css({
+		opacity:0,
+		top:0,
+		left:-50
+	})
+	$("#sprite_battle_siro").css({
+		opacity:0,
+		top:0,
+		left:100
+	})
+	$("#sprite_battle_kuro").css({
+		opacity:0,
+		top:0,
+		left:100
+	})
+	$("#sprite_battle_text").css({
+		opacity:0,
+		top:0,
+		top:-20
+	})
+}
+
+function showBattleSprite(){
+	resetBattleSprite()
+	$("#battle_sprite").removeClass("hidden")
+
+	$("#battle_sprite")
+	.animate({
+		top:110,
+		opacity:1
+	},500,"swing")
+	.delay(3400)
+	.animate({
+		top:80,
+		opacity:0
+	},1500,"easeOutQuart")
+	.queue(function(){
+		$(this).addClass("hidden")
+		$(this).dequeue()
+	})
+
+	$("#sprite_battle_background").css("opacity",1)
+
+	$("#sprite_battle_text")
+	.delay(100)
+	.animate({
+		top:0,
+		opacity:1,
+	},800,"easeOutQuart")
+
+	$("#sprite_battle_enemy1")
+	.delay(600)
+	.animate({
+		left:0,
+		opacity:1
+	},1500,"easeOutQuart")
+	.delay(1400)
+	.animate({
+		top:-100,
+		left:160,
+	},2000,"easeOutQuart")	
+
+	$("#sprite_battle_enemy2")
+	.delay(800)
+	.animate({
+		left:0,
+		opacity:1
+	},1500,"easeOutQuart")
+	.delay(1200)
+	.animate({
+		top:-100,
+		left:120,
+	},2000,"easeOutQuart")	
+
+	$("#sprite_battle_enemy3")
+	.delay(1000)
+	.animate({
+		left:0,
+		opacity:1
+	},1500,"easeOutQuart")
+	.delay(1000)
+	.animate({
+		top:-100,
+		left:160,
+	},2000,"easeOutQuart")	
+
+	$("#sprite_battle_siro")
+	.delay(1500)
+	.animate({
+		left:0,
+		opacity:1
+	},1500,"easeOutQuart")
+	.delay(500)
+	.animate({
+		top:-100,
+		left:-180,
+	},2000,"easeOutQuart")	
+
+	$("#sprite_battle_kuro")
+	.delay(1800)
+	.animate({
+		left:60,
+		opacity:1
+	},1500,"easeOutQuart")
+	.delay(200)
+	.animate({
+		top:-100,
+		left:-70,
+	},2000,"easeOutQuart")	
+	
+}
+
+function resetStairsSprite(){
+	$("#sprite_stairs_text").css({
+		opacity:0,
+		top:-50
+	})
+	$("#sprite_stairs_siro").css({
+		opacity:0,
+		top:0,
+		left:-50
+	})
+	$("#sprite_stairs_kuro").css({
+		opacity:0,
+		top:0,
+		left:-50
+	})
+
+}
+
+function showStairsSprite(){
+	resetStairsSprite()
+	$("#stairs_sprite").removeClass("hidden")
+
+	$("#stairs_sprite")
+	.animate({
+		top:110,
+		opacity:1
+	},500,"swing")
+	.delay(3400)
+	.animate({
+		top:80,
+		opacity:0
+	},1500,"easeOutQuart")
+	.queue(function(){
+		$(this).addClass("hidden")
+		$(this).dequeue()
+	})
+
+	$("#sprite_stairs_background").css("opacity",1)
+
+	$("#sprite_stairs_text")
+	.delay(100)
+	.animate({
+		top:0,
+		opacity:1,
+	},800,"easeOutQuart")
+
+	$("#sprite_stairs_siro")
+	.delay(400)
+	.animate({
+		left:0,
+		opacity:1
+	},500,"easeOutQuart")
+	.delay(600)
+	.animate({
+		top:-50,
+		left:30,
+	},300,"linear")	
+	.animate({
+		top:-30,
+		left:50,
+	},300,"swing")	
+	.delay(300)
+	.animate({
+		top:-70,
+		left:80,
+	},300,"linear")	
+	.animate({
+		top:-50,
+		left:130,
+	},300,"swing")	
+	.delay(300)
+	.animate({
+		top:-90,
+		left:160,
+	},300,"linear")	
+	.animate({
+		top:-70,
+		left:190,
+	},300,"swing")
+	.delay(250)
+	.animate({
+		top:-110,
+		left:190,
+	},300,"linear")	
+	.animate({
+		top:-90,
+		left:220,
+	},300,"swing")
+
+	$("#sprite_stairs_kuro")
+	.delay(700)
+	.animate({
+		left:0,
+		opacity:1
+	},500,"easeOutQuart")
+	.delay(600)
+	.animate({
+		top:-50,
+		left:30,
+	},300,"linear")
+	.animate({
+		top:-30,
+		left:50,
+	},300,"swing")	
+	.delay(250)
+	.animate({
+		top:-70,
+		left:80,
+	},300,"linear")	
+	.animate({
+		top:-50,
+		left:130,
+	},300,"swing")	
+	.delay(250)
+	.animate({
+		top:-90,
+		left:160,
+	},300,"linear")	
+	.animate({
+		top:-70,
+		left:190,
+	},300,"swing")	
+	.delay(250)
+	.animate({
+		top:-110,
+		left:190,
+	},300,"linear")	
+	.animate({
+		top:-90,
+		left:220,
+	},300,"swing")	
+}
+
+
+function resetBossBattleSprite(){
+$("#sprite_boss_battle_boss").css({
+	top:-100,
+	opacity:0
+})
+$("#sprite_boss_battle_siro").css({
+	top:0,
+	left:500,
+	opacity:0
+})
+$("#sprite_boss_battle_kuro").css({
+	top:0,
+	left:-500,
+	opacity:0
+})
+}
+
+function showBossBattleSprite(){
+	resetBossBattleSprite()
+	$("#boss_battle_sprite").removeClass("hidden")
+
+	$("#boss_battle_sprite")
+	.animate({
+		top:110,
+		opacity:1
+	},500,"swing")
+	.delay(3000)
+	.animate({
+		top:80,
+		opacity:0
+	},1500,"easeOutQuart")
+	.queue(function(){
+		$(this).addClass("hidden")
+		$(this).dequeue()
+	})
+
+	$("#sprite_boss_battle_background").css("opacity",1)
+
+	$("#sprite_boss_battle_boss")
+	.delay(300)
+	.animate({
+		top:0,
+		opacity:1,
+	},800,"easeOutQuart")
+
+	$("#sprite_boss_battle_kuro")
+	.delay(1200)
+	.animate({
+		left:0,
+		opacity:1
+	}, 1500,"easeOutQuart")
+	.delay(800)
+	.animate({
+		left:-400,
+		top:-170,
+		opacity:.4
+	}, 1000,"easeOutQuart")
+
+	$("#sprite_boss_battle_siro")
+	.delay(1200)
+	.animate({
+		left:0,
+		opacity:1
+	}, 1500,"easeOutQuart")
+	.delay(800)
+	.animate({
+		left:400,
+		top:-170,
+		opacity:.4
+	}, 1000,"easeOutQuart")
+
+}
 
 //HPの表記反映
 function updateCurrentHP(){
@@ -446,10 +782,10 @@ function updateCurrentHP(){
 
 //lv, expの表記反映
 function updateCurrentLVEXP(){
-$("#lv_siro").text(save.status.siro.lv)
-$("#lv_kuro").text(save.status.kuro.lv)
-$("#exp_siro").text(save.status.siro.exp)
-$("#exp_kuro").text(save.status.kuro.lv)
+	$("#lv_siro").text(save.status.siro.lv)
+	$("#lv_kuro").text(save.status.kuro.lv)
+	$("#exp_siro").text(save.status.siro.exp)
+	$("#exp_kuro").text(save.status.kuro.lv)
 }
 
 
@@ -518,6 +854,7 @@ function prepareEquipBuildMenu(item_id){
 		param_afters[2].textContent = (Math.floor(getBuildedParameter(item_id,"def")))
 		param_afters[3].textContent = (Math.floor(getBuildedParameter(item_id,"agi")))
 	}
+
 }
 
 
@@ -584,6 +921,7 @@ function updatePagerTotalPage(){
 
 //装備メニューの準備
 function prepareEquipMenu(){
+	updateCurrentEnemyRankArea()
 	updatePagerCurrentPage()
 	updatePagerTotalPage()
 	updateEquipList()
@@ -886,6 +1224,11 @@ function updateEquipBuildButtonShowState(){
 }
 
 
+//「このあたりの敵の強さ」欄のパラメータ
+function updateCurrentEnemyRankArea(){
+	$("#current_enemy_atk").text(calcEnemyAtk(getCurrentEnemyRank()))
+}
+
 /*******************************************/
 /* ステータス画面 */
 /*******************************************/
@@ -896,17 +1239,22 @@ function prepareStatusParameters(){
 	//実績エリア更新
 	updateAchievementArea()
 
-	$("#status_siro .status .status_value")[0].textContent = save.status.siro.hp
-	$("#status_siro .status .status_value")[1].textContent =  getTotalParameter("siro","str")
-	$("#status_siro .status .status_value")[2].textContent =  getTotalParameter("siro","dex")
-	$("#status_siro .status .status_value")[3].textContent =  getTotalParameter("siro","def")
-	$("#status_siro .status .status_value")[4].textContent =  getTotalParameter("siro","agi")
+	var siro_status_object = $("#status_siro .status .status_value")
+	var kuro_status_object = $("#status_kuro .status .status_value")
 
-	$("#status_kuro .status .status_value")[0].textContent = save.status.kuro.hp
-	$("#status_kuro .status .status_value")[1].textContent =  getTotalParameter("kuro","str")
-	$("#status_kuro .status .status_value")[2].textContent =  getTotalParameter("kuro","dex")
-	$("#status_kuro .status .status_value")[3].textContent =  getTotalParameter("kuro","def")
-	$("#status_kuro .status .status_value")[4].textContent =  getTotalParameter("kuro","agi")
+	siro_status_object[0].textContent = save.status.siro.lv
+	siro_status_object[1].textContent = save.status.siro.hp
+	siro_status_object[2].textContent =  getTotalParameter("siro","str")
+	siro_status_object[3].textContent =  getTotalParameter("siro","dex")
+	siro_status_object[4].textContent =  getTotalParameter("siro","def")
+	siro_status_object[5].textContent =  getTotalParameter("siro","agi")
+
+	kuro_status_object[0].textContent = save.status.kuro.lv
+	kuro_status_object[1].textContent = save.status.kuro.hp
+	kuro_status_object[2].textContent =  getTotalParameter("kuro","str")
+	kuro_status_object[3].textContent =  getTotalParameter("kuro","dex")
+	kuro_status_object[4].textContent =  getTotalParameter("kuro","def")
+	kuro_status_object[5].textContent =  getTotalParameter("kuro","agi")
 
 	for(var i=0;i<4;++i){
 		if(save.equip.siro[i]){

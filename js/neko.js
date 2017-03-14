@@ -378,6 +378,7 @@ function processStairs(){
 	if(save.dungeon_process[save.current_dungeon_id] <= save.current_floor ){
 		save.dungeon_process[save.current_dungeon_id] = save.current_floor
 	}
+	updateCurrentEnemyRankArea()
 	fadeOutAndFadeInStairs()
 }
 
@@ -404,7 +405,7 @@ function eventItemFlood(){
 function eventStairs(){
 
 	if(save.current_floor % 100 === 99){
-		spriteSlidein("battle")
+		showBossBattleSprite()
 		processBattle(bossBattle=true)
 		//生き残っていれば次の階に進む
 		if(isCharacterAlive()){
@@ -427,7 +428,7 @@ function eventStairs(){
 		}
 	}
 	else{
-		spriteSlidein("artifact")
+		showStairsSprite()
 		processStairs()
 		castMessage("◆階段を降りた！")
 	}
@@ -435,7 +436,7 @@ function eventStairs(){
 
 //バトルイベントを起こす
 function eventBattle(){
-	spriteSlidein("battle")
+	showBattleSprite()
 	castMessage("◆バトルが発生した！")
 	// in battle.js
 	processBattle()

@@ -234,6 +234,10 @@ header{
 	height: 48px;
 }
 
+.mini_param_unit{
+	font-size: 13px;
+}
+
 #message_log_area{
 	position: absolute;
 	overflow: scroll;
@@ -393,8 +397,9 @@ header{
 	height: 467px;	
 }
 
-#item_sprite{
+.sprite_unit{
 	position: absolute;
+	overflow: hidden;
 	opacity: 0;
 	top: 110px;
 	left: 240px;	
@@ -979,7 +984,11 @@ text-align: right;
 	font-size: 20px;
 }
 
-
+#enemy_rank_show_area{
+	position: absolute;
+	bottom: 5px;
+	right: 10px;
+}
 
 
 #fadeouter{
@@ -1142,7 +1151,7 @@ text-align: right;
 	opacity: 0.8;
 	list-style: none;
 	position: absolute;
-	top: 170px;
+	top: 165px;
 	left: 280px;
 	width: 220px;
 	height: 250px;
@@ -1152,7 +1161,7 @@ text-align: right;
 	opacity: 0.8;
 	list-style: none;
 	position: absolute;
-	top: 170px;
+	top: 165px;
 	left: 610px;
 	width: 220px;
 	height: 250px;
@@ -1160,9 +1169,9 @@ text-align: right;
 
 .status{
 	background-color: #2b151c;
-	height: 38px;
+	height: 32px;
 	margin: 10px 10px;
-	font-size: 25px;	
+	font-size: 20px;	
 	box-shadow: 0px 0px 5px 3px rgba(43,21,28,1);
 	padding-left: 10px;
 }

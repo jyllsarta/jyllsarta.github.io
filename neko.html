@@ -90,27 +90,27 @@
 				<div id="condition_area_siro">
 					<span id="chara_condition_name_siro">しろこ: </span>
 					<span id="lv_siro">10</span>
-					<span>LV, </span>
+					<span class="mini_param_unit">Lv, </span>
 					<span id="exp_siro">43</span>
-					<span >EXP</span>
+					<span class="mini_param_unit">Exp</span>
 
 					<div id="hp_show_area_kuro">
-						<span class="condition_text">HP:</span>
+						<span class="condition_text">HP :</span>
 						<span id="hp_siro">100</span>
-						<span class="condition_text">/</span>
+						<span class="condition_text mini_param_unit">/</span>
 						<span id="hp_max_siro">100</span>
 					</div>
 				</div>
 				<div id="condition_area_kuro">
 					<span id="chara_condition_name_siro">くろこ:</span>
 					<span id="lv_kuro">10</span>
-					<span>LV, </span>
+					<span class="mini_param_unit">Lv, </span>
 					<span id="exp_kuro">43</span>
-					<span >EXP</span>
+					<span  class="mini_param_unit">Exp</span>
 					<div id="hp_show_area_kuro">
-						<span class="condition_text">HP:</span>
+						<span class="condition_text">HP :</span>
 						<span id="hp_kuro">100</span>
-						<span class="condition_text">/</span>
+						<span class="condition_text mini_param_unit">/</span>
 						<span id="hp_max_kuro">100</span>
 					</div>
 				</div>
@@ -130,12 +130,33 @@
 		</div>
 
 		<div id="sprite_area">
-			<div id="item_sprite" class="hidden">
+			<div id="item_sprite" class="hidden sprite_unit">
 				<img src="images/neko/sprite/item/background.png" class="sprite" id="sprite_item_background">
 				<img src="images/neko/sprite/item/kuro.png" class="sprite" id="sprite_item_kuro">
 				<img src="images/neko/sprite/item/siro.png" class="sprite" id="sprite_item_siro">
 				<img src="images/neko/sprite/item/treasure.png" class="sprite" id="sprite_item_treasure">
 				<img src="images/neko/sprite/item/text_window_item.png" class="sprite" id="sprite_item_text">
+			</div>
+			<div id="battle_sprite" class="hidden sprite_unit">
+				<img src="images/neko/sprite/battle/background.png" class="sprite" id="sprite_battle_background">
+				<img src="images/neko/sprite/battle/enemy3.png" class="sprite" id="sprite_battle_enemy3">
+				<img src="images/neko/sprite/battle/kuro.png" class="sprite" id="sprite_battle_kuro">
+				<img src="images/neko/sprite/battle/enemy2.png" class="sprite" id="sprite_battle_enemy2">
+				<img src="images/neko/sprite/battle/enemy1.png" class="sprite" id="sprite_battle_enemy1">
+				<img src="images/neko/sprite/battle/siro.png" class="sprite" id="sprite_battle_siro">
+				<img src="images/neko/sprite/battle/text_window_battle.png" class="sprite" id="sprite_battle_text">
+			</div>
+			<div id="stairs_sprite" class="hidden sprite_unit">
+				<img src="images/neko/sprite/stairs/background.png" class="sprite" id="sprite_stairs_background">
+				<img src="images/neko/sprite/stairs/siro.png" class="sprite" id="sprite_stairs_siro">
+				<img src="images/neko/sprite/stairs/kuro.png" class="sprite" id="sprite_stairs_kuro">
+				<img src="images/neko/sprite/stairs/text_window_stairs.png" class="sprite" id="sprite_stairs_text">
+			</div>
+			<div id="boss_battle_sprite" class="hidden sprite_unit">
+				<img src="images/neko/sprite/boss_battle/background.png" class="sprite" id="sprite_boss_battle_background">
+				<img src="images/neko/sprite/boss_battle/boss.png" class="sprite" id="sprite_boss_battle_boss">
+				<img src="images/neko/sprite/boss_battle/siro.png" class="sprite" id="sprite_boss_battle_siro">
+				<img src="images/neko/sprite/boss_battle/kuro.png" class="sprite" id="sprite_boss_battle_kuro">
 			</div>
 		</div>
 
@@ -186,7 +207,7 @@
 				<span id="depth_minus_10" class="depth_select_button">▼</span>
 				<span id="depth_minus_1" class="depth_select_button">▼</span>
 			</div>
-			
+
 
 		</div>
 		<div id="status_menu" class="hidden">
@@ -195,6 +216,10 @@
 			<img src="images/neko/chara/siro_active.png" id="status_character_siro">
 			<img src="images/neko/chara/kuro_active.png" id="status_character_kuro">
 			<ul id="status_siro">
+				<li class="status">
+					<span class="status_index">LV</span>
+					<span class="status_value">-</span>
+				</li>
 				<li class="status">
 					<span class="status_index">HP</span>
 					<span class="status_value">-</span>
@@ -212,11 +237,15 @@
 					<span class="status_value">-</span>
 				</li>
 				<li class="status">
-					<span class="status_index">DEF</span>
+					<span class="status_index">AGI</span>
 					<span class="status_value">-</span>
 				</li>
 			</ul>
 			<ul id="status_kuro">
+				<li class="status">
+					<span class="status_index">LV</span>
+					<span class="status_value">-</span>
+				</li>
 				<li class="status">
 					<span class="status_index">HP</span>
 					<span class="status_value">-</span>
@@ -422,6 +451,10 @@
 					<div id="atk_value">321254</div>
 					<div id="def_text">守</div>
 					<div id="def_value">887623</div>
+					<div id="enemy_rank_show_area">
+						<span class="enemy_rank_show_text">この辺りの敵の攻撃力：</span>
+						<span id="current_enemy_atk">99999</span>
+					</div>
 				</div>
 			</div>
 			<div id="equip_build_popup_area" class="hidden">
