@@ -11,7 +11,7 @@ function calcEnemyAtk(rank){
 	if(rank < 40){
 		return Math.max(rank*6 - 50,1)
 	}
-	return Math.floor(Math.pow(rank-40,1.8)/2.7) + rank*5 + 80
+	return Math.floor(Math.pow(rank-40,1.8)/2.7) + rank*5 + 70 + randInt(1,20)
 }
 
 //敵HPを算出
@@ -19,7 +19,7 @@ function calcEnemyHp(rank){
 	if(rank < 40){
 		return Math.max(rank*6 - 50,1)*5
 	}
-	return Math.floor(Math.pow(rank-40,1.8)/2.7)*2 +rank*10 + 130 
+	return Math.floor(Math.pow(rank-40,1.8)/2.7)*2 +rank*10 + 120 + randInt(1,20)
 }
 
 //敵の作成
@@ -40,7 +40,6 @@ function Enemy(rank,type="normal", enchant="none"){
 		this.maxHp *= 20
 	}
 
-	//TODO type か enchantに指定が入った際のパラメータ補正
 }
 
 //味方の作成
@@ -245,6 +244,7 @@ function processBattle(bossBattle=false){
 	save.status.kuro.hp = Math.max(allies[1].hp,0)
 	updateCurrentHP()
 	updateLoiteringCharactersState()
+	updateCurrentLVEXP()
 }
 
 //経験値テーブルを見てレベルを更新する

@@ -15,6 +15,7 @@ function initView(){
 	$("#next_event_sec").text(save.next_event_timer)
 
 	updateCurrentHP()
+updateCurrentLVEXP()
 }
 
 //ゲームモードの切り替え
@@ -441,6 +442,14 @@ function updateCurrentHP(){
 	$("#hp_kuro").text(save.status.kuro.hp)
 	$("#hp_max_siro").text(save.status.siro.max_hp)
 	$("#hp_max_kuro").text(save.status.kuro.max_hp)
+}
+
+//lv, expの表記反映
+function updateCurrentLVEXP(){
+$("#lv_siro").text(save.status.siro.lv)
+$("#lv_kuro").text(save.status.kuro.lv)
+$("#exp_siro").text(save.status.siro.exp)
+$("#exp_kuro").text(save.status.kuro.lv)
 }
 
 
