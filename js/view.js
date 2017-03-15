@@ -10,12 +10,14 @@ function prepareAllView(){
 //画面の初期表示
 function initView(){
 	var stage_id = save.current_dungeon_id
-	$("#current_floor").text(save.current_floor)
 	$(".dungeon_name").text(dungeon_data[stage_id].name)
 	$("#next_event_sec").text(save.next_event_timer)
 
 	updateCurrentHP()
 	updateCurrentLVEXP()
+	updateLoiteringCharactersState()
+	updateCurrentFloorText()
+
 }
 
 //ゲームモードの切り替え
@@ -26,6 +28,18 @@ function updateGameModeTo(game_mode){
 	$("#main").addClass("hidden")
 	$("#battle").addClass("hidden")
 	$("#"+game_mode).removeClass("hidden")
+}
+
+
+function updateCurrentFloorText(){
+	$("#current_floor").text(save.current_floor)
+	///潜り過ぎならoverdepthedをつける
+	if(save.current_floor >= dungeon_data[save.current_dungeon_id].depth){
+		$("#current_floor").addClass("overdepthed")
+	}	
+	else{
+		$("#current_floor").removeClass("overdepthed")
+	}
 }
 
 //次のイベントまでの時刻を表示しているところを更新
@@ -72,6 +86,13 @@ function fadeOutAndFadeInStairs(){
 		$(this).addClass("hidden")
 		$(this).dequeue();
 	})
+}
+
+//古いログを削除
+function removeOldLog(){
+	while($("#message_logs .log").length > 14){
+		$("#message_logs .log")[0].remove()
+	}
 }
 
 //メッセージを流す
@@ -237,6 +258,9 @@ function updateAutoRessurectionCount(){
 
 //復活演出
 function ressurectAnimation(){
+
+	showResurrectSprite()
+
 	$("#ressurection_light")
 	.removeClass("hidden")
 	.animate({
@@ -700,20 +724,20 @@ function showStairsSprite(){
 
 
 function resetBossBattleSprite(){
-$("#sprite_boss_battle_boss").css({
-	top:-100,
-	opacity:0
-})
-$("#sprite_boss_battle_siro").css({
-	top:0,
-	left:500,
-	opacity:0
-})
-$("#sprite_boss_battle_kuro").css({
-	top:0,
-	left:-500,
-	opacity:0
-})
+	$("#sprite_boss_battle_boss").css({
+		top:-100,
+		opacity:0
+	})
+	$("#sprite_boss_battle_siro").css({
+		top:0,
+		left:500,
+		opacity:0
+	})
+	$("#sprite_boss_battle_kuro").css({
+		top:0,
+		left:-500,
+		opacity:0
+	})
 }
 
 function showBossBattleSprite(){
@@ -771,6 +795,131 @@ function showBossBattleSprite(){
 	}, 1000,"easeOutQuart")
 
 }
+
+function resetResurrectSprite(){
+	$("#sprite_resurrect_siro_dead").css({
+		top:-50,
+		opacity:0
+	})
+
+	$("#sprite_resurrect_kuro_dead").css({
+		top:-50,
+		opacity:0
+	})
+
+	$("#sprite_resurrect_siro_alive").css({
+		opacity:0
+	})
+
+	$("#sprite_resurrect_kuro_alive").css({
+		opacity:0
+	})
+
+	$("#sprite_resurrect_light").css({
+		opacity:0
+	})
+
+	$("#sprite_resurrect_text").css({
+		top:-60,
+		opacity:0
+	})
+}
+
+function showResurrectSprite(){
+	resetResurrectSprite()
+	$("#resurrect_sprite").removeClass("hidden")
+
+	$("#sprite_resurrect_background").css("opacity",1)
+
+	$("#resurrect_sprite")
+	.animate({
+		top:110,
+		opacity:1
+	},500,"swing")
+	.delay(4500)
+	.animate({
+		top:80,
+		opacity:0
+	},1500,"easeOutQuart")
+	.queue(function(){
+		$(this).addClass("hidden")
+		$(this).dequeue()
+	})
+
+	$("#sprite_resurrect_light")
+	.delay(500)
+	.animate({
+		opacity:1
+	},4000,"easeOutQuart")
+
+	$("#sprite_resurrect_text")
+	.delay(300)
+	.animate({
+		top:0,
+		opacity:1,
+	},800,"easeOutQuart")
+
+	$("#sprite_resurrect_siro_dead").animate({
+		top:0,
+		opacity:1
+	},1000,"easeOutQuart")
+	.delay(1500)
+	.animate({
+		opacity:0
+	},300,"linear")
+
+	$("#sprite_resurrect_siro_alive")
+	.delay(2500)
+	.animate({
+		opacity:1
+	},300,"linear")
+	.delay(800)
+	.animate({
+		top:-20
+	},150,"linear")
+	.animate({
+		top:0
+	},100,"linear")
+	.delay(400)
+	.animate({
+		top:-20
+	},100,"linear")
+	.animate({
+		top:0
+	},50,"linear")
+
+	$("#sprite_resurrect_kuro_dead").animate({
+		top:0,
+		opacity:1
+	},1000,"easeOutQuart")
+	.delay(1500)
+	.animate({
+		opacity:0
+	},300,"linear")
+
+	$("#sprite_resurrect_kuro_alive")
+	.delay(2500)
+	.animate({
+		opacity:1
+	},300,"linear")
+	.delay(800)
+	.animate({
+		top:-20
+	},150,"linear")
+	.animate({
+		top:0
+	},100,"linear")
+	.delay(800)
+	.animate({
+		top:-20
+	},150,"linear")
+	.animate({
+		top:0
+	},100,"linear")
+
+}
+
+
 
 //HPの表記反映
 function updateCurrentHP(){
@@ -853,6 +1002,14 @@ function prepareEquipBuildMenu(item_id){
 		param_afters[1].textContent = (Math.floor(getBuildedParameter(item_id,"dex")))
 		param_afters[2].textContent = (Math.floor(getBuildedParameter(item_id,"def")))
 		param_afters[3].textContent = (Math.floor(getBuildedParameter(item_id,"agi")))
+	}
+
+	//装備できないなら無効化する
+	if(save.coin < getBuildCost(item_id)){
+		$("#build_decide_button").addClass("disabled")
+	}
+	else{
+		$("#build_decide_button").removeClass("disabled")		
 	}
 
 }
@@ -939,6 +1096,7 @@ function getCurrentPageItemList(){
 
 	//sort_order==0 -> ID順
 	//sort_order==1 -> 総パラメータ順
+	//sort_order==2,3,4,5 -> STR,DEX,DEF,AGI順
 	if(sort_order === 0){
 		for(var i=0;i<10;++i){
 			item_ids.push((current_page-1)*10 + i)
@@ -947,7 +1105,27 @@ function getCurrentPageItemList(){
 	}
 
 	if(sort_order === 1){
-		item_ids = getItemIDListOrderByTotalParameter(current_page)
+		item_ids = getItemIDListOrderBy(current_page,"total")
+		return item_ids
+	}
+
+	if(sort_order === 2){
+		item_ids = getItemIDListOrderBy(current_page,"str")
+		return item_ids
+	}
+
+	if(sort_order === 3){
+		item_ids = getItemIDListOrderBy(current_page,"dex")
+		return item_ids
+	}
+
+	if(sort_order === 4){
+		item_ids = getItemIDListOrderBy(current_page,"def")
+		return item_ids
+	}
+
+	if(sort_order === 5){
+		item_ids = getItemIDListOrderBy(current_page,"agi")
 		return item_ids
 	}
 
@@ -1042,11 +1220,26 @@ function updatePagerCurrentPage(){
 
 function updateSortOrderButtonState(){
 	var lavel = ""
-	if(data.equipment_menu.sort_order === 0){
-		lavel = "[ID順]"
-	}
-	else{
-		lavel = "[つよさ順]"
+
+	switch(data.equipment_menu.sort_order ){
+		case 0:
+			lavel ="[ID順]"
+		break 
+		case 1:
+			lavel ="[つよさ順]"
+		break 
+		case 2:
+			lavel ="[STR順]"
+		break 
+		case 3:
+			lavel ="[DEX順]"
+		break 
+		case 4:
+			lavel ="[DEF順]"
+		break 
+		case 5:
+			lavel ="[AGI順]"
+		break 
 	}
 
 	$("#sort_toggle_button").text(lavel)

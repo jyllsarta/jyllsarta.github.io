@@ -151,3 +151,7 @@ $("#ressurect_button").click(function(){
 	ressurect()
 })
 
+ //スクショ撮るボタン
+ $("#screenshot").click(function(){
+ 	takeScreenshot()
+ })

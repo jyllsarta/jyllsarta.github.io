@@ -74,6 +74,12 @@ function mainLoop_1sec(){
 	else{
 		//死んでたらリザレクトタイマーが回る
 		save.auto_ressurect_timer --
+
+		//死んでるときは100秒ごとにセーブ
+		if(save.auto_ressurect_timer % 100 == 0){
+			makesave()
+		}
+
 		if(save.auto_ressurect_timer == 0){
 			ressurect()
 		}
@@ -135,6 +141,18 @@ function loadCSV(csvtext){
 	} 
 }
 
+//スクリーンショットを撮って別タブで開く
+function takeScreenshot(){
+
+	removeOldLog()
+
+	html2canvas($("#game_window"),{
+		proxy:"",
+		onrendered: function(canvas) {
+ 			window.open( canvas.toDataURL("image/png"))
+ 		}
+ 	})
+}
 
 /*******************************************/
 /* デバッグ用 */
@@ -349,7 +367,8 @@ function getBoxAmount(rarity){
 //flatten=trueで重み付けを行わない
 function lotItem(flatten=false){
 	var dungeon_index = dungeon_data[save.current_dungeon_id].start_ir
-	var floor_up = Math.floor(save.current_floor/4)
+	//現在の階より深いところにいるときは階の深さに合わせた値にする
+	var floor_up = Math.floor(Math.min(save.current_floor,dungeon_data[save.current_dungeon_id].depth)/4)
 	var item_range = 10
 	var min = dungeon_index+floor_up
 	var max = dungeon_index+floor_up+item_range
@@ -380,6 +399,7 @@ function processStairs(){
 	}
 	updateCurrentEnemyRankArea()
 	fadeOutAndFadeInStairs()
+	updateCurrentFloorText()
 }
 
 //アイテム拾得イベントを起こす
@@ -424,6 +444,10 @@ function eventStairs(){
 				}
 			}
 			save.dungeon_process[save.current_dungeon_id] = save.current_floor
+			if(save.dungeon_open[save.current_dungeon_id+1] == 0){
+				save.dungeon_open[save.current_dungeon_id+1] = 1
+				save.dungeon_process[save.current_dungeon_id+1] = 1
+			}
 			fadeOutAndFadeInStairs()
 		}
 	}
@@ -802,13 +826,52 @@ function getItemIDListOrderByTotalParameter(page){
 
 }
 
+//装備をparam順にソートして10個アイテムIDを返す
+//param : {str,dex,def,agi,total}
+//page : 1,2,3, ... (1はトップ10、 3は21-30個目を返す)
+function getItemIDListOrderBy(page, param){
+	var compareFunction = null
+	switch(param){
+		case "total":
+		compareFunction = calcTotalItemParam
+		break	
+		case "str":
+		case "dex":
+		case "def":
+		case "agi":
+			//比較用関数
+			compareFunction = (x)=>getBuildedParameter(x,param)
+			break
+		}
+
+		var power_list = []
+	//IDとパラメータ合計値を持ったオブジェクトを作成
+	for(var i=0;i<data.item_data.length;++i){
+		if(save.item[i] > 0){
+			power_list.push({id:i, power:compareFunction(i)})
+		}
+	}
+	//今作ったオブジェクトをソート
+	var sorted = object_array_sort(power_list,"power")
+
+	//ソート済オブジェクトから指定された10個を抜き出して返す
+	var sliced = sorted.splice((page-1)*10,10)
+
+	var result = []
+	for(var s of sliced){
+		result.push(s.id)
+	}
+	return result
+
+}
+
 //ソート順を切り替える
 function toggleSortOrder(){
-	if(data.equipment_menu.sort_order === 0){
-		data.equipment_menu.sort_order = 1
+	if(data.equipment_menu.sort_order === 5){
+		data.equipment_menu.sort_order = 0
 	}
 	else{
-		data.equipment_menu.sort_order = 0
+		data.equipment_menu.sort_order++
 	}
 	updateEquipList()
 }

@@ -36,8 +36,9 @@ function Enemy(rank,type="normal", enchant="none"){
 	}
 
 	if(type==="boss"){
-		this.hp *= 20
-		this.maxHp *= 20
+		this.hp *= 3
+		this.maxHp *= 3
+		this.sld = Math.floor(this.atk/2)
 	}
 
 }
@@ -66,7 +67,7 @@ function Ally(charaname){
 //現在階層とダンジョンから出る敵のランクを返す
 function getCurrentEnemyRank(){
 	var start_ir = dungeon_data[save.current_dungeon_id].start_ir
-	var depth = save.current_floor
+	var depth = Math.min(save.current_floor,dungeon_data[save.current_dungeon_id].depth)
 
 	return Math.floor(start_ir+( depth/4))
 }

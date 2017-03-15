@@ -10,6 +10,7 @@
 	<link href="https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/earlyaccess/sawarabigothic.css" rel="stylesheet" />
 	<script src="js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="js/html2canvas.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="js/jquery-numerator.js"></script>
 	<script src="lib/jquery.easing.1.3.js"></script>
@@ -83,7 +84,8 @@
 					<li id="menu_equip_button" class="menu_item">装備</li>
 					<li id="status_show_button" class="menu_item">ステータス</li>
 					<li id="dungeon_list_show_button" class="menu_item">ダンジョン選択</li>
-					<li id="dungeon_list_show_button" class="menu_item">キークエスト</li>
+					<li id="" class="menu_item">キークエスト</li>
+					<li id="screenshot" class="menu_item">スクショ</li>
 				</ul>
 			</div>
 			<div id="character_data_area" class="shadow_background">
@@ -157,6 +159,15 @@
 				<img src="images/neko/sprite/boss_battle/boss.png" class="sprite" id="sprite_boss_battle_boss">
 				<img src="images/neko/sprite/boss_battle/siro.png" class="sprite" id="sprite_boss_battle_siro">
 				<img src="images/neko/sprite/boss_battle/kuro.png" class="sprite" id="sprite_boss_battle_kuro">
+			</div>
+			<div id="resurrect_sprite" class="hidden sprite_unit">
+				<img src="images/neko/sprite/resurrect/background.png" class="sprite" id="sprite_resurrect_background">
+				<img src="images/neko/sprite/resurrect/siro_dead.png" class="sprite" id="sprite_resurrect_siro_dead">
+				<img src="images/neko/sprite/resurrect/siro_alive.png" class="sprite" id="sprite_resurrect_siro_alive">
+				<img src="images/neko/sprite/resurrect/kuro_dead.png" class="sprite" id="sprite_resurrect_kuro_dead">
+				<img src="images/neko/sprite/resurrect/kuro_alive.png" class="sprite" id="sprite_resurrect_kuro_alive">
+				<img src="images/neko/sprite/resurrect/light.png" class="sprite light" id="sprite_resurrect_light">
+				<img src="images/neko/sprite/resurrect/text_window.png" alt="" class="sprite" id="sprite_resurrect_text">
 			</div>
 		</div>
 
@@ -457,12 +468,12 @@
 					</div>
 				</div>
 			</div>
-			<div id="equip_build_popup_area" class="hidden">
+			<div id="equip_build_popup_area" class="hidden shadow_background popup">
 				<div id="equip_build_popup_text">装備強化</div>
-				<div id="equip_build_popup_quit_button">閉じる</div>
+				<div id="equip_build_popup_quit_button" class="back_button"></div>
 				<div id="build_amount_coin_have_show_area">
 					<img src="images/neko/icons/coin.png" class="coin_icon">
-					<span id="coin_amount">876</span>					
+					<span id="coin_amount">876</span>
 				</div>
 				<div id="equip_build_item_name_area">
 					<span class="equip_name">超絶はがねのつるぎ</span>
