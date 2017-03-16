@@ -1,3 +1,4 @@
+
 //初期化必要系オブジェクトを一斉に攫って更新しておく
 function prepareAllView(){
 	updateLoiteringCharactersState()
@@ -171,21 +172,20 @@ function updateLoiteringCharactersState(){
 function  loiteringSiro(){
 	if(save.status.siro.hp <= 0){
 		//たまーにピクピクする
-
 		if(randInt(1,100) < 5){
 			$("#character_siro")	
 			.animate({
-				left : data.siro.x-1
+				translateX : data.siro.x-1
 			},100,"linear")
 			.animate({
-				left : data.siro.x
+				translateX : data.siro.x
 			},70,"linear")
 		}
 		return
 	}
 
 	data.siro.x += data.siro.vx
-	$("#character_siro").css("left",data.siro.x)
+	$("#character_siro").css("translateX", data.siro.x)
 	//毎フレーム速度を更新するとカタカタ震えるだけになるので
 	//10フレームに1回のみ更新する
 	if (data.frame % 4 != 0){
@@ -211,15 +211,15 @@ function  loiteringSiro(){
 
 //くろがゆらゆら移動
 function  loiteringKuro(){
-	if(save.status.siro.hp <= 0){
+	if(save.status.kuro.hp <= 0){
 		//たまーにピクピクする
 		if(randInt(1,100) < 5){
 			$("#character_kuro")	
 			.animate({
-				left : data.kuro.x-1
+				translateX : data.kuro.x-1
 			},60,"linear")
 			.animate({
-				left : data.kuro.x
+				translateX : data.kuro.x
 			},40,"linear")
 		}
 		return
@@ -227,7 +227,7 @@ function  loiteringKuro(){
 
 
 	data.kuro.x += data.kuro.vx
-	$("#character_kuro").css("left",data.kuro.x)
+	$("#character_kuro").css("translateX",data.kuro.x)
 	//毎フレーム速度を更新するとカタカタ震えるだけになるので
 	//10フレームに1回のみ更新する
 	if (data.frame % 6 != 0){
@@ -347,12 +347,12 @@ function spriteSlidein(imagename){
 	.removeClass("hidden")
 	.animate({
 		opacity:1,
-		top:"120px"
+		translateY : 10
 	}, 500, "swing")
 	.delay(3000)
 	.animate({
 		opacity	:0,
-		top:"110px",
+		translateY : 0,
 	},800,"easeOutQuart")
 	.queue(function () {
 		$(this).addClass("hidden").dequeue();
@@ -366,23 +366,23 @@ function resetItemSprite(){
 	$("#item_sprite").addClass("hidden")
 	$("#sprite_item_background").css("opacity",0)
 	$("#item_sprite").css({
-		top:80,
+		translateY:-30,
 		opacity:0		
 	})
 	$("#sprite_item_treasure").css({
-		top:-10,
+		translateY:-10,
 		opacity:0		
 	})
 	$("#sprite_item_kuro").css({
-		top:-10,
+		translateY:-10,
 		opacity:0		
 	})
 	$("#sprite_item_siro").css({
-		top:-10,
+		translateY:-10,
 		opacity:0		
 	})
 	$("#sprite_item_text").css({
-		top:-10,
+		translateY:-10,
 		opacity:0		
 	})
 }
@@ -391,15 +391,14 @@ function resetItemSprite(){
 function showItemSprite(){
 	resetItemSprite()
 	$("#item_sprite").removeClass("hidden")
-
 	$("#item_sprite")
 	.animate({
-		top:110,
+		translateY:0,
 		opacity:1
 	},500,"swing")
 	.delay(3000)
 	.animate({
-		top:80,
+		translateY:-30,
 		opacity:0
 	},1500,"easeOutQuart")
 	.queue(function(){
@@ -412,26 +411,26 @@ function showItemSprite(){
 	$("#sprite_item_treasure")
 	.delay(100)
 	.animate({
-		top:0,
+		translateY:0,
 		opacity:1
 	},100,"easeOutQuart")
 
 	$("#sprite_item_kuro")
 	.delay(500)
 	.animate({
-		top:0,
+		translateY:0,
 		opacity:1,
 	},800,"easeOutQuart")
 	.delay(800)
 	.animate({
-		top:-30
+		translateY:-30,
 	},100,"linear")
 	.animate({
-		top:0
+		translateY:0,
 	},100,"linear")
 	.delay(80)
 	.animate({
-		top:-20
+		translateY:-20,
 	},100,"linear")
 	.animate({
 		top:0
@@ -440,28 +439,28 @@ function showItemSprite(){
 	$("#sprite_item_siro")
 	.delay(600)
 	.animate({
-		top:0,
+		translateY:0,
 		opacity:1,
 	},800,"easeOutQuart")
 	.delay(750)
 	.animate({
-		top:-30
+		translateY:-30,
 	},100,"linear")
 	.animate({
-		top:0
+		translateY:0,
 	},100,"linear")
 	.delay(10)
 	.animate({
-		top:-30
+		translateY:-30,
 	},100,"linear")
 	.animate({
-		top:0
+		translateY:0,
 	},100,"linear")
 
 	$("#sprite_item_text")
 	.delay(100)
 	.animate({
-		top:0,
+		translateY:0,
 		opacity:1,
 	},800,"easeOutQuart")
 }
@@ -469,33 +468,32 @@ function showItemSprite(){
 function resetBattleSprite(){
 	$("#sprite_battle_enemy1").css({
 		opacity:0,
-		top:0,
-		left:-50
+		translateY:0,
+		translateX:-50,
 	})
 	$("#sprite_battle_enemy2").css({
 		opacity:0,
-		top:0,
-		left:-50
+		translateY:0,
+		translateX:-50,
 	})
 	$("#sprite_battle_enemy3").css({
 		opacity:0,
-		top:0,
-		left:-50
+		translateY:0,
+		translateX:-50,
 	})
 	$("#sprite_battle_siro").css({
 		opacity:0,
-		top:0,
-		left:100
+		translateY:0,
+		translateX:100,
 	})
 	$("#sprite_battle_kuro").css({
 		opacity:0,
-		top:0,
-		left:100
+		translateY:0,
+		translateX:100,
 	})
 	$("#sprite_battle_text").css({
 		opacity:0,
-		top:0,
-		top:-20
+		translateY:-20,
 	})
 }
 
@@ -505,12 +503,12 @@ function showBattleSprite(){
 
 	$("#battle_sprite")
 	.animate({
-		top:110,
+		translateY:0,
 		opacity:1
 	},500,"swing")
 	.delay(3400)
 	.animate({
-		top:80,
+		translateY:-30,
 		opacity:0
 	},1500,"easeOutQuart")
 	.queue(function(){
@@ -523,68 +521,68 @@ function showBattleSprite(){
 	$("#sprite_battle_text")
 	.delay(100)
 	.animate({
-		top:0,
+		translateY:0,
 		opacity:1,
 	},800,"easeOutQuart")
 
 	$("#sprite_battle_enemy1")
 	.delay(600)
 	.animate({
-		left:0,
+		translateX:0,
 		opacity:1
 	},1500,"easeOutQuart")
 	.delay(1400)
 	.animate({
-		top:-100,
-		left:160,
+		translateY:-100,
+		translateX:160,
 	},2000,"easeOutQuart")	
 
 	$("#sprite_battle_enemy2")
 	.delay(800)
 	.animate({
-		left:0,
+		translateX:0,
 		opacity:1
 	},1500,"easeOutQuart")
 	.delay(1200)
 	.animate({
-		top:-100,
-		left:120,
+		translateY:-100,
+		translateX:160,
 	},2000,"easeOutQuart")	
 
 	$("#sprite_battle_enemy3")
 	.delay(1000)
 	.animate({
-		left:0,
+		translateX:0,
 		opacity:1
 	},1500,"easeOutQuart")
 	.delay(1000)
 	.animate({
-		top:-100,
-		left:160,
+		translateY:-100,
+		translateX:160,
 	},2000,"easeOutQuart")	
 
 	$("#sprite_battle_siro")
 	.delay(1500)
 	.animate({
-		left:0,
+		translateX:0,
 		opacity:1
 	},1500,"easeOutQuart")
 	.delay(500)
 	.animate({
-		top:-100,
-		left:-180,
+		translateY:-100,
+		translateX:-160,
 	},2000,"easeOutQuart")	
 
 	$("#sprite_battle_kuro")
 	.delay(1800)
 	.animate({
-		left:60,
+		translateX:60,
 		opacity:1
 	},1500,"easeOutQuart")
 	.delay(200)
 	.animate({
-		top:-100,
-		left:-70,
+		translateY:-100,
+		translateX:-100,
 	},2000,"easeOutQuart")	
 	
 }
@@ -592,17 +590,17 @@ function showBattleSprite(){
 function resetStairsSprite(){
 	$("#sprite_stairs_text").css({
 		opacity:0,
-		top:-50
+		translateY:-50
 	})
 	$("#sprite_stairs_siro").css({
 		opacity:0,
-		top:0,
-		left:-50
+		translateY:0,
+		translateX:-50
 	})
 	$("#sprite_stairs_kuro").css({
 		opacity:0,
-		top:0,
-		left:-50
+		translateY:0,
+		translateX:-50
 	})
 
 }
@@ -613,12 +611,12 @@ function showStairsSprite(){
 
 	$("#stairs_sprite")
 	.animate({
-		top:110,
+		translateY:0,
 		opacity:1
 	},500,"swing")
 	.delay(3400)
 	.animate({
-		top:80,
+		translateY:-30,
 		opacity:0
 	},1500,"easeOutQuart")
 	.queue(function(){
@@ -631,111 +629,111 @@ function showStairsSprite(){
 	$("#sprite_stairs_text")
 	.delay(100)
 	.animate({
-		top:0,
+		translateY:0,
 		opacity:1,
 	},800,"easeOutQuart")
 
 	$("#sprite_stairs_siro")
 	.delay(400)
 	.animate({
-		left:0,
+		translateX:0,
 		opacity:1
 	},500,"easeOutQuart")
 	.delay(600)
 	.animate({
-		top:-50,
-		left:30,
+		translateY:-50,
+		translateX:30,
 	},300,"linear")	
 	.animate({
-		top:-30,
-		left:50,
+		translateY:-30,
+		translateX:50,
 	},300,"swing")	
 	.delay(300)
 	.animate({
-		top:-70,
-		left:80,
+		translateY:-70,
+		translateX:80,
 	},300,"linear")	
 	.animate({
-		top:-50,
-		left:130,
+		translateY:-50,
+		translateX:130,
 	},300,"swing")	
 	.delay(300)
 	.animate({
-		top:-90,
-		left:160,
+		translateY:-90,
+		translateX:160,
 	},300,"linear")	
 	.animate({
-		top:-70,
-		left:190,
+		translateY:-70,
+		translateX:190,
 	},300,"swing")
 	.delay(250)
 	.animate({
-		top:-110,
-		left:190,
+		translateY:-110,
+		translateX:190,
 	},300,"linear")	
 	.animate({
-		top:-90,
-		left:220,
+		translateY:-90,
+		translateX:220,
 	},300,"swing")
 
 	$("#sprite_stairs_kuro")
 	.delay(700)
 	.animate({
-		left:0,
+		translateX:0,
 		opacity:1
 	},500,"easeOutQuart")
 	.delay(600)
 	.animate({
-		top:-50,
-		left:30,
+		translateY:-50,
+		translateX:30,
 	},300,"linear")
 	.animate({
-		top:-30,
-		left:50,
+		translateY:-30,
+		translateX:50,
 	},300,"swing")	
 	.delay(250)
 	.animate({
-		top:-70,
-		left:80,
+		translateY:-70,
+		translateX:80,
 	},300,"linear")	
 	.animate({
-		top:-50,
-		left:130,
+		translateY:-50,
+		translateX:130,
 	},300,"swing")	
 	.delay(250)
 	.animate({
-		top:-90,
-		left:160,
+		translateY:-90,
+		translateX:160,
 	},300,"linear")	
 	.animate({
-		top:-70,
-		left:190,
+		translateY:-70,
+		translateX:190,
 	},300,"swing")	
 	.delay(250)
 	.animate({
-		top:-110,
-		left:190,
+		translateY:-110,
+		translateX:190,
 	},300,"linear")	
 	.animate({
-		top:-90,
-		left:220,
+		translateY:-90,
+		translateX:220,
 	},300,"swing")	
 }
 
 
 function resetBossBattleSprite(){
 	$("#sprite_boss_battle_boss").css({
-		top:-100,
+		translateY:-100,
 		opacity:0
 	})
 	$("#sprite_boss_battle_siro").css({
-		top:0,
-		left:500,
+		translateY:0,
+		translateX:500,
 		opacity:0
 	})
 	$("#sprite_boss_battle_kuro").css({
-		top:0,
-		left:-500,
+		translateY:0,
+		translateX:-500,
 		opacity:0
 	})
 }
@@ -746,12 +744,12 @@ function showBossBattleSprite(){
 
 	$("#boss_battle_sprite")
 	.animate({
-		top:110,
+		translateY:0,
 		opacity:1
 	},500,"swing")
 	.delay(3000)
 	.animate({
-		top:80,
+		translateY:-30,
 		opacity:0
 	},1500,"easeOutQuart")
 	.queue(function(){
@@ -764,33 +762,33 @@ function showBossBattleSprite(){
 	$("#sprite_boss_battle_boss")
 	.delay(300)
 	.animate({
-		top:0,
+		translateY:0,
 		opacity:1,
 	},800,"easeOutQuart")
 
 	$("#sprite_boss_battle_kuro")
 	.delay(1200)
 	.animate({
-		left:0,
+		translateX:0,
 		opacity:1
 	}, 1500,"easeOutQuart")
 	.delay(800)
 	.animate({
-		left:-400,
-		top:-170,
+		translateY:-170,
+		translateX:-400,
 		opacity:.4
 	}, 1000,"easeOutQuart")
 
 	$("#sprite_boss_battle_siro")
 	.delay(1200)
 	.animate({
-		left:0,
+		translateX:0,
 		opacity:1
 	}, 1500,"easeOutQuart")
 	.delay(800)
 	.animate({
-		left:400,
-		top:-170,
+		translateY:-170,
+		translateX:400,
 		opacity:.4
 	}, 1000,"easeOutQuart")
 
@@ -798,12 +796,12 @@ function showBossBattleSprite(){
 
 function resetResurrectSprite(){
 	$("#sprite_resurrect_siro_dead").css({
-		top:-50,
+		translateY:-50,
 		opacity:0
 	})
 
 	$("#sprite_resurrect_kuro_dead").css({
-		top:-50,
+		translateY:-50,
 		opacity:0
 	})
 
@@ -820,7 +818,7 @@ function resetResurrectSprite(){
 	})
 
 	$("#sprite_resurrect_text").css({
-		top:-60,
+		translateY:-60,
 		opacity:0
 	})
 }
@@ -833,12 +831,12 @@ function showResurrectSprite(){
 
 	$("#resurrect_sprite")
 	.animate({
-		top:110,
+		translateY:0,
 		opacity:1
 	},500,"swing")
 	.delay(4500)
 	.animate({
-		top:80,
+		translateY:-30,
 		opacity:0
 	},1500,"easeOutQuart")
 	.queue(function(){
@@ -855,12 +853,12 @@ function showResurrectSprite(){
 	$("#sprite_resurrect_text")
 	.delay(300)
 	.animate({
-		top:0,
+		translateY:0,
 		opacity:1,
 	},800,"easeOutQuart")
 
 	$("#sprite_resurrect_siro_dead").animate({
-		top:0,
+		translateY:0,
 		opacity:1
 	},1000,"easeOutQuart")
 	.delay(1500)
@@ -875,21 +873,21 @@ function showResurrectSprite(){
 	},300,"linear")
 	.delay(800)
 	.animate({
-		top:-20
+		translateY:-20
 	},150,"linear")
 	.animate({
-		top:0
+		translateY:0
 	},100,"linear")
 	.delay(400)
 	.animate({
-		top:-20
+		translateY:-20
 	},100,"linear")
 	.animate({
-		top:0
+		translateY:0
 	},50,"linear")
 
 	$("#sprite_resurrect_kuro_dead").animate({
-		top:0,
+		translateY:0,
 		opacity:1
 	},1000,"easeOutQuart")
 	.delay(1500)
@@ -904,17 +902,17 @@ function showResurrectSprite(){
 	},300,"linear")
 	.delay(800)
 	.animate({
-		top:-20
+		translateY:-20
 	},150,"linear")
 	.animate({
-		top:0
+		translateY:0
 	},100,"linear")
 	.delay(800)
 	.animate({
-		top:-20
+		translateY:-20
 	},150,"linear")
 	.animate({
-		top:0
+		translateY:0
 	},100,"linear")
 
 }
@@ -945,7 +943,7 @@ function showDungeonSelectMenu(){
 	.removeClass("hidden")
 	.animate({
 		opacity:0.98,
-		top:"50px",
+		translateY:20,
 	},200,"easeOutQuart")	
 }
 
@@ -957,7 +955,7 @@ function showStatusMenu(){
 	.removeClass("hidden")
 	.animate({
 		opacity:0.98,
-		top:"50px",
+		translateY:20,
 	},140,"easeOutQuart")
 	.queue(function(){
 		constructStatusBoardAnimation()
@@ -972,7 +970,7 @@ function showEquipmentMenu(){
 	.removeClass("hidden")
 	.animate({
 		opacity:0.96,
-		top:"50px",
+		translateY:20,
 	},200,"easeOutQuart")
 }
 
@@ -1032,7 +1030,7 @@ function fadeEquipmentMenu(){
 	$("#equipment_menu")
 	.animate({
 		opacity:0,
-		top:"30px",
+		translateY:0,
 	},300,"easeOutQuart")
 	.queue(function () {
 		$(this).addClass("hidden").dequeue();
@@ -1044,7 +1042,7 @@ function fadeDungeonSelectMenu(){
 	$("#dungeon_select_menu")
 	.animate({
 		opacity:0,
-		top:"30px",
+		translateY:0,
 	},300,"easeOutQuart")
 	.queue(function () {
 		$(this).addClass("hidden").dequeue();
@@ -1056,7 +1054,7 @@ function fadeStatusMenu(){
 	$("#status_menu")
 	.animate({
 		opacity:0,
-		top:"30px",
+		translateY:0,
 	},300,"easeOutQuart")
 	.queue(function () {
 		$(this).addClass("hidden").dequeue();
@@ -1385,11 +1383,11 @@ function updateEquipDetailATKDEF(){
 function toggleEquipEditCharacterViewTo(chara_name){
 	//キャラの切り替え
 	$("#equip_charagter_image").attr("src","images/neko/chara/"+chara_name+"_active.png")
-	.css("left","-40px")
+	.css("translateX",-60)
 	.css("opacity",.7)
 	.animate({
 		opacity:1,
-		left:"-30px"
+		translateX:-30
 	},300,"easeOutQuart")
 }
 
@@ -1471,11 +1469,11 @@ function prepareStatusParameters(){
 //ステータス画面中の要素を一旦全部隠す
 function hideAllStatusBoardElements(){
 	$("#status_character_siro").css({
-		left : "-100px",
+		translateX:-60,
 		opacity:0
 	})
 	$("#status_character_kuro").css({
-		left : "710px",
+		translateX:60,
 		opacity:0
 	})
 	$("#status_siro").css({
@@ -1508,12 +1506,12 @@ function constructStatusBoardAnimation(){
 	//装備要素が一個ずつスライドイン
 	//実績が1秒架けてopacity1に遷移
 	$("#status_character_siro").animate({
-		left:"-40px",
+		translateX:0,
 		opacity:1
 	},2000,"easeOutQuart")
 
 	$("#status_character_kuro").animate({
-		left:"650px",
+		translateX:0,
 		opacity:1
 	},2000,"easeOutQuart")
 
@@ -1566,7 +1564,7 @@ function changeStageToView(stage_id,depth){
 	$("#dungeon_select_menu")
 	.animate({
 		opacity:0,
-		top:"30px",
+		translateY:0,
 	},1,"linear")
 	.queue(function () {
 		$(this).addClass("hidden").dequeue();
