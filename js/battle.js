@@ -112,11 +112,13 @@ function attackAllCharacterToRandomTarget(from,to){
 
 //1ターン分の処理を行う
 function take1turn(enemies,allies){
-	//敵攻撃
+
+	//味方攻撃
+	attackAllCharacterToRandomTarget(allies,enemies)
+
+	//敵反撃
 	attackAllCharacterToRandomTarget(enemies,allies)
 
-	//味方反撃
-	attackAllCharacterToRandomTarget(allies,enemies)
 }
 
 //敵一覧・味方一覧から生きているキャラをランダムに一人選択して添字を返す
