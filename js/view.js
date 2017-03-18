@@ -570,7 +570,7 @@ function showBattleSprite(){
 	.delay(500)
 	.animate({
 		translateY:-100,
-		translateX:-160,
+		translateX:-200,
 	},2000,"easeOutQuart")	
 
 	$("#sprite_battle_kuro")
@@ -932,7 +932,7 @@ function updateCurrentLVEXP(){
 	$("#lv_siro").text(save.status.siro.lv)
 	$("#lv_kuro").text(save.status.kuro.lv)
 	$("#exp_siro").text(save.status.siro.exp)
-	$("#exp_kuro").text(save.status.kuro.lv)
+	$("#exp_kuro").text(save.status.kuro.exp)
 }
 
 
