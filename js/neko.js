@@ -939,7 +939,7 @@ function updateDungeonDetailClick(domobject){
 
 //ステージ切り替えボタンの挙動
 function changeStageButton(){
-	var stage_id = data.dungeon_select_menu.stage_id
+	var stage_id = parseInt(data.dungeon_select_menu.stage_id)
 	var depth = data.dungeon_select_menu.depth
 	changeStageTo(stage_id,depth)
 }
