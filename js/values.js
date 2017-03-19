@@ -34,7 +34,7 @@ var data = {
 		depth : 1,
 		stage_id : 0
 	},
-	background_image_scroll_position : 0,
+	background_image_scroll_position : 1000,
 	current_build_item_id : 0
 }
 
@@ -57,6 +57,7 @@ var save = {
 		}
 	},
 	current_dungeon_id:0,
+	current_landscape_id:0,
 	current_floor:1,
 	equip :{
 		siro:[],

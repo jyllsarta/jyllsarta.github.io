@@ -61,7 +61,8 @@ header{
 	width: 1200px;
 	height: 800px;
 	background-color: #000000;
-	color:#FFFFFF;	
+	color:#FFFFFF;
+	overflow: hidden;
 }
 
 #background{
@@ -72,8 +73,11 @@ header{
 	height: 800px;
 	overflow: hidden;
 }
+#background_image_fg{
+	mix-blend-mode: screen;
+}
 
-#background_image{
+.background_image{
 	position: absolute;
 	top: 0px;
 	left: 0px;

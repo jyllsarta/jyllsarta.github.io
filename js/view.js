@@ -18,6 +18,8 @@ function initView(){
 	updateCurrentLVEXP()
 	updateLoiteringCharactersState()
 	updateCurrentFloorText()
+	updateBackgroundImage()
+	updateBackgroundImagePosition()
 
 }
 
@@ -60,7 +62,19 @@ function reduceNextEventTimerAnimation(reduceValue){
 
 //背景のスクロール位置を更新
 function updateBackgroundImagePosition(){
-	$("#background_image").css("left","-"+data.background_image_scroll_position+"px")	
+	var pos = data.background_image_scroll_position
+	$("#background_image_bg").css("left","-"+pos*2/3+"px")
+	$("#background_image_floor").css("left","-"+pos+"px")
+	$("#background_image_fg").css("left","-"+pos+"px")
+	$("#background_image_fg").css("top",""+(Math.abs(pos%3-1)*2-2)+"px")
+}
+
+//背景の更新
+function updateBackgroundImage(){
+	$("#background_image_bg").attr("src","images/neko/bg/st"+save.current_dungeon_id+"-"+save.current_landscape_id+"-0.png")
+	$("#background_image_floor").attr("src","images/neko/bg/st"+save.current_dungeon_id+"-"+save.current_landscape_id+"-1.png")
+	$("#background_image_fg").attr("src","images/neko/bg/st"+save.current_dungeon_id+"-"+save.current_landscape_id+"-2.png")
+	$("#background_image_fg").css("mix-blend-mode",getBackgroundImageOverlayType(save.current_dungeon_id))
 }
 
 //階段降り時のフェードアウトイン
@@ -77,6 +91,7 @@ function fadeOutAndFadeInStairs(){
 		var background_pos = randInt(0,2100)
 		scrollBackgroundImageTo(background_pos)
 		updateBackgroundImagePosition()
+		updateBackgroundImage()
 		updateStairsArea()
 		$(this).dequeue();
 	})
@@ -1221,22 +1236,22 @@ function updateSortOrderButtonState(){
 
 	switch(data.equipment_menu.sort_order ){
 		case 0:
-			lavel ="[ID順]"
+		lavel ="[ID順]"
 		break 
 		case 1:
-			lavel ="[つよさ順]"
+		lavel ="[つよさ順]"
 		break 
 		case 2:
-			lavel ="[STR順]"
+		lavel ="[STR順]"
 		break 
 		case 3:
-			lavel ="[DEX順]"
+		lavel ="[DEX順]"
 		break 
 		case 4:
-			lavel ="[DEF順]"
+		lavel ="[DEF順]"
 		break 
 		case 5:
-			lavel ="[AGI順]"
+		lavel ="[AGI順]"
 		break 
 	}
 
@@ -1578,7 +1593,7 @@ function changeStageToView(stage_id,depth){
 		opacity:1
 	},300,"easeOutQuart")
 	.queue(function(){
-		$("#background_image").attr("src","images/neko/bg/st"+stage_id+".png")	
+		updateBackgroundImage()
 		$(".dungeon_name").text(dungeon_data[stage_id].name)
 		$("#current_floor").text(save.current_floor)
 		$(this).dequeue();

@@ -312,6 +312,26 @@ function event(){
 	makesave()
 }
 
+//ダンジョンIDごとに一番上のレイヤーでどんな加工をするかスイッチする
+function getBackgroundImageOverlayType(dungeon_id){
+	switch(dungeon_id){
+		case 0:
+			return "overlay"
+		break
+		case 1: //1と2は意図的に一緒にしてる
+		case 2:
+			return "screen"
+		break
+		case 3:
+			return "normal"
+		break
+		default:
+			return "screen"
+		break
+	}
+
+}
+
 /*******************************************/
 /* イベント関係 */
 /*******************************************/
@@ -397,6 +417,10 @@ function processStairs(){
 	if(save.dungeon_process[save.current_dungeon_id] <= save.current_floor ){
 		save.dungeon_process[save.current_dungeon_id] = save.current_floor
 	}
+
+	//50Fごとに landscapeidを0,1,2,0,1,2,...,0,1,2とループさせる
+	save.current_landscape_id = (Math.floor(save.current_floor/50))%3
+
 	updateCurrentEnemyRankArea()
 	fadeOutAndFadeInStairs()
 	updateCurrentFloorText()
@@ -963,7 +987,7 @@ function changeDepth(difference){
 $(document).ready(function(){
 	init();
 })
-setInterval(mainLoop,200);
+setInterval(mainLoop,50);
 setInterval(mainLoop_1sec,1000);
 
 
