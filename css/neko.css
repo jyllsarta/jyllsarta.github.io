@@ -429,13 +429,14 @@ header{
 }
 
 #dungeon_select_menu{
+	overflow: hidden;
 	position: absolute;	
 	opacity: 0;
 	top: 30px;
 	left: 50px;
 	width: 1100px;
 	height: 700px;
-	background-color: #123123;
+	background-color: #081e26;
 }
 
 #status_back_button{
@@ -499,16 +500,18 @@ header{
 }
 
 #status_menu{
+	overflow: hidden;
 	position: absolute;	
 	opacity: 0;
 	top: 30px;
 	left: 50px;
 	width: 1100px;
 	height: 700px;
-	background-color: #352127;
+	background-color: #081e26;
 }
 
 #equipment_menu{
+	overflow: hidden;
 	position: absolute;	
 	opacity: 0;
 	top: 30px;
@@ -1153,11 +1156,11 @@ text-align: right;
 }
 
 .status_equip_item{
-	background-color: #2b151c;
+	background-color: #030e13;
 	height: 50px;
 	margin: 10px 10px;
 	font-size: 25px;
-	box-shadow: 0px 0px 5px 3px rgba(43,21,28,1);
+	box-shadow: 0px 0px 5px 3px rgba(3,15,19,1);
 }
 
 #status_siro{
@@ -1181,11 +1184,11 @@ text-align: right;
 }
 
 .status{
-	background-color: #2b151c;
+	background-color: #030e13;
 	height: 32px;
 	margin: 10px 10px;
 	font-size: 20px;	
-	box-shadow: 0px 0px 5px 3px rgba(43,21,28,1);
+	box-shadow: 0px 0px 5px 3px rgba(3,15,19,1);
 	padding-left: 10px;
 }
 
@@ -1205,11 +1208,11 @@ text-align: right;
 }
 
 .achievement_item{
-	background-color: #2b151c;
+	background-color: #030e13;
 	height: 25px;
 	margin: 10px 10px;
 	font-size: 20px;	
-	box-shadow: 0px 0px 5px 3px rgba(43,21,28,1);
+	box-shadow: 0px 0px 5px 3px rgba(3,15,19,1);
 	padding-left: 10px;	
 }
 
