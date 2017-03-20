@@ -674,7 +674,7 @@ function isAlreadyEquipped(item_id){
 
 //装備を試みる
 function equip(domobject){
-	var item_id = domobject.attributes.item_id.textContent
+	var item_id = $(domobject).parent().attr("item_id")
 	var current_chara_name = data.equipment_menu.current_character
 	var equip_num = save.equip[current_chara_name].length
 	//すでに4つ以上装備していたら装備できない

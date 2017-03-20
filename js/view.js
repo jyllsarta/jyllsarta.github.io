@@ -1277,6 +1277,7 @@ function updatePagerButtonState(){
 function resetDetailArea(){
 	$("#equipment_detail_icon").attr("src","images/neko/icons/unachieved.png")
 	$("#equip_detail_name").text("----")
+	$("#status_detail_total").text("-")
 	$("#status_detail_str").text("-")
 	$("#status_detail_dex").text("-")
 	$("#status_detail_def").text("-")
@@ -1324,11 +1325,13 @@ function updateEquipDetailAreaTo(item_id){
 	var dex = getBuildedParameter(item_id,"dex")
 	var def = getBuildedParameter(item_id,"def")
 	var agi = getBuildedParameter(item_id,"agi")
+	var total = calcTotalItemParam(item_id)
 
 	var icon_name = getItemIconNameFromTypeID(item.category)
 
 	$("#equip_detail_name").text(item.name)
 	$("#equipment_detail_icon").attr("src","images/neko/icons/"+icon_name +".png")
+	$("#status_detail_total").text(total)
 	$("#status_detail_str").text(str)
 	$("#status_detail_dex").text(dex)
 	$("#status_detail_def").text(def)

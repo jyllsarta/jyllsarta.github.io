@@ -71,7 +71,7 @@ $(".equip_item").mouseover(function(){
 })
 
 //各装備クリックで該当の装備を装備
-$(".equip_item").click(function(){
+$(".equip_list_text").click(function(){
 	equip(this)
 })
 

@@ -773,11 +773,11 @@ header{
 
 .param_unit{
 	position: relative;
-	padding: 4px 1px;
+	padding-bottom: 3px;
 	left: 5px;
 	width: 180px;
 	height: 25px;
-	font-size: 20px;
+	font-size: 17px;
 }
 
 #flavor_text{
