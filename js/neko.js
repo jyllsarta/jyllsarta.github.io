@@ -149,9 +149,9 @@ function takeScreenshot(){
 	html2canvas($("#game_window"),{
 		proxy:"",
 		onrendered: function(canvas) {
- 			window.open( canvas.toDataURL("image/png"))
- 		}
- 	})
+			window.open( canvas.toDataURL("image/png"))
+		}
+	})
 }
 
 /*******************************************/
@@ -316,17 +316,17 @@ function event(){
 function getBackgroundImageOverlayType(dungeon_id){
 	switch(dungeon_id){
 		case 0:
-			return "overlay"
+		return "overlay"
 		break
 		case 1: //1と2は意図的に一緒にしてる
 		case 2:
-			return "screen"
+		return "screen"
 		break
 		case 3:
-			return "normal"
+		return "normal"
 		break
 		default:
-			return "screen"
+		return "screen"
 		break
 	}
 
@@ -466,12 +466,14 @@ function eventStairs(){
 					var item_id = lotItem(flatten=true)
 					aquireItem(item_id)
 				}
+				save.dungeon_process[save.current_dungeon_id] = save.current_floor
 			}
-			save.dungeon_process[save.current_dungeon_id] = save.current_floor
-			if(save.dungeon_open[save.current_dungeon_id+1] == 0){
+			//次ダンジョン未開放かつその階層のラスボスを倒したら次ダンジョンを開放する
+			if(save.dungeon_open[save.current_dungeon_id+1] == 0 && save.current_floor == dungeon_data[save.current_dungeon_id].depth){
 				save.dungeon_open[save.current_dungeon_id+1] = 1
 				save.dungeon_process[save.current_dungeon_id+1] = 1
 			}
+			updateCurrentFloorText()
 			fadeOutAndFadeInStairs()
 		}
 	}

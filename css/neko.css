@@ -313,7 +313,7 @@ header{
 
 .character_chip_dead{
 	position: relative;
-	top: 60px;
+	top: 70px;
 	width: 210px;
 	height: 140px;
 }
@@ -326,13 +326,13 @@ header{
 
 #character_siro{
 	position: absolute;
-	top: 370px;
+	top: 380px;
 	left: 140px;
 }
 
 #character_kuro{
 	position: absolute;
-	top: 378px;
+	top: 382px;
 	left: 210px;
 }
 
