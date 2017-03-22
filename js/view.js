@@ -940,6 +940,11 @@ function updateCurrentHP(){
 	$("#hp_kuro").text(save.status.kuro.hp)
 	$("#hp_max_siro").text(save.status.siro.max_hp)
 	$("#hp_max_kuro").text(save.status.kuro.max_hp)
+	var width = 250
+	var siro_hp_persentage = save.status.siro.hp / save.status.siro.max_hp
+	var kuro_hp_persentage = save.status.kuro.hp / save.status.kuro.max_hp
+	$("#hp_gauge_now_siro").css("width",width*siro_hp_persentage	)
+	$("#hp_gauge_now_kuro").css("width",width*kuro_hp_persentage	)
 }
 
 //lv, expの表記反映
@@ -948,6 +953,11 @@ function updateCurrentLVEXP(){
 	$("#lv_kuro").text(save.status.kuro.lv)
 	$("#exp_siro").text(save.status.siro.exp)
 	$("#exp_kuro").text(save.status.kuro.exp)
+	var width = 250
+	var siro_exp_persentage = save.status.siro.exp / 100
+	var kuro_exp_persentage = save.status.kuro.exp / 100
+	$("#exp_gauge_now_siro").css("width",width*siro_exp_persentage	)
+	$("#exp_gauge_now_kuro").css("width",width*kuro_exp_persentage	)
 }
 
 
