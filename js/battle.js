@@ -19,6 +19,7 @@ function calcEnemyHp(rank){
 	if(rank < 40){
 		return Math.max(rank*6 - 50,1)*5
 	}
+	return Math.floor(Math.pow(rank-10,1.8)/2.7*2*randInt(80,110)/100 )+rank*10 + 120 + randInt(1,20)
 }
 
 //敵の作成
