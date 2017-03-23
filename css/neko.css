@@ -1257,6 +1257,9 @@ header{
 	width: 140px;
 }
 
+.depth_select_button{
+	color:#b9b9b9;
+}
 .depth_select_button:hover{
 	opacity: 0.7;
 }
