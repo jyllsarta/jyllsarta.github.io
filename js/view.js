@@ -13,6 +13,9 @@ function initView(){
 	var stage_id = save.current_dungeon_id
 	$(".dungeon_name").text(dungeon_data[stage_id].name)
 	$("#next_event_sec").text(save.next_event_timer)
+	$("#character_siro").css("translateX", data.siro.x)
+	$("#character_kuro").css("translateX", data.kuro.x)
+
 
 	updateCurrentHP()
 	updateCurrentLVEXP()
@@ -71,11 +74,34 @@ function updateBackgroundImagePosition(){
 
 //背景の更新
 function updateBackgroundImage(){
+
+	//ラスダンの場合背景はランダムに切り替える
+	if(save.current_dungeon_id == 4){
+		updateBackgroundImageLastDungeon()
+		return
+	}
+
 	$("#background_image_bg").attr("src","images/neko/bg/st"+save.current_dungeon_id+"-"+save.current_landscape_id+"-0.png")
 	$("#background_image_floor").attr("src","images/neko/bg/st"+save.current_dungeon_id+"-"+save.current_landscape_id+"-1.png")
 	$("#background_image_fg").attr("src","images/neko/bg/st"+save.current_dungeon_id+"-"+save.current_landscape_id+"-2.png")
 	$("#background_image_fg").css("mix-blend-mode",getBackgroundImageOverlayType(save.current_dungeon_id))
 }
+
+//ラスダン用のランダム背景切り替え
+function updateBackgroundImageLastDungeon(){
+
+		//ラスダンの場合、40Fごとに
+		// [landscape順でループ >ID順でループ]する
+		//きっかり40Fごとに変わるとバレバレになるので257のオフセットを与えている
+		var floor = save.current_floor + 257
+		var dungeon = (Math.floor(floor / 40)) % 4
+		var landscape = (Math.floor(floor / 160)) % 3
+
+		$("#background_image_bg").attr("src","images/neko/bg/st"+dungeon+"-"+landscape+"-0.png")
+		$("#background_image_floor").attr("src","images/neko/bg/st"+dungeon+"-"+landscape+"-1.png")
+		$("#background_image_fg").attr("src","images/neko/bg/st"+dungeon+"-"+landscape+"-2.png")
+		$("#background_image_fg").css("mix-blend-mode",getBackgroundImageOverlayType(dungeon))
+	}
 
 //階段降り時のフェードアウトイン
 function fadeOutAndFadeInStairs(){
@@ -191,36 +217,35 @@ function  loiteringSiro(){
 			$("#character_siro")	
 			.animate({
 				translateX : data.siro.x-1
-			},100,"linear")
+			},40,"linear")
 			.animate({
 				translateX : data.siro.x
-			},70,"linear")
+			},20,"linear")
 		}
 		return
 	}
 
-	data.siro.x += data.siro.vx
-	$("#character_siro").css("translateX", data.siro.x)
-	//毎フレーム速度を更新するとカタカタ震えるだけになるので
-	//10フレームに1回のみ更新する
-	if (data.frame % 4 != 0){
-		return
-	}
-	//[-0.25,0.25]
-	var delta = (Math.random() -0.5)
+	//[-0.5,0.5]
+	var delta = (Math.random()-.5)
 	data.siro.vx += delta
 	//両端に寄り過ぎてるときは逆向きに力を加える
-	if (data.siro.x < 450 && data.siro.vx < 0){
+	if (data.siro.x < 230 && data.siro.vx < 0){
 		data.siro.vx += 0.2
 	}
 	if (data.siro.x > 700 && data.siro.vx > 0){
 		data.siro.vx -= 0.2
 	}
-	if (data.siro.vx > 0){
-		$("#character_siro img").addClass("flip")
-	}
-	else{
-		$("#character_siro img").removeClass("flip")
+
+	//ある程度勢いのあるときのみ移動処理
+	if(Math.abs(data.siro.vx) > .7){
+		if (data.siro.vx > 0){
+			$("#character_siro img").addClass("flip")
+		}
+		else{
+			$("#character_siro img").removeClass("flip")
+		}
+		data.siro.x += data.siro.vx
+		$("#character_siro").css("translateX", data.siro.x)
 	}
 }
 
@@ -240,29 +265,29 @@ function  loiteringKuro(){
 		return
 	}
 
-
-	data.kuro.x += data.kuro.vx
-	$("#character_kuro").css("translateX",data.kuro.x)
-	//毎フレーム速度を更新するとカタカタ震えるだけになるので
-	//10フレームに1回のみ更新する
-	if (data.frame % 6 != 0){
-		return
-	}
-	//[-0.25,0.25]
-	var delta = (Math.random() -0.5)
+	//[-0.5,0.5]
+	var delta = (Math.random()-.5)
 	data.kuro.vx += delta/2
 	//両端に寄り過ぎてるときは逆向きに力を加える
-	if (data.kuro.x < 450 && data.kuro.vx < 0){
+	if (data.kuro.x < 280 && data.kuro.vx < 0){
 		data.kuro.vx += 0.2
 	}
-	if (data.kuro.x > 700 && data.kuro.vx > 0){
+	if (data.kuro.x > 600 && data.kuro.vx > 0){
 		data.kuro.vx -= 0.2
 	}
-	if (data.kuro.vx > 0){
-		$("#character_kuro img").addClass("flip")
-	}
-	else{
-		$("#character_kuro img").removeClass("flip")
+
+	//ある程度勢いのあるときのみ処理
+	if(Math.abs(data.kuro.vx) > .7 ){
+		if (data.kuro.vx > 0){
+			$("#character_kuro img").addClass("flip")
+		}
+		else{
+			$("#character_kuro img").removeClass("flip")
+		}
+
+
+		data.kuro.x += data.kuro.vx
+		$("#character_kuro").css("translateX",data.kuro.x)
 	}
 }
 
@@ -658,38 +683,56 @@ function showStairsSprite(){
 	.animate({
 		translateY:-50,
 		translateX:30,
-	},300,"linear")	
+	},100,"linear")	
 	.animate({
 		translateY:-30,
-		translateX:50,
-	},300,"swing")	
+		translateX:45,
+	},100,"swing")	
 	.delay(300)
 	.animate({
 		translateY:-70,
-		translateX:80,
-	},300,"linear")	
+		translateX:60,
+	},100,"linear")	
 	.animate({
 		translateY:-50,
-		translateX:130,
-	},300,"swing")	
+		translateX:75,
+	},100,"swing")	
 	.delay(300)
 	.animate({
 		translateY:-90,
-		translateX:160,
-	},300,"linear")	
+		translateX:90,
+	},100,"linear")	
 	.animate({
 		translateY:-70,
-		translateX:190,
-	},300,"swing")
+		translateX:105,
+	},100,"swing")
 	.delay(250)
 	.animate({
 		translateY:-110,
-		translateX:190,
-	},300,"linear")	
+		translateX:120,
+	},100,"linear")	
 	.animate({
 		translateY:-90,
-		translateX:220,
-	},300,"swing")
+		translateX:145,
+	},100,"swing")
+	.delay(250)
+	.animate({
+		translateY:-125,
+		translateX:160,
+	},100,"linear")	
+	.animate({
+		translateY:-110,
+		translateX:175,
+	},100,"swing")
+	.delay(250)
+	.animate({
+		translateY:-130,
+		translateX:190,
+	},100,"linear")	
+	.animate({
+		translateY:-160,
+		translateX:205,
+	},100,"swing")
 
 	$("#sprite_stairs_kuro")
 	.delay(700)
@@ -701,38 +744,56 @@ function showStairsSprite(){
 	.animate({
 		translateY:-50,
 		translateX:30,
-	},300,"linear")
+	},100,"linear")
 	.animate({
 		translateY:-30,
-		translateX:50,
-	},300,"swing")	
+		translateX:45,
+	},100,"swing")	
 	.delay(250)
 	.animate({
 		translateY:-70,
-		translateX:80,
-	},300,"linear")	
+		translateX:60,
+	},100,"linear")	
 	.animate({
 		translateY:-50,
-		translateX:130,
-	},300,"swing")	
+		translateX:75,
+	},100,"swing")	
 	.delay(250)
 	.animate({
 		translateY:-90,
-		translateX:160,
-	},300,"linear")	
+		translateX:90,
+	},100,"linear")	
 	.animate({
 		translateY:-70,
-		translateX:190,
-	},300,"swing")	
+		translateX:105,
+	},100,"swing")	
 	.delay(250)
 	.animate({
 		translateY:-110,
-		translateX:190,
-	},300,"linear")	
+		translateX:120,
+	},100,"linear")	
 	.animate({
 		translateY:-90,
-		translateX:220,
-	},300,"swing")	
+		translateX:135,
+	},100,"swing")	
+	.delay(250)
+	.animate({
+		translateY:-130,
+		translateX:150,
+	},100,"linear")	
+	.animate({
+		translateY:-110,
+		translateX:165,
+	},100,"swing")	
+	.delay(250)
+	.animate({
+		translateY:-150,
+		translateX:180,
+	},100,"linear")	
+	.animate({
+		translateY:-130,
+		translateX:195,
+	},100,"swing")	
 }
 
 
@@ -929,7 +990,6 @@ function showResurrectSprite(){
 	.animate({
 		translateY:0
 	},100,"linear")
-
 }
 
 
@@ -940,7 +1000,7 @@ function updateCurrentHP(){
 	$("#hp_kuro").text(save.status.kuro.hp)
 	$("#hp_max_siro").text(save.status.siro.max_hp)
 	$("#hp_max_kuro").text(save.status.kuro.max_hp)
-	var width = 250
+	var width = 285
 	var siro_hp_persentage = save.status.siro.hp / save.status.siro.max_hp
 	var kuro_hp_persentage = save.status.kuro.hp / save.status.kuro.max_hp
 	$("#hp_gauge_now_siro").css("width",width*siro_hp_persentage	)
@@ -953,7 +1013,7 @@ function updateCurrentLVEXP(){
 	$("#lv_kuro").text(save.status.kuro.lv)
 	$("#exp_siro").text(save.status.siro.exp)
 	$("#exp_kuro").text(save.status.kuro.exp)
-	var width = 250
+	var width = 285
 	var siro_exp_persentage = save.status.siro.exp / 100
 	var kuro_exp_persentage = save.status.kuro.exp / 100
 	$("#exp_gauge_now_siro").css("width",width*siro_exp_persentage	)
@@ -1003,13 +1063,27 @@ function showEquipmentMenu(){
 function prepareEquipBuildMenu(item_id){
 	$("#coin_amount").text(save.coin)
 	$(".equip_name").text(data.item_data[item_id].name)
-	$(".build_prev").text("+"+(save.item[item_id]-1))
-	$(".build_after").text("+"+Math.min(MAX_EQUIP_BUILD-1,save.item[item_id]))
+	$(".build_prev").text("+"+((save.item[item_id]||0)-1))
+	$(".build_after").text("+"+Math.min(MAX_EQUIP_BUILD-1,(save.item[item_id]||0)))
 	$("#build_cost").text(getBuildCost(item_id))
 
+	//未開放装備の場合開放用テキストに切り替え
+	if(!save.item[item_id]){
+		$("#equip_build_param_list").addClass("hidden")
+		$("#build_plus_area").addClass("hidden")
+		$("#unachieved_item_text").removeClass("hidden")
+		$("#build_decide_text").text("生成")
+	}
+	else{
+		$("#equip_build_param_list").removeClass("hidden")
+		$("#build_plus_area").removeClass("hidden")
+		$("#unachieved_item_text").addClass("hidden")	
+		$("#build_decide_text").text("強化")
+	}
 
 	var param_prevs = $(".param_prev")
 	var param_afters = $(".param_after")
+	var param_diffs = $(".param_diff")
 	param_prevs[0].textContent = (getBuildedParameter(item_id,"str"))
 	param_prevs[1].textContent = (getBuildedParameter(item_id,"dex"))
 	param_prevs[2].textContent = (getBuildedParameter(item_id,"def"))
@@ -1019,6 +1093,63 @@ function prepareEquipBuildMenu(item_id){
 		param_afters[1].textContent = (Math.floor(getBuildedParameter(item_id,"dex")*1.1))
 		param_afters[2].textContent = (Math.floor(getBuildedParameter(item_id,"def")*1.1))
 		param_afters[3].textContent = (Math.floor(getBuildedParameter(item_id,"agi")*1.1))
+		param_diffs[0].textContent = (Math.floor(getBuildedParameter(item_id,"str")*0.1))
+		param_diffs[1].textContent = (Math.floor(getBuildedParameter(item_id,"dex")*0.1))
+		param_diffs[2].textContent = (Math.floor(getBuildedParameter(item_id,"def")*0.1))
+		param_diffs[3].textContent = (Math.floor(getBuildedParameter(item_id,"agi")*0.1))
+
+		if((Math.floor(getBuildedParameter(item_id,"str")*0.1)) < 0){
+			$(param_diffs[0]).addClass("minus")
+			$(param_diffs[0]).removeClass("plus")
+		}
+		else if((Math.floor(getBuildedParameter(item_id,"str")*0.1)) > 0){
+			$(param_diffs[0]).removeClass("minus")
+			$(param_diffs[0]).addClass("plus")			
+		}
+		else{
+			$(param_diffs[0]).removeClass("minus")
+			$(param_diffs[0]).removeClass("plus")				
+		}
+
+		if((Math.floor(getBuildedParameter(item_id,"dex")*0.1)) < 0){
+			$(param_diffs[1]).addClass("minus")
+			$(param_diffs[1]).removeClass("plus")
+		}
+		else if((Math.floor(getBuildedParameter(item_id,"dex")*0.1)) > 0){
+			$(param_diffs[1]).removeClass("minus")
+			$(param_diffs[1]).addClass("plus")			
+		}
+		else{
+			$(param_diffs[1]).removeClass("minus")
+			$(param_diffs[1]).removeClass("plus")				
+		}
+
+		if((Math.floor(getBuildedParameter(item_id,"def")*0.1)) < 0){
+			$(param_diffs[2]).addClass("minus")
+			$(param_diffs[2]).removeClass("plus")
+		}
+		else if((Math.floor(getBuildedParameter(item_id,"def")*0.1)) > 0){
+			$(param_diffs[2]).removeClass("minus")
+			$(param_diffs[2]).addClass("plus")			
+		}
+		else{
+			$(param_diffs[2]).removeClass("minus")
+			$(param_diffs[2]).removeClass("plus")				
+		}
+
+		if((Math.floor(getBuildedParameter(item_id,"agi")*0.1)) < 0){
+			$(param_diffs[3]).addClass("minus")
+			$(param_diffs[3]).removeClass("plus")
+		}
+		else if((Math.floor(getBuildedParameter(item_id,"agi")*0.1)) > 0){
+			$(param_diffs[3]).removeClass("minus")
+			$(param_diffs[3]).addClass("plus")			
+		}
+		else{
+			$(param_diffs[3]).removeClass("minus")
+			$(param_diffs[3]).removeClass("plus")				
+		}
+
 	}
 	else{
 		param_afters[0].textContent = (Math.floor(getBuildedParameter(item_id,"str")))
@@ -1027,7 +1158,7 @@ function prepareEquipBuildMenu(item_id){
 		param_afters[3].textContent = (Math.floor(getBuildedParameter(item_id,"agi")))
 	}
 
-	//装備できないなら無効化する
+	//強化できないなら無効化する
 	if(save.coin < getBuildCost(item_id)){
 		$("#build_decide_button").addClass("disabled")
 	}
@@ -1206,10 +1337,10 @@ function updateEquipListName(){
 		//一旦アイコンをデフォのやつに
 		$(".equip_list_icon")[i].setAttribute("src","images/neko/icons/unachieved.png")
 
+		var additional_class_name = ""
 		//レアリティ・装備済反映
 		if(data.item_data[target_item_id]){
 			var rarity = data.item_data[target_item_id].rarity
-			var additional_class_name = ""
 
 			if(target_item_lv){
 				additional_class_name = getRarityClassName(rarity)
@@ -1429,15 +1560,21 @@ function updateEquipBuildButtonShowState(){
 	var buttons = $(".equip_build_button")
 	for(var i=0;i<buttons.length;++i){
 		var  button = buttons[i]
-		var item_id = $(button).parent().attr("item_id")
-		if(save.item[item_id] === undefined || save.item[item_id] === null || save.item[item_id] ==0){
+		var item_id = parseInt($(button).parent().attr("item_id"))
+
+		if(item_id >= data.item_data.length || item_id > getMaxItemRankPlayerGot()){
 			$(button).css("display","none")
 		}
 		else if(save.item[item_id] == MAX_EQUIP_BUILD){
 			$(button).css("display","none")
 		}
+		else if(save.item[item_id] === undefined || save.item[item_id] === null || save.item[item_id] ==0){
+			$(button).css("display","inline-block")
+			$(button).text("作成")
+		}
 		else{
 			$(button).css("display","inline-block")
+			$(button).text("強化")
 		}
 	}
 }
@@ -1679,6 +1816,7 @@ function updateDungeonDetailTo(dungeon_id){
 function prepareDungeonList(){
 	//いったんフラッシュ
 	$("#dungeon_list").text("")
+	updateDungeonDetailTo(0)
 
 	//開放済のダンジョンを見せる
 	for(var i=0;i<save.dungeon_process.length;++i){
@@ -1694,6 +1832,8 @@ function prepareDungeonList(){
 	$(".dungeon_item").click(function(){
 		updateDungeonDetailClick(this)
 	})
+
+	updateDungeonSelectFloorData()
 
 }
 

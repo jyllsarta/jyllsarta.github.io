@@ -388,7 +388,7 @@ function getBoxAmount(rarity){
 function lotItem(flatten=false){
 	var dungeon_index = dungeon_data[save.current_dungeon_id].start_ir
 	//現在の階より深いところにいるときは階の深さに合わせた値にする
-	var floor_up = Math.floor(Math.min(save.current_floor,dungeon_data[save.current_dungeon_id].depth)/4)
+	var floor_up = Math.floor(Math.min(save.current_floor,dungeon_data[save.current_dungeon_id].depth)/8)
 	var item_range = 10
 	var min = dungeon_index+floor_up
 	var max = dungeon_index+floor_up+item_range
@@ -603,7 +603,7 @@ function calcTotalItemParam(item_id){
 
 //プラス値を考慮したパラメータを返す
 function getBuildedParameter(item_id,paramName){
-	var lv = save.item[item_id]
+	var lv = save.item[item_id] || 0
 	var param = Math.floor(parseInt(data.item_data[item_id][paramName]) * (lv-1+10)/10)
 	return param
 }
@@ -791,6 +791,10 @@ function showEquipBuildMenu(domobject){
 //強化コストを返す
 function getBuildCost(item_id){
 	var lv = save.item[item_id]
+	if(!lv){
+			//未開放装備開放コストは一律100
+			return 100
+	}
 	var rarity = parseInt(data.item_data[item_id].rarity)
 	var cost = (lv+2) * (rarity+1) + Math.floor(item_id /10)
 	return cost
@@ -804,21 +808,19 @@ function build(item_id){
 		return
 	}
 
-	if(!save.item[item_id]){
-		log("未開放の装備だよね?")
-		return
-	}
-
 	if(save.item[item_id] >= MAX_EQUIP_BUILD){
 		log("すでに最大強化済だよ")
 		return
 	}
 
 	save.coin -= cost
-	save.item[item_id] ++
+	save.item[item_id] = (save.item[item_id]||0) + 1
 	prepareEquipBuildMenu(item_id)
 	updateEquipListCoinAmount()
 	updateEquipList()
+	updateEquipDetailATKDEF()
+	updateEquipDetailAreaTo(item_id)
+	updateCurrentTotalParameter()
 }
 
 //強化を実行するボタンを押したときの挙動
@@ -900,6 +902,17 @@ function toggleSortOrder(){
 		data.equipment_menu.sort_order++
 	}
 	updateEquipList()
+}
+
+//これまで手に入れたなかで一番新しい武器のIRを返す
+function getMaxItemRankPlayerGot(){
+	var max = 0
+		for(var i in save.item){
+				if(parseInt(i) > 0){
+						max = parseInt(i)
+				}
+		}
+		return max
 }
 
 
@@ -989,6 +1002,9 @@ function changeDepth(difference){
 $(document).ready(function(){
 	init();
 })
+
+
+
 setInterval(mainLoop,50);
 setInterval(mainLoop_1sec,1000);
 

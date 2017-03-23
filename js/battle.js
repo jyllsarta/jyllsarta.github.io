@@ -69,7 +69,7 @@ function getCurrentEnemyRank(){
 	var start_ir = dungeon_data[save.current_dungeon_id].start_ir
 	var depth = Math.min(save.current_floor,dungeon_data[save.current_dungeon_id].depth)
 
-	return Math.floor(start_ir+( depth/4))
+	return Math.floor(start_ir+( depth/8))
 }
 
 //敵のランクを加味した経験値を計算して返す
@@ -210,8 +210,8 @@ function processBattle(bossBattle=false){
 
 		var biggestMaxDamage = getBiggestMaxDamage(enemies)
 		if(biggestMaxDamage > 30){
-			var reduceTime = Math.min( biggestMaxDamage*2,100)
-			castMessage(Math.min(biggestMaxDamage,200) + "%オーバーキル！")
+			var reduceTime = Math.min( biggestMaxDamage/4,25)
+			castMessage(Math.min(biggestMaxDamage,100) + "%オーバーキル！")
 			castMessage(reduceTime+ "秒次イベントが早く回ってきます。")
 			reduceNextEventTime(reduceTime)
 		}

@@ -66,7 +66,7 @@ var save = {
 	item:[1,1,1,1],
 	dungeon_open:[1,0,0,0,0],
 	dungeon_process:[1,0,0,0,0],
-	next_event_timer : 120,
+	next_event_timer : 40,
 	auto_ressurect_timer : 5000,
 	coin : 0,
 	total_coin_achieved : 0
@@ -77,31 +77,31 @@ var dungeon_data=[
 	name:"灰泥の尾根",
 	caption:"最初に出会った次元層。なだらかな湖畔のようだ。",
 	start_ir:0,
-	depth:200
+	depth:400
 },
 {
 	name:"蜜樹の臨界",
 	caption:"息苦しい湿気に覆われた密林の次元。夜は蔦が一斉に光りだす。",
 	start_ir:50,
-	depth:400
+	depth:800
 },
 {
 	name:"氷雪と春風の小路",
 	caption:"クリスタルの階段でできた空中橋で構成される次元。",
 	start_ir:150,	
-	depth:600
+	depth:1200
 },
 {
 	name:"アスモネア地下道",
 	caption:"くらーい地下道。",
 	start_ir:300,	
-	depth:800
+	depth:1600
 },
 {
 	name:"次元の界面",
 	caption:"幾つもの次元が混濁する塔の最上層。空間が安定せず、絶えず構成が変化し続ける。",
 	start_ir:500,
-	depth:2000,
+	depth:4000,
 },
 ]
 
@@ -139,4 +139,4 @@ var EVENT_FREQ_ITEM_FLOOD = 2
 var EVENT_FREQ_BATTLE = 50
 
 //デフォルトのイベント発生間隔(秒)
-var DEFAULT_EVENT_FREQ = 120
+var DEFAULT_EVENT_FREQ = 40
