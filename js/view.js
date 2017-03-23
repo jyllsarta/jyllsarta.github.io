@@ -214,7 +214,7 @@ function  loiteringSiro(){
 	if(save.status.siro.hp <= 0){
 		//たまーにピクピクする
 		if(randInt(1,100) < 5){
-			$("#character_siro")	
+			$("#character_siro img")	
 			.animate({
 				translateX : data.siro.x-1
 			},40,"linear")
@@ -224,6 +224,7 @@ function  loiteringSiro(){
 		}
 		return
 	}
+
 
 	//[-0.5,0.5]
 	var delta = (Math.random()-.5)
@@ -247,6 +248,11 @@ function  loiteringSiro(){
 		data.siro.x += data.siro.vx
 		$("#character_siro").css("translateX", data.siro.x)
 	}
+	//それ以外の場合はちょっと屈伸してみたりする
+	else if(data.frame % 20 ==0){
+		var y = parseInt($("#character_siro").css("translateY"))
+		$("#character_siro").css("translateY",y>0?0:1)
+	}
 }
 
 //くろがゆらゆら移動
@@ -254,7 +260,7 @@ function  loiteringKuro(){
 	if(save.status.kuro.hp <= 0){
 		//たまーにピクピクする
 		if(randInt(1,100) < 5){
-			$("#character_kuro")	
+			$("#character_kuro img")	
 			.animate({
 				translateX : data.kuro.x-1
 			},60,"linear")
@@ -284,11 +290,15 @@ function  loiteringKuro(){
 		else{
 			$("#character_kuro img").removeClass("flip")
 		}
-
-
 		data.kuro.x += data.kuro.vx
 		$("#character_kuro").css("translateX",data.kuro.x)
 	}
+	//それ以外の場合はちょっと屈伸してみたりする
+	else if(data.frame % 20 ==0){
+		var y = parseInt($("#character_kuro").css("translateY"))
+		$("#character_kuro").css("translateY",y>0?0:1)
+	}
+
 }
 
 //自動復活タイマーの更新
