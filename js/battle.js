@@ -210,7 +210,7 @@ function processBattle(bossBattle=false){
 
 		var biggestMaxDamage = getBiggestMaxDamage(enemies)
 		if(biggestMaxDamage > 30){
-			var reduceTime = Math.min( biggestMaxDamage/4,25)
+			var reduceTime = Math.floor(Math.min( biggestMaxDamage/4,25))
 			castMessage(Math.min(biggestMaxDamage,100) + "%オーバーキル！")
 			castMessage(reduceTime+ "秒次イベントが早く回ってきます。")
 			reduceNextEventTime(reduceTime)
