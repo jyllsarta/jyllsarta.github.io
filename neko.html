@@ -28,7 +28,7 @@
 	</script>
 </head>
 <body>
-	<header>ヘッダーです</header>
+	<img id="header_img" src="images/neko/etc/banner.png">
 	<div id="game_window_cover">
 		<div id="loading_progress_bar"></div>
 		<div id="game_window" class="hidden">
@@ -55,6 +55,8 @@
 				<img src="images/neko/bg/st1-0-2.png" id="background_image_fg" class="background_image">
 
 				<div id="stairs_fadeouter" class="hidden"></div>
+
+				<div id="blur"></div>
 
 				<div id="datetime_info_area" class="shadow_background">
 					<div id="clock_text">時刻:</div>	
@@ -585,7 +587,7 @@
 	</div>
 
 </div>
-	<img src="images/neko/etc/loading_splash.png" id="loading_splash">
+<img src="images/neko/etc/loading_splash.png" id="loading_splash">
 </div>
 <!-- ゲームのロジック-->
 <script src="js/handlers.js"></script>

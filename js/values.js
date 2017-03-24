@@ -60,7 +60,7 @@ var save = {
 	current_landscape_id:0,
 	current_floor:1,
 	equip :{
-		siro:[2,3,4],
+		siro:[],
 		kuro:[],
 	},
 	item:[1,1,1,1],
