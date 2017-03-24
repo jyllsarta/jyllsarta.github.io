@@ -44,11 +44,24 @@ function init(){
 	loadItemList()
 	load()
 
-	//装備メニューの初期表示
-	data.equipment_menu.current_page = findLatestEquipPageIndex()
-
 	initView()
 }
+
+//画像ロードで恥を晒さない
+ $(window).load(function(){
+ 	$("#loading_splash")
+ 	.delay(1000)
+ 	.animate({
+ 		opacity:0,
+ 	},300,"linear")
+ 	.queue(function(){
+ 		$(this).addClass("hidden")
+ 		.dequeue()
+ 	})
+ 	$("#game_window").removeClass("hidden")
+
+ 	castMessage("ロード全部終わり")
+ })
 
 /*******************************************/
 /* ロジック */
@@ -220,6 +233,8 @@ function makesave(){
 	var base64save = Base64.encode(savestring)
 
 	$.cookie("savedata", base64save, { expires: 10000 });
+
+	saveAnimation()
 }
 
 //ロード
@@ -449,6 +464,7 @@ function eventItemFlood(){
 function eventStairs(){
 
 	if(save.current_floor % 100 === 99){
+		castMessage((save.current_floor+1)+"Fのボスだ！")
 		showBossBattleSprite()
 		processBattle(bossBattle=true)
 		//生き残っていれば次の階に進む
@@ -456,13 +472,13 @@ function eventStairs(){
 			save.current_floor ++
 			if(save.dungeon_process[save.current_dungeon_id] <= save.current_floor ){
 				castMessage("ボスの初回討伐ボーナス！")
-				var coinEarned = getCurrentEnemyRank() * 5 + randInt(1,20)
+				var coinEarned = getCurrentEnemyRank()  + randInt(1,20)
 				save.coin += coinEarned
 				save.total_coin_achieved += coinEarned
 				castMessage(coinEarned+"枚のコインを獲得！")
 				castMessage("ボスの隠し持っていた宝箱を見つけた！")
 				castMessage("(通常よりレア装備が出やすくなります)")
-				for(var i=0;i<15;++i){
+				for(var i=0;i<10;++i){
 					var item_id = lotItem(flatten=true)
 					aquireItem(item_id)
 				}

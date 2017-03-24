@@ -28,7 +28,7 @@ var data = {
 	equipment_menu : {
 		current_page : 1,
 		current_character : "siro",
-		sort_order : 0,
+		sort_order : 1,
 	},
 	dungeon_select_menu : {
 		depth : 1,
@@ -60,7 +60,7 @@ var save = {
 	current_landscape_id:0,
 	current_floor:1,
 	equip :{
-		siro:[],
+		siro:[2,3,4],
 		kuro:[],
 	},
 	item:[1,1,1,1],

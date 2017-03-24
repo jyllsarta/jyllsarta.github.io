@@ -378,7 +378,27 @@ function getSpliteImageSource(splite_kind){
 
 }
 
+//右下のセーブしました報告をシャキンってスライドインする
+function saveAnimation(){
+	$("#save_ticker")
+	.delay(2000)
+	.removeClass	("hidden")
+	.css({opacity:1, translateX:400})
+	.animate({
+		translateX : 0
+	},140,"swing")
+	.delay(2000)
+	.animate({
+		opacity : 0
+	},1000,"linear")
+	.queue(function(){
+		$(this)
+		.addClass("hidden")
+		.css({translateX : 400})
+		.dequeue()
+	})
 
+}
 
 /**************************************************/
 /************** スプライト関係 *********************/
@@ -1250,6 +1270,8 @@ function prepareEquipMenu(){
 	updateEquipListCoinAmount()
 	resetDetailArea()
 	updateEquipDetailATKDEF()
+	updateCurrentEquipListArea()
+	updateCurrentTotalParameter()
 }
 
 //現在装備エリアに表示されるべきアイテムIDのリストを作成する
@@ -1578,9 +1600,17 @@ function updateEquipBuildButtonShowState(){
 		else if(save.item[item_id] == MAX_EQUIP_BUILD){
 			$(button).css("display","none")
 		}
+		//セーブデータがない場合には作成ボタンを出す
 		else if(save.item[item_id] === undefined || save.item[item_id] === null || save.item[item_id] ==0){
-			$(button).css("display","inline-block")
-			$(button).text("作成")
+			//でも作成ボタンを出すのはID順ソートの場合のみ
+			if(data.equipment_menu.sort_order==0){
+				$(button).css("display","inline-block")
+				$(button).text("作成")
+			}
+			//それ以外は?????に作成ボタンがあっても押す意味ない
+			else{
+				$(button).css("display","none")				
+			}
 		}
 		else{
 			$(button).css("display","inline-block")
