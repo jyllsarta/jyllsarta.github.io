@@ -5,17 +5,24 @@
 body{
 	margin:0px 0px 0px 0px;
 	font-family: "Rounded Mplus 1c";
-	background-color: #FFFFFF;
+	background-image: url("../images/neko/etc/tile.png")
 }
 
 #header_img{
-	position: relative;
-	width: 1250px;
+	width: 1200px;
 	height: 343px;
 	margin : auto;
-	text-align: center;
 	display: table-cell;
-	vertical-align: middle;
+}
+
+#contents{
+	border-radius: 70px 70px 0px 0px;
+	background-color: #FFFFFF;
+	width: 1240px;	
+	position: relative;
+	margin: auto;
+	box-shadow: 0px 0px 3px 2px #FFFFFF;
+	padding-bottom: 20px;
 }
 
 
@@ -1397,22 +1404,24 @@ body{
 
 #save_ticker{
 	position: absolute;
-	right: 0px;
-	bottom: 0px;
+	right: 5px;
+	bottom: 5px;
 	width: 400px;
 	height: 40px;
 	font-size: 30px;
 	text-align: right;
 	transateX : 400px;
 	opacity: 0;
+	border-radius: 4px 4px;
 }
 
 #loading_splash{
-	position: absolute;
-	top: 0px;
-	left: 0px;
+	position: relative;
 	width: 1200px;
 	height: 800px;
+	border-radius: 4px 4px;
+	margin: auto;
+	display: table-cell;
 }
 
 /*webフォント関連*/

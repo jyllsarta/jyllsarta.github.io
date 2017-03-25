@@ -49,16 +49,8 @@ function init(){
 
 //画像ロードで恥を晒さない
  $(window).load(function(){
- 	$("#loading_splash")
- 	.delay(1000)
- 	.animate({
- 		opacity:0,
- 	},300,"linear")
- 	.queue(function(){
- 		$(this).addClass("hidden")
- 		.dequeue()
- 	})
- 	$("#game_window").removeClass("hidden")
+ 	$("#loading_splash").delay(1000).queue(function(){$(this).remove().dequeue()})
+ 	$("#game_window").delay(1000).queue(function(){$(this).removeClass("hidden").dequeue()})
 
  	castMessage("ロード全部終わり")
  })

@@ -28,146 +28,148 @@
 	</script>
 </head>
 <body>
-	<img id="header_img" src="images/neko/etc/banner.png">
-	<div id="game_window_cover">
-		<div id="loading_progress_bar"></div>
-		<div id="game_window" class="hidden">
-			<div id="title" class="hidden">タイトル画面のdiv</div>
-			<div id="stage" class="hidden">ステージ画面のdiv</div>
-			<!-- メイン画面 -->
-			<div id="main" class="hidden">
-				<div id="background">
-					<img src="images/neko/bg/st1-0-0.png" class="background_image" id="background_image_bg">
-				</div>
-				<div id="character_siro">
-					<img src="images/neko/chara/siro.png" class="character_chip_alive">
-					<div id="ressurect_count_area" class="hidden">
-						<span class="ressurect_text">復活まで：</span>
-						<span id="ressurect_count">5000</span>
-						<span class="ressurect_text">秒</span>
+	<div id="contents">
+		
+		<img id="header_img" src="images/neko/etc/banner.png">
+		<div id="game_window_cover">
+			<div id="loading_progress_bar"></div>
+			<div id="game_window" class="hidden">
+				<div id="title" class="hidden">タイトル画面のdiv</div>
+				<div id="stage" class="hidden">ステージ画面のdiv</div>
+				<!-- メイン画面 -->
+				<div id="main" class="hidden">
+					<div id="background">
+						<img src="images/neko/bg/st1-0-0.png" class="background_image" id="background_image_bg">
 					</div>
-				</div>
-				<div id="character_kuro">
-					<img src="images/neko/chara/kuro.png" class="character_chip_alive">
-				</div>
-
-				<img src="images/neko/bg/st1-0-1.png" class="background_image" id="background_image_floor">
-				<img src="images/neko/bg/st1-0-2.png" id="background_image_fg" class="background_image">
-
-				<div id="stairs_fadeouter" class="hidden"></div>
-
-				<div id="blur"></div>
-
-				<div id="datetime_info_area" class="shadow_background">
-					<div id="clock_text">時刻:</div>	
-					<div id="date">
-						<span id="month">12</span>
-						<span class="calender_letter">月</span>
-						<span id="day">23</span>
-						<span class="calender_letter">日</span>
-					</div>
-					<div id="time">
-						<span id="hour">12</span>
-						<span class="time_sepalator">:</span>
-						<span id="minute">34</span>
-						<span class="time_sepalator">:</span>
-						<span id="second">45</span>
-					</div>
-					<div id="current_dungeon_text">現在の領域:</div>	
-					<div id="depth_text">フロア:</div>	
-					<div id="dungeon_info_area">
-						<span class="dungeon_name">闇の回廊</span>
-						<span id="current_floor" class="current_floor">8</span>
-						<span class="floor_unit">F</span>
-					</div>
-					<div id="next_event_text">次イベントまで:</div>				
-					<div id="next_event_info_area">
-						<span id="next_event_sec">0</span>
-						<span class="next_event_sec_unit">秒</span>
-					</div>
-				</div>
-				<div id="menu_button_area" class="shadow_background">
-					<ul id="menu_list">
-						<li id="ressurect_button" class="menu_item">回復</li>
-						<li id="menu_equip_button" class="menu_item">装備</li>
-						<li id="status_show_button" class="menu_item">ステータス</li>
-						<li id="dungeon_list_show_button" class="menu_item">次元層選択</li>
-						<li id="" class="menu_item">キークエスト</li>
-						<li id="screenshot" class="menu_item">スクショ</li>
-					</ul>
-				</div>
-				<div id="character_data_area" class="shadow_background">
-					<div id="condition_area_siro">
-						<div class="name_lv_area">
-							<span>しろこ：</span><br>
-							<span>　　</span><span class="lv_show_area" id="lv_siro">123</span><span> Lv</span>
-						</div>
-						<div class="gauge_area">
-							<div class="hp_show_area">
-								<div class="hp_gauge_max" id="hp_gauge_max_siro"></div>
-								<div class="hp_gauge_now" id="hp_gauge_now_siro"></div>
-								<div class="condition_text">
-									<span class="condition_index">HP</span>
-									<span class="mini_param_unit">:</span>
-									<span  class="condition_value" id="hp_siro">12345</span>
-									<span class="mini_param_unit">/</span>
-									<span class="condition_value" id="hp_max_siro">34567</span>								
-								</div>
-							</div>
-							<div class="exp_show_area">
-								<div class="exp_gauge_max" id="exp_gauge_max_siro"></div>
-								<div class="exp_gauge_now" id="exp_gauge_now_siro"></div>
-								<div class="condition_text">
-									<span class="condition_index">EXP</span>
-									<span class="mini_param_unit">:</span>
-									<span class="condition_value" id="exp_siro">99</span>
-									<span class="mini_param_unit">/</span>
-									<span class="condition_value">100</span>							
-								</div>
-							</div>
+					<div id="character_siro">
+						<img src="images/neko/chara/siro.png" class="character_chip_alive">
+						<div id="ressurect_count_area" class="hidden">
+							<span class="ressurect_text">復活まで：</span>
+							<span id="ressurect_count">5000</span>
+							<span class="ressurect_text">秒</span>
 						</div>
 					</div>
+					<div id="character_kuro">
+						<img src="images/neko/chara/kuro.png" class="character_chip_alive">
+					</div>
 
-					<div id="condition_area_kuro">
-						<div class="name_lv_area">
-							<span>くろこ：</span><br>
-							<span>　　</span><span  class="lv_show_area" id="lv_kuro">123</span><span> Lv</span>
+					<img src="images/neko/bg/st1-0-1.png" class="background_image" id="background_image_floor">
+					<img src="images/neko/bg/st1-0-2.png" id="background_image_fg" class="background_image">
+
+					<div id="stairs_fadeouter" class="hidden"></div>
+
+					<div id="blur"></div>
+
+					<div id="datetime_info_area" class="shadow_background">
+						<div id="clock_text">時刻:</div>	
+						<div id="date">
+							<span id="month">12</span>
+							<span class="calender_letter">月</span>
+							<span id="day">23</span>
+							<span class="calender_letter">日</span>
 						</div>
-						<div class="gauge_area">
-							<div class="hp_show_area">
-								<div class="hp_gauge_max" id="hp_gauge_max_kuro"></div>
-								<div class="hp_gauge_now" id="hp_gauge_now_kuro"></div>
-								<div class="condition_text">
-									<span class="condition_index">HP</span>
-									<span class="mini_param_unit">:</span>
-									<span  class="condition_value" id="hp_kuro">12345</span>
-									<span class="mini_param_unit">/</span>
-									<span class="condition_value" id="hp_max_kuro">34567</span>						
-								</div>
+						<div id="time">
+							<span id="hour">12</span>
+							<span class="time_sepalator">:</span>
+							<span id="minute">34</span>
+							<span class="time_sepalator">:</span>
+							<span id="second">45</span>
+						</div>
+						<div id="current_dungeon_text">現在の領域:</div>	
+						<div id="depth_text">フロア:</div>	
+						<div id="dungeon_info_area">
+							<span class="dungeon_name">闇の回廊</span>
+							<span id="current_floor" class="current_floor">8</span>
+							<span class="floor_unit">F</span>
+						</div>
+						<div id="next_event_text">次イベントまで:</div>				
+						<div id="next_event_info_area">
+							<span id="next_event_sec">0</span>
+							<span class="next_event_sec_unit">秒</span>
+						</div>
+					</div>
+					<div id="menu_button_area" class="shadow_background">
+						<ul id="menu_list">
+							<li id="ressurect_button" class="menu_item">回復</li>
+							<li id="menu_equip_button" class="menu_item">装備</li>
+							<li id="status_show_button" class="menu_item">ステータス</li>
+							<li id="dungeon_list_show_button" class="menu_item">次元層選択</li>
+							<li id="" class="menu_item">キークエスト</li>
+							<li id="screenshot" class="menu_item">スクショ</li>
+						</ul>
+					</div>
+					<div id="character_data_area" class="shadow_background">
+						<div id="condition_area_siro">
+							<div class="name_lv_area">
+								<span>しろこ：</span><br>
+								<span>　　</span><span class="lv_show_area" id="lv_siro">123</span><span> Lv</span>
 							</div>
-							<div class="exp_show_area">
-								<div class="exp_gauge_max" id="exp_gauge_max_kuro"></div>
-								<div class="exp_gauge_now" id="exp_gauge_now_kuro"></div>
-								<div class="condition_text">
-									<span class="condition_index">EXP</span>
-									<span class="mini_param_unit">:</span>
-									<span class="condition_value" id="exp_kuro">99</span>
-									<span class="mini_param_unit">/</span>
-									<span class="condition_value">100</span>							
+							<div class="gauge_area">
+								<div class="hp_show_area">
+									<div class="hp_gauge_max" id="hp_gauge_max_siro"></div>
+									<div class="hp_gauge_now" id="hp_gauge_now_siro"></div>
+									<div class="condition_text">
+										<span class="condition_index">HP</span>
+										<span class="mini_param_unit">:</span>
+										<span  class="condition_value" id="hp_siro">12345</span>
+										<span class="mini_param_unit">/</span>
+										<span class="condition_value" id="hp_max_siro">34567</span>								
+									</div>
+								</div>
+								<div class="exp_show_area">
+									<div class="exp_gauge_max" id="exp_gauge_max_siro"></div>
+									<div class="exp_gauge_now" id="exp_gauge_now_siro"></div>
+									<div class="condition_text">
+										<span class="condition_index">EXP</span>
+										<span class="mini_param_unit">:</span>
+										<span class="condition_value" id="exp_siro">99</span>
+										<span class="mini_param_unit">/</span>
+										<span class="condition_value">100</span>							
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div id="message_log_area" class="shadow_background">
-					<div id="message_log_queue_dummy"></div>
-					<ul id="message_logs"></ul>
-				</div>
-				<div id="mini_game_area" class="shadow_background">
-					ミニゲーム予定地
-				</div>
 
-				<div id="window_frame">
+						<div id="condition_area_kuro">
+							<div class="name_lv_area">
+								<span>くろこ：</span><br>
+								<span>　　</span><span  class="lv_show_area" id="lv_kuro">123</span><span> Lv</span>
+							</div>
+							<div class="gauge_area">
+								<div class="hp_show_area">
+									<div class="hp_gauge_max" id="hp_gauge_max_kuro"></div>
+									<div class="hp_gauge_now" id="hp_gauge_now_kuro"></div>
+									<div class="condition_text">
+										<span class="condition_index">HP</span>
+										<span class="mini_param_unit">:</span>
+										<span  class="condition_value" id="hp_kuro">12345</span>
+										<span class="mini_param_unit">/</span>
+										<span class="condition_value" id="hp_max_kuro">34567</span>						
+									</div>
+								</div>
+								<div class="exp_show_area">
+									<div class="exp_gauge_max" id="exp_gauge_max_kuro"></div>
+									<div class="exp_gauge_now" id="exp_gauge_now_kuro"></div>
+									<div class="condition_text">
+										<span class="condition_index">EXP</span>
+										<span class="mini_param_unit">:</span>
+										<span class="condition_value" id="exp_kuro">99</span>
+										<span class="mini_param_unit">/</span>
+										<span class="condition_value">100</span>							
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="message_log_area" class="shadow_background">
+						<div id="message_log_queue_dummy"></div>
+						<ul id="message_logs"></ul>
+					</div>
+					<div id="mini_game_area" class="shadow_background">
+						ミニゲーム予定地
+					</div>
+
+					<div id="window_frame">
 			<!-- フレーム置くとボタンが押せなくなる(当たり前)なのでなんか対処考えつくまで保留
 				<img src="images/neko/etc/frame.png" id="window_frame_image">
 			-->
@@ -585,7 +587,7 @@
 		<div id="ressurection_light" class="hidden">にゃにゃ</div>
 		<div id="ressurection_overlay" class="hidden">にゃあん！</div>
 	</div>
-
+</div>
 </div>
 <img src="images/neko/etc/loading_splash.png" id="loading_splash">
 </div>
