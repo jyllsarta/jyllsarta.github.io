@@ -290,7 +290,7 @@ function  loiteringKuro(){
 
 	//振動対策にスピードが乗り過ぎたら減衰させる
 	if(Math.abs(data.kuro.vx) > 3){
-		data.siro.vx /= 2
+		data.kuro.vx /= 2
 	}
 
 
