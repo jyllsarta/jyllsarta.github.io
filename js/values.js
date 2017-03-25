@@ -140,3 +140,6 @@ var EVENT_FREQ_BATTLE = 50
 
 //デフォルトのイベント発生間隔(秒)
 var DEFAULT_EVENT_FREQ = 40
+
+//復活タイマー(秒)
+var AUTO_RESSURECT_TIME = 5000

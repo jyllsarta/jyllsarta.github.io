@@ -518,7 +518,7 @@ function ressurect(){
 	})
 	.delay(500)
 	.queue(function(){
-		save.auto_ressurect_timer = 5000
+		save.auto_ressurect_timer = AUTO_RESSURECT_TIME
 		save.status.siro.hp = save.status.siro.max_hp
 		save.status.kuro.hp = save.status.kuro.max_hp
 		$(this).dequeue();
