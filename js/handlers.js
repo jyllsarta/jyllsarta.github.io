@@ -155,3 +155,12 @@ $("#ressurect_button").click(function(){
  $("#screenshot").click(function(){
  	takeScreenshot()
  })
+
+
+ //スクショ撮るボタン
+ $("#save_button").click(function(){
+ 	makesave()
+ })
+
+
+
