@@ -230,11 +230,16 @@ function  loiteringSiro(){
 	var delta = (Math.random()-.5)
 	data.siro.vx += delta
 	//両端に寄り過ぎてるときは逆向きに力を加える
-	if (data.siro.x < 230 && data.siro.vx < 0){
-		data.siro.vx += 0.2
+	if (data.siro.x < 160){
+		data.siro.vx += 0.1
 	}
-	if (data.siro.x > 700 && data.siro.vx > 0){
-		data.siro.vx -= 0.2
+	if (data.siro.x > 800){
+		data.siro.vx -= 0.1
+	}
+
+	//振動対策にスピードが乗り過ぎたら減衰させる
+	if(Math.abs(data.siro.vx) > 3){
+		data.siro.vx /= 2
 	}
 
 	//ある程度勢いのあるときのみ移動処理
@@ -275,12 +280,19 @@ function  loiteringKuro(){
 	var delta = (Math.random()-.5)
 	data.kuro.vx += delta/2
 	//両端に寄り過ぎてるときは逆向きに力を加える
-	if (data.kuro.x < 280 && data.kuro.vx < 0){
+	//しろこよりも可動範囲狭め
+	if (data.kuro.x < 240){
 		data.kuro.vx += 0.2
 	}
-	if (data.kuro.x > 600 && data.kuro.vx > 0){
+	if (data.kuro.x > 600){
 		data.kuro.vx -= 0.2
 	}
+
+	//振動対策にスピードが乗り過ぎたら減衰させる
+	if(Math.abs(data.kuro.vx) > 3){
+		data.siro.vx /= 2
+	}
+
 
 	//ある程度勢いのあるときのみ処理
 	if(Math.abs(data.kuro.vx) > .7 ){
