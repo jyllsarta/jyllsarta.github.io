@@ -158,13 +158,20 @@ function showMessage(message){
 	//増やした分だけスクロール
 	$("#message_log_area").animate(
 		{scrollTop:$("#message_log_area")[0].scrollHeight
-	},400,"easeOutExpo")
+	},100,"easeOutExpo")
 }
 
 //画面内のログ表示エリアにデータを吐く
 function castMessage(message){
+
+	var delay_time = 150
+
+	if(data.__hypereventdashmode){
+		delay_time = 0
+	}
+
 	$("#message_log_queue_dummy")
-	.delay(150)
+	.delay(delay_time)
 	.queue(function(){
 		showMessage(message)
 		$(this).dequeue()
@@ -383,6 +390,15 @@ function getSpliteImageSource(splite_kind){
 		case "battle":
 		return "images/neko/sprite/battle/all.png"
 		break
+		case "stairs":
+		return "images/neko/sprite/stairs/all.png"
+		break
+		case "ressurect":
+		return "images/neko/sprite/resurrect/all.png"
+		break
+		case "boss":
+		return "images/neko/sprite/boss_battle/all.png"
+		break
 		default:
 		return "images/neko/sprite/"+splite_kind+".png"
 		break
@@ -430,16 +446,14 @@ function spriteSlidein(imagename){
 	.animate({
 		opacity:1,
 		translateY : 10
-	}, 500, "swing")
-	.delay(3000)
+	}, 100, "swing")
+	.delay(730)
 	.animate({
 		opacity	:0,
 		translateY : 0,
-	},800,"easeOutQuart")
+	},100,"easeOutQuart")
 	.queue(function () {
 		$(this).addClass("hidden").dequeue();
-		//バトル結果の画面反映はスプライト消えたあと
-		updateCurrentHP() 
 	})
 }
 
@@ -471,6 +485,13 @@ function resetItemSprite(){
 
 //アイテム取得スプライトをスライドインする
 function showItemSprite(){
+
+	if(data.__hypereventdashmode){
+		spriteSlidein("item")
+		return
+	}
+
+
 	resetItemSprite()
 	$("#item_sprite").removeClass("hidden")
 	$("#item_sprite")
@@ -580,6 +601,12 @@ function resetBattleSprite(){
 }
 
 function showBattleSprite(){
+
+	if(data.__hypereventdashmode){
+		spriteSlidein("battle")
+		return
+	}
+
 	resetBattleSprite()
 	$("#battle_sprite").removeClass("hidden")
 
@@ -688,6 +715,12 @@ function resetStairsSprite(){
 }
 
 function showStairsSprite(){
+
+	if(data.__hypereventdashmode){
+		spriteSlidein("stairs")
+		return
+	}
+
 	resetStairsSprite()
 	$("#stairs_sprite").removeClass("hidden")
 
@@ -857,6 +890,12 @@ function resetBossBattleSprite(){
 }
 
 function showBossBattleSprite(){
+
+	if(data.__hypereventdashmode){
+		spriteSlidein("boss")
+		return
+	}
+
 	resetBossBattleSprite()
 	$("#boss_battle_sprite").removeClass("hidden")
 
@@ -942,6 +981,12 @@ function resetResurrectSprite(){
 }
 
 function showResurrectSprite(){
+
+	if(data.__hypereventdashmode){
+		spriteSlidein("ressurect")
+		return
+	}
+
 	resetResurrectSprite()
 	$("#resurrect_sprite").removeClass("hidden")
 

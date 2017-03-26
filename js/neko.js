@@ -183,6 +183,17 @@ function __debugDungeonFullOpen(){
 	prepareDungeonList()
 }
 
+//バランス調整用光速イベントモード
+//オート復活・イベント2秒おき
+//スプライトの発生を抑制
+function __debugHyperEventDashMode(){
+	DEFAULT_EVENT_FREQ	 = 2
+	AUTO_RESSURECT_TIME= 10
+	data.__hypereventdashmode = true
+	save.next_event_timer = 1
+	save.auto_ressurect_timer = 10
+}
+
 /*******************************************/
 /* セーブ・ロード */
 /*******************************************/
