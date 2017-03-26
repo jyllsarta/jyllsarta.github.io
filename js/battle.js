@@ -9,17 +9,17 @@ var enemy_data = {
 //敵の攻撃力を算出
 function calcEnemyAtk(rank){
 	if(rank < 40){
-		return Math.max(rank*6 - 50,1)
+		return Math.max(rank*4 +randInt(1,3),10)
 	}
-	return Math.floor(Math.pow(rank-10,1.8)/2.7) + rank*5 + 70 + randInt(1,20)
+	return Math.floor(Math.pow(rank-10,1.8)/2.7) - rank*3 + 70 + randInt(1,20)
 }
 
 //敵HPを算出
 function calcEnemyHp(rank){
 	if(rank < 40){
-		return Math.max(rank*6 - 50,1)*5
+		return Math.max(rank*4+randInt(1,10),30)*2
 	}
-	return Math.floor(Math.pow(rank-10,1.8)/2.7*2*randInt(80,110)/100 )+rank*10 + 120 + randInt(1,20)
+	return Math.floor(Math.pow(rank-10,1.8)/2.7*2*randInt(80,110)/100 )-rank*6 + 120 + randInt(1,20)
 }
 
 //敵の作成
@@ -76,7 +76,7 @@ function getCurrentEnemyRank(){
 function getExp(rank){
 	var average_lv = (save.status.siro.lv + save.status.kuro.lv)/2
 	var gap = Math.max((rank - average_lv),0)
-	var exp = gap * randInt(5,10) + randInt(1,10)
+	var exp = gap * 5 + randInt(1,2)
 	return  Math.floor(exp)
 }
 
