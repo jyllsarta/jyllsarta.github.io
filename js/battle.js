@@ -11,6 +11,7 @@ function calcEnemyAtk(rank){
 	if(rank < 40){
 		return Math.max(rank*4 +randInt(1,3),10)
 	}
+	return Math.floor(Math.pow(rank-10,1.8)/2.7) + rank - 20 + randInt(1,20)
 }
 
 //敵HPを算出
@@ -18,6 +19,7 @@ function calcEnemyHp(rank){
 	if(rank < 40){
 		return Math.max(rank*4+randInt(1,10),30)*2
 	}
+	return Math.floor(Math.pow(rank-10,1.8)/2.7*2*randInt(80,110)/100 )+rank*2 +200  + randInt(1,20)
 }
 
 //敵の作成
