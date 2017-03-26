@@ -11,7 +11,6 @@ function calcEnemyAtk(rank){
 	if(rank < 40){
 		return Math.max(rank*4 +randInt(1,3),10)
 	}
-	return Math.floor(Math.pow(rank-10,1.8)/2.7) - rank*3 + 70 + randInt(1,20)
 }
 
 //敵HPを算出
@@ -19,7 +18,6 @@ function calcEnemyHp(rank){
 	if(rank < 40){
 		return Math.max(rank*4+randInt(1,10),30)*2
 	}
-	return Math.floor(Math.pow(rank-10,1.8)/2.7*2*randInt(80,110)/100 )-rank*6 + 120 + randInt(1,20)
 }
 
 //敵の作成
@@ -185,8 +183,6 @@ function processBattle(bossBattle=false){
 
 	var turnCount = 0
 
-	castMessage("戦闘開始！")
-
 	//敵と味方どちらかが全滅すると終了
 	while(listupAliveCharacter(enemies).length > 0 && listupAliveCharacter(allies).length > 0 && turnCount	< 10){
 		take1turn(enemies,allies)
@@ -216,6 +212,13 @@ function processBattle(bossBattle=false){
 			reduceNextEventTime(reduceTime)
 		}
 
+		//コインを獲得(ボス戦では初回討伐ボーナスのみ)
+		if(!bossBattle){
+			var coinEarned = randInt(0,2)
+			save.coin += coinEarned
+			save.total_coin_achieved += coinEarned
+		}
+
 		//経験値を獲得
 		var expEarned = getExp(enemy_rank)
 		if(allies[0].hp > 0){
@@ -224,18 +227,10 @@ function processBattle(bossBattle=false){
 		if(allies[1].hp > 0){
 			save.status.kuro.exp += expEarned
 		}
-		castMessage(expEarned+"の経験値を獲得！")
+		var coinMessage = coinEarned?("、コイン"+ coinEarned	+ "枚"):""
+		castMessage("経験値"+expEarned+coinMessage+"を獲得！")
 		checkLevelUp()
 
-		//コインを獲得(ボス戦では初回討伐ボーナスのみ)
-		if(!bossBattle){
-			var coinEarned = randInt(0,2)
-			if(coinEarned > 0){
-				save.coin += coinEarned
-				save.total_coin_achieved += coinEarned
-				castMessage(coinEarned+"枚のコインを拾った！")
-			}
-		}
 	}
 	else{
 		//全滅時のメッセージ
