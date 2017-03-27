@@ -467,7 +467,7 @@ function eventItemFlood(){
 function eventStairs(){
 
 	if(save.current_floor % 100 === 99){
-		castMessage((save.current_floor+1)+"Fのボスだ！")
+		castMessage("◆◆◆"+(save.current_floor+1)+"Fのボスだ！◆◆◆")
 		showBossBattleSprite()
 		processBattle(bossBattle=true)
 		//生き残っていれば次の階に進む

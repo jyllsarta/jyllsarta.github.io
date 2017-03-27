@@ -9,27 +9,29 @@ var enemy_data = {
 //敵の攻撃力を算出
 function calcEnemyAtk(rank){
 	if(rank < 40){
-		return Math.max(rank*4 +randInt(1,3),10)
+		return Math.max(rank*4 ,10)
 	}
-	return Math.floor(Math.pow(rank-10,1.8)/2.7) + rank - 20 + randInt(1,20)
+	return Math.floor(Math.pow(rank-10,1.8)/2.7) + rank - 10
 }
 
 //敵HPを算出
 function calcEnemyHp(rank){
 	if(rank < 40){
-		return Math.max(rank*4+randInt(1,10),30)*2
+		return Math.max(rank*4,30)*2
 	}
-	return Math.floor(Math.pow(rank-10,1.8)/2.7*2*randInt(80,110)/100 )+rank*2 +200  + randInt(1,20)
+	return Math.floor(Math.pow(rank-10,1.8)/2.7*2)+rank*2 +200 
 }
 
 //敵の作成
 function Enemy(rank,type="normal", enchant="none"){
-	this.atk = calcEnemyAtk(rank)
+	this.atk = calcEnemyAtk(rank) + randInt(1,10)
 	this.sld = 0
-	this.hp = calcEnemyHp(rank)
-	this.maxHp = calcEnemyHp(rank)
+	var enHp =  Math.floor(calcEnemyHp(rank)*randInt(80,100)/100 + randInt(1,20))
+	this.hp = enHp
+	this.maxHp = enHp
 	this.isDead  = false
 	this.maxDamagedPersentage = 0
+	this.isBoss = false
 
 	if(rank > 200){
 		this.sld = rank * 2
@@ -39,7 +41,8 @@ function Enemy(rank,type="normal", enchant="none"){
 		this.hp *= 3
 		this.maxHp *= 3
 		this.sld = Math.floor(this.atk/2)
-		this.atk = Math.floor(this.atk *1.2) 
+		this.atk = Math.floor(this.atk *1.2)
+		this.isBoss = true
 	}
 
 }
@@ -62,6 +65,7 @@ function Ally(charaname){
 		this.isDead  = true
 	}
 	this.maxDamagedPersentage = 0
+	this.isBoss = false
 
 }
 
@@ -84,7 +88,9 @@ function getExp(rank){
 
 //fromがtoに攻撃した際のダメージを返す
 function calcDamage(from, to){
-	var damage = Math.max(from.atk - to.sld,Math.floor(to.maxHp/100))
+	//攻撃-守備が原則ダメージ
+	// 通常敵なら1, ボスなら3%のダメージが保証される
+	var damage = Math.max(from.atk - to.sld,Math.floor(to.maxHp/100) *(from.isBoss?3:1) )
 	return damage
 }
 
@@ -165,10 +171,6 @@ function processBattle(bossBattle=false){
 
 	var enemy_rank = getCurrentEnemyRank()
 
-	if(bossBattle){
-		castMessage("ボス戦だ！")
-	}
-
 	//敵を追加
 	if(!bossBattle){
 		enemies.push(new Enemy(enemy_rank))
@@ -189,7 +191,7 @@ function processBattle(bossBattle=false){
 	var battleTurn = 10 
 
 	if(bossBattle){
-		battleTurn = 30
+		battleTurn = 201
 	}
 
 	//敵と味方どちらかが全滅すると終了
@@ -203,21 +205,20 @@ function processBattle(bossBattle=false){
 	if(allies[0].hp > 0 || allies[1].hp > 0){
 		//勝利していた場合のメッセージ
 		var message = ""
-		if(turnCount == 10){
-			message += "タイムアップ!なんとか攻撃を耐えきった!"
+		if(turnCount == battleTurn){
+			castMessage("タイムアップ!なんとか攻撃を耐えきった!")
 		}
 		else{
-			message += turnCount + "ターンで勝利！" 
+			message += turnCount + "T戦い, " 
 		}
-		castMessage(message)
 
-		castMessage( "しろこ" + damage_siro +",くろこ" + damage_kuro + "のダメージ。")
+		message += ( "しろこ" + damage_siro +",くろこ" + damage_kuro + "ダメージ。")
+		castMessage(message)
 
 		var biggestMaxDamage = getBiggestMaxDamage(enemies)
 		if(biggestMaxDamage > 30){
 			var reduceTime = Math.floor(Math.min( biggestMaxDamage/4,25))
-			castMessage(Math.min(biggestMaxDamage,100) + "%オーバーキル！")
-			castMessage(reduceTime+ "秒次イベントが早く回ってきます。")
+			castMessage("最大"+Math.min(biggestMaxDamage,100) + "%ダメージ！"+reduceTime+ "秒加速します！")
 			reduceNextEventTime(reduceTime)
 		}
 
@@ -242,9 +243,10 @@ function processBattle(bossBattle=false){
 
 	}
 	else{
+		var damageDealedPersentage =100-Math.floor(enemies[0].hp / enemies[0].maxHp * 100)
 		//全滅時のメッセージ
 		castMessage( "しろこ" + damage_siro +",くろこ" + damage_kuro + "ダメージ。")
-		castMessage( turnCount+"ターン耐えたが、全滅した... ") 
+		castMessage( turnCount+"ターン耐え,"+damageDealedPersentage+"%削ったが全滅した... ") 
 	}
 
 	save.status.siro.hp = Math.max(allies[0].hp,0)
