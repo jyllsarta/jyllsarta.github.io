@@ -39,6 +39,7 @@ function Enemy(rank,type="normal", enchant="none"){
 		this.hp *= 3
 		this.maxHp *= 3
 		this.sld = Math.floor(this.atk/2)
+		this.atk = Math.floor(this.atk *1.2) 
 	}
 
 }
@@ -166,7 +167,6 @@ function processBattle(bossBattle=false){
 
 	if(bossBattle){
 		castMessage("ボス戦だ！")
-		enemy_rank += 10
 	}
 
 	//敵を追加
@@ -185,8 +185,15 @@ function processBattle(bossBattle=false){
 
 	var turnCount = 0
 
+	//バトルターン数
+	var battleTurn = 10 
+
+	if(bossBattle){
+		battleTurn = 30
+	}
+
 	//敵と味方どちらかが全滅すると終了
-	while(listupAliveCharacter(enemies).length > 0 && listupAliveCharacter(allies).length > 0 && turnCount	< 10){
+	while(listupAliveCharacter(enemies).length > 0 && listupAliveCharacter(allies).length > 0 && turnCount< battleTurn){
 		take1turn(enemies,allies)
 		turnCount++
 	}
@@ -237,7 +244,7 @@ function processBattle(bossBattle=false){
 	else{
 		//全滅時のメッセージ
 		castMessage( "しろこ" + damage_siro +",くろこ" + damage_kuro + "ダメージ。")
-		castMessage( "全滅した... ") 
+		castMessage( turnCount+"ターン耐えたが、全滅した... ") 
 	}
 
 	save.status.siro.hp = Math.max(allies[0].hp,0)
