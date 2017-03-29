@@ -33,21 +33,19 @@
 		<img id="header_img" src="images/neko/etc/banner.png">
 		<div id="game_window_cover">
 			<div id="loading_progress_bar"></div>
-			<div id="game_window" class="hidden">
-				<div id="title" class="hidden">タイトル画面のdiv</div>
-				<div id="stage" class="hidden">ステージ画面のdiv</div>
+			<div id="game_window" class="none">
 				<!-- メイン画面 -->
 				<div id="main" class="hidden">
 					<div id="background">
 						<img src="images/neko/bg/st1-0-0.png" class="background_image" id="background_image_bg">
 					</div>
+					<div id="ressurect_count_area" class="hidden">
+						<span class="ressurect_text">復活まで：</span>
+						<span id="ressurect_count">5000</span>
+						<span class="ressurect_text">秒</span>
+					</div>
 					<div id="character_siro">
 						<img src="images/neko/chara/siro.png" class="character_chip_alive">
-						<div id="ressurect_count_area" class="hidden">
-							<span class="ressurect_text">復活まで：</span>
-							<span id="ressurect_count">5000</span>
-							<span class="ressurect_text">秒</span>
-						</div>
 					</div>
 					<div id="character_kuro">
 						<img src="images/neko/chara/kuro.png" class="character_chip_alive">
@@ -61,32 +59,37 @@
 					<div id="blur"></div>
 
 					<div id="datetime_info_area" class="shadow_background">
-						<div id="clock_text">時刻:</div>	
-						<div id="date">
-							<span id="month">12</span>
-							<span class="calender_letter">月</span>
-							<span id="day">23</span>
-							<span class="calender_letter">日</span>
+						<div id="datetime_index_area">
+							<span id="clock_text">時刻：</span>
+							<span id="current_dungeon_text">現在の次元：</span>
+							<span id="depth_text">フロア：</span>
+							<span id="next_event_text">次イベントまで：</span>
 						</div>
-						<div id="time">
-							<span id="hour">12</span>
-							<span class="time_sepalator">:</span>
-							<span id="minute">34</span>
-							<span class="time_sepalator">:</span>
-							<span id="second">45</span>
+						<div id="datetime_param_area">
+							<span id="date_area">
+								<span id="month">12</span>
+								<span class="separator">月</span>
+								<span id="day">31</span>
+								<span class="separator">日</span>
+							</span>
+							<span id="time_area">
+								<span id="hour">22</span>
+								<span class="separator">:</span>
+								<span id="minute">38</span>
+								<span class="separator">:</span>
+								<span id="second">45</span>								
+							</span>
+							<span class="dungeon_name">ぬるじげん</span>
+							<span id="floor_area">
+								<span id="current_floor">1333</span>
+								<span class="separator">/</span>
+								<span class="separator" id="max_floor">9999</span>
+								<span class="separator">F</span>
+							</span>
+							<span id="next_event_sec">40</span>
+							<span class="separator">秒</span>
 						</div>
-						<div id="current_dungeon_text">現在の領域:</div>	
-						<div id="depth_text">フロア:</div>	
-						<div id="dungeon_info_area">
-							<span class="dungeon_name">闇の回廊</span>
-							<span id="current_floor" class="current_floor">8</span>
-							<span class="floor_unit">F</span>
-						</div>
-						<div id="next_event_text">次イベントまで:</div>				
-						<div id="next_event_info_area">
-							<span id="next_event_sec">0</span>
-							<span class="next_event_sec_unit">秒</span>
-						</div>
+
 					</div>
 					<div id="menu_button_area" class="shadow_background">
 						<ul id="menu_list">
@@ -215,6 +218,9 @@
 				<img src="images/neko/sprite/resurrect/text_window.png" class="sprite" id="sprite_resurrect_text">
 			</div>
 		</div>
+
+		<div id="ressurection_light" class="hidden">にゃにゃ</div>
+		<div id="ressurection_overlay" class="hidden">にゃあん！</div>
 
 		<div id="dungeon_select_menu" class="hidden shadow_background">
 			<div id="dungeon_select_back_button" class="back_button"></div>
@@ -585,8 +591,6 @@
 			<div id="kirikae_text">少女移動中</div>
 			<img src="images/neko/etc/kirikae.png" id="kirikae_animation">
 		</div>
-		<div id="ressurection_light" class="hidden">にゃにゃ</div>
-		<div id="ressurection_overlay" class="hidden">にゃあん！</div>
 	</div>
 </div>
 </div>

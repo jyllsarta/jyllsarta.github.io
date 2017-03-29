@@ -48,12 +48,12 @@ function init(){
 }
 
 //画像ロードで恥を晒さない
- $(window).load(function(){
- 	$("#loading_splash").delay(1000).queue(function(){$(this).remove().dequeue()})
- 	$("#game_window").delay(1000).queue(function(){$(this).removeClass("hidden").dequeue()})
+$(window).load(function(){
+	$("#loading_splash").delay(1000).queue(function(){$(this).remove().dequeue()})
+	$("#game_window").delay(1000).queue(function(){$(this).removeClass("none").dequeue()})
 
- 	castMessage("ロード全部終わり")
- })
+	castMessage("ロード全部終わり")
+})
 
 /*******************************************/
 /* ロジック */
@@ -148,9 +148,7 @@ function loadCSV(csvtext){
 
 //スクリーンショットを撮って別タブで開く
 function takeScreenshot(){
-
 	removeOldLog()
-
 	html2canvas($("#game_window"),{
 		proxy:"",
 		onrendered: function(canvas) {
@@ -165,18 +163,33 @@ function takeScreenshot(){
 
 //アイテムいっぱい取得
 function __debugAquireItemIppai(){
-	for(var i=0;i<200;++i){
+	var prev_mode = data.__hypereventdashmode
+	data.__hypereventdashmode = true
+	for(var i=0;i<500;++i){
 		var rand = randInt(0,data.item_data.length-1)
 		aquireItem(rand)
 	}
 	//viewの反映
 	prepareEquipMenu()
+	data.__hypereventdashmode = prev_mode
+}
+
+//現在の階層 or 指定したランクに合わせた武器をいっぱい取得
+function __debugAquireItemExcursion(rank){
+	var prev_mode = data.__hypereventdashmode
+	data.__hypereventdashmode = true
+	if(!rank){
+		rank = getCurrentEnemyRank()
+	}
+	for(var i=0;i<100;++i){
+		aquireItem(rank)
+	}
+	data.__hypereventdashmode = prev_mode
 }
 
 //ダンジョンフルオープン
 function __debugDungeonFullOpen(){
 	for(var i=0;i<dungeon_data.length;++i){
-		log(i)
 		save.dungeon_open[i] = 1
 		save.dungeon_process[i] = dungeon_data[i].depth
 	}
@@ -187,8 +200,8 @@ function __debugDungeonFullOpen(){
 //オート復活・イベント2秒おき
 //スプライトの発生を抑制
 function __debugHyperEventDashMode(){
-	DEFAULT_EVENT_FREQ	 = 2
-	AUTO_RESSURECT_TIME= 10
+	DEFAULT_EVENT_FREQ	 = 1
+	AUTO_RESSURECT_TIME= 5
 	data.__hypereventdashmode = true
 	save.next_event_timer = 1
 	save.auto_ressurect_timer = 10
@@ -354,8 +367,45 @@ function getBackgroundImageOverlayType(dungeon_id){
 /* イベント関係 */
 /*******************************************/
 
+//アイテムID : rank の武器の標準的な総パラメータを返す
+function getStandardItemParameter(rank){
+	//ランク40までの武器はブレ幅が大きすぎるので固定値
+	if(rank < 40){
+		return 70
+	}
+	return Math.floor(Math.pow(rank,1.8)/10)
+}
+
+//実装されているアイテムからランダムにひとつ、rank相当の強化を施したアイテムを獲得する
+function aquireRandomItemRank(rank){
+	var target_power = getStandardItemParameter(rank)
+	var aquired_item = randInt(0,data.item_data.length-1)
+	var base_power = getStandardItemParameter(aquired_item)
+
+	//プラス値10を軸に考え、装備のパラメータブレを考慮して1.3倍の余裕をもたせる
+	var build_rank = Math.floor(10* target_power * 1.3 /  base_power)
+
+	//該当アイテムが既にそれより強かったら何もしない
+	if(save.item[aquired_item] > build_rank){
+		return
+	}
+	//該当アイテムを取得
+	save.item[aquired_item]  = build_rank
+	castMessage(data.item_data[aquired_item].name+"+"+(build_rank-1)+"を拾った！")
+}
+
 //指定したアイテムIDのアイテムを取得
+//実装しているぶんより大きなアイテムIDが指定された場合
+//該当ランク相当に強化されたランダムアイテムを取得する
 function aquireItem(item_id){
+
+	//実装アイテム以上に強化されたアイテムIDを指定された場合
+	if(item_id >= data.item_data.length){
+		aquireRandomItemRank(item_id)
+		return
+	}
+
+	//存在するアイテムIDを指定された場合
 	var before =  (save.item[item_id] || 0)
 	var after = before+1
 	after = Math.min(after,MAX_EQUIP_BUILD)
@@ -379,8 +429,15 @@ function aquireItem(item_id){
 	}
 }
 
-//レアリティの数値から出現比率を計算
-function getBoxAmount(rarity){
+//アイテムIDごとのレアリティの数値から出現比率を計算
+function getBoxAmount(item_id){
+	//大きすぎるアイテムIDには常にレジェ相当のサイズを返す
+	if(item_id >= data.item_data.length){
+		return LOT_FREQ_LEGENDARY
+	}
+
+	var rarity = data.item_data[item_id].rarity
+
 	switch(rarity){
 		case "0":
 		return LOT_FREQ_NORMAL
@@ -409,13 +466,13 @@ function lotItem(flatten=false){
 	var floor_up = Math.floor(Math.min(save.current_floor,dungeon_data[save.current_dungeon_id].depth)/8)
 	var item_range = 10
 	var min = dungeon_index+floor_up
-	var max = dungeon_index+floor_up+item_range
+	var max = min+item_range
 
 	//アイテム抽選箱
 	//こいつにレア度ごとに定めた個数アイテムをぶっこんで一個取り出す
 	var lot_box = []
 	for(var i=min;i<max;++i){
-		var box_amount = getBoxAmount(data.item_data[i].rarity)
+		var box_amount = getBoxAmount(i)
 		if(flatten){
 			//平滑化モードオンの場合どのアイテムも箱に一個しか入れない
 			box_amount = 1
@@ -813,11 +870,11 @@ function getBuildCost(item_id){
 	if(!lv){
 			//未開放装備開放コストは一律100
 			return 100
+		}
+		var rarity = parseInt(data.item_data[item_id].rarity)
+		var cost = (lv+2) * (rarity+1) + Math.floor(item_id /10)
+		return cost
 	}
-	var rarity = parseInt(data.item_data[item_id].rarity)
-	var cost = (lv+2) * (rarity+1) + Math.floor(item_id /10)
-	return cost
-}
 
 //item_idの強化を試みる
 function build(item_id){
@@ -926,12 +983,12 @@ function toggleSortOrder(){
 //これまで手に入れたなかで一番新しい武器のIRを返す
 function getMaxItemRankPlayerGot(){
 	var max = 0
-		for(var i in save.item){
-				if(parseInt(i) > 0){
-						max = parseInt(i)
-				}
+	for(var i in save.item){
+		if(parseInt(i) > 0){
+			max = parseInt(i)
 		}
-		return max
+	}
+	return max
 }
 
 

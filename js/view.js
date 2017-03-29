@@ -39,6 +39,7 @@ function updateGameModeTo(game_mode){
 
 function updateCurrentFloorText(){
 	$("#current_floor").text(save.current_floor)
+	$("#max_floor").text(dungeon_data[save.current_dungeon_id].depth)
 	///潜り過ぎならoverdepthedをつける
 	if(save.current_floor >= dungeon_data[save.current_dungeon_id].depth){
 		$("#current_floor").addClass("overdepthed")
@@ -158,7 +159,7 @@ function showMessage(message){
 	//増やした分だけスクロール
 	$("#message_log_area").animate(
 		{scrollTop:$("#message_log_area")[0].scrollHeight
-	},100,"easeOutExpo")
+	},1,"easeOutExpo")
 }
 
 //画面内のログ表示エリアにデータを吐く
@@ -221,7 +222,7 @@ function  loiteringSiro(){
 	if(save.status.siro.hp <= 0){
 		//たまーにピクピクする
 		if(randInt(1,100) < 5){
-			$("#character_siro img")	
+			$("#character_siro")	
 			.animate({
 				translateX : data.siro.x-1
 			},40,"linear")
@@ -272,7 +273,7 @@ function  loiteringKuro(){
 	if(save.status.kuro.hp <= 0){
 		//たまーにピクピクする
 		if(randInt(1,100) < 5){
-			$("#character_kuro img")	
+			$("#character_kuro")	
 			.animate({
 				translateX : data.kuro.x-1
 			},60,"linear")
@@ -335,7 +336,7 @@ function ressurectAnimation(){
 	.animate({
 		opacity:1
 	},200,"easeOutQuart")
-	.delay(300)
+	.delay(500)
 	.queue(	function(){
 		updateLoiteringCharactersState()
 		updateCurrentHP()
@@ -379,6 +380,7 @@ function updateClock(){
 //現在フロア表示をデータ上のものに反映
 function updateStairsArea(){
 	$("#current_floor").text(save.current_floor)
+	$("#max_floor").text(dungeon_data[save.current_dungeon_id].depth)
 }
 
 //スプライト画像のソースを返す
@@ -1818,7 +1820,7 @@ function updateAchievementArea(){
 
 /*******************************************/
 /* ダンジョン選択画面 */
-/*******************************************/
+/********************************ress***********/
 
 function changeStageToView(stage_id,depth){
 
@@ -1842,7 +1844,7 @@ function changeStageToView(stage_id,depth){
 	.queue(function(){
 		updateBackgroundImage()
 		$(".dungeon_name").text(dungeon_data[stage_id].name)
-		$("#current_floor").text(save.current_floor)
+		updateStairsArea()
 		$(this).dequeue();
 	})
 	.delay(1000)

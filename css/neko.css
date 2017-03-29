@@ -43,9 +43,12 @@ body{
 }
 
 .hidden{
-	display: none;
+	visibility: hidden;
 }
 
+.none{
+	display: none;
+}
 
 /****************************************/
 /* タイトル画面 */
@@ -71,7 +74,7 @@ body{
 /*メイン */
 /****************************************/
 #main{
-	position: relative;
+	position: absolute;
 	width: 1200px;
 	height: 800px;
 	background-color: #000000;
@@ -80,10 +83,10 @@ body{
 }
 
 #blur{
-	position: relative;
+	position: absolute;
 	width: 1200px;
 	height: 800px;
-	box-shadow: 0px 0px 6px 3px white inset;
+	box-shadow: 0px 0px 3px 2px white inset;
 }
 
 #background{
@@ -120,94 +123,91 @@ body{
 	box-shadow:2px 2px 2px rgba(0,0,0,0.4);
 }
 
-.calender_letter{
-	font-size: 25px;
-}
-
-#datetime_info_area #date{
-	position: absolute;
-	top:27px;
-	left: 33px;
-	font-size: 0px;
-}
-
-#datetime_info_area #time{
-	position: absolute;
-	top:27px;
-	left: 170px;
+#datetime_index_area{
+	width: 900px;
+	height: 35px;
 	font-size: 0px;
 }
 
 #clock_text{
-	position: absolute;
-	top:10px;
-	left: 20px;
-	font-size: 16px;
+	display: inline-block;
+	width: 320px;
+	padding-left: 20px;
+	padding-top: 10px;
+	font-size: 18px;
+}
+#current_dungeon_text{
+	display: inline-block;
+	width: 220px;
+	font-size: 18px;
+	padding-top: 10px;
+}
+#depth_text{
+	display: inline-block;
+	padding-top: 10px;
+	font-size: 18px;
+	width: 180px;
+}
+#next_event_text{
+	display: inline-block;
+	padding-top: 10px;
+	font-size: 18px;
+	width: 160px;
+}
+
+#datetime_param_area{
+	display: inline-block;
+	width: 900px;
+	height: 100px;
+	font-size: 0px;
+}
+
+.separator{
+	font-size: 20px;
+}
+
+#date_area{
+	display: inline-block;
+	width: 140px;
+	font-size: 28px;
+	padding-left: 30px;
+}
+#time_area{
+	display: inline-block;
+	font-size: 28px;
+	width: 200px;
+}
+.dungeon_name{
+	display: inline-block;
+	font-size: 24px;
+	width: 220px;
+}
+#floor_area{
+	display: inline-block;
+	width: 185px;
+	font-size: 28px;
+}
+#current_floor{
+	display: inline-block;
+	width: 80px;
+	font-size: 28px;
+	text-align: right;	
+}
+#next_event_sec{
+	display: inline-block;
+	text-align: right;
+	width: 65px;	
+	font-size: 28px;
+	text-align: right;
+}
+
+.calender_letter{
+	font-size: 28px;
+	font-size: 25px;
 }
 
 .overdepthed{
 	color: #FFFF00;
-}
-
-#current_dungeon_text{
-	position: absolute;
-	top:10px;
-	left: 350px;
-	font-size: 16px;
-}
-
-#depth_text{
-	position: absolute;
-	top:10px;
-	left: 610px;
-	font-size: 16px;	
-}
-
-#next_event_text{
-	position: absolute;
-	top:10px;
-	left: 740px;
-	font-size: 16px;	
-}
-
-#dungeon_info_area{
-	position: absolute;
-	top:30px;
-	left: 385px;
-	font-size: 30px;
-}
-
-.dungeon_name{
-	display: inline-block;
-	width: 280px;
-	color:#FFFF99;
-	font-size: 24px;
-}
-
-.floor_sepalator, .floor_unit, .next_event_sec_unit{
-	font-size: 25px;
-}
-
-.time_sepalator{
-	font-size: 25px;
-	display:inline-block;
-}
-
-#month,#day,#hour, #minute, #second{
-	font-size: 34px;
-	display:inline-block;
-}
-
-
-#next_event_info_area{
-	position: absolute;
-	top:30px;
-	left: 800px;
-	font-size: 30px;
-}
-
-#next_event_sec{
-	font-size: 30px;	
 }
 
 #menu_button_area{
@@ -290,37 +290,36 @@ body{
 .hp_gauge_now{
 	opacity: 0.8;
 	position: absolute;
-	top: 15px;
+	top: 17px;
 	width: 100px;
-	height: 5px;
+	height: 3px;
 	transform: skew(-40deg,0);
 	background: linear-gradient(to right, #4076ae 0%,#90cbf8 );
 }
 
 .hp_gauge_max{
 	position: absolute;
-	top: 15px;
+	top: 17px;
 	width: 285px;
-	height: 5px;
+	height: 3px;
 	background: linear-gradient(to right, #f0868e 0%,#ffc3c3 );
 	transform: skew(-40deg,0);
 }
 
 .condition_text{
-	position: relative;
+	display: inline-block;
 	font-size: 16px;
+	width: 220px;
 	height: 25px;
-	top:0px;
-	left: 0px;
 	background: linear-gradient(to right, rgba(0,0,0,0.2) 0%,rgba(0,0,0,0));
 	font-size: 0px;
 }
 
 .exp_gauge_now{
 	position: absolute;
-	top: 39px;
+	top: 41px;
 	width: 100px;
-	height: 5px;
+	height: 3px;
 	transform: skew(-40deg,0);
 	background: linear-gradient(to right, #70a6ee 0%,#303baf );
 }
@@ -328,9 +327,9 @@ body{
 .exp_gauge_max{
 	opacity: 0.8;
 	position: absolute;
-	top: 39px;
+	top: 41px;
 	width: 285px;
-	height: 5px;
+	height: 3px;
 	transform: skew(-40deg,0);
 	background: linear-gradient(to right, #a0a6ae 0%,#ffffff );
 }
@@ -407,20 +406,17 @@ body{
 
 .log_message{
 	display: inline-block;
-	width: 297px;
+	width: 296px;
 	margin-left: 8px;
 }
 
 .character_chip_alive{
-	position: relative;
-	top: 0px;
 	width: 140px;
 	height: 210px;
 }
 
 .character_chip_dead{
-	position: relative;
-	top: 70px;
+	padding-top: 70px;
 	width: 210px;
 	height: 140px;
 }
@@ -429,24 +425,21 @@ body{
 	transform: scale(-1, 1);
 }
 
-
-
 #character_siro{
 	position: absolute;
 	top: 380px;
-	left: 140px;
 }
 
 #character_kuro{
 	position: absolute;
 	top: 382px;
-	left: 210px;
 }
+
 
 #ressurect_count_area{
 	position: absolute;
-	top: -10px;
-	left: 50px;
+	top: 400px;
+	left: 500px;
 	width: 250px;
 	height: 50px;
 	background-color: #292029;
