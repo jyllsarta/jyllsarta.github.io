@@ -1656,7 +1656,7 @@ function updateEquipBuildButtonShowState(){
 		if(item_id >= data.item_data.length || item_id > getMaxItemRankPlayerGot()){
 			$(button).css("display","none")
 		}
-		else if(save.item[item_id] == MAX_EQUIP_BUILD){
+		else if(save.item[item_id] >= MAX_EQUIP_BUILD){
 			$(button).css("display","none")
 		}
 		//セーブデータがない場合には作成ボタンを出す

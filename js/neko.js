@@ -184,6 +184,7 @@ function __debugAquireItemExcursion(rank){
 	for(var i=0;i<100;++i){
 		aquireItem(rank)
 	}
+	prepareEquipMenu()
 	data.__hypereventdashmode = prev_mode
 }
 
