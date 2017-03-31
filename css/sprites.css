@@ -1,0 +1,137 @@
+
+#sprite_battle_enemy3{
+	width: 170px;
+	height: 306px;
+	left: 125px;
+	top: 114px;
+}
+#sprite_battle_enemy2{
+	width: 176px;
+	height: 311px;
+	left:  64px;
+	top: 134px;
+}
+#sprite_battle_enemy1{
+	width: 175px;
+	height: 311px;
+	left: 7px;
+	top: 153px;
+}
+#sprite_battle_kuro{
+	width: 258px;
+	height: 278px;
+	left: 253px;	
+	top: 163px;
+}
+#sprite_battle_siro{
+	width: 270px;
+	height: 358px;
+	left: 429px;
+	top: 92px;
+}
+#sprite_battle_text{
+	width: 329px;
+	height: 70px;
+	left: 190px;	
+	top: 20px;
+}
+
+#sprite_boss_battle_boss{
+	width: 568px;
+	height: 460px;
+	left: 120px;
+	top: 5px;
+}
+#sprite_boss_battle_siro{
+	width: 304px;
+	height: 251px;
+	left: 40px;
+	top: 220px;
+}
+#sprite_boss_battle_kuro{
+	width: 353px;
+	height: 245px;
+	left: 331px;
+	top: 239px;
+}
+
+#sprite_item_kuro{
+	width: 286px;
+	height: 307px;
+	left: 418px;
+	top: 137px;
+}
+#sprite_item_siro{
+	width: 289px;
+	height: 371px;
+	left: 2px;
+	top: 71px;
+}
+#sprite_item_treasure{
+	width: 259px;
+	height: 392px;
+	left: 213px;
+	top: 63px;
+}
+#sprite_item_text{
+	width: 353px;
+	height: 68px;
+	top: 20px;
+	left: 170px;
+}
+
+#sprite_resurrect_siro_dead{
+	width: 322px;
+	height: 215px;
+	left: 312px;
+	top: 226px;
+}
+#sprite_resurrect_siro_alive{
+	width: 238px;
+	height: 357px;
+	left: 385px;
+	top: 80px;
+}
+#sprite_resurrect_kuro_dead{
+	width: 278px;
+	height: 193px;
+	left: 71px;
+	top: 253px;
+}
+#sprite_resurrect_kuro_alive{
+	width: 223px;
+	height: 294px;
+	left: 90px;
+	top: 140px;
+}
+#sprite_resurrect_light{
+	width: 550px;
+	height: 464px;
+	left: 75px;
+	top: 0px;	
+}
+#sprite_resurrect_text{
+	width: 226px;
+	height: 71px;
+	top: 20px;
+	left: 230px;
+}
+
+#sprite_stairs_siro{
+	width: 217px;
+	height: 367px;
+	left: 153px;
+	top: 89px;
+}
+#sprite_stairs_kuro{
+	width: 218px;
+	height: 262px;
+	left: 25px;
+	top: 170px;
+}
+#sprite_stairs_text{
+	width: 359px;
+	height: 72px;
+	top: 20px;
+	left: 180px;
+}

@@ -538,7 +538,7 @@ function showItemSprite(){
 		translateY:-20,
 	},100,"linear")
 	.animate({
-		top:0
+		translateY:0
 	},100,"linear")
 
 	$("#sprite_item_siro")
