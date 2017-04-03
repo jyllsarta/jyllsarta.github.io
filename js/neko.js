@@ -409,6 +409,7 @@ function aquireRandomItemRank(rank){
 
 	//該当アイテムが既にそれより強かったら何もしない
 	if(save.item[aquired_item] > build_rank){
+		castMessage(data.item_data[aquired_item].name+"はもう強いものを持ってるので捨てた...")
 		return
 	}
 	//該当アイテムを取得
