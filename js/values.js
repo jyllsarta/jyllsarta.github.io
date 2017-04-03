@@ -35,7 +35,8 @@ var data = {
 		stage_id : 0
 	},
 	background_image_scroll_position : 1000,
-	current_build_item_id : 0
+	current_build_item_id : 0,
+	playtime : 0
 }
 
 
@@ -69,7 +70,12 @@ var save = {
 	next_event_timer : 40,
 	auto_ressurect_timer : 5000,
 	coin : 0,
-	total_coin_achieved : 0
+	total_coin_achieved : 0,
+	achievement_clear : [0,0,0,0,0,0,0,0,0,0],
+	playtime : 0,
+	total_death : 0,
+	total_2kill : 0,
+	total_treasurebox_open : 0,
 }
 
 var dungeon_data=[
@@ -104,6 +110,63 @@ var dungeon_data=[
 	depth:4000,
 },
 ]
+
+/*******************************************/
+/* 実績 */
+/*******************************************/
+var achievement_data = [
+{
+	name : "灰色魔女",
+	detail : "灰泥の尾根を踏破する。",
+	max : 400
+},
+{
+	name : "木登上手",
+	detail : "蜜樹の臨界を踏破する。",
+	max : 800
+},
+{
+	name : "雪山登頂",
+	detail : "氷雪と春風の小路を踏破する。",
+	max : 1200
+},
+{
+	name : "夜目覚醒",
+	detail : "アスモネア地下道を踏破する。",
+	max :1600
+},
+{
+	name : "時空制覇",
+	detail : "次元の界面2000Fのボスを撃破する。",
+	max : 2000
+},
+{
+	name : "鍛冶親父",
+	detail : "50種類の武器を+10まで強化する。",
+	max : 50
+},
+{
+	name : "死屍累々",
+	detail : "100回全滅する。",
+	max : 100
+},
+{
+	name : "疾風迅雷",
+	detail : "2ターンキル(最速撃破)を1000回行う。",
+	max : 1000
+},
+{
+	name : "金玉漂流",
+	detail : "宝箱を100回開封する。",
+	max : 100
+},
+{
+	name : "感謝感激",
+	detail : "48時間以上遊ぶ。(PCつけっぱでOK)",
+	max : 48
+},
+]
+
 
 /*******************************************/
 /* 定数 */

@@ -98,7 +98,7 @@
 							<li id="menu_equip_button" class="menu_item">装備</li>
 							<li id="status_show_button" class="menu_item">ステータス</li>
 							<li id="dungeon_list_show_button" class="menu_item">次元層選択</li>
-							<li id="" class="menu_item">キークエスト</li>
+							<li id="gacha_menu_show_button" class="menu_item">おみくじ</li>
 							<li id="screenshot" class="menu_item">スクショ</li>
 							<li id="save_button" class="menu_item">セーブ</li>
 						</ul>
@@ -274,7 +274,7 @@
 		</div>
 
 		<div id="status_menu" class="hidden">
-			<div id="status_show_text">ステータス画面</div>
+			<div id="status_show_text">ステータス</div>
 			<img src="images/neko/chara/siro_active.png" id="status_character_siro">
 			<img src="images/neko/chara/kuro_active.png" id="status_character_kuro">
 			<div id="status_back_button" class="back_button"></div>
@@ -330,6 +330,28 @@
 					<span class="status_value">-</span>
 				</li>
 			</ul>
+			<div id="playtime_area">
+			<div id="playtime_text">プレイ時間</div>
+			<div id="playtime">
+				<span id="playhour">12</span>
+				<span>:</span>
+				<span id="playminutes">12</span>
+				<span>:</span>
+				<span id="playseconds">12</span>				
+			</div>
+			</div>
+			<ul id="achievement_icons_area" class="star_background">
+				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="0" class="achievement_icon_image"></li>
+				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="1" class="achievement_icon_image"></li>
+				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="2" class="achievement_icon_image"></li>
+				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="3" class="achievement_icon_image"></li>
+				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="4" class="achievement_icon_image"></li>
+				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="5" class="achievement_icon_image"></li>
+				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="6" class="achievement_icon_image"></li>
+				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="7" class="achievement_icon_image"></li>
+				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="8" class="achievement_icon_image"></li>
+				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="9" class="achievement_icon_image"></li>
+			</ul>
 			<ul id="equip_siro">
 				<li class="status_equip_item light_background">-</li>
 				<li class="status_equip_item light_background">-</li>
@@ -360,6 +382,16 @@
 					<span id="achievement_depth" class="achievement_procedure">43F</span>
 				</li>
 			</ul>
+			<div id="achievement_detail_area" class="hidden">
+				<img src="images/neko/achievement/1.png" id="achievement_detail_icon">
+				<div id="achievement_icon_title">100万匹の死骸</div>
+				<div id="achievement_icon_description">しろことくろこの死亡回数が1000000回を突破した。</div>
+				<div id="achievement_progress">
+					<span id="current_achievement_progress">524282</span>
+					<span>/</span>
+					<span id="max_achievement_progress">1000000</span>
+				</div>
+			</div>
 		</div>
 
 		<!--装備メニューエリア-->

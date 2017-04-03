@@ -212,6 +212,11 @@ function processBattle(bossBattle=false){
 			message += turnCount + "T戦い, " 
 		}
 
+		//2ターンキルしていたら実績のためにカウント
+		if(turnCount == 2){
+			save.total_2kill ++
+		}
+
 		message += ( "しろこ" + damage_siro +",くろこ" + damage_kuro + "ダメージ。")
 		castMessage(message)
 
@@ -247,6 +252,7 @@ function processBattle(bossBattle=false){
 		//全滅時のメッセージ
 		castMessage( "しろこ" + damage_siro +",くろこ" + damage_kuro + "ダメージ。")
 		castMessage( turnCount+"ターン耐え,"+damageDealedPersentage+"%削ったが全滅した... ") 
+		save.total_death++
 	}
 
 	save.status.siro.hp = Math.max(allies[0].hp,0)

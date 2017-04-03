@@ -1304,13 +1304,13 @@ body{
 #status_character_kuro{
 	position: absolute;
 	top: -30px;
-	left: 650px;
+	left: 620px;
 	width: 480px;
 	height: 720px;
 }
 
 #equip_siro{
-	opacity: 0.8;
+	opacity: 0.9;
 	list-style: none;
 	position: absolute;
 	top: 420px;
@@ -1320,7 +1320,7 @@ body{
 }
 
 #equip_kuro{
-	opacity: 0.8;
+	opacity: 0.9;
 	list-style: none;
 	position: absolute;
 	top: 420px;
@@ -1338,7 +1338,7 @@ body{
 }
 
 #status_siro{
-	opacity: 0.8;
+	opacity: 0.9;
 	list-style: none;
 	position: absolute;
 	top: 165px;
@@ -1348,7 +1348,7 @@ body{
 }
 
 #status_kuro{
-	opacity: 0.8;
+	opacity: 0.9;
 	list-style: none;
 	position: absolute;
 	top: 165px;
@@ -1377,8 +1377,8 @@ body{
 	list-style: none;
 	position: absolute;
 	top: 5px;
-	left:620px;
-	width: 460px;
+	right:20px;
+	width: 400px;
 	height: 150px;
 }
 
@@ -1393,8 +1393,97 @@ body{
 
 .achievement_title{
 	display: inline-block;
-	width: 270px;
+	width: 280px;
 }
+
+#achievement_icons_area{
+	position: absolute;
+	display: flex;
+	justify-content:space-around;
+	padding: 0px 5px;
+	left: 218px;
+	top: 109px;
+	width: 448px;
+	height: 48px;
+	opacity: 0.9;
+	background-color: rgba(39,41,69,.7);
+	border-radius: 4px 4px;
+	opacity: 0;
+}
+
+.achievement_icon{
+	list-style: none;
+	background-color:#030812;
+	width: 34px;
+	height: 34px;
+	margin:5px 1px;
+	padding: 2px 2px;
+	border-radius: 2px 2px;
+}
+
+.achievement_icon_image{
+	padding: 1px 1px;	
+}
+
+.cleared{
+	background-color: #ffeeaa;
+}
+
+#achievement_detail_area{
+	background-color: #030821;
+	position: absolute;
+	translateX : 100px;
+	translateY :100px;
+	width: 350px;
+	height: 100px;
+	border-radius: 5px;
+	border: 2px solid #ddeeff;
+}
+
+#achievement_detail_icon{
+	position: absolute;
+	left: 18px;
+	top: 18px;
+	width:64px;
+	height: 64px;
+}
+
+#achievement_icon_title{
+	position: absolute;
+	font-size: 18px;
+	top: 5px;
+	left: 100px;
+}
+
+#achievement_icon_description{
+	position: absolute;
+	top: 33px;
+	left: 110px;
+	width: 220px;
+}
+
+#achievement_progress{
+	position: absolute;
+	bottom: 0px;
+	left: 110px;
+}
+
+#playtime_area{
+	position: absolute;
+	left: 400px;
+	top: 15px;
+	width: 245px;
+	height: 70px;
+	font-size: 20px;
+	padding: 5px 15px;
+	border-radius: 5px 5px;
+	background-color: rgba(39,41,69,.7);
+}
+
+#playtime{
+	font-size: 24px;
+}
+
 
 #save_ticker{
 	position: absolute;

@@ -1693,6 +1693,8 @@ function prepareStatusParameters(){
 
 	//実績エリア更新
 	updateAchievementArea()
+	checkAchievementCleared()
+	updateAchievementClearData()
 
 	var siro_status_object = $("#status_siro .status .status_value")
 	var kuro_status_object = $("#status_kuro .status .status_value")
@@ -1746,19 +1748,29 @@ function hideAllStatusBoardElements(){
 	$("#status_kuro").css({
 		opacity:0
 	})
-	$("#equip_siro").css({
+
+	$("#equip_siro .status_equip_item").css({
+		translateX : -100,
 		opacity:0
 	})
-	$("#equip_kuro").css({
-		opacity:0
-	})
-	$(".status_equip_item").css({
+	$("#equip_kuro .status_equip_item").css({
+		translateX : 100,
 		opacity:0
 	})
 	$("#status_achievement_list").css({
 		opacity:0
 	})
-	//status_equip_item
+	$("#playtime_area").css({
+		translateY:-20,
+		opacity:0
+	})
+	$(".achievement_icon").css({
+		translateX : 100,
+		opacity : 0
+	})
+	$("#achievement_icons_area").css({
+		opacity : 0
+	})
 }
 
 //画面内の要素がスススッてフェードインしてくる昔のwebサイトでよく見たアレ
@@ -1781,32 +1793,57 @@ function constructStatusBoardAnimation(){
 
 	$("#status_siro").delay(300)
 	.animate({
-		opacity:0.8
+		opacity:0.9
 	},2000,"easeOutQuart")
 
 	$("#status_kuro").delay(300)
 	.animate({
-		opacity:0.8
+		opacity:0.9
 	},2000,"easeOutQuart")
 
-	$("#equip_siro").delay(900)
-	.animate({
-		opacity:0.8
-	},200,"swing")
+	for(var i=0;i<4;++i){
+		$($("#equip_siro .status_equip_item")[i])
+		.delay(100*i)
+		.animate({
+			translateX : 0,
+			opacity:0.9
+		},1000,"easeOutQuart")
+	}
 
-	$("#equip_kuro").delay(900)
-	.animate({
-		opacity:0.8
-	},200,"swing")
+	for(var i=0;i<4;++i){
+		$($("#equip_kuro .status_equip_item")[i])
+		.delay(100*i)
+		.animate({
+			translateX : 0,
+			opacity:0.9
+		},1000,"easeOutQuart")
+	}
 
-	$(".status_equip_item").animate({
-		opacity:0.8
-	},1000,"easeOutQuart")
+	for(var i=0;i<10;++i){
+		$($(".achievement_icon")[i])
+		.delay(1000)
+		.delay(100*i)
+		.animate({
+			translateX : 0,
+			opacity:0.9
+		},1000,"easeOutQuart")
+	}
 
 	$("#status_achievement_list").delay(2000)
 	.animate({
-		opacity:0.8
+		opacity:0.9
 	},1000,"swing")
+
+	$("#playtime_area").animate({
+		opacity:0.9,
+		translateY:0
+	},1400,"easeOutQuart")
+
+	$("#achievement_icons_area")
+	.delay(700)
+	.animate({
+		opacity:0.9,
+	},1600,"easeOutQuart")
 
 }
 
@@ -1816,6 +1853,54 @@ function updateAchievementArea(){
 	$("#achievement_item_builded").text(getSumItemFoundedFullBuilded())
 	$("#achievement_coin_earned").text(save.total_coin_achieved)
 	$("#achievement_depth").text(getDeepestDepthCrawled())
+}
+
+//実績の詳細を表示
+function showAchievementIconDetail(domobject){
+	achievement_id = parseInt($(domobject).attr("achievement_id"))
+	$("#achievement_detail_area").removeClass("hidden")
+	updateAchievementDetailAreaTo(achievement_id)
+}
+
+function hideAchievementDetail(){
+	$("#achievement_detail_area").addClass("hidden")
+}
+
+function updateAchievementDetailAreaTo(achievement_id){
+	//本来ならオフセットは画面からアイコンの置かれている位置を確認して
+	//相対配置したかったけど、画面の強制再計算を発生させたくないので
+	//数値に展開する
+	var xOffset = 250 + 45*achievement_id
+	$("#achievement_detail_area").css({
+		transform : "translateX("+xOffset+"px)"
+	})
+
+	//ダンジョン名系の実績で、対称のダンジョンが未開放の場合には詳細を表示しない
+	if( achievement_id<= 4 && !save.dungeon_open[achievement_id]){
+		hideAchievementDetail()
+	}
+
+	$("#achievement_icon_title").text(achievement_data[achievement_id].name)
+	$("#achievement_icon_description").text(achievement_data[achievement_id].detail)
+	$("#max_achievement_progress").text(achievement_data[achievement_id].max)
+	$("#current_achievement_progress").text(getAchievementProgress(achievement_id))
+}
+
+//実績をクリアしてたら背景を黄色くする
+function updateAchievementClearData(){
+	var icons = $(".achievement_icon")
+	for(var i=0;i<10;++i){
+		if(save.achievement_clear[i]){
+			$(icons[i]).addClass("cleared")
+		}
+	}
+}
+
+//プレイ時間
+function updatePlaytimeArea(){
+	　$("#playhour").text(("0"+Math.floor(save.playtime /60 /60)).slice(-2))
+	　$("#playminutes").text(("0"+Math.floor(save.playtime /60 % 60)).slice(-2))
+	　$("#playseconds").text(("0"+Math.floor(save.playtime % 60)).slice(-2))
 }
 
 /*******************************************/

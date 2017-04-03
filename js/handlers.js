@@ -162,5 +162,11 @@ $("#ressurect_button").click(function(){
  	makesave()
  })
 
+//実績の詳細を出す
+$(".achievement_icon_image").mouseover(function(){
+	showAchievementIconDetail(this)
+})
 
-
+$(".achievement_icon_image").mouseout(function(){
+	hideAchievementDetail()
+})

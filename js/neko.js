@@ -68,6 +68,10 @@ function mainLoop(){
 
 //1秒ごとの更新で十分な項目
 function mainLoop_1sec(){
+
+	//プレイ時間をインクリメント
+	save.playtime++
+
 	if(isCharacterAlive()){
 		//生きてる間はイベントタイマーが回る
 		save.next_event_timer --
@@ -94,6 +98,7 @@ function mainLoop_1sec(){
 	updateNextEventTimer()
 	scrollBackgroundImage()
 	updateBackgroundImagePosition()
+	updatePlaytimeArea()
 }
 
 //ゲームモードをmodeに変更
@@ -157,6 +162,19 @@ function takeScreenshot(){
 	})
 }
 
+//イベント間隔
+function getEventFreq(){
+
+	if(data.__hypereventdashmode){
+		return 1
+	}
+
+	//実績のクリア数だけイベント間隔を減らす
+	var reduced = save.achievement_clear.reduce((x,y)=>x+y)
+
+	return DEFAULT_EVENT_FREQ - reduced
+}
+
 /*******************************************/
 /* デバッグ用 */
 /*******************************************/
@@ -201,7 +219,6 @@ function __debugDungeonFullOpen(){
 //オート復活・イベント2秒おき
 //スプライトの発生を抑制
 function __debugHyperEventDashMode(){
-	DEFAULT_EVENT_FREQ	 = 1
 	AUTO_RESSURECT_TIME= 5
 	data.__hypereventdashmode = true
 	save.next_event_timer = 1
@@ -291,7 +308,7 @@ function scrollBackgroundImageTo(position){
 
  //現在のイベント更新間隔はいくら?
  function getEventInterval(){
- 	return DEFAULT_EVENT_FREQ
+ 	return getEventFreq()
  }
 
 //生きてるキャラは居る?
@@ -379,12 +396,16 @@ function getStandardItemParameter(rank){
 
 //実装されているアイテムからランダムにひとつ、rank相当の強化を施したアイテムを獲得する
 function aquireRandomItemRank(rank){
+
+	//ランクには1~10のブレをもたせる
+	rank += randInt(1,10)
+
 	var target_power = getStandardItemParameter(rank)
 	var aquired_item = randInt(0,data.item_data.length-1)
 	var base_power = getStandardItemParameter(aquired_item)
 
-	//プラス値10を軸に考え、装備のパラメータブレを考慮して1.3倍の余裕をもたせる
-	var build_rank = Math.floor(10* target_power * 1.3 /  base_power)
+	//そのランクでの標準の強さ
+	var build_rank = Math.floor(10* target_power  /  base_power)
 
 	//該当アイテムが既にそれより強かったら何もしない
 	if(save.item[aquired_item] > build_rank){
@@ -519,6 +540,7 @@ function eventItemFlood(){
 		var item_id = lotItem()
 		aquireItem(item_id)
 	}
+	save.total_treasurebox_open ++
 }
 
 //階段降りイベントを起こす
@@ -1031,6 +1053,52 @@ function getDeepestDepthCrawled(){
 	return max
 }
 
+//実績の進捗を返す
+function getAchievementProgress(achievement_id){
+	switch(achievement_id){
+		case 0:
+			return save.dungeon_process[0]
+		break;
+		case 1:
+			return save.dungeon_process[1]
+		break;
+		case 2:
+			return save.dungeon_process[2]
+		break;
+		case 3:
+			return save.dungeon_process[3]
+		break;
+		case 4:
+			return save.dungeon_process[4]
+		break;
+		case 5:
+			return getSumItemFoundedFullBuilded()
+		break;
+		case 6:
+			return save.total_death
+		break;
+		case 7:
+			return save.total_2kill
+		break;		
+		case  8:
+			return save.total_treasurebox_open
+		break;		
+		case 9:
+			//プレイ秒 /60/60 → プレイ時間
+			return Math.floor(save.playtime / 60 / 60) 
+		break;		
+	}
+}
+
+//実績のクリア状況をデータ上に反映する
+function checkAchievementCleared(){
+	for(var i=0;i<10;++i){
+		if(getAchievementProgress(i) >= achievement_data[i].max){
+			save.achievement_clear[i] = 1
+		}
+	}
+}
+
 /*******************************************/
 /* ダンジョン選択画面 */
 /*******************************************/
@@ -1079,8 +1147,6 @@ function changeDepth(difference){
 $(document).ready(function(){
 	init();
 })
-
-
 
 setInterval(mainLoop,50);
 setInterval(mainLoop_1sec,1000);
