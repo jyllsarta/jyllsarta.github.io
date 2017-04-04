@@ -1036,7 +1036,7 @@ function getSumItemFounded(){
 function getSumItemFoundedFullBuilded(){
 	var total = 0
 	for(var i=0;i<data.item_data.length;++i){
-		if(save.item[i] == MAX_EQUIP_BUILD){
+		if(save.item[i] >= MAX_EQUIP_BUILD){
 			total ++
 		}
 	}
