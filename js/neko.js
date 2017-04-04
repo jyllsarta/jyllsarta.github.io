@@ -430,8 +430,10 @@ function aquireItem(item_id){
 
 	//存在するアイテムIDを指定された場合
 	var before =  (save.item[item_id] || 0)
-	var after = before+1
-	after = Math.min(after,MAX_EQUIP_BUILD)
+	var after = before
+	if(before < MAX_EQUIP_BUILD){
+		after++
+	}
 	save.item[item_id] = after
 
 	var item_name = getRaritySymbol(data.item_data[item_id].rarity) + data.item_data[item_id].name
