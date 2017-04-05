@@ -30,7 +30,6 @@
 </head>
 <body>
 	<div id="contents">
-		
 		<img id="header_img" src="images/neko/etc/banner.png">
 		<div id="game_window_cover">
 			<div id="loading_progress_bar"></div>
@@ -98,9 +97,10 @@
 							<li id="menu_equip_button" class="menu_item">装備</li>
 							<li id="status_show_button" class="menu_item">ステータス</li>
 							<li id="dungeon_list_show_button" class="menu_item">次元層選択</li>
-							<li id="gacha_menu_show_button" class="menu_item">おみくじ</li>
+							<li id="gacha_menu_show_button" class="menu_item">おみくじ（1）</li>
 							<li id="screenshot" class="menu_item">スクショ</li>
 							<li id="save_button" class="menu_item">セーブ</li>
+							<li id="option_button" class="menu_item">オプション</li>
 						</ul>
 					</div>
 					<div id="character_data_area" class="shadow_background">
@@ -331,26 +331,26 @@
 				</li>
 			</ul>
 			<div id="playtime_area">
-			<div id="playtime_text">プレイ時間</div>
-			<div id="playtime">
-				<span id="playhour">12</span>
-				<span>:</span>
-				<span id="playminutes">12</span>
-				<span>:</span>
-				<span id="playseconds">12</span>				
-			</div>
+				<div id="playtime_text">プレイ時間</div>
+				<div id="playtime">
+					<span id="playhour">12</span>
+					<span>:</span>
+					<span id="playminutes">12</span>
+					<span>:</span>
+					<span id="playseconds">12</span>				
+				</div>
 			</div>
 			<ul id="achievement_icons_area" class="star_background">
-				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="0" class="achievement_icon_image"></li>
+				<li class="achievement_icon"><img src="images/neko/achievement/0.png" achievement_id="0" class="achievement_icon_image"></li>
 				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="1" class="achievement_icon_image"></li>
-				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="2" class="achievement_icon_image"></li>
-				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="3" class="achievement_icon_image"></li>
-				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="4" class="achievement_icon_image"></li>
-				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="5" class="achievement_icon_image"></li>
-				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="6" class="achievement_icon_image"></li>
-				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="7" class="achievement_icon_image"></li>
-				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="8" class="achievement_icon_image"></li>
-				<li class="achievement_icon"><img src="images/neko/achievement/1.png" achievement_id="9" class="achievement_icon_image"></li>
+				<li class="achievement_icon"><img src="images/neko/achievement/2.png" achievement_id="2" class="achievement_icon_image"></li>
+				<li class="achievement_icon"><img src="images/neko/achievement/3.png" achievement_id="3" class="achievement_icon_image"></li>
+				<li class="achievement_icon"><img src="images/neko/achievement/4.png" achievement_id="4" class="achievement_icon_image"></li>
+				<li class="achievement_icon"><img src="images/neko/achievement/5.png" achievement_id="5" class="achievement_icon_image"></li>
+				<li class="achievement_icon"><img src="images/neko/achievement/6.png" achievement_id="6" class="achievement_icon_image"></li>
+				<li class="achievement_icon"><img src="images/neko/achievement/7.png" achievement_id="7" class="achievement_icon_image"></li>
+				<li class="achievement_icon"><img src="images/neko/achievement/8.png" achievement_id="8" class="achievement_icon_image"></li>
+				<li class="achievement_icon"><img src="images/neko/achievement/9.png" achievement_id="9" class="achievement_icon_image"></li>
 			</ul>
 			<ul id="equip_siro">
 				<li class="status_equip_item light_background">-</li>
@@ -392,6 +392,26 @@
 					<span id="max_achievement_progress">1000000</span>
 				</div>
 			</div>
+		</div>
+
+		<div id="option_menu" class="shadow_background hidden">
+			<img src="images/neko/etc/option_background.png" id="option_background">
+			<div id="option_show_text">オプション</div>
+			<div id="option_back_button" class="back_button"></div>
+			<ul id="option_container">
+				<div id="option_animation_on" class="option_item">
+					<span class="option_index">イベント時にアニメーションを再生する</span>
+					<span id="enable_event_animation" class="option_value">☑</span>
+				</div>
+				<div id="option_loitering_on" class="option_item">
+					<span class="option_index">キャラの歩行</span>
+					<span id="enable_loitering" class="option_value">☑</span>
+				</div>
+				<div id="option_scroll_background" class="option_item">
+					<span class="option_index">背景をスクロールさせる</span>
+					<span id="enable_scroll_background" class="option_value">☑</span>
+				</div>
+			</ul>
 		</div>
 
 		<!--装備メニューエリア-->

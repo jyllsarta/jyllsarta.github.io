@@ -116,6 +116,9 @@ function fadeOutAndFadeInStairs(){
 		//viewにロジックが書いてあって非常に良くないけど1秒ごとの1pxスクロールと競合し
 		//暗転後に景色が変わってる演出ができなくなるので諦める
 		var background_pos = randInt(0,2100)
+		data.siro.x = randInt(160,700)
+		data.kuro.x = randInt(240,600)
+		updateLoiteringCharactersState()
 		scrollBackgroundImageTo(background_pos)
 		updateBackgroundImagePosition()
 		updateBackgroundImage()
@@ -215,10 +218,18 @@ function updateLoiteringCharactersState(){
 		$("#ressurect_count_area").addClass("hidden")		
 	}
 
+	$("#character_siro").css("translateX", data.siro.x)
+	$("#character_kuro").css("translateX", data.kuro.x)
 }
 
 //しろがゆらゆら移動
 function  loiteringSiro(){
+
+	//歩行オフなら何もしない
+	if(!save.options.enable_loitering){
+		return
+	}
+
 	if(save.status.siro.hp <= 0){
 		//たまーにピクピクする
 		if(randInt(1,100) < 5){
@@ -270,6 +281,12 @@ function  loiteringSiro(){
 
 //くろがゆらゆら移動
 function  loiteringKuro(){
+
+	//歩行オフなら何もしない
+	if(!save.options.enable_loitering){
+		return
+	}
+
 	if(save.status.kuro.hp <= 0){
 		//たまーにピクピクする
 		if(randInt(1,100) < 5){
@@ -448,12 +465,12 @@ function spriteSlidein(imagename){
 	.animate({
 		opacity:1,
 		translateY : 10
-	}, 100, "swing")
+	}, 100, "linear")
 	.delay(730)
 	.animate({
 		opacity	:0,
 		translateY : 0,
-	},100,"easeOutQuart")
+	},100,"linear")
 	.queue(function () {
 		$(this).addClass("hidden").dequeue();
 	})
@@ -488,7 +505,8 @@ function resetItemSprite(){
 //アイテム取得スプライトをスライドインする
 function showItemSprite(){
 
-	if(data.__hypereventdashmode){
+	//イベントアニメオフなら一枚絵出して終わり
+	if(!save.options.enable_event_animation){
 		spriteSlidein("item")
 		return
 	}
@@ -604,7 +622,7 @@ function resetBattleSprite(){
 
 function showBattleSprite(){
 
-	if(data.__hypereventdashmode){
+	if(!save.options.enable_event_animation){
 		spriteSlidein("battle")
 		return
 	}
@@ -718,7 +736,7 @@ function resetStairsSprite(){
 
 function showStairsSprite(){
 
-	if(data.__hypereventdashmode){
+	if(!save.options.enable_event_animation){
 		spriteSlidein("stairs")
 		return
 	}
@@ -893,7 +911,7 @@ function resetBossBattleSprite(){
 
 function showBossBattleSprite(){
 
-	if(data.__hypereventdashmode){
+	if(!save.options.enable_event_animation){
 		spriteSlidein("boss")
 		return
 	}
@@ -984,7 +1002,7 @@ function resetResurrectSprite(){
 
 function showResurrectSprite(){
 
-	if(data.__hypereventdashmode){
+	if(!save.options.enable_event_animation){
 		spriteSlidein("ressurect")
 		return
 	}
@@ -1879,7 +1897,7 @@ function updateAchievementDetailAreaTo(achievement_id){
 	if( achievement_id<= 4 && !save.dungeon_open[achievement_id]){
 		hideAchievementDetail()
 	}
-
+	$("#achievement_detail_icon").attr("src",getAchievementIconImageFileName(achievement_id))
 	$("#achievement_icon_title").text(achievement_data[achievement_id].name)
 	$("#achievement_icon_description").text(achievement_data[achievement_id].detail)
 	$("#max_achievement_progress").text(achievement_data[achievement_id].max)
@@ -1894,6 +1912,13 @@ function updateAchievementClearData(){
 			$(icons[i]).addClass("cleared")
 		}
 	}
+
+	for(var i=0;i<10;++i){
+		if(!save.dungeon_open[i]){
+			$($(".achievement_icon_image")[i]).attr("src",getAchievementIconImageFileName(i))
+		}
+	}
+
 }
 
 //プレイ時間
@@ -1905,7 +1930,7 @@ function updatePlaytimeArea(){
 
 /*******************************************/
 /* ダンジョン選択画面 */
-/********************************ress***********/
+/*******************************************/
 
 function changeStageToView(stage_id,depth){
 
@@ -2028,5 +2053,57 @@ function updateDungeonSelectFloorData(){
 	$("#dungeon_detail_total_floor").text(dungeon_data[stage_id].depth)
 	$("#dungeon_detail_completed_floor").text(save.dungeon_process[stage_id])
 	$("#dungeon_decide_current_depth").text(data.dungeon_select_menu.depth)
+}
+
+
+/*******************************************/
+/* オプション画面 */
+/*******************************************/
+
+
+
+//オプション画面開く
+function showOptionMenu(){
+	prepareOptionMenu()
+	$("#option_menu")
+	.removeClass("hidden")
+	.animate({
+		opacity:0.98,
+		translateY:20,
+	},200,"easeOutQuart")	
+}
+
+//オプション画面閉じる
+function fadeOptionMenu(){
+	$("#option_menu")
+	.animate({
+		opacity:0,
+		translateY:0,
+	},300,"easeOutQuart")
+	.queue(function () {
+		$(this).addClass("hidden").dequeue();
+	})
+}
+
+//オプション画面の準備
+function prepareOptionMenu(){
+	if(save.options.enable_event_animation){
+		$("#enable_event_animation").text("☑")
+	}
+	else{
+		$("#enable_event_animation").text("□")		
+	}
+	if(save.options.enable_loitering){
+		$("#enable_loitering").text("☑")
+	}
+	else{
+		$("#enable_loitering").text("□")		
+	}
+	if(save.options.enable_scroll_background){
+		$("#enable_scroll_background").text("☑")
+	}
+	else{
+		$("#enable_scroll_background").text("□")		
+	}
 }
 

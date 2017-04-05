@@ -167,6 +167,31 @@ $(".achievement_icon_image").mouseover(function(){
 	showAchievementIconDetail(this)
 })
 
+//実績アイコンからmouseoutすると表示を消す
 $(".achievement_icon_image").mouseout(function(){
 	hideAchievementDetail()
 })
+
+ //オプション閉じるボタン
+ $("#option_back_button").click(function(){
+ 	fadeOptionMenu()
+ })
+
+ //オプション閉じるボタン
+ $("#option_button").click(function(){
+ 	showOptionMenu()
+ })
+
+$("#option_animation_on").click(function(){
+ 	toggleEnableEventAnimationOption()
+ })
+
+$("#option_loitering_on").click(function(){
+ 	toggleEnableLoiteringOption()
+ })
+
+$("#option_scroll_background").click(function(){
+ 	toggleEnableScrollBackgroundOption()
+ })
+
+

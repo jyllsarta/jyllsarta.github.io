@@ -9,19 +9,18 @@ body{
 }
 
 #header_img{
+	display: block;
 	width: 1200px;
-	height: 343px;
+	height: 132px;
 	margin : auto;
-	display: table-cell;
-}
+	}
 
 #contents{
-	border-radius: 70px 70px 0px 0px;
+	border-radius: 10px 10px 0px 0px;
 	background-color: #FFFFFF;
-	width: 1240px;	
+	width: 1210px;	
 	position: relative;
 	margin: auto;
-	box-shadow: 0px 0px 3px 2px #FFFFFF;
 	padding-bottom: 20px;
 }
 
@@ -86,7 +85,7 @@ body{
 	position: absolute;
 	width: 1200px;
 	height: 800px;
-	box-shadow: 0px 0px 3px 2px white inset;
+	box-shadow: 0px 0px 2px 5px white inset;
 }
 
 #background{
@@ -1423,6 +1422,8 @@ body{
 
 .achievement_icon_image{
 	padding: 1px 1px;	
+	width: 32px;
+	height: 32px;
 }
 
 .cleared{
@@ -1506,6 +1507,74 @@ body{
 	margin: auto;
 	display: table-cell;
 }
+
+#option_menu{
+	overflow: hidden;
+	position: absolute;	
+	top: 30px;
+	left: 50px;
+	width: 1100px;
+	height: 700px;
+	background-color: #08121a;
+	opacity: .95;
+}
+
+#option_show_text{
+	position: absolute;
+	top: 15px;
+	left: 120px;
+	font-size: 50px;
+}
+
+#option_back_button{
+	position: absolute;
+	top: 20px;
+	left: 20px;
+}
+
+#option_container{
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	top: 150px;
+	left: 150px;
+	width: 800px;
+	height: 500px;
+}
+
+.option_item{
+	padding: 20px 20px;
+	font-size: 24px;
+	height: 80px;
+	border-radius: 8px 8px 8px 8px;
+}
+
+.option_item:hover{
+	opacity: 0.8;
+	background-color: rgba(76,90,111,1);
+}
+
+.option_index{
+	display: inline-block;
+	width: 500px;
+	vertical-align: middle;
+}
+
+.option_value{
+	display: inline-block;
+	font-size: 50px;
+	vertical-align: middle;
+}
+
+#option_background{
+	position: absolute;
+	bottom:0px;
+	right: 0px;
+	opacity: 0.2;
+}
+
+
+
 
 /*webフォント関連*/
 /*

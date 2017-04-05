@@ -76,6 +76,11 @@ var save = {
 	total_death : 0,
 	total_2kill : 0,
 	total_treasurebox_open : 0,
+	options : {
+		enable_event_animation : true,
+		enable_loitering : true,
+		enable_scroll_background : true,
+	}
 }
 
 var dungeon_data=[

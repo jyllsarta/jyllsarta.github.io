@@ -97,8 +97,13 @@ function mainLoop_1sec(){
 	updateClock()
 	updateNextEventTimer()
 	scrollBackgroundImage()
-	updateBackgroundImagePosition()
 	updatePlaytimeArea()
+
+	//背景をスクロールするのはオプションが指定されている場合のみ
+	if(save.options.enable_scroll_background){
+		updateBackgroundImagePosition()
+	}
+
 }
 
 //ゲームモードをmodeに変更
@@ -223,6 +228,7 @@ function __debugHyperEventDashMode(){
 	data.__hypereventdashmode = true
 	save.next_event_timer = 1
 	save.auto_ressurect_timer = 10
+	save.options.enable_event_animation = false
 }
 
 /*******************************************/
@@ -442,7 +448,7 @@ function aquireItem(item_id){
 	if(save.item[item_id] == 1){
 		castMessage(item_name + "を拾った!")
 	}
-	else if(before == MAX_EQUIP_BUILD){
+	else if(before >= MAX_EQUIP_BUILD){
 		//もうすでに最大強化されてた場合
 		save.coin ++
 		save.total_coin_achieved ++
@@ -1060,38 +1066,38 @@ function getDeepestDepthCrawled(){
 function getAchievementProgress(achievement_id){
 	switch(achievement_id){
 		case 0:
-			return save.dungeon_process[0]
+		return save.dungeon_process[0]
 		break;
 		case 1:
-			return save.dungeon_process[1]
+		return save.dungeon_process[1]
 		break;
 		case 2:
-			return save.dungeon_process[2]
+		return save.dungeon_process[2]
 		break;
 		case 3:
-			return save.dungeon_process[3]
+		return save.dungeon_process[3]
 		break;
 		case 4:
-			return save.dungeon_process[4]
+		return save.dungeon_process[4]
 		break;
 		case 5:
-			return getSumItemFoundedFullBuilded()
+		return getSumItemFoundedFullBuilded()
 		break;
 		case 6:
-			return save.total_death
+		return save.total_death
 		break;
 		case 7:
-			return save.total_2kill
+		return save.total_2kill
 		break;		
 		case  8:
-			return save.total_treasurebox_open
+		return save.total_treasurebox_open
 		break;		
 		case 9:
 			//プレイ秒 /60/60 → プレイ時間
 			return Math.floor(save.playtime / 60 / 60) 
-		break;		
+			break;		
+		}
 	}
-}
 
 //実績のクリア状況をデータ上に反映する
 function checkAchievementCleared(){
@@ -1100,6 +1106,16 @@ function checkAchievementCleared(){
 			save.achievement_clear[i] = 1
 		}
 	}
+}
+
+//実績のアイコンファイルと実績IDの対応
+function getAchievementIconImageFileName(achievement_id){
+	//実績ID[0-4]は未開放の場合表示させない
+	if(!save.dungeon_open[achievement_id] && achievement_id < 5){
+		return "images/neko/achievement/no.png"
+	}
+	return "images/neko/achievement/"+achievement_id+".png"
+
 }
 
 /*******************************************/
@@ -1143,6 +1159,25 @@ function changeDepth(difference){
 	updateDungeonSelectFloorData()
 }
 
+/*******************************************/
+/* 初期化とメインループ実行 */
+/*******************************************/
+
+
+function toggleEnableEventAnimationOption(){
+	save.options.enable_event_animation = !save.options.enable_event_animation
+	prepareOptionMenu()
+}
+
+function toggleEnableLoiteringOption(){
+	save.options.enable_loitering = !save.options.enable_loitering
+	prepareOptionMenu()
+}
+
+function toggleEnableScrollBackgroundOption(){
+	save.options.enable_scroll_background = !save.options.enable_scroll_background
+	prepareOptionMenu()
+}
 /*******************************************/
 /* 初期化とメインループ実行 */
 /*******************************************/
