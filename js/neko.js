@@ -231,6 +231,13 @@ function __debugHyperEventDashMode(){
 	save.options.enable_event_animation = false
 }
 
+//光速イベントモードでも足りないあなたのために120イベント実施
+function __debugTake120Events(){
+	for(var i=0;i<120;++i){
+		event()
+	}
+}
+
 /*******************************************/
 /* セーブ・ロード */
 /*******************************************/

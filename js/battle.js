@@ -33,8 +33,8 @@ function Enemy(rank,type="normal", enchant="none"){
 	this.maxDamagedPersentage = 0
 	this.isBoss = false
 
-	if(rank > 200){
-		this.sld = rank * 2
+	if(rank > 100){
+		this.sld = Math.floor(this.atk/4)
 	}
 
 	if(type==="boss"){
@@ -89,8 +89,36 @@ function getExp(rank){
 //fromがtoに攻撃した際のダメージを返す
 function calcDamage(from, to){
 	//攻撃-守備が原則ダメージ
-	// 通常敵なら1, ボスなら3%のダメージが保証される
-	var damage = Math.max(from.atk - to.sld,Math.floor(to.maxHp/100) *(from.isBoss?3:1) )
+
+	// 防御値のほうが上回っている場合
+	// 最低限1ダメージは絶対保証とし
+	// 通常敵なら0.5, ボスなら5%のダメージ を最低ダメージの基本値とする
+	// 最低ダメージ値の場合には攻撃力と守備力の比の逆数値を更に乗算してできあがり
+
+	// HP800, sld200 にatt50で攻撃する場合
+	// 基本の800の0.5%である4ダメージに attsld比0.25を乗算し
+	// 1ダメージとなる
+
+	// HP800, sld50 にatt150で攻撃する場合
+	// DEF割れ状態なので100ダメージとなる
+
+	//0.5%が基本のダメージ値
+	var min_damage = Math.floor(to.maxHp/200)
+
+	var att_def_ratio =  from.atk / to.sld
+
+	if(att_def_ratio < 1){
+		min_damage *= att_def_ratio
+	}
+
+	//ボスなら10倍 -> 比でいうと5%を保証ダメージとする
+	if(from.isBoss){
+		min_damage *= 10
+	}
+
+	//1ダメ、最低基準ダメージ、攻-守の最も大きいものをダメージとする
+	var damage = Math.floor(Math.max(from.atk - to.sld, min_damage,1))
+
 	return damage
 }
 
