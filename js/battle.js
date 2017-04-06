@@ -92,7 +92,7 @@ function calcDamage(from, to){
 
 	// 防御値のほうが上回っている場合
 	// 最低限1ダメージは絶対保証とし
-	// 通常敵なら0.5, ボスなら5%のダメージ を最低ダメージの基本値とする
+	// 通常敵なら0.25%, ボスなら5%のダメージ を最低ダメージの基本値とする
 	// 最低ダメージ値の場合には攻撃力と守備力の比の逆数値を更に乗算してできあがり
 
 	// HP800, sld200 にatt50で攻撃する場合
@@ -102,8 +102,8 @@ function calcDamage(from, to){
 	// HP800, sld50 にatt150で攻撃する場合
 	// DEF割れ状態なので100ダメージとなる
 
-	//0.5%が基本のダメージ値
-	var min_damage = Math.floor(to.maxHp/200)
+	//0.25%が基本のダメージ値
+	var min_damage = Math.floor(to.maxHp/400)
 
 	var att_def_ratio =  from.atk / to.sld
 
@@ -113,7 +113,7 @@ function calcDamage(from, to){
 
 	//ボスなら10倍 -> 比でいうと5%を保証ダメージとする
 	if(from.isBoss){
-		min_damage *= 10
+		min_damage *= 20
 	}
 
 	//1ダメ、最低基準ダメージ、攻-守の最も大きいものをダメージとする

@@ -331,17 +331,26 @@ function isCharacterAlive(){
 
 //イベントの抽選を行い、イベントIDを返す
 function lotEvent(){
+
+	//ランダムアイテムエリアの場合抽選比率を変更
+	var is_random_item_area = getCurrentEnemyRank() >= data.item_data.length
+
+	var freq_item = is_random_item_area? EVENT_FREQ_EXD_ITEM : EVENT_FREQ_ITEM
+	var freq_stairs = is_random_item_area? EVENT_FREQ_EXD_STAIRS : EVENT_FREQ_STAIRS
+	var freq_battle = is_random_item_area? EVENT_FREQ_EXD_BATTLE : EVENT_FREQ_BATTLE
+	var freq_flood = is_random_item_area? EVENT_FREQ_EXD_ITEM_FLOOD : EVENT_FREQ_ITEM_FLOOD
+
 	var event_box = []
-	for(var i=0;i<EVENT_FREQ_ITEM;++i){
+	for(var i=0;i<freq_item;++i){
 		event_box.push(1)
 	}
-	for(var i=0;i<EVENT_FREQ_STAIRS;++i){
+	for(var i=0;i<freq_stairs;++i){
 		event_box.push(2)
 	}
-	for(var i=0;i<EVENT_FREQ_BATTLE;++i){
+	for(var i=0;i<freq_battle;++i){
 		event_box.push(3)
 	}
-	for(var i=0;i<EVENT_FREQ_ITEM_FLOOD;++i){
+	for(var i=0;i<freq_flood;++i){
 		event_box.push(4)
 	}
 	return event_box[randInt(0,event_box.length-1)]
@@ -417,8 +426,8 @@ function aquireRandomItemRank(rank){
 	var aquired_item = randInt(0,data.item_data.length-1)
 	var base_power = getStandardItemParameter(aquired_item)
 
-	//そのランクでの標準の強さ
-	var build_rank = Math.floor(10* target_power  /  base_power)
+	//そのランクでの標準の強さ * 1.2(1.2倍ぶんだけ余裕をちょっと持たせる)
+	var build_rank = Math.floor(10* target_power *1.2 /  base_power)
 
 	//該当アイテムが既にそれより強かったら何もしない
 	if(save.item[aquired_item] > build_rank){

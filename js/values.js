@@ -112,7 +112,7 @@ var dungeon_data=[
 	name:"次元の界面",
 	caption:"幾つもの次元が混濁する塔の最上層。空間が安定せず、絶えず構成が変化し続ける。",
 	start_ir:500,
-	depth:4000,
+	depth:9999,
 },
 ]
 
@@ -205,6 +205,13 @@ var EVENT_FREQ_STAIRS = 35
 var EVENT_FREQ_ITEM = 13
 var EVENT_FREQ_ITEM_FLOOD = 2
 var EVENT_FREQ_BATTLE = 50
+
+//イベント抽選関係
+//ランダムアイテムエリアの出現比率
+var EVENT_FREQ_EXD_STAIRS = 40
+var EVENT_FREQ_EXD_ITEM = 9
+var EVENT_FREQ_EXD_ITEM_FLOOD = 1
+var EVENT_FREQ_EXD_BATTLE = 50
 
 //デフォルトのイベント発生間隔(秒)
 var DEFAULT_EVENT_FREQ = 40
