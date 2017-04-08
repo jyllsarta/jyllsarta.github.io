@@ -426,8 +426,8 @@ function aquireRandomItemRank(rank){
 	var aquired_item = randInt(0,data.item_data.length-1)
 	var base_power = getStandardItemParameter(aquired_item)
 
-	//そのランクでの標準の強さ * 1.2(1.2倍ぶんだけ余裕をちょっと持たせる)
-	var build_rank = Math.floor(10* target_power *1.2 /  base_power)
+	//そのランクでの標準の強さ * 1.1(1.1倍ぶんだけ余裕をちょっと持たせる)
+	var build_rank = Math.floor(10* target_power *1.1 /  base_power)
 
 	//該当アイテムが既にそれより強かったら何もしない
 	if(save.item[aquired_item] > build_rank){

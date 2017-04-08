@@ -157,7 +157,7 @@ body{
 #datetime_param_area{
 	display: inline-block;
 	width: 900px;
-	height: 100px;
+	height: 50px;
 	font-size: 0px;
 }
 
@@ -520,7 +520,6 @@ body{
 
 .sprite{
 	position: absolute;
-	opacity: 0;
 	top: 0px;
 	left: 0px;	
 	width: 700px;
@@ -1573,8 +1572,106 @@ body{
 	opacity: 0.2;
 }
 
+/*おみくじ画面*/
+#gacha_menu{
+	overflow: hidden;
+	position: absolute;	
+	top: 30px;
+	left: 50px;
+	width: 1100px;
+	height: 700px;
+	background-color: #08121a;
+	opacity: .95;
+}
 
+#gacha_show_text{
+	position: absolute;
+	top: 15px;
+	left: 120px;
+	font-size: 50px;
+}
 
+#gacha_back_button{
+	position: absolute;
+	top: 20px;
+	left: 20px;
+}
+
+#gacha_rate_area{
+	position: absolute;
+	padding: 10px 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content:space-around;
+	right: 20px;
+	top: 150px;
+	width: 270px;
+	height: 230px; 
+}
+
+.gacha_rate_item{
+	width: 270px;
+	height: 46px;
+	font-size: 30px;
+	border-radius: 5px 5px;
+}
+
+.gacha_rate_index{
+	display: inline-block;
+	width: 100px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.gacha_rate_value{
+	display: inline-block;
+	width: 150px;
+	text-align: right;
+	vertical-align: middle;
+}
+
+#gacha_take_button{
+	position: absolute;
+	padding-top: 7px;
+	font-size:56px;
+	bottom: 80px;
+	right: 50px;
+	width: 220px;
+	height: 90px;
+	background-color: #153778;
+	border : 2px solid #bbccff;
+	vertical-align: middle;
+	text-align: center;
+}
+
+#gacha_take_button:hover{
+	opacity: 0.5;
+}
+
+#gacha_coin_area{
+	position: absolute;
+	bottom: 210px;
+	right: 20px;
+	width: 294px;
+	height: 64px;
+	font-size: 0;
+}
+
+#gacha_coin_icon{
+	display: inline-block;
+	float: left;
+	padding-left: 30px;
+	width: 64px;
+	height: 64px;	
+}
+
+#gacha_coin_show_area{
+	display: inline-block;
+	width: 150px;
+	height: 64px;
+	font-size: 40px;
+	text-align: right;
+}
 
 /*webフォント関連*/
 /*

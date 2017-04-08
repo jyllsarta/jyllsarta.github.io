@@ -177,7 +177,7 @@ $(".achievement_icon_image").mouseout(function(){
  	fadeOptionMenu()
  })
 
- //オプション閉じるボタン
+ //オプション開くボタン
  $("#option_button").click(function(){
  	showOptionMenu()
  })
@@ -194,4 +194,13 @@ $("#option_scroll_background").click(function(){
  	toggleEnableScrollBackgroundOption()
  })
 
+ //ガチャメニューを開く
+ $("#gacha_menu_show_button").click(function(){
+ 	showGachaMenu()
+ })
+
+ //ガチャメニュー閉じる
+ $("#gacha_back_button").click(function(){
+ 	fadeGachaMenu()
+ })
 

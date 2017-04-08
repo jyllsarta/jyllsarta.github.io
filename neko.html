@@ -30,7 +30,10 @@
 </head>
 <body>
 	<div id="contents">
-		<img id="header_img" src="images/neko/etc/banner.png">
+		<header>
+			<img id="header_img" src="images/neko/etc/banner.png">
+			<div id="header_blur"></div>
+		</header>
 		<div id="game_window_cover">
 			<div id="loading_progress_bar"></div>
 			<div id="game_window" class="none">
@@ -637,6 +640,47 @@
 				</div>
 			</div>
 		</div>
+
+		<div id="gacha_menu" class="hidden">
+			<div id="gacha_show_text">おみくじ</div>
+			<div id="gacha_back_button" class="back_button"></div>
+			<div id="gacha_sprite">
+				<img src="images/neko/sprite/gacha/background.png" class="sprite" id="sprite_gacha_background">
+				<img src="images/neko/sprite/gacha/mikuji.png" class="sprite" id="sprite_gacha_mikuji">
+				<img src="images/neko/sprite/gacha/kuro.png" class="sprite" id="sprite_gacha_kuro">
+				<img src="images/neko/sprite/gacha/siro.png" class="sprite" id="sprite_gacha_siro">
+				<img src="images/neko/sprite/gacha/kuro_daki.png" class="sprite" id="sprite_gacha_kuro_daki">
+				<img src="images/neko/sprite/gacha/siro_daki.png" class="sprite" id="sprite_gacha_siro_daki">
+			</div>
+			<div id="gacha_rate_area" class="shadow_background">
+				<div class="gacha_rate_item star_background_rev">
+					<span class="gacha_rate_index">★</span>
+					<span class="gacha_rate_value">7.00%</span>
+				</div>
+				<div class="gacha_rate_item star_background_rev">
+					<span class="gacha_rate_index">☆</span>
+					<span class="gacha_rate_value">15.00%</span>
+				</div>
+				<div class="gacha_rate_item star_background_rev">
+					<span class="gacha_rate_index">*</span>
+					<span class="gacha_rate_value">23.00%</span>
+				</div>
+				<div class="gacha_rate_item star_background_rev">
+					<span class="gacha_rate_index">○</span>
+					<span class="gacha_rate_value">55.00%</span>
+				</div>
+			</div>
+
+			<div id="gacha_coin_area" class="shadow_background">
+				<img src="images/neko/icons/coin.png" id="gacha_coin_icon">
+				<span id="gacha_coin_show_area">9999</span>
+			</div>
+
+
+			<div id="gacha_take_button">引く</div>
+
+		</div>
+
 		<div class="star_background_rev hidden" id="save_ticker">
 			セーブしました。
 		</div>

@@ -451,8 +451,6 @@ function saveAnimation(){
 /************** スプライト関係 *********************/
 /**************************************************/
 
-
-
 //対応したスプライトがスライドインする
 //imagename : image/neko/spriteにおいてあるファイル名
 function spriteSlidein(imagename){
@@ -2106,4 +2104,200 @@ function prepareOptionMenu(){
 		$("#enable_scroll_background").text("□")		
 	}
 }
+
+
+
+/*******************************************/
+/* オプション画面 */
+/*******************************************/
+
+
+//ガチャ画面開く
+function showGachaMenu(){
+	prepareGachaMenu()
+	$("#gacha_menu")
+	.removeClass("hidden")
+	.animate({
+		opacity:0.98,
+		translateY:20,
+	},200,"easeOutQuart")	
+}
+
+//ガチャ画面閉じる
+function fadeGachaMenu(){
+	$("#gacha_menu")
+	.animate({
+		opacity:0,
+		translateY:0,
+	},300,"easeOutQuart")
+	.queue(function () {
+		$(this).addClass("hidden").dequeue();
+	})
+}
+
+//ガチャメニューの準備
+function prepareGachaMenu(){
+	prepareGachaSprite()
+}
+
+function prepareGachaSprite(){
+	$("#sprite_gacha_siro_daki").css({
+		translateX : 0,
+		translateY : 0,
+		opacity:0,
+	})
+	$("#sprite_gacha_kuro_daki").css({
+		translateX : 0,
+		translateY : 0,
+		opacity:0,
+	})
+	$("#sprite_gacha_siro").css({
+		translateX : 0,
+		translateY : 0,
+		opacity:1,
+	})
+	$("#sprite_gacha_kuro").css({
+		translateX : 0,
+		translateY : 0,
+		opacity:1,
+	})
+
+}
+
+//ガチャスプライトの再生
+function takeGachaSprite(){
+	var PI = Math.PI 
+	prepareGachaSprite()
+
+	$("#sprite_gacha_siro")
+	.animate({
+		translateY : -30
+	},50,"linear")
+	.animate({
+		translateY : 0
+	},50,"linear")
+	.delay(900)
+	.animate({count:0.5},{
+		step: function(now){
+			$(this).css({
+				translateX:  100 * -Math.cos(now/2 * PI + PI/2),
+				translateY:  100 * -Math.sin(now/2 * PI + PI/4),
+				opacity:1-now*6
+			})
+		},
+		duration : 600,
+		easing : "easeOutQuart",
+		complete:function(){this.count=0}
+	})
+
+	$("#sprite_gacha_siro_daki")
+	.delay(1000)
+	.animate({count:0.5},{
+		step: function(now){
+			$(this).css({
+				translateX:  100 * -Math.cos(now/2 * PI + PI/2),
+				translateY:  100 * -Math.sin(now/2 * PI + PI/4),
+				opacity:now*6
+			})
+		},
+		duration : 600,
+		easing : "easeOutQuart",
+		complete:function(){this.count=0}
+	})
+	.delay(500)
+	.animate({
+		translateY : -50
+	},100,"linear")
+	.animate({
+		translateY : -100
+	},100,"linear")
+	.animate({
+		translateY : -50
+	},100,"linear")
+	.animate({
+		translateY : -100
+	},100,"linear")
+
+	$("#sprite_gacha_kuro")
+	.delay(300)
+	.animate({
+		translateY : -30
+	},50,"linear")
+	.animate({
+		translateY : 0
+	},50,"linear")
+	.delay(600)
+	.animate({count:0.5},{
+		step: function(now){
+			$(this).css({
+				translateX:  -180 * -Math.cos(now/2 * PI + PI/2),
+				translateY:  100 * -Math.sin(now/2 * PI + PI/4),
+				opacity:1-now*6
+			})
+		},
+		duration : 600,
+		easing : "easeOutQuart",
+		complete:function(){this.count=0}
+	})
+
+	$("#sprite_gacha_kuro_daki")
+	.delay(1000)
+	.animate({count:0.5},{
+		step: function(now){
+			$(this).css({
+				translateX:  -180 * -Math.cos(now/2 * PI + PI/2),
+				translateY:  100 * -Math.sin(now/2 * PI + PI/4),
+				opacity:now*6
+			})
+		},
+		duration : 600,
+		easing : "easeOutQuart",
+		complete:function(){this.count=0}
+	})
+	.delay(500)
+	.animate({
+		translateY : -50
+	},100,"linear")
+	.animate({
+		translateY : -100
+	},100,"linear")
+	.animate({
+		translateY : -50
+	},100,"linear")
+	.animate({
+		translateY : -100
+	},100,"linear")
+
+	$("#sprite_gacha_mikuji")
+	.delay(1600)
+	.delay(500)
+	.animate({
+		translateY : 50
+	},100,"linear")
+	.animate({
+		translateY : 0
+	},100,"linear")
+	.animate({
+		translateY : 50
+	},100,"linear")
+	.animate({
+		translateY : 0
+	},100,"linear")
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
