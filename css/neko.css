@@ -1565,6 +1565,13 @@ body{
 	vertical-align: middle;
 }
 
+.option_description{
+	position: relative;
+	bottom: 10px;
+	left: 10px;
+	font-size: 16px;
+}
+
 #option_background{
 	position: absolute;
 	bottom:0px;
