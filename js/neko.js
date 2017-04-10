@@ -98,6 +98,7 @@ function mainLoop_1sec(){
 	updateNextEventTimer()
 	scrollBackgroundImage()
 	updatePlaytimeArea()
+	updateNextFreeGachaTime()
 
 	//背景をスクロールするのはオプションが指定されている場合のみ
 	if(save.options.enable_scroll_background){
@@ -1217,6 +1218,45 @@ function changeDepth(difference){
 /* ガチャ関連 */
 /*******************************************/
 
+//フリーおみくじができるか
+function isFreeSpinAvailable(){
+	var current = new Date().getTime()
+	var last = save.free_spin_last_take
+	//経過時刻差ミリ秒がフリーおみくじインターバル(分)を超えていれば引ける
+	return (current-last)/1000/60 > FREE_GACHA_INTERVAL
+}
+
+//ガチャを回す処理
+function spinGacha(times=1){
+
+	//フリースピンできて単発ならフリー枠で回す
+	if(isFreeSpinAvailable() && times==1){
+		save.free_spin_last_take = new Date().getTime()
+		takeGacha(1)
+		return
+	}
+
+	if(times * 100 > save.coin){
+		log("予算オーバーだよ")
+		return
+	}
+
+	save.coin -= times * 100
+	takeGacha(times)
+
+}
+
+//次のフリーおみくじまでの時刻を表示
+function updateNextFreeGachaTime(){
+	var current = new Date().getTime()
+	var last = save.free_spin_last_take
+	var diff_ms = FREE_GACHA_INTERVAL*1000*60 - (current-last)
+	var diff_s = Math.max(Math.floor(diff_ms / 1000 % 60),0)
+	var diff_m = Math.max(Math.floor(diff_ms /1000 / 60 % 60),0)
+	var diff_h = Math.max(Math.floor(diff_ms /1000 / 60 /60),0)
+	$("#next_free_gacha_time").text(diff_h+":"+diff_m+":"+diff_s)
+}
+
 //レアリティの抽選
 function lotGachaRarity(){
 	var rand = randInt(0,99)
@@ -1232,17 +1272,13 @@ function lotGachaRarity(){
 	return 0
 }
 
-//times回ガチャ引く
+//times回ガチャ引いてアイテムを取得する処理
+//コインの減算処理などはspin
 function takeGacha(times=1){
-
-	if(times * 100 > save.coin){
-		log("予算オーバーだよ")
-	}
-
-	save.coin -= times * 100
 
 	resetMikujiStick()
 	takeGachaSprite()
+	var aquiredItemList = []
 	for(var i=0;i<times;++i){
 		var rarity = lotGachaRarity()
 		var rank = getCurrentEnemyRank() * 1.4  +randInt(1,20)
@@ -1250,11 +1286,13 @@ function takeGacha(times=1){
 		var itemList = extractItemList(rarity,baseItemId,50)
 
 		var aquiredItem = itemList[randInt(0,itemList.length-1)]
+		aquiredItemList.push(aquiredItem)
 
 		addMikujiStick(rarity=["n","r","e","l"][rarity])
 		aquireItemBuilded(aquiredItem,rank)
 	}
-	showAquiredItemList()
+	showAquiredItemList(aquiredItemList)
+	updateGachaMenu()
 }
 
 /*******************************************/

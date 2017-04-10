@@ -80,7 +80,8 @@ var save = {
 		enable_event_animation : true,
 		enable_loitering : true,
 		enable_scroll_background : true,
-	}
+	},
+	free_spin_last_take : 0
 }
 
 var dungeon_data=[
@@ -218,3 +219,6 @@ var DEFAULT_EVENT_FREQ = 40
 
 //復活タイマー(秒)
 var AUTO_RESSURECT_TIME = 5000
+
+//フリーおみくじの間隔(分)
+var FREE_GACHA_INTERVAL = 600

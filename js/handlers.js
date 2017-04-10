@@ -205,5 +205,9 @@ $("#option_scroll_background").click(function(){
  })
 
 $("#gacha_take_button").click(function(){
-	takeGacha()
+	spinGacha(1)
+})
+
+$("#gacha_take_10_button").click(function(){
+	spinGacha(10)
 })

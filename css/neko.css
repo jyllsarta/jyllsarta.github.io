@@ -1647,18 +1647,51 @@ body{
 #gacha_take_button{
 	position: absolute;
 	padding-top: 7px;
-	font-size:56px;
+	font-size:26px;
 	bottom: 80px;
-	right: 50px;
-	width: 220px;
-	height: 90px;
+	right: 170px;
+	width: 120px;
+	height: 80px;
 	background-color: #153778;
 	border : 2px solid #bbccff;
 	vertical-align: middle;
 	text-align: center;
 }
 
-#gacha_take_button:hover{
+#gacha_take_10_button{
+	position: absolute;
+	padding-top: 7px;
+	font-size:26px;
+	bottom: 80px;
+	right: 30px;
+	width: 120px;
+	height: 80px;
+	background-color: #753718;
+	border : 2px solid #bbccff;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.gacha_cost_icon{
+	position: absolute;
+	left: 10px;
+	bottom: 10px;
+	width: 32px;
+	height: 32px;
+}
+
+.gacha_button_value{
+	position: absolute;
+	right: 10px;
+	bottom: 6px;
+	text-align: right;
+}
+
+.cant_take{
+	opacity: 0.3;
+}
+
+#gacha_take_10_button:hover, #gacha_take_button:hover{
 	opacity: 0.5;
 }
 
@@ -1686,6 +1719,16 @@ body{
 	font-size: 40px;
 	text-align: right;
 }
+
+#next_free_gacha_area{
+	position: absolute;
+	bottom: 0px;
+	right: 20px;
+	width: 350px;
+	height: 64px;
+	font-size: 18px;	
+}
+
 
 /*webフォント関連*/
 /*

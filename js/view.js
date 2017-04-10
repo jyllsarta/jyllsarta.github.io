@@ -2137,7 +2137,32 @@ function fadeGachaMenu(){
 
 //ガチャメニューの準備
 function prepareGachaMenu(){
+	updateGachaMenu()
 	prepareGachaSprite()
+}
+
+//ガチャメニューの更新
+function updateGachaMenu(){
+	$("#gacha_coin_show_area").text(save.coin)
+	if(isFreeSpinAvailable()){
+		$("#gacha_take_button .gacha_button_value").text("無料")
+	}
+	else{
+		$("#gacha_take_button .gacha_button_value").text("100")	
+	}
+
+	if(save.coin >= 100 || isFreeSpinAvailable()){
+		$("#gacha_take_button").removeClass("cant_take")
+	}
+	else{
+		$("#gacha_take_button").addClass("cant_take")	
+	}
+	if(save.coin >= 1000){
+		$("#gacha_take_10_button").removeClass("cant_take")
+	}
+	else{
+		$("#gacha_take_10_button").addClass("cant_take")	
+	}
 }
 
 function prepareGachaSprite(){
