@@ -204,3 +204,6 @@ $("#option_scroll_background").click(function(){
  	fadeGachaMenu()
  })
 
+$("#gacha_take_button").click(function(){
+	takeGacha()
+})

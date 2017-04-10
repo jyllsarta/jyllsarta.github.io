@@ -476,6 +476,28 @@ function aquireItem(item_id){
 	}
 }
 
+
+//item_idのアイテムをratget_rank相当に強化したものを取得
+function aquireItemBuilded(item_id, target_rank){
+	var target_power = getStandardItemParameter(target_rank)
+	var aquired_item = item_id
+	var base_power = getStandardItemParameter(aquired_item)
+
+	//そのランクでの標準の強さ * 1.1(1.1倍ぶんだけ余裕をちょっと持たせる)
+	var build_rank = Math.floor(10* target_power *1.1 /  base_power)
+
+	//該当アイテムが既にそれより強かったら残念売却
+	if(save.item[aquired_item] > build_rank){
+		castMessage(data.item_data[aquired_item].name+"はもう強いものを持ってるので50コインで売却した...")
+		save.coin+=50
+		save.total_coin_achieved+=50
+		return
+	}
+	//該当アイテムを取得
+	save.item[aquired_item]  = build_rank
+	castMessage(data.item_data[aquired_item].name+"+"+(build_rank-1)+"を引き当てた！")
+}
+
 //アイテムIDごとのレアリティの数値から出現比率を計算
 function getBoxAmount(item_id){
 	//大きすぎるアイテムIDには常にレジェ相当のサイズを返す
@@ -531,6 +553,22 @@ function lotItem(flatten=false){
 	var elected_item = lot_box[randInt(0,lot_box.length-1)]
 	return  elected_item
 }
+
+//レア度指定アイテムID抽出
+//rarity : [0123] →対応するレア度
+//IR:offset件目からlimit個のIDをチェックする
+function extractItemList(rarity=0,offset=50, limit=50){
+	var box = []
+	for(var i=offset;i<offset+limit;++i){
+		var item_rarity =data.item_data[i].rarity
+		if(rarity == item_rarity){
+			box.push(i)
+		}
+	}
+	return box
+}
+
+
 
 
 //階段処理
@@ -1173,6 +1211,50 @@ function changeDepth(difference){
 	data.dungeon_select_menu.depth = after
 
 	updateDungeonSelectFloorData()
+}
+
+/*******************************************/
+/* ガチャ関連 */
+/*******************************************/
+
+//レアリティの抽選
+function lotGachaRarity(){
+	var rand = randInt(0,99)
+	if(rand < 7){
+		return 3
+	}
+	if(rand < 22){
+		return 2
+	}
+	if(rand < 45){
+		return 1
+	}
+	return 0
+}
+
+//times回ガチャ引く
+function takeGacha(times=1){
+
+	if(times * 100 > save.coin){
+		log("予算オーバーだよ")
+	}
+
+	save.coin -= times * 100
+
+	resetMikujiStick()
+	takeGachaSprite()
+	for(var i=0;i<times;++i){
+		var rarity = lotGachaRarity()
+		var rank = getCurrentEnemyRank() * 1.4  +randInt(1,20)
+		var baseItemId = getCurrentEnemyRank() % data.item_data.length
+		var itemList = extractItemList(rarity,baseItemId,50)
+
+		var aquiredItem = itemList[randInt(0,itemList.length-1)]
+
+		addMikujiStick(rarity=["n","r","e","l"][rarity])
+		aquireItemBuilded(aquiredItem,rank)
+	}
+	showAquiredItemList()
 }
 
 /*******************************************/

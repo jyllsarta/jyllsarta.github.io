@@ -2286,10 +2286,42 @@ function takeGachaSprite(){
 
 }
 
+//ガチャ画面からおみくじの棒を出す
+//レアリティ： n ,r ,e, l
+//delayミリ秒だけ再生を遅らせる
+function addMikujiStick(rarity="n",delay=2600){
+	var template='<img class="sprite sprite_gacha_mikuji_stick" src="images/neko/sprite/gacha/mikuji_stick_'+rarity+'.png">'
+	var x =  randInt(1,50)
+	var y = randInt(1,20)
+	$("#mikuji_stick_list")
+	.delay(100)
+	.queue(function(){
+		$(this).append(template)
+		//:last-child がなんか動かないので汚い
+		$($("#mikuji_stick_list").children().slice(-1))
+		.delay(delay)
+		.animate({
+			opacity:1,
+			translateX : x,
+			translateY : y
+		},10,"linear")
+		.animate({
+			translateY : y +100
+		},100,"linear")
+		$(this).dequeue()
+	})
 
+}
 
+//おみくじ棒リセット
+function resetMikujiStick(){
+	$("#mikuji_stick_list").empty()
+}
 
+//手に入れたアイテム一覧表示
+function showAquiredItemList(){
 
+}
 
 
 
