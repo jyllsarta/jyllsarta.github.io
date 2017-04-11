@@ -148,6 +148,7 @@
 	top: 150px;
 	left: 70px;
 	width: 700px;
+	overflow: hidden;
 }
 
 #sprite_gacha_siro{
@@ -185,4 +186,27 @@
 	height: 180px;
 	top: 100px;
 	left: 300px;
+}
+#gacha_result_fade{
+	opacity: 0;
+	width: 700px;
+	height: 467px;
+	top: 0px;
+	left: 0px;	
+	background-color: #FFFAEE;
+}
+#gacha_result_background{
+	position: absolute;
+	top: -200px;
+	left: -350px;
+	mix-blend-mode: multiply;
+	transform: scale(2);
+}
+
+.rotate_bg{
+	animation: kurukuru 20s linear infinite;
+}
+@keyframes kurukuru{
+	0% {transform: rotate(0deg);}
+	100% {transform: rotate(360deg);}
 }

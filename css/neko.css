@@ -13,7 +13,7 @@ body{
 	width: 1200px;
 	height: 132px;
 	margin : auto;
-	}
+}
 
 #contents{
 	border-radius: 10px 10px 0px 0px;
@@ -1175,33 +1175,16 @@ body{
 
 
 #fadeouter{
-	display: none;
-	opacity: 0;
+	display: block;
+	opacity: 1;
 	position: absolute;
-	top: 1px;
-	left: 1px;
-	width: 1198px;
-	height: 780px;
-	background-color: #000000;
-	font-size: 30px;
+	top: 0px;
+	left: 0px;
+	width: 1200px;
+	height: 800px;
+	background-color: #123456;
 }
 
-#kirikae_text{
-	position: absolute;
-	font-size: 100px;
-	color: #FFFFAA;
-	top: 200px;
-	left: 300px;
-}
-
-#kirikae_animation{
-	position: absolute;
-	width: 150px;
-	height: 200px;
-	top: 500px;
-	left: 300px;
-	opacity: 0.7;
-}
 
 #stairs_fadeouter{
 	opacity: 0;
@@ -1644,32 +1627,35 @@ body{
 	vertical-align: middle;
 }
 
-#gacha_take_button{
+.gacha_button_template{
 	position: absolute;
 	padding-top: 7px;
 	font-size:26px;
-	bottom: 80px;
-	right: 170px;
 	width: 120px;
 	height: 80px;
-	background-color: #153778;
-	border : 2px solid #bbccff;
 	vertical-align: middle;
 	text-align: center;
 }
 
+#gacha_take_button{
+	bottom: 80px;
+	right: 170px;
+	border : 2px solid #dbecff;
+}
+
 #gacha_take_10_button{
-	position: absolute;
-	padding-top: 7px;
-	font-size:26px;
 	bottom: 80px;
 	right: 30px;
-	width: 120px;
-	height: 80px;
-	background-color: #753718;
-	border : 2px solid #bbccff;
-	vertical-align: middle;
-	text-align: center;
+	background: linear-gradient(to bottom,#f55738 10%,#552708);
+	border : 2px solid #ffd7c8;
+}
+
+.free_spin_not_available{
+	background: linear-gradient(to bottom,#619aff 10%,#153778);
+}
+
+.free_spin_available{
+	background: linear-gradient(to bottom,#6ad979 10%,rgb(43,86,52));
 }
 
 .gacha_cost_icon{
@@ -1723,12 +1709,56 @@ body{
 #next_free_gacha_area{
 	position: absolute;
 	bottom: 0px;
-	right: 20px;
+	right: 0px;
 	width: 350px;
 	height: 64px;
 	font-size: 18px;	
 }
 
+#gacha_result_area{
+	position: absolute;
+	width: 500px;
+	height: 430px;
+	left: 100px;
+	top: 16px;
+	background-color: #08020a;
+}
+
+#gacha_result{
+	position: absolute;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: center;
+	justify-content: space-around;
+	width: 500px;
+	height: 380px;
+	top: 55px;
+}
+
+#gacha_result_text{
+	position: absolute;
+	left: 80px;
+	top: 10px;
+	font-size: 24px;	
+}
+
+#gacha_result_back_button{
+	position: absolute;
+	top:10px;
+	left: 10px;
+	width: 35px;
+	height: 30px;
+	font-size: 25px;
+}
+
+.gacha_result_item{
+	margin: 2px 4px;
+	padding-left: 20px;
+	font-size: 20px;
+	width: 400px;
+	height: 30px;
+	border-radius: 10px 0px 0px 10px;
+}
 
 /*webフォント関連*/
 /*

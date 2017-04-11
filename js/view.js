@@ -2146,9 +2146,13 @@ function updateGachaMenu(){
 	$("#gacha_coin_show_area").text(save.coin)
 	if(isFreeSpinAvailable()){
 		$("#gacha_take_button .gacha_button_value").text("無料")
+		$("#gacha_take_button").addClass("free_spin_available")
+		$("#gacha_take_button").removeClass("free_spin_not_available")
 	}
 	else{
 		$("#gacha_take_button .gacha_button_value").text("100")	
+		$("#gacha_take_button").removeClass("free_spin_available")
+		$("#gacha_take_button").addClass("free_spin_not_available")
 	}
 
 	if(save.coin >= 100 || isFreeSpinAvailable()){
@@ -2186,7 +2190,11 @@ function prepareGachaSprite(){
 		translateY : 0,
 		opacity:1,
 	})
+	$("#gacha_result_fade").css({
+		opacity:0
+	})
 
+	$("#gacha_result_background").removeClass("rotate_bg")
 }
 
 //ガチャスプライトの再生
@@ -2309,6 +2317,17 @@ function takeGachaSprite(){
 		translateY : 0
 	},100,"linear")
 
+	$("#gacha_result_fade")
+	.delay(3100)
+	.animate({
+		opacity:0.9999
+	},500,"linear")
+	.delay(500)
+	.queue(function(){
+		$("#gacha_result_background").addClass("rotate_bg")
+		$(this).dequeue()
+	})
+
 }
 
 //ガチャ画面からおみくじの棒を出す
@@ -2344,13 +2363,55 @@ function resetMikujiStick(){
 }
 
 //手に入れたアイテム一覧表示
-function showAquiredItemList(){
+function showAquiredItemList(item_ids){
+	$("#gacha_result").empty()
 
+	for(var id of item_ids){
+		var fullItemName = makeFullEquipName(id)
+		var rarity = data.item_data[id].rarity
+		var tag = '<div class="'+getRarityClassName(rarity)+' gacha_result_item star_background">'+fullItemName+'</div>'
+		$("#gacha_result").append(tag)		
+	}
+
+	$("#gacha_result")
+	.delay(4000)
+	.queue(function(){
+		showGachaResult()
+		$(this).dequeue()
+	})
 }
 
+//メニュー画面でおみくじが引けるかどうか通知
+function updateMenuFreeSpinAvailable(){
+	if(isFreeSpinAvailable()){
+		$("#gacha_menu_show_button").text("おみくじ（1）")
+	}
+	else{
+		$("#gacha_menu_show_button").text("おみくじ")		
+	}
+}
 
+//ガチャ詳細表示
+function showGachaResult(){
+	$("#gacha_result_area")
+	.removeClass("hidden")
+	.animate({
+		opacity:1,
+	},300,"easeOutQuart")
+}
 
-
+//ガチャ詳細けす
+function fadeGachaResult(){
+	$("#gacha_result_area")
+	.animate({
+		opacity:0,
+		translateY:0,
+	},300,"easeOutQuart")
+	.queue(function () {
+		updateGachaMenu()
+		$(this).addClass("hidden").dequeue();
+	})
+}
 
 
 

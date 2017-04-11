@@ -661,6 +661,14 @@
 				<img src="images/neko/sprite/gacha/siro.png" class="sprite" id="sprite_gacha_siro">
 				<img src="images/neko/sprite/gacha/kuro_daki.png" class="sprite" id="sprite_gacha_kuro_daki">
 				<img src="images/neko/sprite/gacha/siro_daki.png" class="sprite" id="sprite_gacha_siro_daki">
+				<div id="gacha_result_fade">も</div>
+				<img src="images/neko/sprite/gacha/result_background.png" id="gacha_result_background">
+				<div id="gacha_result_area" class="hidden shadow_background">
+					<div id="gacha_result">
+					</div>
+					<div id="gacha_result_text">おみくじ結果</div>
+					<div id="gacha_result_back_button" class="back_button"></div>
+				</div>
 			</div>
 			<div id="gacha_rate_area" class="shadow_background">
 				<div class="gacha_rate_item star_background_rev">
@@ -686,13 +694,13 @@
 				<span id="gacha_coin_show_area">9999</span>
 			</div>
 
-			<div id="gacha_take_button">
+			<div id="gacha_take_button" class=" free_spin_available gacha_button_template">
 				<div class="gacha_button_index">1回引く</div>
 				<img src="images/neko/icons/coin.png" class="gacha_cost_icon">
 				<div class="gacha_button_value">無料</div>
 			</div>
 
-			<div id="gacha_take_10_button">
+			<div id="gacha_take_10_button" class="gacha_button_template">
 				<div class="gacha_button_index">10回引く</div>
 				<img src="images/neko/icons/coin.png" class="gacha_cost_icon">
 				<div class="gacha_button_value">1000</div>
@@ -702,15 +710,13 @@
 				<span>次のフリーおみくじまで：</span>
 				<span id="next_free_gacha_time">9:38:10</span>
 			</div>
-
 		</div>
 
 		<div class="star_background_rev hidden" id="save_ticker">
 			セーブしました。
 		</div>
-		<div id="fadeouter">
+		<div id="fadeouter" class="hidden">
 			<div id="kirikae_text">少女移動中</div>
-			<img src="images/neko/etc/kirikae.png" id="kirikae_animation">
 		</div>
 	</div>
 </div>

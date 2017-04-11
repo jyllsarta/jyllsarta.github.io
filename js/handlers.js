@@ -211,3 +211,7 @@ $("#gacha_take_button").click(function(){
 $("#gacha_take_10_button").click(function(){
 	spinGacha(10)
 })
+
+$("#gacha_result_back_button").click(function(){
+	fadeGachaResult()
+})

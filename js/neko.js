@@ -99,6 +99,7 @@ function mainLoop_1sec(){
 	scrollBackgroundImage()
 	updatePlaytimeArea()
 	updateNextFreeGachaTime()
+	updateMenuFreeSpinAvailable()
 
 	//背景をスクロールするのはオプションが指定されている場合のみ
 	if(save.options.enable_scroll_background){
@@ -1281,7 +1282,7 @@ function takeGacha(times=1){
 	var aquiredItemList = []
 	for(var i=0;i<times;++i){
 		var rarity = lotGachaRarity()
-		var rank = getCurrentEnemyRank() * 1.4  +randInt(1,20)
+		var rank = getCurrentEnemyRank() * 1.25  +randInt(1,20)
 		var baseItemId = getCurrentEnemyRank() % data.item_data.length
 		var itemList = extractItemList(rarity,baseItemId,50)
 
@@ -1294,6 +1295,9 @@ function takeGacha(times=1){
 	showAquiredItemList(aquiredItemList)
 	updateGachaMenu()
 }
+
+
+
 
 /*******************************************/
 /* 初期化とメインループ実行 */
