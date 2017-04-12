@@ -215,3 +215,7 @@ $("#gacha_take_10_button").click(function(){
 $("#gacha_result_back_button").click(function(){
 	fadeGachaResult()
 })
+
+$("#changestage_click_cover").click(function(){
+	fadeChangeStageView()
+})

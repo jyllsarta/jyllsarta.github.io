@@ -1176,7 +1176,7 @@ body{
 
 #fadeouter{
 	display: block;
-	opacity: 1;
+	opacity: 0;
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -1750,7 +1750,6 @@ body{
 	height: 30px;
 	font-size: 25px;
 }
-
 .gacha_result_item{
 	margin: 2px 4px;
 	padding-left: 20px;
@@ -1760,6 +1759,113 @@ body{
 	border-radius: 10px 0px 0px 10px;
 }
 
+#stage_number{
+	position: absolute;
+	top: 30px;
+	left: 50px;
+	width: 600px;
+	height: 60px;
+	font-family: "Mplus 1p";
+	font-weight : 100;
+	font-size: 40px;
+}
+#stage_title{
+	position: absolute;
+	top: 70px;
+	left: 50px;
+	width: 1000px;
+	height: 130px;
+	font-family: "Mplus 1p";
+	font-weight : 100;
+	font-size: 100px;
+	border-bottom: solid 2px #FFFFFF;
+}
+#stage_description{
+	position: absolute;
+	top: 230px;
+	left: 50px;
+	width: 1000px;
+	height: 400px;
+	font-family: "Mplus 1p";
+	font-weight : 100;
+	font-size: 26px;
+	line-height: 2.2em;
+}
+#stage_change_tips_text{
+	position: absolute;
+	bottom: 110px;
+	left: 50px;
+	position: absolute;
+	font-family: "Mplus 1p";
+	font-weight : 100;
+	font-size: 26px;
+}
+#stage_change_tips{
+	position: absolute;
+	bottom: 50px;
+	left: 100px;
+	width: 600px;
+	font-size: 20px;
+	font-family: "Mplus 1p";
+	font-weight : 100;
+}
+#stage_change_end_button{
+	position: absolute;
+	bottom: 0px;
+	right: 20px;
+	font-family: "Mplus 1p";
+	font-weight : 200;
+	font-size: 30px;
+}
+#stage_shadow{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 1200px;
+	height: 800px;
+	background: linear-gradient(to bottom, rgba(0,0,0,0.55),rgba(1,1,1,0.9));	
+	mix-blend-mode: multiply;
+}
+.last_letter{
+	color: #74d4f2;
+}
+#changestage_click_cover{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 1200px;
+	height: 800px;
+	opacity:0;	
+}
+.whole_screen{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 1200px;
+	height: 800px;
+}
+#blight_normal{
+	mix-blend-mode: normal;
+	background-color: #FFFFFF;
+}
+#blight_screen{
+	mix-blend-mode: screen;
+	background-color: #FFFFFF;
+}
+#blight_overlay{
+	mix-blend-mode: overlay;
+	background-color: #FFFFFF;
+}
+
+
+.pekapeka{
+	animation: pekapeka 1.5s linear infinite;
+}
+@keyframes pekapeka{
+	0% {opacity: 0.7;}
+	50% {opacity: 1;}
+	100% {opacity: 0.7;}
+}
 /*webフォント関連*/
 /*
 .noto { font-family: "Noto Sans Japanese"; }

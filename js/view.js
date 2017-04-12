@@ -1937,68 +1937,87 @@ function changeStageToView(stage_id,depth){
 	.animate({
 		opacity:0,
 		translateY:0,
-	},1,"linear")
+	},1,"linear")//translateYはanimateじゃないといじれないパラメータ
 	.queue(function () {
+		save.current_dungeon_id = stage_id
+		save.current_floor = depth
+		initView()
 		$(this).addClass("hidden").dequeue();
 	})
 
+	updateTips()
+	changeStageInfoAreaTo(stage_id)
 
-	//切り替え用アニメーションを再生
 	$("#fadeouter")
-	.css("display","block")
+	.removeClass("hidden")
+	.css("opacity",0)
 	.animate({
 		opacity:1
-	},300,"easeOutQuart")
-	.queue(function(){
-		updateBackgroundImage()
-		$(".dungeon_name").text(dungeon_data[stage_id].name)
-		updateStairsArea()
-		$(this).dequeue();
-	})
-	.delay(1000)
-	.animate({
-		opacity:0
-	},200,"easeOutQuart")
-	.queue(	function(){
-		$(this).css("display","none")
-		$(this).dequeue();
-	})
-
-	$("#kirikae_animation")
-	.css("left","400px")
-	.css("opacity",0.7)
-	.animate({
-		opacity:1,
-		left:"600px",
-	},500,"linear")
-	.delay(300)
-	.animate({
-		top:480
-	},30,"swing")
-	.animate({
-		top:500
-	},30,"linear")
-
-	$("#kirikae_text")
-	.text("少女移動中 ")
-	.delay(200)
-	.queue(	function(){
-		$(this).append(".")
-		$(this).dequeue();
-	})
-	.delay(250)
-	.queue(	function(){
-		$(this).append(".")
-		$(this).dequeue();
-	})
-	.delay(300)
-	.queue(	function(){
-		$(this).append(".")
-		$(this).dequeue();
-	})
+	},1000)
 
 }
 
+//ステージ変更画面を消す
+function fadeChangeStageView(){
+	$("#changestage_blight")
+	.css("opacity",1)
+	.removeClass("hidden")
+
+	$(".whole_screen").css("opacity",0)
+
+	$("#blight_normal")
+	.delay(2000)
+	.animate({
+		opacity:1
+	},200,"linear")
+
+	$("#blight_screen")
+	.delay(700)
+	.animate({
+		opacity:1
+	},1300,"linear")
+
+	$("#blight_overlay")
+	.delay(0)
+	.animate({
+		opacity:1
+	},700,"linear")
+
+	$(".whole_screen")
+	.removeClass("hidden")
+	.delay(1500)
+	.queue(function(){
+		$("#fadeouter").addClass("hidden")
+		$(this).dequeue()
+	})
+	.animate({
+		opacity:0
+	},1000,"linear")
+	.queue(function(){
+		$(this).addClass("hidden")
+		$(this).dequeue()
+	})
+
+
+}
+
+//ステージ切り替え用の文字を
+function changeStageInfoAreaTo(stage_id){
+	var stage = stage_data[stage_id]
+	$("#stage_number").text(stage.number)
+
+	//タイトルは最後の一文字の色を変える
+	var title = stage.title
+	var title_prev = title.slice(0,title.length-1)
+	var last_letter = title.slice(-1)
+	$("#title_prev").text(title_prev)
+	$(".last_letter").text(last_letter)
+	$(".last_letter").css("color",stage.last_color)
+
+	$("#stage_description").html(stage.description)
+
+	$("#stage_background").attr("src","images/neko/bg/"+stage.back)
+}
 
 //ダンジョン選択画面の詳細表示をdungeon_idのものに切り替える
 function updateDungeonDetailTo(dungeon_id){
@@ -2018,6 +2037,10 @@ function updateDungeonDetailTo(dungeon_id){
 	$("#dungeon_detail_text").text(dungeon_data[dungeon_id].caption)
 }
 
+//tipsを更新
+function updateTips(){
+	$("#stage_change_tips").text(tips_data[randInt(0,tips_data.length-1)])
+}
 
 //ダンジョンの開放状況に合わせてリストを用意する
 function prepareDungeonList(){
@@ -2052,6 +2075,7 @@ function updateDungeonSelectFloorData(){
 	$("#dungeon_detail_completed_floor").text(save.dungeon_process[stage_id])
 	$("#dungeon_decide_current_depth").text(data.dungeon_select_menu.depth)
 }
+
 
 
 /*******************************************/
@@ -2139,6 +2163,8 @@ function fadeGachaMenu(){
 function prepareGachaMenu(){
 	updateGachaMenu()
 	prepareGachaSprite()
+	fadeGachaResult()
+	resetMikujiStick()
 }
 
 //ガチャメニューの更新
@@ -2318,7 +2344,7 @@ function takeGachaSprite(){
 	},100,"linear")
 
 	$("#gacha_result_fade")
-	.delay(3100)
+	.delay(3900)
 	.animate({
 		opacity:0.9999
 	},500,"linear")
@@ -2374,7 +2400,7 @@ function showAquiredItemList(item_ids){
 	}
 
 	$("#gacha_result")
-	.delay(4000)
+	.delay(4500)
 	.queue(function(){
 		showGachaResult()
 		$(this).dequeue()
@@ -2409,6 +2435,8 @@ function fadeGachaResult(){
 	},300,"easeOutQuart")
 	.queue(function () {
 		updateGachaMenu()
+		prepareGachaSprite()
+		resetMikujiStick()
 		$(this).addClass("hidden").dequeue();
 	})
 }
