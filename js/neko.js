@@ -913,6 +913,7 @@ function equip(domobject){
 	updateCurrentTotalParameter()
 	updateEquipList()
 	updateEquipDetailATKDEF()
+	updateEquipListParameterIndexCurrentEquipArea()
 }
 
 //クリック経由で装備を外す のdompbjectからスライスを取り出して処理

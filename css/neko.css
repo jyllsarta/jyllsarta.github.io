@@ -853,11 +853,10 @@ body{
 
 .equip_list_text{
 	display: inline-block;
-	position: relative;
-	top: 1px;
-	left: 5px;
+	margin-left: 5px;
+	vertical-align:to;
 	font-size: 20px;
-	width: 275px;
+	width: 270px;
 }
 
 .equip_list_param{
@@ -866,6 +865,7 @@ body{
 	font-size: 20px;
 	padding-right: 5px;
 	text-align: right;
+	vertical-align: top;
 }
 
 .param_digest_icon_container{
@@ -878,20 +878,24 @@ body{
 
 .param_digest{
 	width: 5px;
-	height: 20px;
+	height: 18px;
 	border-radius: 1px 1px;
-	transform: translateY(6px);
+	transform: translateY(4px);
 	padding-top: 4px;
+}
+
+.current_equip_digest{
+	padding-top: 0px;
 }
 
 .param_digest_str{
 	background: linear-gradient(to bottom,#ff4c9f 10%,#68000c);
 }
 .param_digest_dex{
-	background: linear-gradient(to bottom,#7dff38 10%,#163f00);
+	background: linear-gradient(to bottom,#00ff0c 10%,#163f00);
 }
 .param_digest_def{
-	background: linear-gradient(to bottom,#8efdff 10%,#001a72);
+	background: linear-gradient(to bottom,#00bfff 10%,#001a72);
 }
 .param_digest_agi{
 	background: linear-gradient(to bottom,#ffff64 10%,#5e3f0f);
@@ -1123,6 +1127,12 @@ body{
 	padding-left: 10px;
 	width: 280px;
 	background-color: #212933;
+}
+
+.current_equip_text{
+	display: inline-block;
+	width: 240px; 
+	vertical-align: top;
 }
 
 .equip_first{
