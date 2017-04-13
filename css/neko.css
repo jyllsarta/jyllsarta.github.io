@@ -144,7 +144,6 @@ body{
 	font-size: 18px;
 }
 
-
 #datetime_index_area{
 	padding-top: 3px;
 	width: 900px;
@@ -719,8 +718,8 @@ body{
 
 #equip_character_toggle_button{
 	position: absolute;
-	top: 90px;
-	left: 220px;
+	top: 85px;
+	left: 210px;
 }
 
 
