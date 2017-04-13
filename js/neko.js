@@ -949,6 +949,7 @@ function unEquip(slice=false){
 	updateCurrentTotalParameter()
 	updateEquipList()
 	updateEquipDetailATKDEF()
+	updateEquipListParameterIndexCurrentEquipArea()
 }
 
 function getItemIconNameFromTypeID(type_id){
@@ -987,6 +988,7 @@ function toggleEquipEditCharacter(){
 	updateCurrentTotalParameter()
 	updateEquipList()
 	updateEquipDetailATKDEF()
+	updateEquipListParameterIndexCurrentEquipArea()
 }
 
 //現在の装備のページのインデックスを返す
