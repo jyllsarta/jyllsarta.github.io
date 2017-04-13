@@ -53,7 +53,8 @@ function updateCurrentFloorText(){
 //不在時イベントエリアの残り時間を更新
 function updateTimeRemainArea(){
 
-	if(save.extra_event_time_remain <= 0){
+	if(save.extra_event_time_remain < 40){
+		save.extra_event_time_remain = 0
 		$("#extra_event_area").addClass("hidden")
 	}
 
