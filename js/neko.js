@@ -1238,9 +1238,15 @@ function isFreeSpinAvailable(){
 //ガチャを回す処理
 function spinGacha(times=1){
 
+	//ガチャは連続で引けない
+	if(data.disable_gacha_button){
+		return
+	}
+
 	//フリースピンできて単発ならフリー枠で回す
 	if(isFreeSpinAvailable() && times==1){
 		save.free_spin_last_take = new Date().getTime()
+		data.disable_gacha_button = true
 		takeGacha(1)
 		return
 	}
@@ -1251,6 +1257,7 @@ function spinGacha(times=1){
 	}
 
 	save.coin -= times * 100
+	data.disable_gacha_button = true
 	takeGacha(times)
 
 }

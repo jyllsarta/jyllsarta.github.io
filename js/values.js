@@ -36,7 +36,7 @@ var data = {
 	},
 	background_image_scroll_position : 1000,
 	current_build_item_id : 0,
-	playtime : 0
+	disable_gacha_button : false,
 }
 
 
@@ -81,7 +81,8 @@ var save = {
 		enable_loitering : true,
 		enable_scroll_background : true,
 	},
-	free_spin_last_take : 0
+	free_spin_last_take : 0,
+	last_login : null,
 }
 
 var dungeon_data=[

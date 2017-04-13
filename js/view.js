@@ -2246,6 +2246,11 @@ function prepareGachaSprite(){
 	})
 
 	$("#gacha_result_background").removeClass("rotate_bg")
+
+	$("#gacha_result_area").css({
+		opacity:0,
+		translateY:0
+	})
 }
 
 //ガチャスプライトの再生
@@ -2444,6 +2449,8 @@ function updateMenuFreeSpinAvailable(){
 
 //ガチャ詳細表示
 function showGachaResult(){
+	//結果が出たら引き直してOK
+	data.disable_gacha_button = false
 	$("#gacha_result_area")
 	.removeClass("hidden")
 	.animate({
