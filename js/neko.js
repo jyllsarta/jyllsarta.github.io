@@ -14,8 +14,10 @@ function randInt(min, max) {
 }
 
 //現在時刻をhh:mm:ddの形式の文字列で返す
-function getCurrentTimeString(){
+function getCurrentTimeString(offset=0){
+	var date = new Date().getTime() - offset*1000
 	var d = new Date()
+	d.setTime(date)
 	var time = d.getHours() + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0"+d.getSeconds()).slice(-2)
 	return time
 }
@@ -44,6 +46,11 @@ function init(){
 	loadItemList()
 	load()
 
+	//イベント加速秒数を積む
+	save.extra_event_time_remain += calcSecondsPassedFromLastLogin()
+	//一日ぶん以上は再生しない
+	save.extra_event_time_remain = Math.min(save.extra_event_time_remain,86400)
+
 	initView()
 }
 
@@ -64,6 +71,9 @@ function mainLoop(){
 	loiteringSiro()
 	loiteringKuro()
 	data.frame += 1
+
+	//最終ログイン後のイベント再生
+	playExtraEvent()
 }
 
 //1秒ごとの更新で十分な項目
@@ -71,6 +81,9 @@ function mainLoop_1sec(){
 
 	//プレイ時間をインクリメント
 	save.playtime++
+
+	//最終ログイン時刻を更新
+	save.last_login = new Date().getTime()
 
 	if(isCharacterAlive()){
 		//生きてる間はイベントタイマーが回る
@@ -172,7 +185,7 @@ function takeScreenshot(){
 //イベント間隔
 function getEventFreq(){
 
-	if(data.__hypereventdashmode){
+	if(data.__debughypereventdashmode){
 		return 1
 	}
 
@@ -182,27 +195,37 @@ function getEventFreq(){
 	return DEFAULT_EVENT_FREQ - reduced
 }
 
+//前回イベント発生時刻からの経過時間を計算
+function calcSecondsPassedFromLastLogin(){
+	//初期セーブの場合特になし
+	if(save.last_login === null){
+		return 0
+	}
+
+	return Math.floor((new Date().getTime() - save.last_login)/1000)
+}
+
 /*******************************************/
 /* デバッグ用 */
 /*******************************************/
 
 //アイテムいっぱい取得
 function __debugAquireItemIppai(){
-	var prev_mode = data.__hypereventdashmode
-	data.__hypereventdashmode = true
+	var prev_mode = data.__debughypereventdashmode
+	data.__debughypereventdashmode = true
 	for(var i=0;i<500;++i){
 		var rand = randInt(0,data.item_data.length-1)
 		aquireItem(rand)
 	}
 	//viewの反映
 	prepareEquipMenu()
-	data.__hypereventdashmode = prev_mode
+	data.__debughypereventdashmode = prev_mode
 }
 
 //現在の階層 or 指定したランクに合わせた武器をいっぱい取得
 function __debugAquireItemExcursion(rank){
-	var prev_mode = data.__hypereventdashmode
-	data.__hypereventdashmode = true
+	var prev_mode = data.__debughypereventdashmode
+	data.__debughypereventdashmode = true
 	if(!rank){
 		rank = getCurrentEnemyRank()
 	}
@@ -210,7 +233,7 @@ function __debugAquireItemExcursion(rank){
 		aquireItem(rank)
 	}
 	prepareEquipMenu()
-	data.__hypereventdashmode = prev_mode
+	data.__debughypereventdashmode = prev_mode
 }
 
 //ダンジョンフルオープン
@@ -227,7 +250,7 @@ function __debugDungeonFullOpen(){
 //スプライトの発生を抑制
 function __debugHyperEventDashMode(){
 	AUTO_RESSURECT_TIME= 5
-	data.__hypereventdashmode = true
+	data.__debughypereventdashmode = true
 	save.next_event_timer = 1
 	save.auto_ressurect_timer = 10
 	save.options.enable_event_animation = false
@@ -383,6 +406,40 @@ function event(){
 	}
 	//イベントごとにセーブしとく
 	makesave()
+}
+
+//開いていない間に起こったイベントを再計算する
+function playExtraEvent(){
+	//残り時間が0秒なら何もしない
+	if(save.extra_event_time_remain <= 0){
+		data.hyper_event_dash_mode = false
+		return
+	}
+
+	data.hyper_event_dash_mode = true
+
+	//生きてるならイベントを起こす
+	if(isCharacterAlive()){
+		save.extra_event_time_remain -= getEventFreq()
+		save.extra_event_time_remain = Math.max(save.extra_event_time_remain,0)
+		event()
+	}
+	//死んでるなら回復
+	else{
+		save.extra_event_time_remain -= AUTO_RESSURECT_TIME
+		save.extra_event_time_remain = Math.max(save.extra_event_time_remain,0)
+		ressurect()
+	}
+
+	if(save.extra_event_time_remain <= 0){
+		initView()
+		castMessage("************************************")
+		castMessage("不在時のイベント再生を終了しました。")
+		castMessage("************************************")
+	}
+
+	updateTimeRemainArea()
+
 }
 
 //ダンジョンIDごとに一番上のレイヤーでどんな加工をするかスイッチする
@@ -666,19 +723,11 @@ function reduceNextEventTime(second){
 }
 
 function ressurect(){
-	//fadeouterを掴んでいるのは完全に適当
-	$("#fadeouter").queue(function(){
-		ressurectAnimation()	
-		castMessage("全回復！")
-		$(this).dequeue();
-	})
-	.delay(500)
-	.queue(function(){
-		save.auto_ressurect_timer = AUTO_RESSURECT_TIME
-		save.status.siro.hp = save.status.siro.max_hp
-		save.status.kuro.hp = save.status.kuro.max_hp
-		$(this).dequeue();
-	})
+	ressurectAnimation()	
+	castMessage("全回復！")
+	save.auto_ressurect_timer = AUTO_RESSURECT_TIME
+	save.status.siro.hp = save.status.siro.max_hp
+	save.status.kuro.hp = save.status.kuro.max_hp
 
 }
 

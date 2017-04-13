@@ -23,6 +23,7 @@ function initView(){
 	updateCurrentFloorText()
 	updateBackgroundImage()
 	updateBackgroundImagePosition()
+	updateTimeRemainArea()
 
 }
 
@@ -47,6 +48,21 @@ function updateCurrentFloorText(){
 	else{
 		$("#current_floor").removeClass("overdepthed")
 	}
+}
+
+//不在時イベントエリアの残り時間を更新
+function updateTimeRemainArea(){
+
+	if(save.extra_event_time_remain <= 0){
+		$("#extra_event_area").addClass("hidden")
+	}
+
+	var hh = Math.floor(save.extra_event_time_remain / 60 / 60)
+	var mm = Math.floor(save.extra_event_time_remain / 60 % 60)
+	var ss = Math.floor(save.extra_event_time_remain % 60)
+
+	$("#time_remain").text(hh+":"+mm+":"+ss)
+
 }
 
 //次のイベントまでの時刻を表示しているところを更新
@@ -106,6 +122,11 @@ function updateBackgroundImageLastDungeon(){
 
 //階段降り時のフェードアウトイン
 function fadeOutAndFadeInStairs(){
+
+	if(data.hyper_event_dash_mode || data.__debughypereventdashmode){
+		return
+	}
+
 	$("#stairs_fadeouter")
 	.delay(2000)
 	.removeClass("hidden")
@@ -142,8 +163,9 @@ function removeOldLog(){
 }
 
 //メッセージを流す
-function showMessage(message){
-	var tag = '<li class="log"><span class="log_time">'+getCurrentTimeString()+'</span>'
+//offset秒数だけ過去の時刻を打刻する
+function showMessage(message,offset=0){
+	var tag = '<li class="log"><span class="log_time">'+getCurrentTimeString(offset=offset)+'</span>'
 	tag += '<span class="log_message">'+message+'</span></li>'
 	$("#message_logs").append(tag);
 	if ($("#message_logs .log").length > MAX_MESSAGE_ITEM){
@@ -167,17 +189,19 @@ function showMessage(message){
 
 //画面内のログ表示エリアにデータを吐く
 function castMessage(message){
+	//過去のイベントである場合それだけ古い時間を打刻させる
+	var past_offset_second = save.extra_event_time_remain
 
 	var delay_time = 150
 
-	if(data.__hypereventdashmode){
+	if(data.hyper_event_dash_mode){
 		delay_time = 0
 	}
 
 	$("#message_log_queue_dummy")
 	.delay(delay_time)
 	.queue(function(){
-		showMessage(message)
+		showMessage(message,offset=past_offset_second)
 		$(this).dequeue()
 	})
 }
@@ -346,6 +370,10 @@ function updateAutoRessurectionCount(){
 //復活演出
 function ressurectAnimation(){
 
+	if(data.hyper_event_dash_mode){
+		return
+	}
+
 	showResurrectSprite()
 
 	$("#ressurection_light")
@@ -503,6 +531,11 @@ function resetItemSprite(){
 //アイテム取得スプライトをスライドインする
 function showItemSprite(){
 
+	//イベント超速再生中は一切スプライトをを出さない
+	if(data.hyper_event_dash_mode){
+		return
+	}
+
 	//イベントアニメオフなら一枚絵出して終わり
 	if(!save.options.enable_event_animation){
 		spriteSlidein("item")
@@ -620,6 +653,11 @@ function resetBattleSprite(){
 
 function showBattleSprite(){
 
+	//イベント超速再生中は一切スプライトを出さない
+	if(data.hyper_event_dash_mode){
+		return
+	}
+
 	if(!save.options.enable_event_animation){
 		spriteSlidein("battle")
 		return
@@ -733,6 +771,11 @@ function resetStairsSprite(){
 }
 
 function showStairsSprite(){
+
+	//イベント超速再生中は一切スプライトを出さない
+	if(data.hyper_event_dash_mode){
+		return
+	}
 
 	if(!save.options.enable_event_animation){
 		spriteSlidein("stairs")
@@ -909,6 +952,11 @@ function resetBossBattleSprite(){
 
 function showBossBattleSprite(){
 
+	//イベント超速再生中は一切スプライトを出さない
+	if(data.hyper_event_dash_mode){
+		return
+	}
+
 	if(!save.options.enable_event_animation){
 		spriteSlidein("boss")
 		return
@@ -999,6 +1047,11 @@ function resetResurrectSprite(){
 }
 
 function showResurrectSprite(){
+
+	//イベント超速再生中はスプライトの発生を抑制 Yo Yo
+	if(data.hyper_event_dash_mode){
+		return
+	}
 
 	if(!save.options.enable_event_animation){
 		spriteSlidein("ressurect")
