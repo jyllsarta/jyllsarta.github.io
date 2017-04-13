@@ -77,6 +77,21 @@ function getCurrentEnemyRank(){
 	return Math.floor(start_ir+( depth/8))
 }
 
+//これまで潜った中で一番強いランクの敵のランクを返す
+function getMaxEnemyRank(){
+	var deepest_dungeon_id = 0
+	for(var i=0;i<save.dungeon_open.length;++i){
+		if(save.dungeon_open[i] > 0){
+			deepest_dungeon_id = i
+		}
+	} 
+
+	var start_ir = dungeon_data[deepest_dungeon_id].start_ir
+	var depth = Math.min(save.dungeon_process[deepest_dungeon_id],dungeon_data[deepest_dungeon_id].depth)
+
+	return Math.floor(start_ir+( depth/8))
+}
+
 //敵のランクを加味した経験値を計算して返す
 function getExp(rank){
 	var average_lv = (save.status.siro.lv + save.status.kuro.lv)/2

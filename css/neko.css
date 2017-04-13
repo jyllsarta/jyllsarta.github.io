@@ -721,8 +721,8 @@ body{
 #equip_select_area{
 	position: absolute;
 	top: 20px;
-	left: 380px;
-	width: 700px;
+	left: 360px;
+	width: 720px;
 	height: 410px;
 }
 
@@ -781,8 +781,8 @@ body{
 #equip_coin_show_area{
 	position: absolute;
 	top: 10px;
-	left: 455px;
-	width: 350px;
+	left: 505px;
+	width: 280px;
 	font-size: 24px;
 }
 
@@ -834,15 +834,44 @@ body{
 	top: 1px;
 	left: 5px;
 	font-size: 20px;
-	width: 280px;
+	width: 275px;
 }
 
 .equip_list_param{
 	display: inline-block;
-	width: 60px;	
+	width: 70px;	
 	font-size: 20px;
-	padding-right: 20px;
+	padding-right: 5px;
 	text-align: right;
+}
+
+.param_digest_icon_container{
+	display: inline-flex;
+	flex-direction: row;
+	justify-content: space-around;
+	width: 30px;
+	height: 20px;
+}
+
+.param_digest{
+	width: 5px;
+	height: 20px;
+	border-radius: 1px 1px;
+	transform: translateY(6px);
+	padding-top: 4px;
+}
+
+.param_digest_str{
+	background: linear-gradient(to bottom,#ff4c9f 10%,#68000c);
+}
+.param_digest_dex{
+	background: linear-gradient(to bottom,#7dff38 10%,#163f00);
+}
+.param_digest_def{
+	background: linear-gradient(to bottom,#8efdff 10%,#001a72);
+}
+.param_digest_agi{
+	background: linear-gradient(to bottom,#ffff64 10%,#5e3f0f);
 }
 
 .equip_build_button{
@@ -877,7 +906,7 @@ body{
 #equip_detail_area{
 	position: absolute;
 	top: 65px;
-	left: 470px;
+	left: 490px;
 	width: 210px;
 	height: 330px;
 	background-color: #121212;
@@ -1052,8 +1081,8 @@ body{
 #character_status_area{
 	position: absolute;
 	top: 450px;	
-	left: 380px;
-	width: 700px;
+	left: 360px;
+	width: 720px;
 	height: 230px;
 }
 

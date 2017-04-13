@@ -1079,6 +1079,14 @@ function getMaxItemRankPlayerGot(){
 	return max
 }
 
+//指定武器の現在の強さと、指定ランクの該当武器の標準的な強さとの比を返す
+function getEquipmentPowerRatio(item_id,rank,parameterName){
+	//標準パラメータの4分の1
+	var standard_parameter = getStandardItemParameter(rank) / 4
+	var that_parameter = getBuildedParameter(item_id,parameterName)
+	return that_parameter / standard_parameter
+}
+
 
 /*******************************************/
 /* ステータス画面 */
@@ -1283,7 +1291,7 @@ function takeGacha(times=1){
 	for(var i=0;i<times;++i){
 		var rarity = lotGachaRarity()
 		var rank = getCurrentEnemyRank() * 1.25  +randInt(1,20)
-		var baseItemId = getCurrentEnemyRank() % data.item_data.length
+		var baseItemId = getMaxEnemyRank() % data.item_data.length
 		var itemList = extractItemList(rarity,baseItemId,50)
 
 		var aquiredItem = itemList[randInt(0,itemList.length-1)]

@@ -1347,6 +1347,7 @@ function prepareEquipMenu(){
 	updateEquipDetailATKDEF()
 	updateCurrentEquipListArea()
 	updateCurrentTotalParameter()
+	updateEquipListParameterIndex()
 }
 
 //現在装備エリアに表示されるべきアイテムIDのリストを作成する
@@ -1416,6 +1417,30 @@ function updateEquipListParam(){
 
 		var full_score = calcTotalItemParam(target_item_id)
 		equip_name_list[i].innerText = full_score
+	}
+}
+
+//パラメータ指標エリア(棒のとこ)の更新
+function updateEquipListParameterIndex(){
+	var param_digest_list = $("#equipment_list .equip_item").children(".param_digest_icon_container")
+	var item_ids = getCurrentPageItemList()
+	for(var i=0;i<param_digest_list.length;++i){
+		var target_item_id = item_ids[i]
+		var target_item_lv = save.item[target_item_id] || 0
+
+		if(!data.item_data[target_item_id] || !target_item_lv){
+			$($(param_digest_list[i]).children()).css("opacity",0)
+			continue
+		}
+
+		var [str,dex,def,agi] = $(param_digest_list[i]).children().get()
+		//各パラメータの標準パラメータとの比を取って半分にした値を透明度とする
+		//全部標準ならopacity0.5に見える 2倍以上に特化した値なら1になる
+		$(str).css("opacity",getEquipmentPowerRatio(item_ids[i], getMaxEnemyRank(),"str")/2)
+		$(dex).css("opacity",getEquipmentPowerRatio(item_ids[i], getMaxEnemyRank(),"dex")/2)
+		$(def).css("opacity",getEquipmentPowerRatio(item_ids[i], getMaxEnemyRank(),"def")/2)
+		$(agi).css("opacity",getEquipmentPowerRatio(item_ids[i], getMaxEnemyRank(),"agi")/2)
+
 	}
 }
 
