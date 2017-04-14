@@ -23,7 +23,6 @@ function initView(){
 	updateCurrentFloorText()
 	updateBackgroundImage()
 	updateBackgroundImagePosition()
-	updateTimeRemainArea()
 
 }
 
@@ -52,17 +51,22 @@ function updateCurrentFloorText(){
 
 //不在時イベントエリアの残り時間を更新
 function updateTimeRemainArea(){
-
-	if(save.extra_event_time_remain < 40){
-		save.extra_event_time_remain = 0
-		$("#extra_event_area").addClass("hidden")
-	}
-
 	var hh = Math.floor(save.extra_event_time_remain / 60 / 60)
 	var mm = Math.floor(save.extra_event_time_remain / 60 % 60)
 	var ss = Math.floor(save.extra_event_time_remain % 60)
 
 	$("#time_remain").text(hh+":"+mm+":"+ss)
+
+}
+
+//不在時イベント残り時間エリアの表示するかどうかを更新
+function updateTimeRemainAreaShowState(){
+	if(save.extra_event_time_remain == 0){
+		$("#extra_event_area").addClass("hidden")
+	}
+	else{
+		$("#extra_event_area").removeClass("hidden")		
+	}
 
 }
 
@@ -1576,6 +1580,7 @@ function updateEquipList(){
 	updateEquipListParam()
 	updateEquipBuildButtonShowState()
 	updateSortOrderButtonState()
+	updateEquipListParameterIndex()
 }
 
 

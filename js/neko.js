@@ -45,12 +45,6 @@ function init(){
 	changeGameMode(FIRST_GAME_MODE)
 	loadItemList()
 	load()
-
-	//イベント加速秒数を積む
-	save.extra_event_time_remain += calcSecondsPassedFromLastLogin()
-	//一日ぶん以上は再生しない
-	save.extra_event_time_remain = Math.min(save.extra_event_time_remain,86400)
-
 	initView()
 }
 
@@ -82,6 +76,8 @@ function mainLoop_1sec(){
 	//プレイ時間をインクリメント
 	save.playtime++
 
+	//スリープから復帰していきなり1secが発火する可能性があるので更新
+	addExtraEventTime(calcSecondsPassedFromLastLogin())
 	//最終ログイン時刻を更新
 	save.last_login = new Date().getTime()
 
@@ -113,6 +109,8 @@ function mainLoop_1sec(){
 	updatePlaytimeArea()
 	updateNextFreeGachaTime()
 	updateMenuFreeSpinAvailable()
+	updateTimeRemainAreaShowState()
+
 
 	//背景をスクロールするのはオプションが指定されている場合のみ
 	if(save.options.enable_scroll_background){
@@ -202,8 +200,23 @@ function calcSecondsPassedFromLastLogin(){
 		return 0
 	}
 
-	return Math.floor((new Date().getTime() - save.last_login)/1000)
+	var time_passed = Math.floor((new Date().getTime() - save.last_login)/1000)
+
+	//40秒以下なら無視
+	if(time_passed < 40){
+		return 0
+	}
+
+	return time_passed
 }
+
+function addExtraEventTime(seconds){
+	//イベント加速秒数を積む
+	save.extra_event_time_remain += seconds
+	//一日ぶん以上は再生しない
+	save.extra_event_time_remain = Math.min(save.extra_event_time_remain,86400)
+}
+
 
 /*******************************************/
 /* デバッグ用 */
@@ -410,8 +423,9 @@ function event(){
 
 //開いていない間に起こったイベントを再計算する
 function playExtraEvent(){
-	//残り時間が0秒なら何もしない
-	if(save.extra_event_time_remain <= 0){
+	//残り時間が40秒以下まで削れたらならおわり
+	if(save.extra_event_time_remain <= 40){
+		save.extra_event_time_remain = 0
 		data.hyper_event_dash_mode = false
 		return
 	}
