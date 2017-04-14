@@ -296,6 +296,10 @@ function processBattle(bossBattle=false){
 		castMessage( "しろこ" + damage_siro +",くろこ" + damage_kuro + "ダメージ。")
 		castMessage( turnCount+"ターン耐え,"+damageDealedPersentage+"%削ったが全滅した... ") 
 		save.total_death++
+		if(save.notify.onDeath){
+			notify(title="全滅した...",body=("(この通知をクリックで全回復します...)"),icon="death",onClick=function(){ressurect()})
+		}
+
 	}
 
 	save.status.siro.hp = Math.max(allies[0].hp,0)

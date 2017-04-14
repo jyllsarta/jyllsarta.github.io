@@ -219,3 +219,24 @@ $("#gacha_result_back_button").click(function(){
 $("#changestage_click_cover").click(function(){
 	fadeChangeStageView()
 })
+
+$("#tutorial_click_cover").click(function(){
+	fadeTutorial()
+})
+
+$("#option_notification").click(function(){
+	toggleNotification()
+})
+
+$("#notification_death").click(function(){
+	toggleNotificationDeath()
+})
+$("#notification_clear").click(function(){
+	toggleNotificationClear()
+})
+$("#notification_freespin").click(function(){
+	toggleNotificationFreeSpin()
+})
+$("#notification_jihou").click(function(){
+	toggleNotificationJihou()
+})

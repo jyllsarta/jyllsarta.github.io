@@ -199,7 +199,7 @@ function castMessage(message){
 
 	var delay_time = 150
 
-	if(data.hyper_event_dash_mode){
+	if(data.hyper_event_dash_mode || data.__debughypereventdashmode){
 		delay_time = 0
 	}
 
@@ -2237,6 +2237,50 @@ function prepareOptionMenu(){
 	else{
 		$("#enable_scroll_background").text("□")		
 	}
+
+	if(save.notify.enabled){
+		$("#enable_notification").text("☑")
+	}
+	else{
+		$("#enable_notification").text("□")		
+	}
+
+	if(save.notify.onDeath){
+		$("#notification_death .notification_value").text("☑")
+	}
+	else{
+		$("#notification_death .notification_value").text("□")		
+	}
+	if(save.notify.onClearDungeon){
+		$("#notification_clear .notification_value").text("☑")
+	}
+	else{
+		$("#notification_clear .notification_value").text("□")		
+	}
+	if(save.notify.onFreeSpin){
+		$("#notification_freespin .notification_value").text("☑")
+	}
+	else{
+		$("#notification_freespin .notification_value").text("□")		
+	}
+	if(save.notify.jihou){
+		$("#notification_jihou .notification_value").text("☑")
+	}
+	else{
+		$("#notification_jihou .notification_value").text("□")		
+	}
+
+	// 通知全体オフなら個別設定をグレーアウト
+	if(save.notify.enabled){
+		$("#notitication_setting_text").removeClass("notification_off")
+		$("#notification_setting_cointainer").removeClass("notification_off")
+	}
+	else{
+		$("#notitication_setting_text").addClass("notification_off")
+		$("#notification_setting_cointainer").addClass("notification_off")		
+	}
+
+
 }
 
 
@@ -2557,6 +2601,67 @@ function fadeGachaResult(){
 		$(this).addClass("hidden").dequeue();
 	})
 }
+
+
+//ガチャ詳細けす
+function fadeGachaResult(){
+	$("#gacha_result_area")
+	.animate({
+		opacity:0,
+		translateY:0,
+	},300,"easeOutQuart")
+	.queue(function () {
+		updateGachaMenu()
+		prepareGachaSprite()
+		resetMikujiStick()
+		$(this).addClass("hidden").dequeue();
+	})
+}
+
+//チュートリアル出す
+//type= [notify,]
+function showTutorial(type){
+	save.tutorial[type] = true
+	$("#tutorial_title").text(tutorial_data[type].title)
+	$("#tutorial_description").html(tutorial_data[type].description)
+	$("#tutorial")
+	.queue(function () {
+		$(this).removeClass("hidden")
+		$(this).dequeue();
+	})	
+	.css({
+		opacity : 0,
+		translateY:-30,
+		top : tutorial_data[type].y,
+		left : tutorial_data[type].x
+	})
+	.animate({
+		opacity:1,
+		translateY:0,
+	},300,"easeOutQuart")
+	.queue(function () {
+		$("#tutorial_click_cover").removeClass("hidden")
+		$(this).dequeue();
+	})	
+}
+
+//チュートリアルポップアップ消す
+function fadeTutorial(){
+	$("#tutorial")
+	.animate({
+		opacity:0,
+		translateY:-30,
+	},300,"easeOutQuart")
+	.queue(function () {
+		$("#tutorial").addClass("hidden")
+		$("#tutorial_click_cover").addClass("hidden")
+		$(this).addClass("hidden").dequeue();
+	})
+}
+
+
+
+
 
 
 

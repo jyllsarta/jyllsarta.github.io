@@ -6,16 +6,15 @@
 	<link href="css/reset.css" rel="stylesheet" type="text/css">
 	<link href="css/neko.css" rel="stylesheet" type="text/css">
 	<link href="css/sprites.css" rel="stylesheet" type="text/css">
-	<link href="https://fonts.googleapis.com/earlyaccess/notosansjapanese.css" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/earlyaccess/mplus1p.css" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css" rel="stylesheet" />
-	<link href="https://fonts.googleapis.com/earlyaccess/sawarabigothic.css" rel="stylesheet" />
 	<script src="js/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" src="js/html2canvas.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="js/jquery-numerator.js"></script>
 	<script type="text/javascript" src="js/jquery.transform.js"></script>
 	<script src="lib/jquery.easing.1.3.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/0.0.11/push.min.js"></script>
 
 	<script>
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -62,10 +61,10 @@
 					<div id="blur"></div>
 
 					<div id="datetime_info_area" class="shadow_background">
-					<div id="extra_event_area" class="">
-						<div id="extra_event_text">不在時イベント再生中：</div>
-						<div id="extra_event_timer">残り<span id="time_remain">4:21:02</span></div>
-					</div>
+						<div id="extra_event_area" class="">
+							<div id="extra_event_text">不在時イベント再生中：</div>
+							<div id="extra_event_timer">残り<span id="time_remain">4:21:02</span></div>
+						</div>
 						<div id="datetime_index_area">
 							<span id="clock_text">時刻：</span>
 							<span id="current_dungeon_text">現在の次元：</span>
@@ -407,23 +406,47 @@
 			<div id="option_back_button" class="back_button"></div>
 			<ul id="option_container">
 				<div id="option_animation_on" class="option_item">
-					<span class="option_index">イベント時にアニメーションを再生する</span>
-					<span id="enable_event_animation" class="option_value">☑</span>
+					<div class="option_index">イベント時にアニメーションを再生する</div>
 					<div class="option_description">・かなり軽くなりますが、とてもさみしくなります</div>
+					<div id="enable_event_animation" class="option_value">☑</div>
 				</div>
 				<div id="option_loitering_on" class="option_item">
-					<span class="option_index">キャラの歩行</span>
-					<span id="enable_loitering" class="option_value">☑</span>
+					<div class="option_index">キャラの歩行</div>
 					<div class="option_description">・すこしだけ軽くなりますが、さみしくなります</div>
+					<div id="enable_loitering" class="option_value">☑</div>
 				</div>
 				<div id="option_scroll_background" class="option_item">
-					<span class="option_index">背景をスクロールさせる</span>
-					<span id="enable_scroll_background" class="option_value">☑</span>
+					<div class="option_index">背景をスクロールさせる</div>
 					<div class="option_description">・ほんのすこしだけ軽くなりますが、さみしくなります</div>
+					<div id="enable_scroll_background" class="option_value">☑</div>
+				</div>
+				<div id="option_notification" class="option_item">
+					<div class="option_index">通知を行う</div>
+					<div class="option_description">全滅時やダンジョン踏破時にポコッと通知を表示してくれます。</div>
+					<div id="enable_notification" class="option_value">☑</div>
 				</div>
 			</ul>
-		</div>
+			<div id="notitication_setting_text">通知の個別設定：</div>
+			<div id="notification_setting_cointainer">
+				<div id="notification_death" class="notification_item">
+				<span class="notification_index">全滅時にお知らせする</span>
+					<span class="notification_value">☑</span>
+				</div>
+				<div id="notification_clear" class="notification_item">
+					<span class="notification_index">ダンジョン踏破時にお知らせする</span>
+					<span class="notification_value">☑</span>
+				</div>
+				<div id="notification_freespin" class="notification_item">
+					<span class="notification_index">フリーおみくじが引けるようになったとき</span>
+					<span class="notification_value">☑</span>
+				</div>
+				<div id="notification_jihou" class="notification_item">
+					<span class="notification_index">かわいい時報</span>
+					<span class="notification_value">☑</span>
+				</div>
+			</div>
 
+		</div>
 		<!--装備メニューエリア-->
 		<div id="equipment_menu" class="hidden shadow_background">
 			<div id="equip_menu_text">装備</div>
@@ -441,9 +464,6 @@
 				<div id="pager_button_area">
 					<span id="pager_button_prev">◀</span>
 					<span id="pager_button_next">▶</span>
-				</div>
-				<div id="power_show_text">
-					つよさ
 				</div>
 				<div id="sort_toggle_button">[ID順]</div>
 
@@ -535,281 +555,292 @@
 							<div class="param_digest param_digest_agi"></div>
 						</div>
 						<span class="equip_build_button">強化</span>
-					<li class="equip_item">
-						<img src="images/neko/icons/unachieved.png" class="equip_list_icon">
-						<span class="equip_list_text">棒きれ</span>
-						<span class="equip_list_param">-</span>
-						<div class="param_digest_icon_container">
-							<div class="param_digest param_digest_str"></div>
-							<div class="param_digest param_digest_dex"></div>
-							<div class="param_digest param_digest_def"></div>
-							<div class="param_digest param_digest_agi"></div>
-						</div>
-						<span class="equip_build_button">強化</span>
-					</li>
-					<li class="equip_item">
-						<img src="images/neko/icons/unachieved.png" class="equip_list_icon">
-						<span class="equip_list_text">棒きれ</span>
-						<span class="equip_list_param">-</span>
-						<div class="param_digest_icon_container">
-							<div class="param_digest param_digest_str"></div>
-							<div class="param_digest param_digest_dex"></div>
-							<div class="param_digest param_digest_def"></div>
-							<div class="param_digest param_digest_agi"></div>
-						</div>
-						<span class="equip_build_button">強化</span>
-					</li>
-					<li class="equip_item">
-						<img src="images/neko/icons/unachieved.png" class="equip_list_icon">
-						<span class="equip_list_text">棒きれ</span>
-						<span class="equip_list_param">-</span>
-						<div class="param_digest_icon_container">
-							<div class="param_digest param_digest_str"></div>
-							<div class="param_digest param_digest_dex"></div>
-							<div class="param_digest param_digest_def"></div>
-							<div class="param_digest param_digest_agi"></div>
-						</div>
-						<span class="equip_build_button">強化</span>
-					</li>
-				</ul>
-				<div id="equip_detail_area" class="shadow_background">
-					<img src="images/neko/icons/unachieved.png" id="equipment_detail_icon">
-					<div id="equip_detail_name">---</div>
-					<div id="equip_param_area">
-						<ul id="equip_param_list">
-							<li class="param_unit">
-								<span class="status_text">TOTAL</span>
-								<span id="status_detail_total" class="status_param">+10</span>
-							</li>
-							<li class="param_unit">
-								<span class="status_text">STR</span>
-								<span id="status_detail_str" class="status_param">+10</span>
-							</li>
-							<li class="param_unit">
-								<span class="status_text">DEX</span>
-								<span id="status_detail_dex" class="status_param">+10</span>
-							</li>
-							<li class="param_unit">
-								<span class="status_text">DEF</span>
-								<span id="status_detail_def" class="status_param">+10</span>
-							</li>
-							<li class="param_unit">
-								<span class="status_text">AGI</span>
-								<span id="status_detail_agi" class="status_param">+10</span>
-							</li>
-						</ul>
-						<div id="flavor_text">おいしそうなスパゲッティのサンプルだ。投げて使う。</div>	
-					</div>
-				</div>
-			</div>
-			<div id="equipment_back_button" class="back_button"></div>
-			<div id="character_status_area" class="shadow_background">
-				<ul id="current_equip_list">
-					<li class="current_equip_item equip_first shadow_background star_background" item_id="">
-					<span class="current_equip_text">-</span>
-					<div class="param_digest_icon_container current_equip_digest">
-							<div class="param_digest param_digest_str"></div>
-							<div class="param_digest param_digest_dex"></div>
-							<div class="param_digest param_digest_def"></div>
-							<div class="param_digest param_digest_agi"></div>						
-					</div>
-					</li>
-					<li class="current_equip_item equip_second  shadow_background star_background" item_id="">
-					<span class="current_equip_text">-</span>
-					<div class="current_equip_digest param_digest_icon_container">
-							<div class="param_digest param_digest_str"></div>
-							<div class="param_digest param_digest_dex"></div>
-							<div class="param_digest param_digest_def"></div>
-							<div class="param_digest param_digest_agi"></div>						
-					</div>						
-					</li>
-					<li class="current_equip_item equip_third  shadow_background star_background" item_id="">
-					<span class="current_equip_text">-</span>
-					<div class="current_equip_digest param_digest_icon_container">
-							<div class="param_digest param_digest_str"></div>
-							<div class="param_digest param_digest_dex"></div>
-							<div class="param_digest param_digest_def"></div>
-							<div class="param_digest param_digest_agi"></div>						
-					</div>						
-					</li>
-					<li class="current_equip_item equip_fourth  shadow_background star_background" item_id="">
-					<span class="current_equip_text">-</span>
-					<div class="current_equip_digest param_digest_icon_container">
-							<div class="param_digest param_digest_str"></div>
-							<div class="param_digest param_digest_dex"></div>
-							<div class="param_digest param_digest_def"></div>
-							<div class="param_digest param_digest_agi"></div>						
-					</div>						
-					</li>
-				</ul>
-				<div id="status_show_area">
-					<ul id="status_list">
-						<li class="status_unit">
-							<span class="status_text">STR</span>
-							<span id="status_total_str" class="status_param">10</span>
-							<span id="status_diff_str" class="status_param_diff"></span>
+						<li class="equip_item">
+							<img src="images/neko/icons/unachieved.png" class="equip_list_icon">
+							<span class="equip_list_text">棒きれ</span>
+							<span class="equip_list_param">-</span>
+							<div class="param_digest_icon_container">
+								<div class="param_digest param_digest_str"></div>
+								<div class="param_digest param_digest_dex"></div>
+								<div class="param_digest param_digest_def"></div>
+								<div class="param_digest param_digest_agi"></div>
+							</div>
+							<span class="equip_build_button">強化</span>
 						</li>
-						<li class="status_unit">
-							<span class="status_text">DEX</span>
-							<span id="status_total_dex" class="status_param">10</span>
-							<span id="status_diff_dex" class="status_param_diff"></span>
+						<li class="equip_item">
+							<img src="images/neko/icons/unachieved.png" class="equip_list_icon">
+							<span class="equip_list_text">棒きれ</span>
+							<span class="equip_list_param">-</span>
+							<div class="param_digest_icon_container">
+								<div class="param_digest param_digest_str"></div>
+								<div class="param_digest param_digest_dex"></div>
+								<div class="param_digest param_digest_def"></div>
+								<div class="param_digest param_digest_agi"></div>
+							</div>
+							<span class="equip_build_button">強化</span>
 						</li>
-						<li class="status_unit">
-							<span class="status_text">DEF</span>
-							<span id="status_total_def" class="status_param">10</span>
-							<span id="status_diff_def" class="status_param_diff"></span>
-						</li>
-						<li class="status_unit">
-							<span class="status_text">AGI</span>
-							<span id="status_total_agi" class="status_param">10</span>
-							<span id="status_diff_agi" class="status_param_diff"></span>
+						<li class="equip_item">
+							<img src="images/neko/icons/unachieved.png" class="equip_list_icon">
+							<span class="equip_list_text">棒きれ</span>
+							<span class="equip_list_param">-</span>
+							<div class="param_digest_icon_container">
+								<div class="param_digest param_digest_str"></div>
+								<div class="param_digest param_digest_dex"></div>
+								<div class="param_digest param_digest_def"></div>
+								<div class="param_digest param_digest_agi"></div>
+							</div>
+							<span class="equip_build_button">強化</span>
 						</li>
 					</ul>
-					<img src="images/neko/etc/goryu.png" id="goryu_arrow_atk">
-					<img src="images/neko/etc/goryu.png" id="goryu_arrow_def">
-					<div id="atk_text">攻</div>
-					<div id="atk_value">321254</div>
-					<div id="def_text">守</div>
-					<div id="def_value">887623</div>
-					<div id="enemy_rank_show_area">
-						<span class="enemy_rank_show_text">この辺りの敵の攻撃力：</span>
-						<span id="current_enemy_atk">99999</span>
+					<div id="equip_detail_area" class="shadow_background">
+						<img src="images/neko/icons/unachieved.png" id="equipment_detail_icon">
+						<div id="equip_detail_name">---</div>
+						<div id="equip_param_area">
+							<ul id="equip_param_list">
+								<li class="param_unit">
+									<span class="status_text">TOTAL</span>
+									<span id="status_detail_total" class="status_param">+10</span>
+								</li>
+								<li class="param_unit">
+									<span class="status_text">STR</span>
+									<span id="status_detail_str" class="status_param">+10</span>
+								</li>
+								<li class="param_unit">
+									<span class="status_text">DEX</span>
+									<span id="status_detail_dex" class="status_param">+10</span>
+								</li>
+								<li class="param_unit">
+									<span class="status_text">DEF</span>
+									<span id="status_detail_def" class="status_param">+10</span>
+								</li>
+								<li class="param_unit">
+									<span class="status_text">AGI</span>
+									<span id="status_detail_agi" class="status_param">+10</span>
+								</li>
+							</ul>
+							<div id="flavor_text">おいしそうなスパゲッティのサンプルだ。投げて使う。</div>	
+						</div>
+					</div>
+				</div>
+				<div id="equipment_back_button" class="back_button"></div>
+				<div id="character_status_area" class="shadow_background">
+					<ul id="current_equip_list">
+						<li class="current_equip_item equip_first shadow_background star_background" item_id="">
+							<span class="current_equip_text">-</span>
+							<div class="param_digest_icon_container current_equip_digest">
+								<div class="param_digest param_digest_str"></div>
+								<div class="param_digest param_digest_dex"></div>
+								<div class="param_digest param_digest_def"></div>
+								<div class="param_digest param_digest_agi"></div>						
+							</div>
+						</li>
+						<li class="current_equip_item equip_second  shadow_background star_background" item_id="">
+							<span class="current_equip_text">-</span>
+							<div class="current_equip_digest param_digest_icon_container">
+								<div class="param_digest param_digest_str"></div>
+								<div class="param_digest param_digest_dex"></div>
+								<div class="param_digest param_digest_def"></div>
+								<div class="param_digest param_digest_agi"></div>						
+							</div>						
+						</li>
+						<li class="current_equip_item equip_third  shadow_background star_background" item_id="">
+							<span class="current_equip_text">-</span>
+							<div class="current_equip_digest param_digest_icon_container">
+								<div class="param_digest param_digest_str"></div>
+								<div class="param_digest param_digest_dex"></div>
+								<div class="param_digest param_digest_def"></div>
+								<div class="param_digest param_digest_agi"></div>						
+							</div>						
+						</li>
+						<li class="current_equip_item equip_fourth  shadow_background star_background" item_id="">
+							<span class="current_equip_text">-</span>
+							<div class="current_equip_digest param_digest_icon_container">
+								<div class="param_digest param_digest_str"></div>
+								<div class="param_digest param_digest_dex"></div>
+								<div class="param_digest param_digest_def"></div>
+								<div class="param_digest param_digest_agi"></div>						
+							</div>						
+						</li>
+					</ul>
+					<div id="status_show_area">
+						<ul id="status_list">
+							<li class="status_unit">
+								<span class="status_text">STR</span>
+								<span id="status_total_str" class="status_param">10</span>
+								<span id="status_diff_str" class="status_param_diff"></span>
+							</li>
+							<li class="status_unit">
+								<span class="status_text">DEX</span>
+								<span id="status_total_dex" class="status_param">10</span>
+								<span id="status_diff_dex" class="status_param_diff"></span>
+							</li>
+							<li class="status_unit">
+								<span class="status_text">DEF</span>
+								<span id="status_total_def" class="status_param">10</span>
+								<span id="status_diff_def" class="status_param_diff"></span>
+							</li>
+							<li class="status_unit">
+								<span class="status_text">AGI</span>
+								<span id="status_total_agi" class="status_param">10</span>
+								<span id="status_diff_agi" class="status_param_diff"></span>
+							</li>
+						</ul>
+						<img src="images/neko/etc/goryu.png" id="goryu_arrow_atk">
+						<img src="images/neko/etc/goryu.png" id="goryu_arrow_def">
+						<div id="atk_text">攻</div>
+						<div id="atk_value">321254</div>
+						<div id="def_text">守</div>
+						<div id="def_value">887623</div>
+						<div id="enemy_rank_show_area">
+							<span class="enemy_rank_show_text">この辺りの敵の攻撃力：</span>
+							<span id="current_enemy_atk">99999</span>
+						</div>
+					</div>
+				</div>
+				<div id="equip_build_popup_area" class="hidden shadow_background popup">
+					<div id="equip_build_popup_text">装備強化</div>
+					<div id="equip_build_popup_quit_button" class="back_button"></div>
+					<div id="build_amount_coin_have_show_area">
+						<img src="images/neko/icons/coin.png" class="coin_icon">
+						<span id="coin_amount">876</span>
+					</div>
+					<div id="equip_build_item_name_area">
+						<span class="equip_name">超絶はがねのつるぎ</span>
+						<span id="build_plus_area">
+							<span class="build_prev">+7</span>
+							<span class="build_sepalator">→</span>
+							<span class="build_after">+8</span>						
+						</span>
+					</div>
+					<ul id="equip_build_param_list">
+						<li class="build_param_item">
+							<span class="build_index">STR</span>
+							<span class="param_prev">0</span>
+							<span class="build_sepalator">→</span>
+							<span class="param_after">0</span>
+							<span class="build_sepalator">　(</span>
+							<span class="param_diff">+0</span>
+							<span class="build_sepalator">)</span>
+						</li>
+						<li class="build_param_item">
+							<span class="build_index">DEX</span>
+							<span class="param_prev">0</span>
+							<span class="build_sepalator">→</span>
+							<span class="param_after">0</span>
+							<span class="build_sepalator">　(</span>
+							<span class="param_diff">+0</span>
+							<span class="build_sepalator">)</span>
+						</li>
+						<li class="build_param_item">
+							<span class="build_index">DEF</span>
+							<span class="param_prev">0</span>
+							<span class="build_sepalator">→</span>
+							<span class="param_after">0</span>
+							<span class="build_sepalator">　(</span>
+							<span class="param_diff">+0</span>
+							<span class="build_sepalator">)</span>
+						</li>
+						<li class="build_param_item">
+							<span class="build_index">AGI</span>
+							<span class="param_prev">0</span>
+							<span class="build_sepalator">→</span>
+							<span class="param_after">0</span>
+							<span class="build_sepalator">　(</span>
+							<span class="param_diff">+0</span>
+							<span class="build_sepalator">)</span>
+						</li>
+					</ul>
+					<div class="hidden" id="unachieved_item_text">このアイテムを生成します</div>
+					<div id="build_decide_button">
+						<span id="build_decide_text">強化</span>
+						<img src="images/neko/icons/coin.png" class="coin_icon">
+						<span id="build_cost">143</span>
 					</div>
 				</div>
 			</div>
-			<div id="equip_build_popup_area" class="hidden shadow_background popup">
-				<div id="equip_build_popup_text">装備強化</div>
-				<div id="equip_build_popup_quit_button" class="back_button"></div>
-				<div id="build_amount_coin_have_show_area">
-					<img src="images/neko/icons/coin.png" class="coin_icon">
-					<span id="coin_amount">876</span>
-				</div>
-				<div id="equip_build_item_name_area">
-					<span class="equip_name">超絶はがねのつるぎ</span>
-					<span id="build_plus_area">
-						<span class="build_prev">+7</span>
-						<span class="build_sepalator">→</span>
-						<span class="build_after">+8</span>						
-					</span>
-				</div>
-				<ul id="equip_build_param_list">
-					<li class="build_param_item">
-						<span class="build_index">STR</span>
-						<span class="param_prev">0</span>
-						<span class="build_sepalator">→</span>
-						<span class="param_after">0</span>
-						<span class="build_sepalator">　(</span>
-						<span class="param_diff">+0</span>
-						<span class="build_sepalator">)</span>
-					</li>
-					<li class="build_param_item">
-						<span class="build_index">DEX</span>
-						<span class="param_prev">0</span>
-						<span class="build_sepalator">→</span>
-						<span class="param_after">0</span>
-						<span class="build_sepalator">　(</span>
-						<span class="param_diff">+0</span>
-						<span class="build_sepalator">)</span>
-					</li>
-					<li class="build_param_item">
-						<span class="build_index">DEF</span>
-						<span class="param_prev">0</span>
-						<span class="build_sepalator">→</span>
-						<span class="param_after">0</span>
-						<span class="build_sepalator">　(</span>
-						<span class="param_diff">+0</span>
-						<span class="build_sepalator">)</span>
-					</li>
-					<li class="build_param_item">
-						<span class="build_index">AGI</span>
-						<span class="param_prev">0</span>
-						<span class="build_sepalator">→</span>
-						<span class="param_after">0</span>
-						<span class="build_sepalator">　(</span>
-						<span class="param_diff">+0</span>
-						<span class="build_sepalator">)</span>
-					</li>
-				</ul>
-				<div class="hidden" id="unachieved_item_text">このアイテムを生成します</div>
-				<div id="build_decide_button">
-					<span id="build_decide_text">強化</span>
-					<img src="images/neko/icons/coin.png" class="coin_icon">
-					<span id="build_cost">143</span>
-				</div>
-			</div>
-		</div>
 
-		<div id="gacha_menu" class="hidden">
-			<div id="gacha_show_text">おみくじ</div>
-			<div id="gacha_back_button" class="back_button"></div>
-			<div id="gacha_description">
-				一回コイン100枚でランダムなアイテムを獲得できます。<br>
-				現在の階層では手に入らない高ランク・高強化値アイテムが出現します。<br>
-				(いわゆる「ガチャ限装備」は存在しません。すべてのアイテムは塔で拾えます。)<br>
-			</div>
-			<div id="gacha_sprite">
-				<img src="images/neko/sprite/gacha/background.png" class="sprite" id="sprite_gacha_background">
-				<ul id="mikuji_stick_list">
-				</ul>
-				<img src="images/neko/sprite/gacha/mikuji.png" class="sprite" id="sprite_gacha_mikuji">
-				<img src="images/neko/sprite/gacha/kuro.png" class="sprite" id="sprite_gacha_kuro">
-				<img src="images/neko/sprite/gacha/siro.png" class="sprite" id="sprite_gacha_siro">
-				<img src="images/neko/sprite/gacha/kuro_daki.png" class="sprite" id="sprite_gacha_kuro_daki">
-				<img src="images/neko/sprite/gacha/siro_daki.png" class="sprite" id="sprite_gacha_siro_daki">
-				<div id="gacha_result_fade">も</div>
-				<img src="images/neko/sprite/gacha/result_background.png" id="gacha_result_background">
-				<div id="gacha_result_area" class="hidden shadow_background">
-					<div id="gacha_result">
+			<div id="gacha_menu" class="hidden">
+				<div id="gacha_show_text">おみくじ</div>
+				<div id="gacha_back_button" class="back_button"></div>
+				<div id="gacha_description">
+					一回コイン100枚でランダムなアイテムを獲得できます。<br>
+					現在の階層では手に入らない高ランク・高強化値アイテムが出現します。<br>
+					(いわゆる「ガチャ限装備」は存在しません。すべてのアイテムは塔で拾えます。)<br>
+				</div>
+				<div id="gacha_sprite">
+					<img src="images/neko/sprite/gacha/background.png" class="sprite" id="sprite_gacha_background">
+					<ul id="mikuji_stick_list">
+					</ul>
+					<img src="images/neko/sprite/gacha/mikuji.png" class="sprite" id="sprite_gacha_mikuji">
+					<img src="images/neko/sprite/gacha/kuro.png" class="sprite" id="sprite_gacha_kuro">
+					<img src="images/neko/sprite/gacha/siro.png" class="sprite" id="sprite_gacha_siro">
+					<img src="images/neko/sprite/gacha/kuro_daki.png" class="sprite" id="sprite_gacha_kuro_daki">
+					<img src="images/neko/sprite/gacha/siro_daki.png" class="sprite" id="sprite_gacha_siro_daki">
+					<div id="gacha_result_fade">も</div>
+					<img src="images/neko/sprite/gacha/result_background.png" id="gacha_result_background">
+					<div id="gacha_result_area" class="hidden shadow_background">
+						<div id="gacha_result">
+						</div>
+						<div id="gacha_result_text">おみくじ結果</div>
+						<div id="gacha_result_back_button" class="back_button"></div>
 					</div>
-					<div id="gacha_result_text">おみくじ結果</div>
-					<div id="gacha_result_back_button" class="back_button"></div>
 				</div>
-			</div>
-			<div id="gacha_rate_area" class="shadow_background">
-				<div class="gacha_rate_item star_background_rev">
-					<span class="gacha_rate_index">★</span>
-					<span class="gacha_rate_value">7.00%</span>
+				<div id="gacha_rate_area" class="shadow_background">
+					<div class="gacha_rate_item star_background_rev">
+						<span class="gacha_rate_index">★</span>
+						<span class="gacha_rate_value">7.00%</span>
+					</div>
+					<div class="gacha_rate_item star_background_rev">
+						<span class="gacha_rate_index">☆</span>
+						<span class="gacha_rate_value">15.00%</span>
+					</div>
+					<div class="gacha_rate_item star_background_rev">
+						<span class="gacha_rate_index">*</span>
+						<span class="gacha_rate_value">23.00%</span>
+					</div>
+					<div class="gacha_rate_item star_background_rev">
+						<span class="gacha_rate_index">○</span>
+						<span class="gacha_rate_value">55.00%</span>
+					</div>
 				</div>
-				<div class="gacha_rate_item star_background_rev">
-					<span class="gacha_rate_index">☆</span>
-					<span class="gacha_rate_value">15.00%</span>
+
+				<div id="gacha_coin_area" class="shadow_background">
+					<img src="images/neko/icons/coin.png" id="gacha_coin_icon">
+					<span id="gacha_coin_show_area">9999</span>
 				</div>
-				<div class="gacha_rate_item star_background_rev">
-					<span class="gacha_rate_index">*</span>
-					<span class="gacha_rate_value">23.00%</span>
+
+				<div id="gacha_take_button" class=" free_spin_available gacha_button_template">
+					<div class="gacha_button_index">1回引く</div>
+					<img src="images/neko/icons/coin.png" class="gacha_cost_icon">
+					<div class="gacha_button_value">無料</div>
 				</div>
-				<div class="gacha_rate_item star_background_rev">
-					<span class="gacha_rate_index">○</span>
-					<span class="gacha_rate_value">55.00%</span>
+
+				<div id="gacha_take_10_button" class="gacha_button_template">
+					<div class="gacha_button_index">10回引く</div>
+					<img src="images/neko/icons/coin.png" class="gacha_cost_icon">
+					<div class="gacha_button_value">1000</div>
+				</div>
+
+				<div id="next_free_gacha_area">
+					<span>次のフリーおみくじまで：</span>
+					<span id="next_free_gacha_time">9:38:10</span>
 				</div>
 			</div>
 
-			<div id="gacha_coin_area" class="shadow_background">
-				<img src="images/neko/icons/coin.png" id="gacha_coin_icon">
-				<span id="gacha_coin_show_area">9999</span>
+			<div class="star_background_rev hidden" id="save_ticker">
+				セーブしました。
 			</div>
 
-			<div id="gacha_take_button" class=" free_spin_available gacha_button_template">
-				<div class="gacha_button_index">1回引く</div>
-				<img src="images/neko/icons/coin.png" class="gacha_cost_icon">
-				<div class="gacha_button_value">無料</div>
-			</div>
 
-			<div id="gacha_take_10_button" class="gacha_button_template">
-				<div class="gacha_button_index">10回引く</div>
-				<img src="images/neko/icons/coin.png" class="gacha_cost_icon">
-				<div class="gacha_button_value">1000</div>
-			</div>
-
-			<div id="next_free_gacha_area">
-				<span>次のフリーおみくじまで：</span>
-				<span id="next_free_gacha_time">9:38:10</span>
+			<div id="tutorial" class="hidden shadow_background">
+				<div id="tutorial_title"></div>
+				<div id="tutorial_description"></div>
 			</div>
 		</div>
+		<div id="tutorial_click_cover" class="hidden"></div>
 
-		<div class="star_background_rev hidden" id="save_ticker">
-			セーブしました。
-		</div>
+
+
 		<div id="fadeouter" class="hidden">
 			<img src="images/neko/bg/st2.png" id="stage_background">
 			<div id="stage_shadow"></div>
@@ -844,6 +875,7 @@
 <script src="js/neko.js"></script>
 <script src="js/values.js"></script>
 <script src="js/battle.js"></script>
+<script src="js/pushnotification.js"></script>
 
 </body>
 </html>

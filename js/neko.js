@@ -117,6 +117,15 @@ function mainLoop_1sec(){
 		updateBackgroundImagePosition()
 	}
 
+	//200秒くらい遊んだところで通知要求を投げる
+	if(save.playtime == 200){
+		showTutorial("notify")
+		promise()
+	}
+
+	checkJihou()
+	checkFreeSpinNotification()
+
 }
 
 //ゲームモードをmodeに変更
@@ -215,6 +224,32 @@ function addExtraEventTime(seconds){
 	save.extra_event_time_remain += seconds
 	//一日ぶん以上は再生しない
 	save.extra_event_time_remain = Math.min(save.extra_event_time_remain,86400)
+}
+
+function checkJihou(){
+
+	if(!save.notify.jihou){
+		return
+	}
+
+	//毎時の通知
+	if(new Date().getMinutes() == 0 && new Date().getSeconds() == 0){
+		var title =  new Date().getHours() + "時ですよー！"
+		notify(title=title,body=jiho_data[new Date().getHours()],icon="jiho") 
+	}
+}
+
+function checkFreeSpinNotification(){
+	if(!save.notify.onFreeSpin){
+		return
+	}
+	var current = new Date().getTime()
+	var last = save.free_spin_last_take
+	//経過時刻差秒がフリーおみくじインターバル(分)*60=秒にちょうど一致したら通知を行う
+	if( Math.floor((current-last)/1000) == FREE_GACHA_INTERVAL*60){
+		notify(title="フリーおみくじが引けます",body="引いて引いてー！",icon="omikuji") 
+	}
+
 }
 
 
@@ -665,7 +700,6 @@ function eventItem(){
 	showItemSprite()
 	var item_id = lotItem()
 	aquireItem(item_id)
-
 }
 
 //アイテム拾得イベントを起こす
@@ -707,6 +741,10 @@ function eventStairs(){
 			if(save.dungeon_open[save.current_dungeon_id+1] == 0 && save.current_floor == dungeon_data[save.current_dungeon_id].depth){
 				save.dungeon_open[save.current_dungeon_id+1] = 1
 				save.dungeon_process[save.current_dungeon_id+1] = 1
+
+				if(save.notify.onClearDungeon){
+					notify(title="次元層踏破！",body=(dungeon_data[save.current_dungeon_id].name+"を踏破した！"),icon="clear")
+				}
 			}
 			updateCurrentFloorText()
 			fadeOutAndFadeInStairs()
@@ -1381,7 +1419,7 @@ function takeGacha(times=1){
 
 
 /*******************************************/
-/* 初期化とメインループ実行 */
+/* 設定変更 */
 /*******************************************/
 
 
@@ -1399,6 +1437,34 @@ function toggleEnableScrollBackgroundOption(){
 	save.options.enable_scroll_background = !save.options.enable_scroll_background
 	prepareOptionMenu()
 }
+
+function toggleNotification(){
+	save.notify.enabled = !save.notify.enabled
+	prepareOptionMenu()
+}
+
+function toggleNotificationDeath(){
+	save.notify.onDeath = !save.notify.onDeath
+	prepareOptionMenu()
+}
+
+function toggleNotificationClear(){
+	save.notify.onClearDungeon = !save.notify.onClearDungeon
+	prepareOptionMenu()
+}
+
+function toggleNotificationFreeSpin(){
+	save.notify.onFreeSpin = !save.notify.onFreeSpin
+	prepareOptionMenu()
+}
+
+function toggleNotificationJihou(){
+	save.notify.jihou = !save.notify.jihou
+	prepareOptionMenu()
+}
+
+
+
 /*******************************************/
 /* 初期化とメインループ実行 */
 /*******************************************/
