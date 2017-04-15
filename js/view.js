@@ -2330,7 +2330,7 @@ function updateGachaMenu(){
 		$("#gacha_take_button").removeClass("free_spin_not_available")
 	}
 	else{
-		$("#gacha_take_button .gacha_button_value").text("100")	
+		$("#gacha_take_button .gacha_button_value").text("200")	
 		$("#gacha_take_button").removeClass("free_spin_available")
 		$("#gacha_take_button").addClass("free_spin_not_available")
 	}

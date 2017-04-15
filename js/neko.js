@@ -1355,12 +1355,12 @@ function spinGacha(times=1){
 		return
 	}
 
-	if(times * 100 > save.coin){
+	if(times * 200 > save.coin){
 		log("予算オーバーだよ")
 		return
 	}
 
-	save.coin -= times * 100
+	save.coin -= times * 200
 	data.disable_gacha_button = true
 	takeGacha(times)
 
