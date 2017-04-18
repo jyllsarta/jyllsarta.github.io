@@ -498,14 +498,6 @@ body{
 	font-size: 30px;
 }
 
-#mini_game_area{
-	position: absolute;
-	top: 610px;
-	left: 20px;
-	width: 1160px;
-	height: 170px;
-}
-
 #window_frame{
 	position: absolute;
 	top: 0px;
@@ -2005,6 +1997,53 @@ body{
 	width: 1200px;
 	height: 800px;
 	}
+
+
+/*ミニゲーム関連*/
+#mini_game_area{
+	position: absolute;
+	top: 610px;
+	left: 20px;
+	width: 1160px;
+	height: 170px;
+	overflow: hidden;
+}
+
+#mini_game_area .floor{
+	position: absolute;
+	width: 1160px;
+	height: 10px;
+	bottom: 0px;
+	background-color: #444444;
+}
+
+#mini_game_area .ceiling{
+	position: absolute;
+	width: 1160px;
+	height: 10px;
+	top: 0px;
+	background-color: #444444;
+}
+#charagter_image{
+	position: absolute;
+	width: 40px;
+	height: 60px;
+	top: 100px;
+	left: 150px;
+}
+
+.obstacle{
+	position: absolute;
+	width: 0;
+	height: 0;
+	top: 100px;
+	left: 150px;
+	border-style: solid;
+	border-width: 0 30px 60px 30px;
+	border-color: transparent transparent #444444 transparent;
+}
+
+
 /*webフォント関連*/
 /*
 .noto { font-family: "Noto Sans Japanese"; }

@@ -62,6 +62,10 @@ $(window).load(function(){
 
 //メインループ(フレームごとに更新する項目)
 function mainLoop(){
+	//セーブデータ読み込み前は処理をしない
+	if(save===undefined){
+		return
+	}
 	loiteringSiro()
 	loiteringKuro()
 	data.frame += 1
@@ -1355,12 +1359,12 @@ function spinGacha(times=1){
 		return
 	}
 
-	if(times * 200 > save.coin){
+	if(times * GACHA_COST > save.coin){
 		log("予算オーバーだよ")
 		return
 	}
 
-	save.coin -= times * 200
+	save.coin -= times * GACHA_COST
 	data.disable_gacha_button = true
 	takeGacha(times)
 
@@ -1473,11 +1477,13 @@ $(document).ready(function(){
 	init();
 })
 
-setInterval(mainLoop,50);
 setInterval(mainLoop_1sec,1000);
 
-
-
+function  ra(){
+	mainLoop()
+   window.requestAnimationFrame(ra)
+}
+ra()
 
 
 

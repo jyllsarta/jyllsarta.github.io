@@ -275,7 +275,7 @@ function  loiteringSiro(){
 
 
 	//[-0.5,0.5]
-	var delta = (Math.random()-.5)
+	var delta = (Math.random()-.5)/8
 	data.siro.vx += delta
 	//両端に寄り過ぎてるときは逆向きに力を加える
 	if (data.siro.x < 160){
@@ -291,7 +291,7 @@ function  loiteringSiro(){
 	}
 
 	//ある程度勢いのあるときのみ移動処理
-	if(Math.abs(data.siro.vx) > .7){
+	if(Math.abs(data.siro.vx) > .3){
 		if (data.siro.vx > 0){
 			$("#character_siro img").addClass("flip")
 		}
@@ -331,7 +331,7 @@ function  loiteringKuro(){
 	}
 
 	//[-0.5,0.5]
-	var delta = (Math.random()-.5)
+	var delta = (Math.random()-.5)/8
 	data.kuro.vx += delta/2
 	//両端に寄り過ぎてるときは逆向きに力を加える
 	//しろこよりも可動範囲狭め
@@ -349,7 +349,7 @@ function  loiteringKuro(){
 
 
 	//ある程度勢いのあるときのみ処理
-	if(Math.abs(data.kuro.vx) > .7 ){
+	if(Math.abs(data.kuro.vx) > .3 ){
 		if (data.kuro.vx > 0){
 			$("#character_kuro img").addClass("flip")
 		}
@@ -2335,13 +2335,13 @@ function updateGachaMenu(){
 		$("#gacha_take_button").addClass("free_spin_not_available")
 	}
 
-	if(save.coin >= 100 || isFreeSpinAvailable()){
+	if(save.coin >= GACHA_COST || isFreeSpinAvailable()){
 		$("#gacha_take_button").removeClass("cant_take")
 	}
 	else{
 		$("#gacha_take_button").addClass("cant_take")	
 	}
-	if(save.coin >= 1000){
+	if(save.coin >= GACHA_COST*10){
 		$("#gacha_take_10_button").removeClass("cant_take")
 	}
 	else{

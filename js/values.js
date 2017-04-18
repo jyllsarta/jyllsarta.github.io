@@ -321,3 +321,6 @@ var AUTO_RESSURECT_TIME = 5000
 
 //フリーおみくじの間隔(分)
 var FREE_GACHA_INTERVAL = 600
+
+//ガチャ価格
+var GACHA_COST = 200
