@@ -9,6 +9,12 @@ function notify(title="タイトル未指定",body="内容未指定",icon="defau
 		return
 	}
 
+	//久々にログインしたら全滅通知で埋まってうざい現象対策に
+	//追加イベント再生中は通知を送らない
+	if(data.hyper_event_dash_mode ){
+		return
+	}
+
 	if(save.playtime < 200){
 		//実際には時報が不幸にも発火する以外無いだろうけど一応止めておく
 		log("開始200秒以内は通知を行いません...")

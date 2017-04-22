@@ -240,3 +240,9 @@ $("#notification_freespin").click(function(){
 $("#notification_jihou").click(function(){
 	toggleNotificationJihou()
 })
+
+
+/*ミニゲーム関連*/
+$("#jump").click(function(){
+	proceedMiniGame()
+})
