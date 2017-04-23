@@ -2077,7 +2077,15 @@ body{
 
 #score_area{
 	position: absolute;
-	top:20px;
+	top:35px;
+	left: 10px;
+	opacity: 0.2;
+	font-size: 20px;
+}
+
+#high_score_area{
+	position: absolute;
+	top:10px;
 	left: 10px;
 	opacity: 0.2;
 	font-size: 20px;

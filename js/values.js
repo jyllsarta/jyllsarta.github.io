@@ -96,6 +96,9 @@ var save = {
 	tutorial : {
 		notify : false,
 	},
+	minigame : {
+		igaiga : 0,
+	},
 }
 
 var dungeon_data=[

@@ -24,6 +24,7 @@ function initView(){
 	updateBackgroundImage()
 	updateBackgroundImagePosition()
 
+	updateHighScore()
 }
 
 //ゲームモードの切り替え

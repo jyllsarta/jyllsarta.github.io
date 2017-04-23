@@ -167,10 +167,18 @@ function isHit(obstacle){
 	return false
 }
 
+function calcScore(frame){
+	return frame
+}
+
 //判定的なゲームオーバー処理
 function gameOver(){
 	log("しんだ")
+	mini_game_data.score = calcScore(mini_game_data.frame)
 	log(mini_game_data.score)
+	if(mini_game_data.score >save.minigame.igaiga){
+	save.minigame.igaiga = mini_game_data.score
+	}
 	mini_game_data.is_playing = false
 	$("#charagter_image").css({
 		translateY:25,
@@ -236,7 +244,7 @@ function prepareGameStartAnimation(){
 	})
 	$("#score_area").css({
 		opacity:0.2,
-		translateY:-10,
+		translateY:-5,
 	})
 	$("#charagter_image").css({
 		translateY:0,
@@ -322,9 +330,14 @@ function proceedMiniGame(){
 
 }
 
+function updateHighScore(){
+	$("#high_score").text(save.minigame.igaiga)
+}
+
 function resetMiniGame(){
 	flushObstacle()
 	updateMiniGameStartButton()
+	updateHighScore()
 }
 
 function updateScore(){
