@@ -2099,6 +2099,26 @@ body{
 	font-size:18px;
 }
 
+#score_popup{
+	opacity: 0;
+	position: absolute;
+	top: 40px;
+	left: 350px;
+	width: 300px;
+}
+
+#score_coin{
+	display: inline-block;
+	width: 48px;
+	height: 48px;
+}
+#earned_coin_value{
+	vertical-align: top;
+	display: inline-block;
+	font-family: "Nico Moji";
+	font-size: 48px;	
+}
+
 
 /*webフォント関連*/
 /*

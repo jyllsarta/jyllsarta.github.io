@@ -2,7 +2,11 @@
 /*プッシュ通知を送るやつ*/
 /***************************************/
 
-function notify(title="タイトル未指定",body="内容未指定",icon="default",on_click){
+function getFocus(){
+	log("フォーカス撮ったよ!")
+}
+
+function notify(title="タイトル未指定",body="内容未指定",icon="default",on_click=getFocus){
 
 	//save.enabledがオフなら一切通知を行わない
 	if(!save.notify.enabled){
@@ -34,8 +38,10 @@ function notify(title="タイトル未指定",body="内容未指定",icon="defau
 	{
 		body: body,
 		icon: icon,
-		timeout: 4000,
+		timeout: 5000,
 		onClick: function() {
+			on_click()
+			window.focus()
 			save.notify.enabled = true
 		}
 	})
@@ -44,11 +50,13 @@ function notify(title="タイトル未指定",body="内容未指定",icon="defau
 function promise(){
 	Push.Permission.request(
 		onGranted=function(){
+			fadeTutorial()
 			save.notify.enabled = true	
 			castMessage("ブラウザの↗に出ているはずです。")
 			notify(title="こんな感じに表示されます！",body="これからよろしくね！",icon="default")
 		},
 		onDenied=function(){
+			fadeTutorial()
 			save.notify.enabled = false
 			castMessage("お手紙通知機能をオフにしました！")			
 			castMessage("いつでもオンにできるので、")	

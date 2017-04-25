@@ -337,7 +337,6 @@ function validateSave(savedata){
 		}
 	}
 	for(var item in save.status.siro){
-		log(item)
 		if(savedata.status.siro[item] === undefined){
 			savedata.status.siro[item] = save.status.siro[item]
 			castMessage("save.status.siro."+item+"がセーブデータになかったので"+save.status.siro[item]+"にしました。")
@@ -943,6 +942,12 @@ function isAlreadyEquipped(item_id){
 
 //装備を試みる
 function equip(domobject){
+
+	//はじめて装備したら外し方を解説
+	if(save.tutorial["equip"] == false){
+		showTutorial("equip")
+	}
+
 	var item_id = $(domobject).parent().attr("item_id")
 	var current_chara_name = data.equipment_menu.current_character
 	var equip_num = save.equip[current_chara_name].length

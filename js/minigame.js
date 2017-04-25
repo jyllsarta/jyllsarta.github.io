@@ -171,11 +171,15 @@ function calcScore(frame){
 	return frame
 }
 
+//報酬
+function calcReward(frame){
+	return Math.floor(frame*frame / 300000)+1
+}
+
 //判定的なゲームオーバー処理
 function gameOver(){
 	log("しんだ")
 	mini_game_data.score = calcScore(mini_game_data.frame)
-	log(mini_game_data.score)
 	if(mini_game_data.score >save.minigame.igaiga){
 	save.minigame.igaiga = mini_game_data.score
 	}
@@ -205,6 +209,22 @@ function gameOver(){
 		prepareGameStartAnimation()
 		$(this).dequeue()
 	})
+
+	var reward = calcReward(mini_game_data.score)
+	save.coin += reward
+	save.total_coin_achieved += reward
+	$("#earned_coin_value").text("+"+reward)
+
+	$("#score_popup").css({
+		opacity:1,
+		translateY:10,
+	})
+	.delay(2000)
+	.animate({
+		opacity:0,
+		translateY:0,
+	})
+
 
 	mini_game_data.disable_restart=true
 
@@ -256,6 +276,11 @@ function prepareGameStartAnimation(){
 	})
 	$("#character").css({
 		translateY : 0,
+	})
+
+	$("#score_popup").css({
+		opacity:0,
+		translateY:0,
 	})
 }
 
@@ -342,10 +367,18 @@ function resetMiniGame(){
 
 function updateScore(){
 	$("#score").text(mini_game_data.frame)
+	if(mini_game_data.frame > save.minigame.igaiga){
+		$("#high_score").text(mini_game_data.frame)
+	}
 }
 
 //フレームごとにランダムでさんかくだしてく
 function appearObstacle(){
+
+	if(mini_game_data.frame==1){
+			addObstacle(randInt(20,50))
+	}
+
 	//最初は適当
 	if(mini_game_data.frame < 1000){
 		if(mini_game_data.frame % 50 == 0 && randInt(1,3)==1){

@@ -2622,6 +2622,7 @@ function fadeGachaResult(){
 //チュートリアル出す
 //type= [notify,]
 function showTutorial(type){
+
 	save.tutorial[type] = true
 	$("#tutorial_title").text(tutorial_data[type].title)
 	$("#tutorial_description").html(tutorial_data[type].description)
@@ -2632,18 +2633,27 @@ function showTutorial(type){
 	})	
 	.css({
 		opacity : 0,
-		translateY:-30,
+		translateY:-5,
 		top : tutorial_data[type].y,
-		left : tutorial_data[type].x
+		left : tutorial_data[type].x,
+		width : tutorial_data[type].width,
+		height : tutorial_data[type].height,
 	})
 	.animate({
 		opacity:1,
 		translateY:0,
-	},300,"easeOutQuart")
+	},200,"easeOutQuart")
 	.queue(function () {
 		$("#tutorial_click_cover").removeClass("hidden")
 		$(this).dequeue();
-	})	
+	})
+	if(tutorial_data[type].expire>0){
+		$(this).delay(tutorial_data[type].expire)
+		.queue(function(){
+			fadeTutorial()
+		$(this).dequeue();			
+		})
+	}
 }
 
 //チュートリアルポップアップ消す
@@ -2651,8 +2661,8 @@ function fadeTutorial(){
 	$("#tutorial")
 	.animate({
 		opacity:0,
-		translateY:-30,
-	},300,"easeOutQuart")
+		translateY:-5,
+	},200,"easeOutQuart")
 	.queue(function () {
 		$("#tutorial").addClass("hidden")
 		$("#tutorial_click_cover").addClass("hidden")

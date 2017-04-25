@@ -105,7 +105,6 @@
 							<li id="status_show_button" class="menu_item">ステータス</li>
 							<li id="dungeon_list_show_button" class="menu_item">次元層選択</li>
 							<li id="gacha_menu_show_button" class="menu_item">おみくじ（1）</li>
-							<li id="screenshot" class="menu_item">スクショ</li>
 							<li id="save_button" class="menu_item">セーブ</li>
 							<li id="option_button" class="menu_item">オプション</li>
 						</ul>
@@ -197,6 +196,10 @@
 						<div id="jump">はじめる</div>
 						<div id="score_area"><span>　　スコア：</span><span id="score">0</span></div>					
 						<div id="high_score_area"><span>ハイスコア：</span><span id="high_score">0</span></div>
+						<dic id="score_popup">
+							<img src="images/neko/icons/coin.png" id="score_coin">
+							<div id="earned_coin_value">+12</div>
+						</dic>
 					</div>
 
 					<div id="window_frame">
@@ -426,22 +429,22 @@
 			<ul id="option_container">
 				<div id="option_animation_on" class="option_item">
 					<div class="option_index">イベント時にアニメーションを再生する</div>
-					<div class="option_description">・かなり軽くなりますが、とてもさみしくなります</div>
+					<div class="option_description">かなり軽くなりますが、とてもさみしくなります</div>
 					<div id="enable_event_animation" class="option_value">☑</div>
 				</div>
 				<div id="option_loitering_on" class="option_item">
 					<div class="option_index">キャラの歩行</div>
-					<div class="option_description">・すこしだけ軽くなりますが、さみしくなります</div>
+					<div class="option_description">すこしだけ軽くなりますが、さみしくなります</div>
 					<div id="enable_loitering" class="option_value">☑</div>
 				</div>
 				<div id="option_scroll_background" class="option_item">
 					<div class="option_index">背景をスクロールさせる</div>
-					<div class="option_description">・ほんのすこしだけ軽くなりますが、さみしくなります</div>
+					<div class="option_description">ほんのすこしだけ軽くなりますが、さみしくなります</div>
 					<div id="enable_scroll_background" class="option_value">☑</div>
 				</div>
 				<div id="option_notification" class="option_item">
 					<div class="option_index">通知を行う</div>
-					<div class="option_description">全滅時やダンジョン踏破時にポコッと通知を表示してくれます。</div>
+					<div class="option_description">全滅時やダンジョン踏破時にポコッと通知を表示してくれます</div>
 					<div id="enable_notification" class="option_value">☑</div>
 				</div>
 			</ul>

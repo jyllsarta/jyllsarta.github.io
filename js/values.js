@@ -95,6 +95,7 @@ var save = {
 	},
 	tutorial : {
 		notify : false,
+		equip : false,
 	},
 	minigame : {
 		igaiga : 0,
@@ -271,8 +272,20 @@ var tutorial_data = {
 		title : "↖通知機能",
 		description : "旅の合間合間にしろこたちがお手紙を出してくれます。<br>別の作業を始めてもこれで大丈夫！<br>(オプションからいつでも設定ができます。)",
 		x : 20,
-		y : 20
-	}
+		y : 20,
+		width:400,
+		height:200,
+		expire : 0,
+	},
+	equip : {
+		title : "装備欄クリックか右クリックで装備を外せます。",
+		description : "",
+		x : 400,
+		y : 620,
+		width:600,
+		height:50,
+		expire : 3000,
+	},
 }
 
 
