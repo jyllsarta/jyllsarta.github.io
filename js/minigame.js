@@ -173,7 +173,17 @@ function calcScore(frame){
 
 //報酬
 function calcReward(frame){
-	return Math.floor(frame*frame / 300000)+1
+	var reward = Math.floor(frame*frame / 50000)+1
+	if(frame > 2000){
+		reward += 50
+	}
+	if(frame > 3000){
+		reward += 1000
+	}
+	if(frame > 4000){
+		reward += 10000
+	}
+	return reward
 }
 
 //判定的なゲームオーバー処理
@@ -213,6 +223,7 @@ function gameOver(){
 	var reward = calcReward(mini_game_data.score)
 	save.coin += reward
 	save.total_coin_achieved += reward
+	castMessage("イガイガヨケで"+reward+"枚コインを獲得した！")
 	$("#earned_coin_value").text("+"+reward)
 
 	$("#score_popup").css({
@@ -423,3 +434,5 @@ function loop(){
 	window.requestAnimationFrame(loop)
 }
 loop()
+
+window.onkeydown=jump
