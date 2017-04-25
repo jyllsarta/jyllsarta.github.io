@@ -671,9 +671,9 @@ function lotItem(flatten=false){
 function extractItemList(rarity=0,offset=50, limit=50){
 	var box = []
 	for(var i=offset;i<offset+limit;++i){
-		var item_rarity =data.item_data[i].rarity
+		var item_rarity =data.item_data[i % data.item_data.length].rarity
 		if(rarity == item_rarity){
-			box.push(i)
+			box.push(i% data.item_data.length)
 		}
 	}
 	return box
@@ -1412,6 +1412,8 @@ function takeGacha(times=1){
 		var rarity = lotGachaRarity()
 		var rank = getCurrentEnemyRank() * 1.25  +randInt(1,20)
 		var baseItemId = getMaxEnemyRank() % data.item_data.length
+		log(rarity)
+		log(baseItemId)
 		var itemList = extractItemList(rarity,baseItemId,50)
 
 		var aquiredItem = itemList[randInt(0,itemList.length-1)]
