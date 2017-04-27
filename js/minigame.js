@@ -99,7 +99,7 @@ function addObstacle(size,side="bottom"){
 			ob.side = side
 			$(mini_game_data.ob_dom[ob.id])
 			.css({
-				top : 160-size,
+				top : 161-size,
 				"border-width" : ("0 "+(size/2)+"px "+size+"px "+(size/2)+"px"),
 				opacity : 1
 			})

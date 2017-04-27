@@ -1,0 +1,59 @@
+body{
+	margin:0px 0px 0px 0px;
+	font-family: "Rounded Mplus 1c";
+	background-image: url("../images/neko/etc/tile.png")
+}
+
+#header_img{
+	display: block;
+	width: 1200px;
+	height: 132px;
+	margin : auto;
+}
+
+#contents{
+	border-radius: 10px 10px 10px 10px;
+	background-color: #FFFFFF;
+	width: 1210px;	
+	position: relative;
+	margin: auto;
+	padding-bottom: 7px;
+	padding-left: 10px;
+	color: #352c28;
+	font-size: 20px;
+}
+
+a:visited{
+	color: #ba5581;
+}
+a:hover{
+	color:#ffe1ce;
+}
+h1{
+	font-size: 40px;
+}
+h2{
+	font-size: 30px;
+}
+
+ul{
+	list-style: none;
+}
+
+b{
+	color: #41459b;
+}
+
+li{
+
+}
+li:before{
+	content: "・"
+}
+
+.screenshot{
+	margin-left: 100px;
+	border-radius: 10px;
+	width: 900px;
+	height: 600px;
+}
