@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<link href="css/reset.css" rel="stylesheet" type="text/css">
 	<link href="css/nekomanual.css" rel="stylesheet" type="text/css">
+	<link href="css/panels.css" rel="stylesheet" type="text/css">
 	<link href="https://fonts.googleapis.com/earlyaccess/mplus1p.css" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css" rel="stylesheet" />
@@ -32,9 +33,25 @@
 			<p><b>装備をとっかえひっかえしながら</b>未知の塔を探索するのを見守る<b>放置系ブラウザゲーム</b>です。</p>
 			<img src="images/neko/etc/loading_splash.png" class="screenshot">
 			<h1>メイン画面</h1>
-			<img src="images/neko/manual/mainboard.png" class="screenshot">
+			<div class="panel">
+				<div id="main_1" class="description">①</div>
+				<div id="main_2" class="description">②</div>
+				<div id="main_3" class="description">③</div>
+				<div id="main_4" class="description">④</div>
+				<div id="main_5" class="description">⑤</div>
+				<img src="images/neko/manual/mainboard.png" class="screenshot">
+			</div>
+			<dl>
+				<dt>①ステージ情報</dt><dd>現在階層について表示されます。</dd>
+				<dt>②キャラデータ</dt><dd>しろことくろこの現在のHP、LVが表示されます。</dd>
+				<dt>③ログ</dt><dd>直近イベントのログが表示されます。</dd>
+				<dt>④メニュー</dt><dd>各種メニューを開いたり、回復ができます。</dd>
+				<dt>⑤ミニゲーム</dt><dd>ミニゲーム「イガイガヨケ」が遊べます。遊ぶとコインが手に入ります。</dd>
+			</dl>
 			<h1>装備</h1>
+			<div class="panel">
 			<img src="images/neko/manual/equip.png" class="screenshot">
+			</div>
 			<h1>戦闘</h1>
 			<h1>おみくじ</h1>
 			<h1>小ネタ・仕様</h1>

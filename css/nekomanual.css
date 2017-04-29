@@ -57,3 +57,36 @@ li:before{
 	width: 900px;
 	height: 600px;
 }
+
+.panel{
+	position: relative;
+	width: 900px;
+	height: 600px;
+}
+
+.description{
+	position: absolute;
+	border: 4px solid #fffa00;
+	transform: translateX(100px);
+	color: #fffa00;
+	font-weight: 800;
+	font-size: 30px;
+	border-radius: 4px;
+	padding-left: 3px;
+}
+
+dl{
+	margin-left: 100px;
+	background-color: #efefef;
+	border-radius: 10px;
+	width: 900px;
+}
+dt{
+	display: inline-block;
+	width: 200px;
+	font-weight: 800;
+}
+dd{
+	display: inline-block;
+	width: 700px;
+}
