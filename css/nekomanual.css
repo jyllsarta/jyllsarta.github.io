@@ -44,11 +44,24 @@ b{
 	color: #41459b;
 }
 
+ul{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
 li{
 
 }
 li:before{
 	content: "・"
+}
+
+p{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 100px;
+	background-color: #efefef;
+	width: 900px;
+	border-radius: 10px;
 }
 
 .screenshot{
@@ -80,6 +93,8 @@ dl{
 	background-color: #efefef;
 	border-radius: 10px;
 	width: 900px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 dt{
 	display: inline-block;
