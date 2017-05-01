@@ -22,12 +22,21 @@ body{
 	color: #352c28;
 	font-size: 20px;
 }
-
+header{
+	margin-bottom: 20px;
+}
+a{
+	background-color: #fff9cc;
+	border-radius: 10px;
+	box-shadow: 4px 4px #ede5b8;
+}
 a:visited{
 	color: #ba5581;
 }
 a:hover{
 	color:#ffe1ce;
+	background-color: #fffdf2;
+	box-shadow: -1px -1px 4px 2px #fcf7db;
 }
 h1{
 	font-size: 40px;

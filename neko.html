@@ -32,7 +32,7 @@
 	<div id="contents">
 		<header>
 			<img id="header_img" src="images/neko/etc/banner.png">
-			<div id="header_blur"></div>
+			<a href="nekomanual.html"><div id="manual_link">マニュアルはこちら</div></a>
 		</header>
 		<div id="game_window_cover">
 			<div id="loading_progress_bar"></div>
@@ -107,6 +107,7 @@
 							<li id="gacha_menu_show_button" class="menu_item">おみくじ（1）</li>
 							<li id="save_button" class="menu_item">セーブ</li>
 							<li id="option_button" class="menu_item">オプション</li>
+							<li id="epilogue_button" class="menu_item">エピローグ</li>
 						</ul>
 					</div>
 					<div id="character_data_area" class="shadow_background">
@@ -451,7 +452,7 @@
 			<div id="notitication_setting_text">通知の個別設定：</div>
 			<div id="notification_setting_cointainer">
 				<div id="notification_death" class="notification_item">
-				<span class="notification_index">全滅時にお知らせする</span>
+					<span class="notification_index">全滅時にお知らせする</span>
 					<span class="notification_value">☑</span>
 				</div>
 				<div id="notification_clear" class="notification_item">
@@ -853,6 +854,12 @@
 				セーブしました。
 			</div>
 
+			<div id="epilogue" class="hidden">
+			<div id="epilogue_dummy"></div>
+				<img src="images/neko/epilogue/2.png" class="epilogue_illust" id="epilogue_1">
+				<img src="images/neko/epilogue/1.png" class="epilogue_illust" id="epilogue_0">
+				<div id="epilogue_text"></div>
+			</div>
 
 			<div id="tutorial" class="hidden shadow_background">
 				<div id="tutorial_title"></div>

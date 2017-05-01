@@ -294,6 +294,7 @@ function __debugDungeonFullOpen(){
 		save.dungeon_open[i] = 1
 		save.dungeon_process[i] = dungeon_data[i].depth
 	}
+	updateEpilogueButtonShowState()
 	prepareDungeonList()
 }
 
@@ -1475,7 +1476,6 @@ function toggleNotificationJihou(){
 }
 
 
-
 /*******************************************/
 /* 初期化とメインループ実行 */
 /*******************************************/
@@ -1488,7 +1488,7 @@ setInterval(mainLoop_1sec,1000);
 
 function  ra(){
 	mainLoop()
-   window.requestAnimationFrame(ra)
+	window.requestAnimationFrame(ra)
 }
 ra()
 

@@ -241,6 +241,17 @@ $("#notification_jihou").click(function(){
 	toggleNotificationJihou()
 })
 
+$("#epilogue_button").click(function(){
+	showEpilogue()
+})
+
+$(".epilogue_illust").click(function(){
+	proceedEpilogue()
+})
+
+$("#epilogue_text").click(function(){
+	proceedEpilogue()
+})
 
 /*ミニゲーム関連*/
 $("#jump").click(function(){

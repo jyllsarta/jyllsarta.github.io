@@ -38,6 +38,8 @@ var data = {
 	current_build_item_id : 0,
 	disable_gacha_button : false,
 	hyper_event_dash_mode : false,
+	epilogue_scene : 0,
+	epilogue_line : 0,
 }
 
 
@@ -100,6 +102,7 @@ var save = {
 	minigame : {
 		igaiga : 0,
 	},
+	seen_epilogue : false,
 }
 
 var dungeon_data=[
@@ -288,6 +291,17 @@ var tutorial_data = {
 	},
 }
 
+var epilogue_text =[
+	[ 	"界面の主を倒したあとに残ったのは、やはり扉だった。",
+		"2つめのテキスト",
+		"3つめのテキスト",
+		"4つめのテキスト",
+		"5つめのテキスト",
+	],
+	[ "1次元の界面の果てに待っていたのは、",
+			"あーなんか後で考えるこれ",
+	],
+]
 
 /*******************************************/
 /* 定数 */

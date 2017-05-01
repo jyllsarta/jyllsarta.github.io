@@ -359,11 +359,8 @@ function proceedMiniGame(){
 		startMiniGame()
 		return
 	}
-
 	//それ以外はジャンプボタン
 	jump()
-
-
 }
 
 function updateHighScore(){

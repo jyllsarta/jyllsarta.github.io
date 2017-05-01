@@ -23,6 +23,7 @@ function initView(){
 	updateCurrentFloorText()
 	updateBackgroundImage()
 	updateBackgroundImagePosition()
+	updateEpilogueButtonShowState()
 
 	updateHighScore()
 }
@@ -150,6 +151,7 @@ function fadeOutAndFadeInStairs(){
 		updateBackgroundImagePosition()
 		updateBackgroundImage()
 		updateStairsArea()
+		updateEpilogueButtonShowState()
 		$(this).dequeue();
 	})
 	.animate({
@@ -2651,7 +2653,7 @@ function showTutorial(type){
 		$(this).delay(tutorial_data[type].expire)
 		.queue(function(){
 			fadeTutorial()
-		$(this).dequeue();			
+			$(this).dequeue();			
 		})
 	}
 }
@@ -2670,13 +2672,94 @@ function fadeTutorial(){
 	})
 }
 
+/*******************************************/
+/*エピローグ*/
+/*******************************************/
+
+//
+function updateEpilogueButtonShowState(){
+	if(save.dungeon_process[4] >= 2000){
+		$("#epilogue_button").removeClass("hidden")
+	}
+	else{
+		$("#epilogue_button").addClass("hidden")	
+	}
+	if(save.seen_epilogue){
+		$("#epilogue_button").removeClass("epilogue_unseen")	
+	}
+	else{
+		$("#epilogue_button").addClass("epilogue_unseen")	
+	}
+}
+
+//エピローグ
+function showEpilogue(){
+	prepareEpilogue()
+	save.seen_epilogue = true
+	updateEpilogueButtonShowState()
+	$("#epilogue")
+	.removeClass("hidden")
+	.animate({
+		opacity:1,
+	},500,"linear")
+	proceedEpilogue()
+}
+
+//エピローグ消す
+function fadeEpilogue(){
+	$("#epilogue")
+	.animate({
+		opacity:0,
+		translateY:-5,
+	},3200,"easeOutQuart")
+	.queue(function () {
+		$(this).addClass("hidden").dequeue();
+	})
+}
 
 
+function prepareEpilogue(){
+	$("#epilogue_text").text("")
+	$(".epilogue_illust").css("opacity",1)
+	data.epilogue_line=0
+	data.epilogue_scene=0
+}
 
+//エピローグを1文字進める
+function queueLetter(l){
+	var message_queue = $("#epilogue_dummy")
+	message_queue.delay(20).queue(function(){
+		$("#epilogue_text").append(l)
+		message_queue.dequeue()
+	})
+}
 
-
-
-
-
-
-
+//1クリックぶん進行する
+function proceedEpilogue(){
+	//ページにまだ行がある場合
+	if(data.epilogue_line < epilogue_text[data.epilogue_scene].length){
+		for(var letter of epilogue_text[data.epilogue_scene][data.epilogue_line]){
+			queueLetter(letter)
+		}
+		queueLetter("<br>")
+	}
+	//ページ送り
+	else{
+		//最後のページの場合ゆっくり戻って消す
+		if(data.epilogue_scene == epilogue_text.length-1){
+			fadeEpilogue()
+			return
+		}
+		$("#epilogue_"+data.epilogue_scene).animate({
+			opacity:0
+		},1000,"linear")
+		data.epilogue_scene++
+		data.epilogue_line = 0
+		$("#epilogue_text").text("")
+		for(var letter of epilogue_text[data.epilogue_scene][data.epilogue_line]){
+			queueLetter(letter)
+		}
+		queueLetter("<br>")
+	}
+	data.epilogue_line ++
+}
