@@ -757,7 +757,7 @@ function eventStairs(){
 	else{
 		showStairsSprite()
 		processStairs()
-		castMessage("◆階段を降りた！")
+		castMessage("◆階段を見つけた！")
 	}
 }
 
