@@ -21,7 +21,16 @@ body{
 	width: 1210px;	
 	position: relative;
 	margin: auto;
-	padding-bottom: 7px;
+}
+#bug_report{
+	position: relative;
+	margin: auto;
+	width: 1210px;
+	height: 20px;
+	top: -4px;
+	text-align: right;
+	background-color: #FFFFFF;
+	border-radius:0px 0px 10px 10px;
 }
 
 #manual_link{
