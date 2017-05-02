@@ -117,9 +117,9 @@ function updateBackgroundImageLastDungeon(){
 		//ラスダンの場合、40Fごとに
 		// [landscape順でループ >ID順でループ]する
 		//きっかり40Fごとに変わるとバレバレになるので257のオフセットを与えている
-		var floor = save.current_floor + 257
-		var dungeon = (Math.floor(floor / 40)) % 4
-		var landscape = (Math.floor(floor / 160)) % 3
+		var floor = save.current_floor + 143
+		var dungeon = (Math.floor(floor / 10)) % 5
+		var landscape = (Math.floor(floor / 50)) % 3
 
 		$("#background_image_bg").attr("src","images/neko/bg/st"+dungeon+"-"+landscape+"-0.png")
 		$("#background_image_floor").attr("src","images/neko/bg/st"+dungeon+"-"+landscape+"-1.png")
