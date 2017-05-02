@@ -181,7 +181,7 @@ function calcReward(frame){
 		reward += 1000
 	}
 	if(frame > 4000){
-		reward += 10000
+		reward += 4000
 	}
 	return reward
 }
