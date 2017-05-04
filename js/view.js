@@ -539,6 +539,11 @@ function resetItemSprite(){
 //アイテム取得スプライトをスライドインする
 function showItemSprite(){
 
+	//ミニゲームプレイ中も一切スプライトを出さない
+	if(mini_game_data.is_playing){
+		return
+	}
+
 	//イベント超速再生中は一切スプライトをを出さない
 	if(data.hyper_event_dash_mode){
 		return
@@ -661,6 +666,11 @@ function resetBattleSprite(){
 
 function showBattleSprite(){
 
+	//ミニゲームプレイ中も一切スプライトを出さない
+	if(mini_game_data.is_playing){
+		return
+	}
+
 	//イベント超速再生中は一切スプライトを出さない
 	if(data.hyper_event_dash_mode){
 		return
@@ -779,6 +789,11 @@ function resetStairsSprite(){
 }
 
 function showStairsSprite(){
+
+	//ミニゲームプレイ中も一切スプライトを出さない
+	if(mini_game_data.is_playing){
+		return
+	}
 
 	//イベント超速再生中は一切スプライトを出さない
 	if(data.hyper_event_dash_mode){
@@ -960,6 +975,11 @@ function resetBossBattleSprite(){
 
 function showBossBattleSprite(){
 
+	//ミニゲームプレイ中も一切スプライトを出さない
+	if(mini_game_data.is_playing){
+		return
+	}
+
 	//イベント超速再生中は一切スプライトを出さない
 	if(data.hyper_event_dash_mode){
 		return
@@ -1056,7 +1076,12 @@ function resetResurrectSprite(){
 
 function showResurrectSprite(){
 
-	//イベント超速再生中はスプライトの発生を抑制 Yo Yo
+	//ミニゲームプレイ中も一切スプライトを出さない
+	if(mini_game_data.is_playing){
+		return
+	}
+
+	//イベント超速再生中はスプライトの発生を抑制(韻を踏んだ)
 	if(data.hyper_event_dash_mode){
 		return
 	}
@@ -1157,8 +1182,6 @@ function showResurrectSprite(){
 		translateY:0
 	},100,"linear")
 }
-
-
 
 //HPの表記反映
 function updateCurrentHP(){
