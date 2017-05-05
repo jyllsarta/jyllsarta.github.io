@@ -88,6 +88,7 @@ var mini_game_data={
 	frame : 0,
 	score :0,
 	disable_restart : false,
+	iga_log : [],
 }
 
 function addObstacle(size,side="bottom"){
@@ -97,6 +98,7 @@ function addObstacle(size,side="bottom"){
 			ob.x = 1200
 			ob.size = size
 			ob.side = side
+			mini_game_data.iga_log.push({frame:mini_game_data.frame, size:size})
 			$(mini_game_data.ob_dom[ob.id])
 			.css({
 				top : 161-size,
@@ -106,7 +108,7 @@ function addObstacle(size,side="bottom"){
 			return
 		}
 	}
-	log("障害物置きすぎ")
+	//log("障害物置きすぎ")
 }
 
 function removeObsoletedObstacle(){
@@ -191,7 +193,7 @@ function gameOver(){
 	log("しんだ")
 	mini_game_data.score = calcScore(mini_game_data.frame)
 	if(mini_game_data.score >save.minigame.igaiga){
-	save.minigame.igaiga = mini_game_data.score
+		save.minigame.igaiga = mini_game_data.score
 	}
 	mini_game_data.is_playing = false
 	$("#charagter_image").css({
@@ -251,6 +253,7 @@ function startMiniGame(){
 	mini_game_data.is_playing = true
 	mini_game_data.score = 0
 	mini_game_data.frame=0
+	mini_game_data.iga_log = []
 	jump()
 	miniGameStartAnimation()
 }
@@ -384,13 +387,13 @@ function updateScore(){
 function appearObstacle(){
 
 	if(mini_game_data.frame==1){
-			addObstacle(randInt(20,50))
+		addObstacle(randInt(20,50))
 	}
 
 	//最初は適当
 	if(mini_game_data.frame < 1000){
 		if(mini_game_data.frame % 50 == 0 && randInt(1,3)==1){
-			addObstacle(randInt(20,30))
+			addObstacle(randInt(17,45))
 		}
 		return
 	}
@@ -402,9 +405,26 @@ function appearObstacle(){
 
 	//それ以降は適当に出す
 	if(mini_game_data.frame%10 == 0 && randInt(1,10000) < mini_game_data.frame){
-		addObstacle(randInt(0,30) + (mini_game_data.frame/100))
+		if(!tooManyIgasPoped(mini_game_data.iga_log,mini_game_data.frame)){
+			addObstacle(randInt(17,30+(mini_game_data.frame/150)) + (mini_game_data.frame/250))
+		}
 	}
 
+}
+
+//直近でイガを出しすぎて理不尽配置になっていないか
+function tooManyIgasPoped(logdata,frame){
+	var count = 0
+	for(var l of logdata){
+		//最近50フレームのイガなら
+		if(frame - l.frame < 100){
+			count++;
+		}
+	}
+	//if(count>=5){
+	//	log("だしすぎー")
+	//}
+	return count >= 5
 }
 
 function updateMiniGame(){
