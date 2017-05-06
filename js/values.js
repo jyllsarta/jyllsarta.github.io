@@ -103,6 +103,7 @@ var save = {
 		igaiga : 0,
 	},
 	seen_epilogue : false,
+	seen_omake : false,
 }
 
 var dungeon_data=[
