@@ -253,6 +253,14 @@ $("#epilogue_text").click(function(){
 	proceedEpilogue()
 })
 
+$("#omake_button").click(function(){
+	showThankyouImage()
+})
+$("#omake_image").click(function(){
+	fadeThankyouImage()
+})
+
+
 /*ミニゲーム関連*/
 $("#jump").click(function(){
 	proceedMiniGame()

@@ -294,6 +294,7 @@ function __debugDungeonFullOpen(){
 		save.dungeon_open[i] = 1
 		save.dungeon_process[i] = dungeon_data[i].depth
 	}
+	updateOmakeButtonShowState()
 	updateEpilogueButtonShowState()
 	prepareDungeonList()
 }
@@ -334,19 +335,19 @@ function validateSave(savedata){
 	for(var item in save){
 		if(savedata[item] === undefined){
 			savedata[item] = save[item]
-			castMessage(item+"がセーブデータになかったので"+save[item]+"にしました。")
+			log(item+"がセーブデータになかったので"+save[item]+"にしました。")
 		}
 	}
 	for(var item in save.status.siro){
 		if(savedata.status.siro[item] === undefined){
 			savedata.status.siro[item] = save.status.siro[item]
-			castMessage("save.status.siro."+item+"がセーブデータになかったので"+save.status.siro[item]+"にしました。")
+			log("save.status.siro."+item+"がセーブデータになかったので"+save.status.siro[item]+"にしました。")
 		}
 	}
 	for(var item in save.status.kuro){
 		if(savedata.status.kuro[item] === undefined){
 			savedata.status.kuro[item] = save.status.kuro[item]
-			castMessage("save.status.kuro."+item+"がセーブデータになかったので"+save.status.kuro[item]+"にしました。")
+			log("save.status.kuro."+item+"がセーブデータになかったので"+save.status.kuro[item]+"にしました。")
 		}
 	}
 }

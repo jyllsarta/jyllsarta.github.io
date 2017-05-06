@@ -24,7 +24,7 @@ function initView(){
 	updateBackgroundImage()
 	updateBackgroundImagePosition()
 	updateEpilogueButtonShowState()
-
+	updateOmakeButtonShowState()
 	updateHighScore()
 }
 
@@ -152,6 +152,7 @@ function fadeOutAndFadeInStairs(){
 		updateBackgroundImage()
 		updateStairsArea()
 		updateEpilogueButtonShowState()
+		updateOmakeButtonShowState()
 		$(this).dequeue();
 	})
 	.animate({
@@ -2785,4 +2786,44 @@ function proceedEpilogue(){
 		queueLetter("<br>")
 	}
 	data.epilogue_line ++
+}
+
+
+//遊んでくれてありがとう
+function showThankyouImage(){
+	prepareEpilogue()
+	save.seen_omake = true
+	updateOmakeButtonShowState()
+	$("#omake_image")
+	.removeClass("hidden")
+	.animate({
+		opacity:1,
+	},500,"linear")
+}
+
+//遊んでくれてありがとうのやつけす
+function fadeThankyouImage(){
+	$("#omake_image")
+	.animate({
+		opacity:0,
+		translateY:-5,
+	},1200,"easeOutQuart")
+	.queue(function () {
+		$(this).addClass("hidden").dequeue();
+	})
+}
+
+function updateOmakeButtonShowState(){
+	if(save.dungeon_process[4] >= 9999){
+		$("#omake_button").removeClass("hidden")
+	}
+	else{
+		$("#omake_button").addClass("hidden")	
+	}
+	if(save.seen_omake){
+		$("#omake_button").removeClass("epilogue_unseen")	
+	}
+	else{
+		$("#omake_button").addClass("epilogue_unseen")	
+	}
 }

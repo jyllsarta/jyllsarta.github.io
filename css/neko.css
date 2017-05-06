@@ -2178,3 +2178,12 @@ body{
 	50% {opacity: 1;}
 	100% {opacity: 0.7;}
 }
+
+#omake_image{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 1200px;
+	height: 800px;
+	opacity: 0;
+}
