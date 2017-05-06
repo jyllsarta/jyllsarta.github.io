@@ -83,6 +83,7 @@ var mini_game_data={
 		side : "bottom",
 		y:0,
 		vy:0,
+		jumping_count:0,
 	},
 	speed : 5,
 	frame : 0,
@@ -260,7 +261,6 @@ function startMiniGame(){
 
 
 function jump(){
-
 	//3段目以降はジャンプさせない
 	if(mini_game_data.character.jumping_count >= 2){
 		return
