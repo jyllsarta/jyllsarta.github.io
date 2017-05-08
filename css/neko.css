@@ -28,9 +28,19 @@ body{
 	width: 1210px;
 	height: 20px;
 	top: -4px;
-	text-align: right;
 	background-color: #FFFFFF;
 	border-radius:0px 0px 10px 10px;
+}
+#version{
+	display: inline-block;
+	text-align: left;
+	padding-left: 20px;
+	width: 400px;
+}
+#wanna_report{
+	display: inline-block;
+	text-align: right;	
+	width: 750px;
 }
 
 #manual_link{
@@ -838,7 +848,7 @@ body{
 
 #equip_coin_amount{
 	display: inline-block;
-	width: 150px;
+	width: 180px;
 	text-align: right;
 	padding-right: 10px;
 }
@@ -1036,7 +1046,7 @@ body{
 #build_amount_coin_have_show_area{
 	position: absolute;
 	top: 10px;
-	left: 400px;
+	left: 350px;
 }
 
 .coin_icon{

@@ -291,7 +291,12 @@ function processBattle(bossBattle=false){
 
 	}
 	else{
-		var damageDealedPersentage =100-Math.floor(enemies[0].hp / enemies[0].maxHp * 100)
+		var damageDealedPersentage = 0
+		for(var enemy of enemies){
+			damageDealedPersentage += Math.min(100-Math.floor(enemy.hp / enemy.maxHp * 100),100)
+		}
+		damageDealedPersentage = Math.floor(damageDealedPersentage/ 3)
+
 		//全滅時のメッセージ
 		castMessage( "しろこ" + damage_siro +",くろこ" + damage_kuro + "ダメージ。")
 		castMessage( turnCount+"ターン耐え,"+damageDealedPersentage+"%削ったが全滅した... ") 

@@ -25,6 +25,7 @@ function initView(){
 	updateBackgroundImagePosition()
 	updateEpilogueButtonShowState()
 	updateOmakeButtonShowState()
+	updateIgaBaseColor(save.current_dungeon_id,save.current_landscape_id)
 	updateHighScore()
 }
 
@@ -114,9 +115,9 @@ function updateBackgroundImage(){
 //ラスダン用のランダム背景切り替え
 function updateBackgroundImageLastDungeon(){
 
-		//ラスダンの場合、40Fごとに
-		// [landscape順でループ >ID順でループ]する
-		//きっかり40Fごとに変わるとバレバレになるので257のオフセットを与えている
+		//ラスダンの場合、30Fごとに
+		// [landscape順でループ > ID順でループ]する
+		//きっかり40Fごとに変わるとバレバレになるので143のオフセットを与えている
 		var floor = save.current_floor + 143
 		var dungeon = (Math.floor(floor / 10)) % 5
 		var landscape = (Math.floor(floor / 50)) % 3
@@ -129,6 +130,11 @@ function updateBackgroundImageLastDungeon(){
 
 //階段降り時のフェードアウトイン
 function fadeOutAndFadeInStairs(){
+
+	//イガイガヨケプレイ中はラグ防止の為処理しない
+	if(mini_game_data.is_playing){
+		return
+	}
 
 	if(data.hyper_event_dash_mode || data.__debughypereventdashmode){
 		return
@@ -151,6 +157,7 @@ function fadeOutAndFadeInStairs(){
 		updateBackgroundImagePosition()
 		updateBackgroundImage()
 		updateStairsArea()
+		updateIgaBaseColor(save.current_dungeon_id,save.current_landscape_id)
 		updateEpilogueButtonShowState()
 		updateOmakeButtonShowState()
 		$(this).dequeue();
@@ -1342,10 +1349,17 @@ function prepareEquipBuildMenu(item_id){
 
 	}
 	else{
-		param_afters[0].textContent = (Math.floor(getBuildedParameter(item_id,"str")))
-		param_afters[1].textContent = (Math.floor(getBuildedParameter(item_id,"dex")))
-		param_afters[2].textContent = (Math.floor(getBuildedParameter(item_id,"def")))
-		param_afters[3].textContent = (Math.floor(getBuildedParameter(item_id,"agi")))
+		//最大強化済の場合は差分を表示しない
+		for(var i=0;i<4;++i){
+		param_afters[i].textContent = "MAX!"
+		param_diffs[i].textContent ="-"
+		$(param_diffs[i]).removeClass("minus")
+		$(param_diffs[i]).removeClass("plus")
+		}
+		$("#build_cost").text("---")
+		if(!save.item[item_id]){
+			$("#build_cost").text("100")
+		}
 	}
 
 	//強化できないなら無効化する
@@ -1355,10 +1369,7 @@ function prepareEquipBuildMenu(item_id){
 	else{
 		$("#build_decide_button").removeClass("disabled")		
 	}
-
 }
-
-
 
 //item_idの装備強化メニューを開く
 function showEquipBuildMenuView(item_id){
@@ -2058,7 +2069,7 @@ function updateAchievementClearData(){
 
 //プレイ時間
 function updatePlaytimeArea(){
-	　$("#playhour").text(("0"+Math.floor(save.playtime /60 /60)).slice(-2))
+	　$("#playhour").text((Math.floor(save.playtime /60 /60)))
 	　$("#playminutes").text(("0"+Math.floor(save.playtime /60 % 60)).slice(-2))
 	　$("#playseconds").text(("0"+Math.floor(save.playtime % 60)).slice(-2))
 }
@@ -2534,7 +2545,7 @@ function takeGachaSprite(){
 	.animate({
 		opacity:0.9999
 	},500,"linear")
-	.delay(500)
+	.delay(300)
 	.queue(function(){
 		$("#gacha_result_background").addClass("rotate_bg")
 		$(this).dequeue()
@@ -2591,6 +2602,12 @@ function showAquiredItemList(item_ids){
 		showGachaResult()
 		$(this).dequeue()
 	})
+	.delay(300)
+	.queue(function(){
+		//結果が出たら引き直してOK
+		data.disable_gacha_button = false
+		$(this).dequeue()
+	})
 }
 
 //メニュー画面でおみくじが引けるかどうか通知
@@ -2605,30 +2622,12 @@ function updateMenuFreeSpinAvailable(){
 
 //ガチャ詳細表示
 function showGachaResult(){
-	//結果が出たら引き直してOK
-	data.disable_gacha_button = false
 	$("#gacha_result_area")
 	.removeClass("hidden")
 	.animate({
 		opacity:1,
 	},300,"easeOutQuart")
 }
-
-//ガチャ詳細けす
-function fadeGachaResult(){
-	$("#gacha_result_area")
-	.animate({
-		opacity:0,
-		translateY:0,
-	},300,"easeOutQuart")
-	.queue(function () {
-		updateGachaMenu()
-		prepareGachaSprite()
-		resetMikujiStick()
-		$(this).addClass("hidden").dequeue();
-	})
-}
-
 
 //ガチャ詳細けす
 function fadeGachaResult(){

@@ -445,6 +445,26 @@ function updateMiniGame(){
 	mini_game_data.frame++
 }
 
+//背景のコントラストと合わせてイガイガの色変更
+function updateIgaBaseColor(stage_id,landscape_id){
+	if(stage_id==4){
+		var floor = save.current_floor + 143
+		stage_id  = (Math.floor(floor / 10)) % 5
+		landscape_id = (Math.floor(floor / 50)) % 3		
+	}
+	var iga_color = {
+		0 : ["#444444","#46494c","#33302f"],
+		1 : ["#768772","#768772","#444444"],
+		2 : ["#444444","#444444","#444444"],
+		3 : ["#676767","#656565","#656565"],
+		4 : ["#444444","#444444","#444444"],
+	}
+	var color = iga_color[stage_id][landscape_id]
+	$(".floor").css("background-color" , color)
+	$(".ceiling").css("background-color" , color)
+	$(".obstacle").css("border-color" , "transparent transparent "+color+" transparent")
+}
+
 
 function loop(){
 	updateMiniGame()

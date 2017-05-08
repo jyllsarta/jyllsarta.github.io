@@ -25,7 +25,7 @@ body{
 header{
 	margin-bottom: 20px;
 }
-a{
+.back_to_game{
 	background-color: #fff9cc;
 	border-radius: 10px;
 	box-shadow: 4px 4px #ede5b8;
@@ -42,11 +42,8 @@ h1{
 	font-size: 40px;
 }
 h2{
+	margin-left: 10px;
 	font-size: 30px;
-}
-
-ul{
-	list-style: none;
 }
 
 b{
@@ -54,14 +51,17 @@ b{
 }
 
 ul{
+	list-style: none;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
 li{
-
-}
-li:before{
-	content: "・"
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 100px;
+	background-color: #efefef;
+	width: 900px;
+	border-radius: 10px;
 }
 
 p{
