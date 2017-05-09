@@ -1384,6 +1384,7 @@ function hideEquipBuildMenu(){
 
 //装備メニューの開放
 function fadeEquipmentMenu(){
+	fadeSortOrderChangePopup()
 	$("#equipment_menu")
 	.animate({
 		opacity:0,
@@ -1456,6 +1457,7 @@ function getCurrentPageItemList(){
 	//sort_order==0 -> ID順
 	//sort_order==1 -> 総パラメータ順
 	//sort_order==2,3,4,5 -> STR,DEX,DEF,AGI順
+	//sort_order==6,7 -> ATK, SLD順
 	if(sort_order === 0){
 		for(var i=0;i<10;++i){
 			item_ids.push((current_page-1)*10 + i)
@@ -1485,6 +1487,16 @@ function getCurrentPageItemList(){
 
 	if(sort_order === 5){
 		item_ids = getItemIDListOrderBy(current_page,"agi")
+		return item_ids
+	}
+
+	if(sort_order === 6){
+		item_ids = getItemIDListOrderByATK(current_page)
+		return item_ids
+	}
+
+	if(sort_order === 7){
+		item_ids = getItemIDListOrderBySLD(current_page)
 		return item_ids
 	}
 
@@ -1614,6 +1626,7 @@ function updateEquipListName(){
 
 //装備リストの表示項目を反映
 function updateEquipList(){
+	updateSortOrderText()
 	updateEquipListName()
 	updateEquipListParam()
 	updateEquipBuildButtonShowState()
@@ -1621,6 +1634,10 @@ function updateEquipList(){
 	updateEquipListParameterIndex()
 }
 
+function updateSortOrderText(){
+	var order = ["[ID順]","[つよさ順]","[STR順]","[DEX順]","[DEF順]","[AGI順]","[攻順]","[守順]",]
+	$("#sort_toggle_menu_open_button").text(order[data.equipment_menu.sort_order])
+}
 
 function updatePagerCurrentPage(){
 	$("#current_page").text(data.equipment_menu.current_page)
@@ -1842,11 +1859,40 @@ function updateEquipBuildButtonShowState(){
 	}
 }
 
-
 //「このあたりの敵の強さ」欄のパラメータ
 function updateCurrentEnemyRankArea(){
 	$("#current_enemy_atk").text(calcEnemyAtk(getCurrentEnemyRank()))
 }
+
+//ソート順切り替えポップアップを出す
+function showSortOrderChangePopup(){
+	$("#sort_cancel")
+	.removeClass("hidden")
+
+	$("#sort_toggle_popup")
+	.removeClass("hidden")
+	.animate({
+		opacity:1,
+		translateY:0,
+	},50,"linear")
+}
+
+//ソート順切り替えのやつ消す
+function fadeSortOrderChangePopup(){
+	$("#sort_cancel")
+	.addClass("hidden")
+
+	$("#sort_toggle_popup")
+	.animate({
+		opacity:0,
+		translateY:5,
+	},250,"easeOutQuart")
+	.queue(function () {
+		$(this).addClass("hidden").dequeue();
+	})
+}	
+
+
 
 /*******************************************/
 /* ステータス画面 */

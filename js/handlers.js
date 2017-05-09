@@ -61,8 +61,51 @@ $("#pager_button_next").click(function(){
 })
 
 //ソート順クリックでソートルール変更
-$("#sort_toggle_button").click(function(){
-	toggleSortOrder()
+$("#sort_toggle_menu_open_button").click(function(){
+	showSortOrderChangePopup()
+})
+
+//ソート閉じる用
+$("#sort_cancel").click(function(){
+	fadeSortOrderChangePopup()
+})
+$("#sort_cancel").bind("contextmenu",function(){
+	fadeSortOrderChangePopup()
+	return false
+})
+
+//ソート順切り替え
+$("#sort_to_power").click(function(){
+	changeSortOrderTo(1)
+	fadeSortOrderChangePopup()
+})
+$("#sort_to_id").click(function(){
+	changeSortOrderTo(0)
+	fadeSortOrderChangePopup()
+})
+$("#sort_to_str").click(function(){
+	changeSortOrderTo(2)
+	fadeSortOrderChangePopup()
+})
+$("#sort_to_dex").click(function(){
+	changeSortOrderTo(3)
+	fadeSortOrderChangePopup()
+})
+$("#sort_to_def").click(function(){
+	changeSortOrderTo(4)
+	fadeSortOrderChangePopup()
+})
+$("#sort_to_agi").click(function(){
+	changeSortOrderTo(5)
+	fadeSortOrderChangePopup()
+})
+$("#sort_to_atk").click(function(){
+	changeSortOrderTo(6)
+	fadeSortOrderChangePopup()
+})
+$("#sort_to_sld").click(function(){
+	changeSortOrderTo(7)
+	fadeSortOrderChangePopup()
 })
 
 //各装備マウスオーバーで詳細画面に対応したものを表示

@@ -859,7 +859,7 @@ function makeFullEquipName(item_id){
 		return rarity_symbol + data.item_data[item_id].name + plus_lv
 	}
 
-//プラス値を考慮して総パラメータを更新する
+//プラス値を考慮して総パラメータを計算する
 function calcTotalItemParam(item_id){
 	var lv = save.item[item_id] || 0
 	var {str, dex, def, agi} = data.item_data[item_id]
@@ -869,6 +869,32 @@ function calcTotalItemParam(item_id){
 	//全部足し合わせる
 	var sum = builded.reduce((x,y)=>x+y)
 	return sum
+}
+
+//プラス値を考慮して総パラメータを計算する
+function calcItemATK(item_id){
+	var lv = save.item[item_id] || 0
+	var {str, dex, def, agi} = data.item_data[item_id]
+	var orig_params = [str, dex, def, agi].map(x=>parseInt(x,10))
+	//プラス補正の反映
+	var builded = orig_params.map(x=>Math.floor(x*(lv-1+10)/10))
+
+	//0->str, 1->dex
+	var atk = (builded[0] + builded[1]) /2 + Math.min(builded[0],builded[1])
+	return atk
+}
+
+//プラス値を考慮して総パラメータを計算する
+function calcItemSLD(item_id){
+	var lv = save.item[item_id] || 0
+	var {str, dex, def, agi} = data.item_data[item_id]
+	var orig_params = [str, dex, def, agi].map(x=>parseInt(x,10))
+	//プラス補正の反映
+	var builded = orig_params.map(x=>Math.floor(x*(lv-1+10)/10))
+
+	//2->def, 3->agi
+	var sld = (builded[2] + builded[3]) /2 + Math.min(builded[2],builded[3])
+	return sld
 }
 
 //プラス値を考慮したパラメータを返す
@@ -1133,6 +1159,51 @@ function getItemIDListOrderByTotalParameter(page){
 
 }
 
+//ATK順にソートして10個アイテムIDを返す
+function getItemIDListOrderByATK(page){
+	var power_list = []
+	//IDとパラメータ合計値を持ったオブジェクトを作成
+	for(var i=0;i<data.item_data.length;++i){
+		if(save.item[i] > 0){
+			power_list.push({id:i, power:calcItemATK(i)})
+		}
+	}
+	//今作ったオブジェクトをソート
+	var sorted = object_array_sort(power_list,"power")
+
+	//ソート済オブジェクトから指定された10個を抜き出して返す
+	var sliced = sorted.splice((page-1)*10,10)
+
+	var result = []
+	for(var s of sliced){
+		result.push(s.id)
+	}
+	return result
+}
+
+//ATK順にソートして10個アイテムIDを返す
+function getItemIDListOrderBySLD(page){
+	var power_list = []
+	//IDとパラメータ合計値を持ったオブジェクトを作成
+	for(var i=0;i<data.item_data.length;++i){
+		if(save.item[i] > 0){
+			power_list.push({id:i, power:calcItemSLD(i)})
+		}
+	}
+	//今作ったオブジェクトをソート
+	var sorted = object_array_sort(power_list,"power")
+
+	//ソート済オブジェクトから指定された10個を抜き出して返す
+	var sliced = sorted.splice((page-1)*10,10)
+
+	var result = []
+	for(var s of sliced){
+		result.push(s.id)
+	}
+	return result
+}
+
+
 //装備をparam順にソートして10個アイテムIDを返す
 //param : {str,dex,def,agi,total}
 //page : 1,2,3, ... (1はトップ10、 3は21-30個目を返す)
@@ -1173,13 +1244,9 @@ function getItemIDListOrderBy(page, param){
 }
 
 //ソート順を切り替える
-function toggleSortOrder(){
-	if(data.equipment_menu.sort_order === 5){
-		data.equipment_menu.sort_order = 0
-	}
-	else{
-		data.equipment_menu.sort_order++
-	}
+function changeSortOrderTo(sort_id){
+	data.equipment_menu.sort_order=sort_id
+	updateSortOrderText()
 	updateEquipList()
 }
 

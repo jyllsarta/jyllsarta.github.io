@@ -489,7 +489,7 @@
 					<span id="pager_button_prev">◀</span>
 					<span id="pager_button_next">▶</span>
 				</div>
-				<div id="sort_toggle_button">[ID順]</div>
+				<div id="sort_toggle_menu_open_button">[ID順]</div>
 
 				<div id="equip_coin_show_area">
 					<img src="images/neko/icons/coin.png" id="equip_area_coin_icon">
@@ -643,6 +643,22 @@
 								</li>
 							</ul>
 							<div id="flavor_text">おいしそうなスパゲッティのサンプルだ。投げて使う。</div>	
+						</div>
+					</div>
+
+					<div id="sort_cancel" class="hidden"></div>
+					<!--zindexを使わずに重なり順を制御したいのでこの位置に記述-->
+					<div id="sort_toggle_popup" class="hidden shadow_background">
+						<div id="sort_change_text">ソート順切り替え</div>
+						<div id="sort_toggle_box">
+							<div class="sort_toggle_button" id="sort_to_power">[つよさ順]</div>
+							<div class="sort_toggle_button" id="sort_to_id">[ID順]</div>
+							<div class="sort_toggle_button" id="sort_to_atk">[攻順]</div>
+							<div class="sort_toggle_button" id="sort_to_sld">[守順]</div>
+							<div class="sort_toggle_button" id="sort_to_str">[STR順]</div>
+							<div class="sort_toggle_button" id="sort_to_dex">[DEX順]</div>
+							<div class="sort_toggle_button" id="sort_to_def">[DEF順]</div>
+							<div class="sort_toggle_button" id="sort_to_agi">[AGI順]</div>
 						</div>
 					</div>
 				</div>
@@ -902,7 +918,7 @@
 <img src="images/neko/etc/loading_splash5.png" id="loading_splash">
 <div id="bug_report">
 	<span id="version">
-		version : 1.06 　<a href="nekomanual.html#update">更新履歴</a>
+		version : 1.07 　<a href="nekomanual.html#update">更新履歴</a>
 	</span>
 	<span id="wanna_report">
 		感想・バグ報告は <a href="https://twitter.com/jyll">@jyll</a>か<a href="https://twitter.com/hashtag/%E3%81%97%E3%82%8D%E3%81%93%E3%81%A8%E3%81%8F%E3%82%8D%E3%81%93">#しろことくろこ</a>にお願いします。	

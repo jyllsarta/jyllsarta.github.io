@@ -812,7 +812,15 @@ body{
 	left: 330px;
 }
 
-#sort_toggle_button{
+#sort_cancel{
+	position: absolute;
+	top:-60px;
+	left: -500px;
+	width: 1200px;
+	height: 800px;
+}
+
+#sort_toggle_menu_open_button{
 	position: absolute;
 	top: 10px;
 	left: 350px;
@@ -828,6 +836,69 @@ body{
 #sort_toggle_button:hover{
 	background-color: #C1C2C3;
 }
+
+#sort_toggle_popup{
+	position: absolute;
+	top: 50px;
+	left: 215px;
+	width: 408px;
+	height: 84px;
+	background-color: #102036;
+	border-radius: 3px 3px;
+	font-size: 19px;
+}
+
+#sort_toggle_box{
+	display: flex;
+	flex-wrap: wrap;
+}
+#sort_change_text{
+	position: absolute;
+	padding-left: 3px;
+	padding-right: 3px;
+	top: -23px;
+	font-size: 16px;
+	background-color: #102036;
+	border-radius: 3px;
+}
+
+.sort_toggle_button{
+	width: 100px;
+	height: 35px;
+	text-align: center;
+	margin: 1px 1px;
+	padding-top: 5px;
+	border-radius: 3px;
+	background-color: #404f66;	
+}
+#sort_to_id{
+	background-color: #5c6263;
+}
+#sort_to_power{
+	background-color: #252626;
+}
+#sort_to_str{
+	background-color: #661e4d;
+}
+#sort_to_dex{
+	background-color: #294929;
+}
+#sort_to_def{
+	background-color: #2e357a;
+}
+#sort_to_agi{
+	background-color: #514d1f;
+}
+#sort_to_atk{
+	background-color: #661b2f;
+}
+#sort_to_sld{
+	background-color: #2f3170;
+}
+.sort_toggle_button:hover{
+	filter: brightness(200%);
+}
+
 
 #equip_coin_show_area{
 	position: absolute;

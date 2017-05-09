@@ -296,7 +296,6 @@ function processBattle(bossBattle=false){
 			damageDealedPersentage += Math.min(100-Math.floor(enemy.hp / enemy.maxHp * 100),100)
 		}
 		damageDealedPersentage = Math.floor(damageDealedPersentage/ 3)
-
 		//全滅時のメッセージ
 		castMessage( "しろこ" + damage_siro +",くろこ" + damage_kuro + "ダメージ。")
 		castMessage( turnCount+"ターン耐え,"+damageDealedPersentage+"%削ったが全滅した... ") 
