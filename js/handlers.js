@@ -60,6 +60,16 @@ $("#pager_button_next").click(function(){
 	equipListNextPage()
 })
 
+//装備リストページャの操作:前の10ページ
+$("#pager_button_prev_10").click(function(){
+	equipListPrevPage(10)
+})
+
+//装備リストページャの操作:次の10ページ
+$("#pager_button_next_10").click(function(){
+	equipListNextPage(10)
+})
+
 //ソート順クリックでソートルール変更
 $("#sort_toggle_menu_open_button").click(function(){
 	showSortOrderChangePopup()

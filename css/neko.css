@@ -2,6 +2,7 @@
 /* ゲームウィンドウの外側のスタイル */
 /****************************************/
 
+
 body{
 	margin:0px 0px 0px 0px;
 	font-family: "Rounded Mplus 1c";
@@ -22,6 +23,8 @@ body{
 	position: relative;
 	margin: auto;
 }
+
+
 #bug_report{
 	position: relative;
 	margin: auto;
@@ -62,6 +65,9 @@ body{
 /****************************************/
 /* ゲームウィンドウ内のスタイル */
 /****************************************/
+::selection{
+	background:rgba(0,0,0,0);
+};
 
 
 #game_window_cover{
@@ -785,25 +791,44 @@ body{
 
 #pager_button_area{
 	position: absolute;
-	top: 10px;
-	left: 200px;
-	font-size: 30px;
+	top: 5px;
+	left: 165px;
 }
 
 .disabled{
 	color: #888888;
 }
 
+#pager_button_prev_10{
+	display: inline-block;
+	font-size: 18px;
+	width: 30px;
+	height: 30px;
+	transform: scaleX(0.65);
+}
 #pager_button_prev{
-	margin: 10px 10px;
+	margin-left: 7px;
+	display: inline-block;
+	font-size: 35px;
 	width: 40px;
 	height: 40px;
 }
-
 #pager_button_next{
-	margin: 10px 10px;
+	margin-left: 10px;
+	display: inline-block;
+	font-size: 35px;
 	width: 40px;
 	height: 40px;
+}
+#pager_button_next_10{
+	display: inline-block;
+	font-size: 18px;
+	width: 30px;
+	height: 30px;
+	transform: scaleX(0.65);
+}
+.pager_button:hover{
+	color: #bfdfff;
 }
 
 #power_show_text{

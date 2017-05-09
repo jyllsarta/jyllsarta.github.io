@@ -934,17 +934,17 @@ function equipDetailMouseOver(domobject){
 }
 
 //ページャー前のページにもどる
-function equipListPrevPage(){
-	var after_page = Math.max(data.equipment_menu.current_page-1,1)
+function equipListPrevPage(amount=1){
+	var after_page = Math.max(data.equipment_menu.current_page-amount,1)
 	data.equipment_menu.current_page = after_page
 	updatePagerCurrentPage()
 	prepareEquipMenu()
 }
 
 //ページャー次のページに移動
-function equipListNextPage(){
+function equipListNextPage(amount=1){
 	var max_page =  findLatestEquipPageIndex()
-	var after_page = Math.min(data.equipment_menu.current_page+1,max_page)
+	var after_page = Math.min(data.equipment_menu.current_page+amount,max_page)
 	data.equipment_menu.current_page = after_page
 	updatePagerCurrentPage()
 	prepareEquipMenu()

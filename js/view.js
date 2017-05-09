@@ -1677,12 +1677,16 @@ function updatePagerButtonState(){
 	var max_page = findLatestEquipPageIndex()
 	$("#pager_button_prev").removeClass("disabled")
 	$("#pager_button_next").removeClass("disabled")
+	$("#pager_button_prev_10").removeClass("disabled")
+	$("#pager_button_next_10").removeClass("disabled")
 
 	if(current_page == 1){
 		$("#pager_button_prev").addClass("disabled")		
+		$("#pager_button_prev_10").addClass("disabled")		
 	}
 	if(current_page == max_page){
 		$("#pager_button_next").addClass("disabled")		
+		$("#pager_button_next_10").addClass("disabled")		
 	}
 }
 
