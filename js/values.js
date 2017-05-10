@@ -40,6 +40,7 @@ var data = {
 	hyper_event_dash_mode : false,
 	epilogue_scene : 0,
 	epilogue_line : 0,
+	is_item_data_ready : false,
 }
 
 

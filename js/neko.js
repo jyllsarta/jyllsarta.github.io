@@ -89,8 +89,12 @@ function mainLoop_1sec(){
 		//生きてる間はイベントタイマーが回る
 		save.next_event_timer --
 		if(save.next_event_timer <= 0){
-			save.next_event_timer = getEventInterval()
-			event()
+			//アイテムデータ読み込みが出来ている場合のみ処理
+			if(data.is_item_data_ready){
+				save.next_event_timer = getEventInterval()
+				event()
+				return
+			}
 		}
 	}
 	else{
@@ -152,6 +156,7 @@ function loadItemList(){
 		})
 		.done(function(response, textStatus, jqXHR) {
 			loadCSV(response)
+			data.is_item_data_ready = true
 			castMessage("CSVのロードに成功したよ！")
 		})
 		.fail(function(jqXHR, textStatus, errorThrown ) {
@@ -437,6 +442,7 @@ function lotEvent(){
 
 //イベントを発生させる
 function event(){
+
 	//イベントの抽選を行う	
 	var event_type = lotEvent()
 
@@ -463,6 +469,12 @@ function event(){
 
 //開いていない間に起こったイベントを再計算する
 function playExtraEvent(){
+
+	//アイテムデータ読み込みがまだなら処理しない
+	if(!data.is_item_data_ready){
+		return
+	}
+
 	//残り時間が40秒以下まで削れたらならおわり
 	if(save.extra_event_time_remain <= 40){
 		save.extra_event_time_remain = 0
