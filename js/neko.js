@@ -792,6 +792,12 @@ function reduceNextEventTime(second){
 }
 
 function ressurect(){
+
+	//不在時イベント再生時に回復されるとちょっとお得なので潰す
+	if(save.extra_event_time_remain >0){
+		return
+	}
+
 	ressurectAnimation()	
 	castMessage("全回復！")
 	save.auto_ressurect_timer = AUTO_RESSURECT_TIME
