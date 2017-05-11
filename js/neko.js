@@ -80,10 +80,14 @@ function mainLoop_1sec(){
 	//プレイ時間をインクリメント
 	save.playtime++
 
-	//スリープから復帰していきなり1secが発火する可能性があるので更新
-	addExtraEventTime(calcSecondsPassedFromLastLogin())
-	//最終ログイン時刻を更新
-	save.last_login = new Date().getTime()
+
+	//アイテムデータ読み込み前にlast_loginが更新されると積めなくなる
+	if(data.is_item_data_ready){
+		//スリープから復帰していきなり1secが発火する可能性があるので更新
+		addExtraEventTime(calcSecondsPassedFromLastLogin())
+		//最終ログイン時刻を更新
+		save.last_login = new Date().getTime()
+	}
 
 	if(isCharacterAlive()){
 		//生きてる間はイベントタイマーが回る
@@ -224,7 +228,6 @@ function calcSecondsPassedFromLastLogin(){
 	if(time_passed < 40){
 		return 0
 	}
-
 	return time_passed
 }
 
@@ -442,7 +445,6 @@ function lotEvent(){
 
 //イベントを発生させる
 function event(){
-
 	//イベントの抽選を行う	
 	var event_type = lotEvent()
 
@@ -791,13 +793,16 @@ function reduceNextEventTime(second){
 	reduceNextEventTimerAnimation(second)
 }
 
-function ressurect(){
-
+//復活ボタンを押した時の挙動
+function ressurectClick(){
 	//不在時イベント再生時に回復されるとちょっとお得なので潰す
 	if(save.extra_event_time_remain >0){
 		return
 	}
+	ressurect()
+}
 
+function ressurect(){
 	ressurectAnimation()	
 	castMessage("全回復！")
 	save.auto_ressurect_timer = AUTO_RESSURECT_TIME

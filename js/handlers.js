@@ -199,9 +199,9 @@ $("#depth_minus_100").click(function(){
 	changeDepth(-100)
 })
 
-//深さ-100ボタン
+//復活ボタン
 $("#ressurect_button").click(function(){
-	ressurect()
+	ressurectClick()
 })
 
  //スクショ撮るボタン
