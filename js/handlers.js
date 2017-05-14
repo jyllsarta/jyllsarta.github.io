@@ -313,8 +313,20 @@ $("#omake_image").click(function(){
 	fadeThankyouImage()
 })
 
+$("#rest_button").click(function(){
+	toggleRestMode()
+})
+
+$("#character_hitbox_kuro").click(function(){
+	jumpKuro()
+})
+$("#character_hitbox_siro").click(function(){
+	jumpSiro()
+})
+
 
 /*ミニゲーム関連*/
 $("#jump").click(function(){
 	proceedMiniGame()
 })
+

@@ -27,6 +27,7 @@ function initView(){
 	updateOmakeButtonShowState()
 	updateIgaBaseColor(save.current_dungeon_id,save.current_landscape_id)
 	updateHighScore()
+	updateRestMode()
 }
 
 //ゲームモードの切り替え
@@ -311,12 +312,37 @@ function  loiteringSiro(){
 		}
 		data.siro.x += data.siro.vx
 		$("#character_siro").css("translateX", data.siro.x)
+		$("#character_hitbox_siro").css("translateX",data.siro.x)
 	}
 	//それ以外の場合はちょっと屈伸してみたりする
-	else if(data.frame % 20 ==0){
+	else if(data.frame % 20 ==0 && !$("#character_siro").is(":animated")){
 		var y = parseInt($("#character_siro").css("translateY"))
 		$("#character_siro").css("translateY",y>0?0:1)
 	}
+}
+
+function jumpSiro(){
+
+	//動いてる途中か死んでたら反応させない
+	if($("#character_siro").is(":animated") || save.status.siro.hp <= 0){
+		return
+	}
+
+	$("#character_siro")
+	.queue(function(){
+		$("#character_siro img").attr("src","images/neko/chara/siro_ukya.png")
+		$(this).dequeue()
+	})
+	.animate({
+		translateY:-100
+	},250,"easeOutSine")
+	.animate({
+		translateY:0
+	},250,"easeInSine")
+	.queue(function(){
+		$("#character_siro img").attr("src","images/neko/chara/siro.png")
+		$(this).dequeue()
+	})
 }
 
 //くろがゆらゆら移動
@@ -369,14 +395,39 @@ function  loiteringKuro(){
 		}
 		data.kuro.x += data.kuro.vx
 		$("#character_kuro").css("translateX",data.kuro.x)
+		$("#character_hitbox_kuro").css("translateX",data.kuro.x)
 	}
 	//それ以外の場合はちょっと屈伸してみたりする
-	else if(data.frame % 20 ==0){
+	else if(data.frame % 20 ==0 && !$("#character_kuro").is(":animated")){
 		var y = parseInt($("#character_kuro").css("translateY"))
 		$("#character_kuro").css("translateY",y>0?0:1)
 	}
 
 }
+
+function jumpKuro(){
+	//動いてる途中か死んでたら反応させない
+	if($("#character_kuro").is(":animated") || save.status.kuro.hp <= 0){
+		return
+	}
+
+	$("#character_kuro")
+	.queue(function(){
+		$("#character_kuro img").attr("src","images/neko/chara/kuro_ukya.png")
+		$(this).dequeue()
+	})
+	.animate({
+		translateY:-70
+	},250,"easeOutSine")
+	.animate({
+		translateY:0
+	},250,"easeInSine")
+	.queue(function(){
+		$("#character_kuro img").attr("src","images/neko/chara/kuro.png")
+		$(this).dequeue()
+	})
+}
+
 
 //自動復活タイマーの更新
 function updateAutoRessurectionCount(){
@@ -488,6 +539,67 @@ function saveAnimation(){
 		.css({translateX : 400})
 		.dequeue()
 	})
+
+}
+
+//休憩モードの描画更新
+function updateRestMode(){
+	if(save.rest_now){
+		$("#character_siro").addClass("hidden")
+		$("#character_kuro").addClass("hidden")
+
+		$("#sit_siro")
+		.css("opacity",0)
+		.removeClass("hidden")
+		.animate({
+			opacity:1,
+		},500,"easeOutQuart")
+
+		$("#sit_kuro")
+		.css("opacity",0)
+		.removeClass("hidden")
+		.animate({
+			opacity:1,
+		},500,"easeOutQuart")
+
+		$("#sit_siro_1").addClass("sit_animation_1")
+		$("#sit_kuro_1").addClass("sit_animation_1")
+		$("#sit_siro_2").addClass("sit_animation_2")
+		$("#sit_kuro_2").addClass("sit_animation_2")
+		return
+	}
+	else{
+		data.siro.x = 770
+		data.kuro.x = 490
+		data.siro.vx = 0
+		data.kuro.vx = 0
+		$("#character_siro").css("translateX", data.siro.x)
+		$("#character_hitbox_siro").css("translateX",data.siro.x)
+		$("#character_kuro").css("translateX",data.kuro.x)
+		$("#character_hitbox_kuro").css("translateX",data.kuro.x)
+		$("#character_siro").removeClass("hidden")
+		$("#character_kuro").removeClass("hidden")		
+
+		$("#sit_siro")
+		.animate({
+			opacity:0,
+		},500,"easeOutQuart")
+		.queue(function () {
+			$(this).addClass("hidden").dequeue();
+		})
+		$("#sit_kuro")
+		.animate({
+			opacity:0,
+		},500,"easeOutQuart")
+		.queue(function () {
+			$(this).addClass("hidden").dequeue();
+		})
+
+		$("#sit_siro_1").removeClass("sit_animation_1")
+		$("#sit_kuro_1").removeClass("sit_animation_1")
+		$("#sit_siro_2").removeClass("sit_animation_2")
+		$("#sit_kuro_2").removeClass("sit_animation_2")
+	}
 
 }
 
@@ -1351,10 +1463,10 @@ function prepareEquipBuildMenu(item_id){
 	else{
 		//最大強化済の場合は差分を表示しない
 		for(var i=0;i<4;++i){
-		param_afters[i].textContent = "MAX!"
-		param_diffs[i].textContent ="-"
-		$(param_diffs[i]).removeClass("minus")
-		$(param_diffs[i]).removeClass("plus")
+			param_afters[i].textContent = "MAX!"
+			param_diffs[i].textContent ="-"
+			$(param_diffs[i]).removeClass("minus")
+			$(param_diffs[i]).removeClass("plus")
 		}
 		$("#build_cost").text("---")
 		if(!save.item[item_id]){
@@ -2865,9 +2977,11 @@ function fadeThankyouImage(){
 function updateOmakeButtonShowState(){
 	if(save.dungeon_process[4] >= 9999){
 		$("#omake_button").removeClass("hidden")
+		$("#rest_button").removeClass("hidden")
 	}
 	else{
 		$("#omake_button").addClass("hidden")	
+		$("#rest_button").addClass("hidden")	
 	}
 	if(save.seen_omake){
 		$("#omake_button").removeClass("epilogue_unseen")	

@@ -84,12 +84,16 @@ function mainLoop_1sec(){
 	//アイテムデータ読み込み前にlast_loginが更新されると積めなくなる
 	if(data.is_item_data_ready){
 		//スリープから復帰していきなり1secが発火する可能性があるので更新
-		addExtraEventTime(calcSecondsPassedFromLastLogin())
+		if(!save.rest_now){
+			//休憩中は不在時イベント処理を行わない
+			addExtraEventTime(calcSecondsPassedFromLastLogin())
+		}
 		//最終ログイン時刻を更新
 		save.last_login = new Date().getTime()
 	}
 
-	if(isCharacterAlive()){
+	//生きてて休憩中じゃないならイベントタイマーを減らす
+	if(isCharacterAlive() && !save.rest_now){
 		//生きてる間はイベントタイマーが回る
 		save.next_event_timer --
 		if(save.next_event_timer <= 0){
@@ -124,8 +128,8 @@ function mainLoop_1sec(){
 	updateTimeRemainAreaShowState()
 
 
-	//背景をスクロールするのはオプションが指定されている場合のみ
-	if(save.options.enable_scroll_background){
+	//背景をスクロールするのはオプションが指定されている場合かつ休憩中でない場合のみ
+	if(save.options.enable_scroll_background && !save.rest_now){
 		updateBackgroundImagePosition()
 	}
 
@@ -138,6 +142,17 @@ function mainLoop_1sec(){
 	checkJihou()
 	checkFreeSpinNotification()
 
+}
+
+//休憩モードの切替
+function toggleRestMode(){
+
+	if(!save.tutorial.rest){
+		showTutorial("rest")
+	}
+
+	save.rest_now = !save.rest_now
+	updateRestMode()
 }
 
 //ゲームモードをmodeに変更

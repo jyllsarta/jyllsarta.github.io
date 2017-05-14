@@ -491,11 +491,67 @@ body{
 	top: 380px;
 }
 
+
 #character_kuro{
 	position: absolute;
 	top: 382px;
 }
 
+#sit_siro{
+	position: absolute;
+	top: 405px;
+	left: 770px;
+}
+#sit_kuro{
+	position: absolute;
+	top: 420px;
+	left: 600px;
+}
+
+#sit_siro_1, #sit_siro_2{
+	position: absolute;
+	height: 180px;
+	width: 114px;
+}
+
+#sit_kuro_1, #sit_kuro_2{
+	position: absolute;
+	height: 170px;
+	width: 140px;
+}
+
+.sit_animation_1{
+	animation: kubifuri_1 1s linear infinite alternate;
+}
+@keyframes kubifuri_1{
+	0% {opacity: 0;}
+	49% {opacity: 0;}
+	50% {opacity: 1;}
+	100% {opacity: 1;}
+}
+
+.sit_animation_2{
+	animation: kubifuri_2 1s linear infinite alternate;
+}
+@keyframes kubifuri_2{
+	0% {opacity: 1;}
+	49% {opacity: 1;}
+	50% {opacity: 0;}
+	100% {opacity: 0;}
+}
+
+#character_hitbox_siro{
+	position: absolute;
+	top: 380px;
+	width: 140px;
+	height: 210px;	
+}
+#character_hitbox_kuro{
+	position: absolute;
+	top: 380px;
+	width: 140px;
+	height: 210px;	
+}
 
 #ressurect_count_area{
 	position: absolute;

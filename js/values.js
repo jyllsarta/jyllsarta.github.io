@@ -99,12 +99,14 @@ var save = {
 	tutorial : {
 		notify : false,
 		equip : false,
+		rest : false,
 	},
 	minigame : {
 		igaiga : 0,
 	},
 	seen_epilogue : false,
 	seen_omake : false,
+	rest_now : false,
 }
 
 var dungeon_data=[
@@ -290,6 +292,15 @@ var tutorial_data = {
 		width:600,
 		height:50,
 		expire : 3000,
+	},
+	rest : {
+		title : "休憩",
+		description : "探索を中断し、イベントが発生しなくなります。<br>(ゲームの進行には全く意味がありません。長旅に疲れたしろことくろこをいたわるためのボタンです。)",
+		x : 400,
+		y : 520,
+		width:600,
+		height:200,
+		expire : 15000,
 	},
 }
 
