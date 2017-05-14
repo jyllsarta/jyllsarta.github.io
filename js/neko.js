@@ -1543,7 +1543,7 @@ function takeGacha(times=1){
 	for(var i=0;i<times;++i){
 		var rarity = lotGachaRarity()
 		var rank = getMaxEnemyRank() * 1.25  +randInt(1,20)
-		var baseItemId = getMaxEnemyRank() % data.item_data.length
+		var baseItemId = getCurrentEnemyRank() % data.item_data.length
 		var itemList = extractItemList(rarity,baseItemId,50)
 
 		var aquiredItem = itemList[randInt(0,itemList.length-1)]
