@@ -380,25 +380,50 @@ function makesave(){
 	var savestring = JSON.stringify(save)
 	var base64save = Base64.encode(savestring)
 
-	$.cookie("savedata", base64save, { expires: 10000 });
+	//cookieは4000文字までなので
+	//base64のデータを4000文字で切る
+	var base64save_1 = base64save.slice(0,4000)
+	var base64save_2 = base64save.slice(4000,8000)
+	var base64save_3 = base64save.slice(8000,12000)
+
+	$.cookie("savedata_v2_1", base64save_1, { expires: 10000 });
+	$.cookie("savedata_v2_2", base64save_2, { expires: 10000 });
+	$.cookie("savedata_v2_3", base64save_3, { expires: 10000 });
 
 	saveAnimation()
 }
 
 //ロード
 function load(){
-	var cookie = $.cookie("savedata")
-	if(cookie === undefined){
+	var cookie_v1 = $.cookie("savedata")
+	var cookie_v2_1 = $.cookie("savedata_v2_1")
+	var cookie_v2_2 = $.cookie("savedata_v2_2")
+	var cookie_v2_3 = $.cookie("savedata_v2_3")
+
+	//まっさらな状態
+	if(cookie_v2_1 === undefined && cookie_v1 === undefined){
 		castMessage("セーブデータが見つかりませんでした！")
 		return
 	}
 
-	var savestring = Base64.decode(cookie)
+	//古いデータだけある場合
+	if(cookie_v2_1 === undefined && cookie_v1 !== undefined){
+		var savestring = Base64.decode(cookie_v1)
+		var savedata = JSON.parse(savestring)
+		validateSave(savedata)
+		save = savedata
+		castMessage("セーブデータ構造が古かったのでアップデートしました！")
+		return	
+	}
+
+	var savestring = Base64.decode(cookie_v2_1+cookie_v2_2+cookie_v2_3)
 	var savedata = JSON.parse(savestring)
-
 	validateSave(savedata)
-
 	save = savedata
+	castMessage("セーブデータを読み込みました！")
+	return	
+
+
 
 }
 
