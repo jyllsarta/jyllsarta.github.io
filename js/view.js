@@ -42,10 +42,18 @@ function updateGameModeTo(game_mode){
 
 
 function updateCurrentFloorText(){
+
+	var depth = dungeon_data[save.current_dungeon_id].depth
+
+	//最終ダンジョンのぶつ切り感を抑えるために踏破までは2000を見せとく
+	if(save.current_dungeon_id ==4 && !save.seen_epilogue){
+		depth = 2000
+	}
+
 	$("#current_floor").text(save.current_floor)
-	$("#max_floor").text(dungeon_data[save.current_dungeon_id].depth)
+	$("#max_floor").text(depth)
 	///潜り過ぎならoverdepthedをつける
-	if(save.current_floor >= dungeon_data[save.current_dungeon_id].depth){
+	if(save.current_floor >= depth){
 		$("#current_floor").addClass("overdepthed")
 	}	
 	else{
@@ -491,8 +499,16 @@ function updateClock(){
 
 //現在フロア表示をデータ上のものに反映
 function updateStairsArea(){
+
+	var depth = dungeon_data[save.current_dungeon_id].depth
+
+	//最終ダンジョンのぶつ切り感を抑えるために踏破までは2000を見せとく
+	if(save.current_dungeon_id ==4 && !save.seen_epilogue){
+		depth = 2000
+	}
+
 	$("#current_floor").text(save.current_floor)
-	$("#max_floor").text(dungeon_data[save.current_dungeon_id].depth)
+	$("#max_floor").text(depth)
 }
 
 //スプライト画像のソースを返す
@@ -2381,7 +2397,13 @@ function prepareDungeonList(){
 function updateDungeonSelectFloorData(){
 	var stage_id = data.dungeon_select_menu.stage_id
 	var depth = data.dungeon_select_menu.depth
-	$("#dungeon_detail_total_floor").text(dungeon_data[stage_id].depth)
+
+	//最終ダンジョンのぶつ切り感を抑えるために踏破までは2000を見せとく
+	if(stage_id==4 && !save.seen_epilogue){
+		depth = 2000
+	}
+
+	$("#dungeon_detail_total_floor").text(depth)
 	$("#dungeon_detail_completed_floor").text(save.dungeon_process[stage_id])
 	$("#dungeon_decide_current_depth").text(data.dungeon_select_menu.depth)
 }
@@ -2892,6 +2914,8 @@ function showEpilogue(){
 
 //エピローグ消す
 function fadeEpilogue(){
+	updateCurrentFloorText()
+	updateDungeonSelectFloorData()
 	$("#epilogue")
 	.animate({
 		opacity:0,

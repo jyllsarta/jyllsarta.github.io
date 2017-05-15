@@ -3,7 +3,8 @@
 /***************************************/
 
 function getFocus(){
-	log("フォーカス撮ったよ!")
+	//デフォルトの動作でフォーカスを撮ることにしたので廃止
+	log("フォーカス取ったよ!")
 }
 
 function notify(title="タイトル未指定",body="内容未指定",icon="default",on_click=getFocus){
