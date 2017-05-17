@@ -26,6 +26,11 @@ var data = {
 	}
 	],
 	equipment_menu : {
+		editing_equip : {
+			siro : [],
+			kuro : [],
+		},
+		changed:false,
 		current_page : 1,
 		current_character : "siro",
 		sort_order : 1,

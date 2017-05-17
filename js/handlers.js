@@ -45,8 +45,9 @@ $("#status_back_button").click(function(){
 	fadeStatusMenu()
 })
 
-//装備メニュー戻るボタンクリックでメニュー閉じる
+//装備メニュー戻るボタンクリックで編集を確定しメニュー閉じる
 $("#equipment_back_button").click(function(){
+	completeEditEquip()
 	fadeEquipmentMenu()
 })
 

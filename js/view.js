@@ -1375,6 +1375,7 @@ function showStatusMenu(){
 
 //装備メニューの展開
 function showEquipmentMenu(){
+	copyCurrentEquipToDraft()
 	prepareEquipMenu()
 	$("#equipment_menu")
 	.removeClass("hidden")
@@ -1512,6 +1513,7 @@ function hideEquipBuildMenu(){
 
 //装備メニューの開放
 function fadeEquipmentMenu(){
+	makesave()
 	fadeSortOrderChangePopup()
 	$("#equipment_menu")
 	.animate({
@@ -1574,6 +1576,19 @@ function prepareEquipMenu(){
 	updateCurrentTotalParameter()
 	updateEquipListParameterIndex()
 	updateEquipListParameterIndexCurrentEquipArea()
+	updateEquipBackButton()
+}
+
+//戻るボタンの状態を更新
+function updateEquipBackButton(){
+	if(data.equipment_menu.changed){
+		$("#equipment_back_button").addClass("changed")
+		$("#equipment_back_info_text").removeClass("hidden")
+	}
+	else{
+		$("#equipment_back_button").removeClass("changed")		
+		$("#equipment_back_info_text").addClass("hidden")
+	}
 }
 
 //現在装備エリアに表示されるべきアイテムIDのリストを作成する
@@ -1685,7 +1700,7 @@ function updateEquipListParameterIndex(){
 function updateEquipListParameterIndexCurrentEquipArea(){
 	//TODO ひっかかるようにかく
 	var param_digest_list = $(".current_equip_digest")
-	var item_ids = save.equip[data.equipment_menu.current_character]
+	var item_ids = data.equipment_menu.editing_equip[data.equipment_menu.current_character]
 	for(var i=0;i<param_digest_list.length;++i){
 		var target_item_id = item_ids[i]
 		var target_item_lv = save.item[target_item_id] || 0
@@ -1844,10 +1859,10 @@ function resetDetailArea(){
 function updateCurrentTotalParameter(){
 	var current_chara_name = data.equipment_menu.current_character
 
-	var str = getTotalParameter(current_chara_name,"str")
-	var dex = getTotalParameter(current_chara_name,"dex")
-	var def = getTotalParameter(current_chara_name,"def")
-	var agi = getTotalParameter(current_chara_name,"agi")
+	var str = getTotalParameterEquipMenuDraft(current_chara_name,"str")
+	var dex = getTotalParameterEquipMenuDraft(current_chara_name,"dex")
+	var def = getTotalParameterEquipMenuDraft(current_chara_name,"def")
+	var agi = getTotalParameterEquipMenuDraft(current_chara_name,"agi")
 
 	$("#status_total_str").text(str)
 	$("#status_total_dex").text(dex)
@@ -1911,15 +1926,14 @@ function updateEquipDetailAreaTo(item_id){
 //現在装備エリアの表示反映を行う
 function  updateCurrentEquipListArea(){
 	var current_chara_name = data.equipment_menu.current_character
-	var equip_num = save.equip[current_chara_name].length
+	var equip_num = data.equipment_menu.editing_equip[current_chara_name].length
 
 	for(var i=0;i<4;++i){
 		$($(".current_equip_text")[i]).text("-")
 	}
 
 	for(var i=0;i<equip_num;++i){
-		var item_id = save.equip[current_chara_name][i]
-		var item_name = data.item_data[item_id]
+		var item_id = data.equipment_menu.editing_equip[current_chara_name][i]
 		$($(".current_equip_text")[i]).text(makeFullEquipName(item_id))
 	}
 
@@ -1930,7 +1944,7 @@ function  updateCurrentEquipListArea(){
 
 	//アイテムIDの埋め込み
 	for(var i=0;i<equip_num;++i){
-		var item_id = save.equip[current_chara_name][i]
+		var item_id = data.equipment_menu.editing_equip[current_chara_name][i]
 		$("#current_equip_list").children()[i].setAttribute("item_id",item_id)
 	}
 }
@@ -1938,8 +1952,8 @@ function  updateCurrentEquipListArea(){
 //ATK,DEF参考値を画面に描画
 function updateEquipDetailATKDEF(){
 	var current_chara_name = data.equipment_menu.current_character
-	$("#atk_value").text(calcAttack(current_chara_name))
-	$("#def_value").text(calcDefence(current_chara_name))
+	$("#atk_value").text(calcAttackEquipMenuDraft(current_chara_name))
+	$("#def_value").text(calcDefenceEquipMenuDraft(current_chara_name))
 }
 
 //しろこかくろこに編集キャラクターを切り替える
@@ -2396,7 +2410,7 @@ function prepareDungeonList(){
 //階層メニューの反映
 function updateDungeonSelectFloorData(){
 	var stage_id = data.dungeon_select_menu.stage_id
-	var depth = data.dungeon_select_menu.depth
+	var depth = dungeon_data[stage_id].depth
 
 	//最終ダンジョンのぶつ切り感を抑えるために踏破までは2000を見せとく
 	if(stage_id==4 && !save.seen_epilogue){

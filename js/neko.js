@@ -721,15 +721,37 @@ function lotItem(flatten=false){
 	return  elected_item
 }
 
+//全アイテムからレアリティの合致するアイテムをランダムに拾う
+function getRandomItemID(rarity=0){
+	var box =[]
+	for(var i=0;i<data.item_data.length-1;++i){
+		if(data.item_data[i].rarity==rarity){
+			box.push(i)
+		}
+	}	
+	return box[randInt(0,box.length-1)]
+}
+
 //レア度指定アイテムID抽出
 //rarity : [0123] →対応するレア度
-//IR:offset件目からlimit個のIDをチェックする
+//IR:offset件目からlimit個のIDをチェックするが、
+//offsetが実装されているアイテムID以上のものを指定されている場合、全アイテムから完全ランダムで選択を行う
 function extractItemList(rarity=0,offset=50, limit=50){
 	var box = []
 	for(var i=offset;i<offset+limit;++i){
-		var item_rarity =data.item_data[i % data.item_data.length].rarity
-		if(rarity == item_rarity){
-			box.push(i% data.item_data.length)
+
+		//実装アイテムID以上ならレアリティの合致するランダムなアイテムをボックスに突っ込む
+		//これ実はelse節:確率でboxに入れないかも/if節:確実に入れる なのでランダムアイテムエリア入りかけの部分で
+		//抽選箱の公平性が大きく変わるけど気にしないことにした
+		if(i > data.item_data.length-1){
+			box.push(getRandomItemID(rarity=rarity))
+		}
+		//存在しているアイテムIDが指定された場合、レアリティが合致していれば箱に入れる
+		else{
+			var item_rarity =data.item_data[i % data.item_data.length].rarity
+			if(rarity == item_rarity){
+				box.push(i% data.item_data.length)
+			}
 		}
 	}
 	return box
@@ -976,6 +998,28 @@ function getTotalParameter(charaname,paramName){
 	return total
 }
 
+//該当キャラの<<<装備ドラフトにおいての>>>{str,dex,def,agi}の合計値を計算
+function getTotalParameterEquipMenuDraft(charaname,paramName){
+	var total = 10
+	for(var equip of data.equipment_menu.editing_equip[charaname]){
+		total += getBuildedParameter(equip,paramName)
+	}
+	return total
+}
+
+//charanameの<装備ドラフトにおいての>atkを返す
+function calcAttackEquipMenuDraft(charaname){
+	var str = getTotalParameterEquipMenuDraft(charaname,"str")	
+	var dex = getTotalParameterEquipMenuDraft(charaname,"dex")
+	return Math.floor((str + dex)/2 + Math.min(str,dex))
+}
+//charanameの<装備ドラフトにおいての>sldを返す
+function calcDefenceEquipMenuDraft(charaname){
+	var def = getTotalParameterEquipMenuDraft(charaname,"def")	
+	var agi = getTotalParameterEquipMenuDraft(charaname,"agi")
+	return Math.floor((def + agi)/2 + Math.min(def,agi))
+}
+
 //charanameのatkを返す
 function calcAttack(charaname){
 	var str = getTotalParameter(charaname,"str")	
@@ -983,7 +1027,7 @@ function calcAttack(charaname){
 	return Math.floor((str + dex)/2 + Math.min(str,dex))
 }
 
-//charanameのatkを返す
+//charanameのsldを返す
 function calcDefence(charaname){
 	var def = getTotalParameter(charaname,"def")	
 	var agi = getTotalParameter(charaname,"agi")
@@ -1021,8 +1065,8 @@ function updateEquipPageTo(page){
 
 //既に装備してたら装備できない
 function isAlreadyEquipped(item_id){
-	for(charaname in save.equip ){
-		for(var equip of save.equip[charaname]){
+	for(charaname in data.equipment_menu.editing_equip){
+		for(var equip of data.equipment_menu.editing_equip[charaname]){
 			if (equip == item_id){
 				return true
 			}
@@ -1041,7 +1085,7 @@ function equip(domobject){
 
 	var item_id = $(domobject).parent().attr("item_id")
 	var current_chara_name = data.equipment_menu.current_character
-	var equip_num = save.equip[current_chara_name].length
+	var equip_num = data.equipment_menu.editing_equip[current_chara_name].length
 	//すでに4つ以上装備していたら装備できない
 	if(equip_num >= 4){
 		log("装備しすぎ")
@@ -1058,9 +1102,11 @@ function equip(domobject){
 		return
 	}
 	//装備処理
-	save.equip[current_chara_name].push(item_id)
+	data.equipment_menu.editing_equip[current_chara_name].push(item_id)
+	data.equipment_menu.changed = true
 
 	//viewの反映
+	updateEquipBackButton()
 	updateCurrentEquipListArea()
 	updateCurrentTotalParameter()
 	updateEquipList()
@@ -1077,7 +1123,7 @@ function unEquipClick(domobject){
 		return
 	}
 	for(var i=0;i<4;++i){
-		if(item_id == save.equip[current_chara_name][i]){
+		if(item_id == data.equipment_menu.editing_equip[current_chara_name][i]){
 			unEquip(i)
 		}
 	}
@@ -1087,16 +1133,18 @@ function unEquipClick(domobject){
 function unEquip(slice=false){
 	var current_chara_name = data.equipment_menu.current_character
 	//既に装備してないなら何もしない
-	if(save.equip[current_chara_name].length == 0){
+	if(data.equipment_menu.editing_equip[current_chara_name].length == 0){
 		return
 	}	
 	if(slice===false){
-		save.equip[current_chara_name].pop()
+		data.equipment_menu.editing_equip[current_chara_name].pop()
 	}
 	else{
-		save.equip[current_chara_name].splice(slice,1)		
+		data.equipment_menu.editing_equip[current_chara_name].splice(slice,1)		
 	}
+	data.equipment_menu.changed = true
 	//viewの反映
+	updateEquipBackButton()
 	updateCurrentEquipListArea()
 	updateCurrentTotalParameter()
 	updateEquipList()
@@ -1332,6 +1380,31 @@ function getEquipmentPowerRatio(item_id,rank,parameterName){
 	return that_parameter / standard_parameter
 }
 
+//現在のセーブデータにある装備を編集中ドラフトにコピーする
+function copyCurrentEquipToDraft(){
+	data.equipment_menu.changed = false
+	data.equipment_menu.editing_equip.siro=[]
+	data.equipment_menu.editing_equip.kuro=[]
+
+	for(var i=0;i<save.equip.siro.length;++i){
+		data.equipment_menu.editing_equip.siro[i] = save.equip.siro[i]
+ 	}
+	for(var i=0;i<save.equip.kuro.length;++i){
+		data.equipment_menu.editing_equip.kuro[i] = save.equip.kuro[i]
+ 	}
+}
+
+function completeEditEquip(){
+	save.equip.siro=[]
+	save.equip.kuro=[]
+
+	for(var i=0;i<data.equipment_menu.editing_equip.siro.length;++i){
+		 save.equip.siro[i] = data.equipment_menu.editing_equip.siro[i]
+ 	}
+	for(var i=0;i<data.equipment_menu.editing_equip.kuro.length;++i){
+		save.equip.kuro[i] = data.equipment_menu.editing_equip.kuro[i]
+ 	}	
+}
 
 /*******************************************/
 /* ステータス画面 */
@@ -1504,6 +1577,7 @@ function spinGacha(times=1){
 	save.coin -= times * GACHA_COST
 	data.disable_gacha_button = true
 	takeGacha(times)
+	makesave()
 
 }
 
@@ -1543,9 +1617,8 @@ function takeGacha(times=1){
 	for(var i=0;i<times;++i){
 		var rarity = lotGachaRarity()
 		var rank = getMaxEnemyRank() * 1.25  +randInt(1,20)
-		var baseItemId = getCurrentEnemyRank() % data.item_data.length
+		var baseItemId = getCurrentEnemyRank()
 		var itemList = extractItemList(rarity,baseItemId,50)
-
 		var aquiredItem = itemList[randInt(0,itemList.length-1)]
 		aquiredItemList.push(aquiredItem)
 

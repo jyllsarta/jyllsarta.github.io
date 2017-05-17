@@ -281,9 +281,13 @@ function processBattle(bossBattle=false){
 		var expEarned = getExp(enemy_rank)
 		if(allies[0].hp > 0){
 			save.status.siro.exp += expEarned
+			if(save.status.siro.lv < save.status.kuro.lv){
+			}
 		}
 		if(allies[1].hp > 0){
 			save.status.kuro.exp += expEarned
+			if(save.status.kuro.lv < save.status.siro.lv){
+			}
 		}
 		var coinMessage = coinEarned?("、コイン"+ coinEarned	+ "枚"):""
 		castMessage("経験値"+expEarned+coinMessage+"を獲得！")

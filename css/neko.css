@@ -808,6 +808,26 @@ body{
 	background-color: #b3b3ff ;
 }
 
+.changed{
+	animation: kirakira 1.5s linear infinite;
+	border-color: #e88b5a;
+}
+@keyframes kirakira{
+	0% {background-color: #fcdc74;}
+	50% {background-color: #dd9c40;}
+	100% {background-color: #fcdc74;}
+}
+.changed:hover{
+	opacity: 0.6;
+}
+
+#equipment_back_info_text{
+	position: absolute;
+	top: 80px;
+	left: 10px;
+	font-size: 14px;
+}
+
 #equip_menu_text{
 	position: absolute;
 	top: 7px;
