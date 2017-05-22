@@ -883,6 +883,36 @@
 				</div>
 			</div>
 
+			<div id="save_menu" class="shadow_background hidden">
+				<div id="save_show_text">セーブ管理</div>
+				<div id="save_back_button" class="back_button"></div>
+				<div id="save_description">
+					<h2>セーブデータ出力</h2>
+					<p>セーブデータをテキストに出力します。コピペで保存できます。</p>
+					<p>(いわゆる<引き継ぎコード>ではなく、生のセーブデータをテキストの形で保存します。)</p>
+					<textarea wrap="soft" id="save_data_area"></textarea>
+					<h2>セーブデータ読み込み</h2>
+					<p>保存したセーブデータを読み込みます。</p>
+					<textarea wrap="soft" id="save_read_area"></textarea>
+				</div>
+				<div id="copy_to_clipboard" class="save_menu_btn">コピー</div>
+				<div id="copied" class="hidden">クリップボードにコピーしました！</div>
+				<div id="read_save_button" class="save_menu_btn">読込み</div>
+				<div id="read_info">セーブ読込み確認画面が開きます。</div>
+				<div id="save_read_error" class="hidden">セーブデータの認識に失敗しました。</div>
+				<div id="save_read_confirm" class="hidden shadow_background">
+					<div id="save_read_confirm_text">セーブ読込み確認</div>
+					<div id="save_info_readed">
+						<p>以下のセーブデータを読込みます。</h2>
+						<p>しろこ：<span id="save_siro_lv">123</span>lv</p>
+						<p>くろこ：<span id="save_kuro_lv">125</span>lv</p>
+						<p>プレイ時間：<span id="save_playtime">231:22:09</span></p>
+					</div>
+					<div id="read_save_decide" class="save_menu_btn">読込む</div>
+					<div id="read_save_cancel" class="save_menu_btn">やめる</div>
+				</div>
+			</div>
+
 			<div class="star_background_rev hidden" id="save_ticker">
 				セーブしました。
 			</div>
@@ -925,6 +955,7 @@
 				<div class="whole_screen" id="blight_screen"></div>
 				<div class="whole_screen" id="blight_overlay"></div>
 			</div>
+			<div id="save_load_cover" class="hidden"></div>
 		</div>
 	</div>
 </div>
@@ -933,7 +964,7 @@
 <div id="death_ie" class="hidden">ごめんなさい。<br>しろことくろこの塔登るやつ は Internet Explorerでは動作しません。<br><a href="https://www.google.co.jp/chrome/browser/desktop/">Google Chrome</a>で遊ぶことを推奨しています。</div>
 <div id="bug_report">
 	<span id="version">
-		version : 1.18 　<a href="nekomanual.html#update">更新履歴</a>
+		version : 1.19 　<a href="nekomanual.html#update">更新履歴</a>
 	</span>
 	<span id="wanna_report">
 		感想・バグ報告は <a href="https://twitter.com/jyll">@jyll</a>か<a href="https://twitter.com/hashtag/%E3%81%97%E3%82%8D%E3%81%93%E3%81%A8%E3%81%8F%E3%82%8D%E3%81%93">#しろことくろこ</a>にお願いします。	

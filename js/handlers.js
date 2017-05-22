@@ -211,10 +211,39 @@ $("#ressurect_button").click(function(){
  })
 
 
- //スクショ撮るボタン
+ //セーブボタン
  $("#save_button").click(function(){
  	makesave()
+ 	showSaveMenu()
  })
+
+ //セーブもどるボタン
+ $("#save_back_button").click(function(){
+ 	fadeSaveConfirmMenu()
+ 	fadeSaveMenu()
+ })
+
+ // セーブ読み込みボタン
+ $("#read_save_button").click(function(){
+ 	showImportSaveMenu()
+ })
+
+ // コピーボタン
+ $("#copy_to_clipboard").click(function(){
+ 	copySaveToClipBoard()
+ })
+
+// セーブ読み込み決定ボタン
+ $("#read_save_decide").click(function(){
+ 	importSave()
+ })
+
+// セーブ読み込みやーめた
+ $("#read_save_cancel").click(function(){
+ 	fadeSaveConfirmMenu()
+ })
+
+
 
 //実績の詳細を出す
 $(".achievement_icon_image").mouseover(function(){

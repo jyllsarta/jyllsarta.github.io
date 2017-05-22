@@ -2522,7 +2522,7 @@ function prepareOptionMenu(){
 
 
 /*******************************************/
-/* オプション画面 */
+/* おみくじ画面 */
 /*******************************************/
 
 
@@ -2892,6 +2892,128 @@ function fadeTutorial(){
 		$(this).addClass("hidden").dequeue();
 	})
 }
+
+
+/*******************************************/
+/* おみくじ画面 */
+/*******************************************/
+
+
+//セーブ画面開く
+function showSaveMenu(){
+	prepareSaveMenu()
+	$("#save_menu")
+	.removeClass("hidden")
+	.animate({
+		opacity:0.98,
+		translateY:20,
+	},200,"easeOutQuart")	
+}
+
+//セーブ画面閉じる
+function fadeSaveMenu(){
+	$("#save_menu")
+	.animate({
+		opacity:0,
+		translateY:0,
+	},300,"easeOutQuart")
+	.queue(function () {
+		$(this).addClass("hidden").dequeue();
+	})
+}
+
+//セーブ確認画面開く
+function showSaveConfirmMenu(siro_lv=0,kuro_lv=0,playtime=0){
+
+	var playtime = ""+(Math.floor(save.playtime /60 /60))+":"+("0"+Math.floor(save.playtime /60 % 60)).slice(-2)+":"+("0"+Math.floor(save.playtime % 60)).slice(-2)
+
+	$("#save_siro_lv").text(siro_lv)
+	$("#save_kuro_lv").text(kuro_lv)
+	$("#save_playtime").text(playtime)
+
+	$("#save_read_confirm")
+	.removeClass("hidden")
+	.animate({
+		opacity:0.98,
+		translateY:20,
+	},200,"easeOutQuart")	
+}
+
+//セーブ確認画面閉じる
+function fadeSaveConfirmMenu(){
+	$("#save_read_confirm")
+	.animate({
+		opacity:0,
+		translateY:0,
+	},300,"easeOutQuart")
+	.queue(function () {
+		$(this).addClass("hidden").dequeue();
+	})
+}
+
+function showSaveDataLoadErrorPopup(){
+	$("#save_read_error")
+	.css({
+		opacity:1,
+		translateY:0,		
+	})
+	.removeClass("hidden")
+	.animate({
+		opacity:0,
+		translateY:-20,
+	},4000,"linear")
+	.queue(function () {
+		$(this).addClass("hidden").dequeue();
+	})
+}
+
+function importSaveAnimation(){
+	$("#save_load_cover")
+	.css({
+		opacity:0,
+	})
+	.removeClass("hidden")
+	.animate({
+		opacity:1,
+	},500,"linear")
+	.queue(function () {
+		fadeSaveMenu()
+		fadeSaveConfirmMenu()
+		castMessage("過去のセーブデータを読み込みました！")
+		initView()
+		$(this).dequeue()
+	})
+	.animate({
+		opacity:0,
+	},500,"linear")
+	.queue(function () {
+		$(this).addClass("hidden").dequeue();
+	})
+}
+
+
+
+function prepareSaveMenu(){
+	$("#save_data_area").val(getReversedSaveString())
+}
+
+function showCopiedTicker(){
+	$("#copied")
+	.css({
+		opacity:1,
+		translateY:0,		
+	})
+	.removeClass("hidden")
+	.animate({
+		opacity:0,
+		translateY:-20,
+	},4000,"linear")
+	.queue(function () {
+		$(this).addClass("hidden").dequeue();
+	})
+
+}
+
 
 /*******************************************/
 /*エピローグ*/

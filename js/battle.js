@@ -281,12 +281,16 @@ function processBattle(bossBattle=false){
 		var expEarned = getExp(enemy_rank)
 		if(allies[0].hp > 0){
 			save.status.siro.exp += expEarned
+			//レベル差があるときには経験値5を追加でプレゼント
 			if(save.status.siro.lv < save.status.kuro.lv){
+				save.status.siro.exp += 5
 			}
 		}
 		if(allies[1].hp > 0){
 			save.status.kuro.exp += expEarned
+			//レベル差があるときには経験値5を追加でプレゼント
 			if(save.status.kuro.lv < save.status.siro.lv){
+				save.status.kuro.exp += 5
 			}
 		}
 		var coinMessage = coinEarned?("、コイン"+ coinEarned	+ "枚"):""

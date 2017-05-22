@@ -393,6 +393,24 @@ function makesave(){
 	saveAnimation()
 }
 
+//qiitaから拾ってきた適当な日付フォーマッタ
+var dateFormat = {
+  fmt : {
+    "yyyy": function(date) { return date.getFullYear() + ''; },
+    "MM": function(date) { return ('0' + (date.getMonth() + 1)).slice(-2); },
+    "dd": function(date) { return ('0' + date.getDate()).slice(-2); },
+    "hh": function(date) { return ('0' + date.getHours()).slice(-2); },
+    "mm": function(date) { return ('0' + date.getMinutes()).slice(-2); },
+    "ss": function(date) { return ('0' + date.getSeconds()).slice(-2); }
+  },
+  format:function dateFormat (date, format) {
+    var result = format;
+    for (var key in this.fmt)
+      result = result.replace(key, this.fmt[key](date));
+    return result;
+  }
+};
+
 //ロード
 function load(){
 	var cookie_v1 = $.cookie("savedata")
@@ -1630,7 +1648,68 @@ function takeGacha(times=1){
 }
 
 
+/*******************************************/
+/* セーブ管理 */
+/*******************************************/
 
+function copySaveToClipBoard(){
+	$("#save_data_area").val(getReversedSaveString())
+	$("#save_data_area").select();
+	document.execCommand("copy");
+	showCopiedTicker()
+}
+
+//セーブデータ出力用の反転文字列を取得
+function getReversedSaveString(){
+	var savestring = JSON.stringify(save)
+	var base64save = Base64.encode(savestring)
+	//見栄えのために日付情報を埋め込んだる
+	var dateInfo = "<"+dateFormat.format(new Date(), 'yyyy/MM/dd_hh:mm:ss')+">"
+	return dateInfo + base64save.split("").reverse().join("")
+}
+
+function showImportSaveMenu(){
+	var inputtedString = $("#save_read_area").val()
+	var saveString = ""
+	var raw_save =""
+
+	//そもそも何も入力されてないならボタンは反応しない
+	if(inputtedString.replace("\n","").replace(" ","") == ""){
+		return
+	}
+
+	//変な文字列なら">"の検出、base64のデコード、JSONのパースの何処かで引っかかる
+	try{
+		saveString =  inputtedString.split(">")[1].replace("\n","").split("").reverse().join("")
+		raw_save = Base64.decode(saveString)
+		raw_save = JSON.parse(raw_save)
+	}
+	catch(e){
+		showSaveDataLoadErrorPopup()
+		return
+	}
+
+	//適当にlast_loginが中にあればまあ正しいセーブだろうと推測
+	//なければエラー出す ... が last_loginの初期値はnullなのでそれだけは許容する
+	if(raw_save.last_login!==null   && !raw_save.last_login){
+		showSaveDataLoadErrorPopup()
+		return
+	}
+
+	//last_loginがあるなら正しいセーブっぽいので確認ウィンドウを出す
+	showSaveConfirmMenu(siro_lv=raw_save.status.siro.lv,kuro_lv=raw_save.status.kuro.lv,playtime=raw_save.playtime)
+
+	//ロード候補に記録
+	data.save_importing = raw_save
+}
+
+//セーブの読み込みを実際に行う
+function importSave(){
+
+	importSaveAnimation()	
+	validateSave(data.save_importing)
+	save = data.save_importing
+}
 
 /*******************************************/
 /* 設定変更 */
