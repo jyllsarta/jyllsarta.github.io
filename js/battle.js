@@ -297,6 +297,14 @@ function processBattle(bossBattle=false){
 		castMessage("経験値"+expEarned+coinMessage+"を獲得！")
 		checkLevelUp()
 
+		//勝利アニメーションを再生
+		if(bossBattle){
+			showBossBattleSprite(is_win=true)
+		}
+		else{
+			showBattleSprite(is_win=true)			
+		}
+
 	}
 	else{
 		var damageDealedPersentage = 0
@@ -310,6 +318,13 @@ function processBattle(bossBattle=false){
 		save.total_death++
 		if(save.notify.onDeath){
 			notify(title="全滅した...",body=("(この通知をクリックで全回復します...)"),icon="death",onClick=function(){ressurect()})
+		}
+		//敗北アニメーションを再生
+		if(bossBattle){
+			showBossBattleSprite(is_win=false)
+		}
+		else{
+			showBattleSprite(is_win=false)			
 		}
 
 	}

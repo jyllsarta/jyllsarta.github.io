@@ -1533,7 +1533,112 @@ body{
 	opacity: 0.7;
 }
 
+/****************/
+/*装備結果ポップアップ*/
+/****************/
+#equip_result_fade_cover{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 1200px;
+	height: 800px;
+	opacity: 0;
+}
+#equip_result_animation_dummy{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+#equip_edit_result_popup{
+	position: absolute;
+	top: 150px;
+	left: 300px;
+	width: 600px;
+	height: 400px;
+	background-color: #1e1e23;
+	opacity: 0.9;
+}
+#equip_result_show_text{
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	font-size: 24px;
+}
+#equip_result_siro{
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	top: 60px;
+	right: 50px;
+	width: 370px;
+	height: 140px;
+}
+#equip_result_kuro{
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	top: 230px;
+	left: 50px;
+	width: 370px;
+	height: 140px;
+}
+.equip_result{
+	height: 31px;
+	font-size: 20px;
+	margin: 2px 0px;
+}
+.equip_result_param_index{
+	display: inline-block;
+	width: 42px;
+}
+.equip_result_value{
+	display: inline-block;
+	text-align: right;
+	width: 85px;
+}
+.equip_result_separator{
+	display: inline-block;
+	width: 20px;
+}
+.equip_result_parenthesis{
+	width: 10px;
+}
+#result_image_siro{
+	position: absolute;
+	top: -10px;
+	left: -10px;
+	width: 240px;
+	height: 360px;
+}
+#result_image_kuro{
+	position: absolute;
+	bottom: -50px;
+	right: -10px;
+	width: 280px;
+	height: 420px;
+}
+#equip_edit_cancel_button{
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	width: 240px;
+	height: 26px;
+	font-size: 18px;
+	border-radius: 3px;
+	text-align: center;
+	background-color: #7c568c;
+	animation: cancel_edit 2s linear infinite;
+}
 
+@keyframes cancel_edit{
+	0% {background-color:#7c568c;}
+	50% {background-color: #8e3473;}
+	0% {background-color:#7c568c;}
+}
+
+#equip_edit_cancel_button:hover{
+	filter: brightness(200%);
+}
 
 
 /****************/
@@ -1648,7 +1753,7 @@ body{
 
 .achievement_title{
 	display: inline-block;
-	width: 280px;
+	width: 240px;
 }
 
 #achievement_icons_area{

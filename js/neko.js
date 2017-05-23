@@ -817,7 +817,7 @@ function eventStairs(){
 
 	if(save.current_floor % 100 === 99){
 		castMessage("◆◆◆"+(save.current_floor+1)+"Fのボスだ！◆◆◆")
-		showBossBattleSprite()
+		//ここでshowBossBattleSpriteを呼んでいたけど戦闘結果によって表示が変わるのでbattle.jsに移動
 		processBattle(bossBattle=true)
 		//生き残っていれば次の階に進む
 		if(isCharacterAlive()){
@@ -858,7 +858,7 @@ function eventStairs(){
 
 //バトルイベントを起こす
 function eventBattle(){
-	showBattleSprite()
+	//ここでshowBattleSpriteを呼んでいたけど戦闘結果によって表示が変わるのでbattle.jsに移動
 	castMessage("◆バトルが発生した！")
 	// in battle.js
 	processBattle()
@@ -1421,7 +1421,8 @@ function completeEditEquip(){
  	}
 	for(var i=0;i<data.equipment_menu.editing_equip.kuro.length;++i){
 		save.equip.kuro[i] = data.equipment_menu.editing_equip.kuro[i]
- 	}	
+ 	}
+ 	castMessage("装備を編集しました！")
 }
 
 /*******************************************/

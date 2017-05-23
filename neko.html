@@ -231,6 +231,12 @@
 				<img src="images/neko/sprite/item/treasure.png" class="sprite" id="sprite_item_treasure">
 				<img src="images/neko/sprite/item/text_window_item.png" class="sprite" id="sprite_item_text">
 			</div>
+			<div id="boss_battle_sprite" class="hidden sprite_unit">
+				<img src="images/neko/sprite/boss_battle/background.png" class="sprite" id="sprite_boss_battle_background">
+				<img src="images/neko/sprite/boss_battle/boss.png" class="sprite" id="sprite_boss_battle_boss">
+				<img src="images/neko/sprite/boss_battle/siro.png" class="sprite" id="sprite_boss_battle_siro">
+				<img src="images/neko/sprite/boss_battle/kuro.png" class="sprite" id="sprite_boss_battle_kuro">
+			</div>
 			<div id="battle_sprite" class="hidden sprite_unit">
 				<img src="images/neko/sprite/battle/background.png" class="sprite" id="sprite_battle_background">
 				<img src="images/neko/sprite/battle/enemy3.png" class="sprite" id="sprite_battle_enemy3">
@@ -240,17 +246,26 @@
 				<img src="images/neko/sprite/battle/siro.png" class="sprite" id="sprite_battle_siro">
 				<img src="images/neko/sprite/battle/text_window_battle.png" class="sprite" id="sprite_battle_text">
 			</div>
+			<div id="battle_win_sprite" class="sprite_unit">
+				<img src="images/neko/sprite/battle/win/background.png" class="sprite" id="sprite_battle_win_background">
+				<img src="images/neko/sprite/battle/win/star.png" class="sprite" id="sprite_battle_win_star">
+				<img src="images/neko/sprite/battle/win/kuro.png" class="sprite" id="sprite_battle_win_kuro">
+				<img src="images/neko/sprite/battle/win/siro.png" class="sprite" id="sprite_battle_win_siro">
+				<img src="images/neko/sprite/battle/win/win_filter.png" class="sprite" id="sprite_battle_win_filter">
+				<img src="images/neko/sprite/battle/win/win_text.png" class="sprite" id="sprite_battle_win_text">
+			</div>
+			<div id="battle_lose_sprite" class="hidden sprite_unit">
+				<img src="images/neko/sprite/battle/lose/background.png" class="sprite" id="sprite_battle_lose_background">
+				<img src="images/neko/sprite/battle/lose/kuro.png" class="sprite" id="sprite_battle_lose_kuro">
+				<img src="images/neko/sprite/battle/lose/siro.png" class="sprite" id="sprite_battle_lose_siro">
+				<img src="images/neko/sprite/battle/lose/lose_filter.png" class="sprite" id="sprite_battle_lose_filter">
+				<img src="images/neko/sprite/battle/lose/lose_text.png" class="sprite" id="sprite_battle_lose_text">
+			</div>
 			<div id="stairs_sprite" class="hidden sprite_unit">
 				<img src="images/neko/sprite/stairs/background.png" class="sprite" id="sprite_stairs_background">
 				<img src="images/neko/sprite/stairs/siro.png" class="sprite" id="sprite_stairs_siro">
 				<img src="images/neko/sprite/stairs/kuro.png" class="sprite" id="sprite_stairs_kuro">
 				<img src="images/neko/sprite/stairs/text_window_stairs.png" class="sprite" id="sprite_stairs_text">
-			</div>
-			<div id="boss_battle_sprite" class="hidden sprite_unit">
-				<img src="images/neko/sprite/boss_battle/background.png" class="sprite" id="sprite_boss_battle_background">
-				<img src="images/neko/sprite/boss_battle/boss.png" class="sprite" id="sprite_boss_battle_boss">
-				<img src="images/neko/sprite/boss_battle/siro.png" class="sprite" id="sprite_boss_battle_siro">
-				<img src="images/neko/sprite/boss_battle/kuro.png" class="sprite" id="sprite_boss_battle_kuro">
 			</div>
 			<div id="resurrect_sprite" class="hidden sprite_unit">
 				<img src="images/neko/sprite/resurrect/background.png" class="sprite" id="sprite_resurrect_background">
@@ -413,7 +428,7 @@
 					<span id="achievement_item_found" class="achievement_procedure">68</span>
 				</li>
 				<li class="achievement_item light_background">
-					<span class="achievement_title">+10まで強化したアイテム数</span>
+					<span class="achievement_title">最大強化したアイテム数</span>
 					<span id="achievement_item_builded" class="achievement_procedure">5</span>
 				</li>
 				<li class="achievement_item light_background">
@@ -482,7 +497,6 @@
 					<span class="notification_value">☑</span>
 				</div>
 			</div>
-
 		</div>
 		<!--装備メニューエリア-->
 		<div id="equipment_menu" class="hidden shadow_background">
@@ -678,7 +692,7 @@
 					</div>
 				</div>
 				<div id="equipment_back_button" class="back_button"></div>
-				<div id="equipment_back_info_text" class="shadow_background">編集を確定し、<br>装備ウィンドウを閉じます。</div>
+				<div id="equipment_back_info_text" class="shadow_background">装備ウィンドウを閉じます。</div>
 				<div id="character_status_area" class="shadow_background">
 					<ul id="current_equip_list">
 						<li class="current_equip_item equip_first shadow_background star_background" item_id="">
@@ -815,6 +829,90 @@
 				</div>
 			</div>
 
+			<div id="equip_result_fade_cover" class="hidden"></div>
+			<div id="equip_result_animation_dummy"></div>
+			<div id="equip_edit_result_popup" class="hidden shadow_background">
+				<img src="images/neko/chara/siro_active.png" id="result_image_siro">
+				<img src="images/neko/chara/kuro_active.png" id="result_image_kuro">
+				<div id="equip_result_show_text">装備編集結果</div>
+				<div id="equip_edit_cancel_button">編集をなかったことにする</div>
+				<div id="equip_result_siro">
+					<div class="star_background_rev equip_result">
+						<span class="equip_result_param_index">STR</span>
+						<span id="equip_before_siro_str" class="equip_result_value">999999</span>
+						<span class="equip_result_separator">→</span>
+						<span id="equip_after_siro_str" class="equip_result_value">999999</span>
+						<span class="equip_result_parenthesis">(</span>
+						<span id="equip_diff_siro_str" class="equip_result_value"> +999999</span>
+						<span class="equip_result_parenthesis">)</span>
+					</div>
+					<div class="star_background_rev equip_result">
+						<span class="equip_result_param_index">DEX</span>
+						<span id="equip_before_siro_dex" class="equip_result_value">999999</span>
+						<span class="equip_result_separator">→</span>
+						<span id="equip_after_siro_dex" class="equip_result_value">999999</span>
+						<span class="equip_result_parenthesis">(</span>
+						<span id="equip_diff_siro_dex" class="equip_result_value"> +999999</span>
+						<span class="equip_result_parenthesis">)</span>
+					</div>
+					<div class="star_background_rev equip_result">
+						<span class="equip_result_param_index">DEF</span>
+						<span id="equip_before_siro_def" class="equip_result_value">999999</span>
+						<span class="equip_result_separator">→</span>
+						<span id="equip_after_siro_def" class="equip_result_value">999999</span>
+						<span class="equip_result_parenthesis">(</span>
+						<span id="equip_diff_siro_def" class="equip_result_value"> +999999</span>
+						<span class="equip_result_parenthesis">)</span>
+					</div>
+					<div class="star_background_rev equip_result">
+						<span class="equip_result_param_index">AGI</span>
+						<span id="equip_before_siro_agi" class="equip_result_value">999999</span>
+						<span class="equip_result_separator">→</span>
+						<span id="equip_after_siro_agi" class="equip_result_value">999999</span>
+						<span class="equip_result_parenthesis">(</span>
+						<span id="equip_diff_siro_agi" class="equip_result_value"> +999999</span>
+						<span class="equip_result_parenthesis">)</span>
+					</div>
+				</div>
+				<div id="equip_result_kuro">
+					<div class="star_background equip_result">
+						<span class="equip_result_param_index">STR</span>
+						<span id="equip_before_kuro_str" class="equip_result_value">999999</span>
+						<span class="equip_result_separator">→</span>
+						<span id="equip_after_kuro_str" class="equip_result_value">999999</span>
+						<span class="equip_result_parenthesis">(</span>
+						<span id="equip_diff_kuro_str" class="equip_result_value"> +999999</span>
+						<span class="equip_result_parenthesis">)</span>
+					</div>
+					<div class="star_background equip_result">
+						<span class="equip_result_param_index">DEX</span>
+						<span id="equip_before_kuro_dex" class="equip_result_value">999999</span>
+						<span class="equip_result_separator">→</span>
+						<span id="equip_after_kuro_dex" class="equip_result_value">999999</span>
+						<span class="equip_result_parenthesis">(</span>
+						<span id="equip_diff_kuro_dex" class="equip_result_value"> +999999</span>
+						<span class="equip_result_parenthesis">)</span>
+					</div>
+					<div class="star_background equip_result">
+						<span class="equip_result_param_index">DEF</span>
+						<span id="equip_before_kuro_def" class="equip_result_value">999999</span>
+						<span class="equip_result_separator">→</span>
+						<span id="equip_after_kuro_def" class="equip_result_value">999999</span>
+						<span class="equip_result_parenthesis">(</span>
+						<span id="equip_diff_kuro_def" class="equip_result_value"> +999999</span>
+						<span class="equip_result_parenthesis">)</span>
+					</div>
+					<div class="star_background equip_result">
+						<span class="equip_result_param_index">AGI</span>
+						<span id="equip_before_kuro_agi" class="equip_result_value">999999</span>
+						<span class="equip_result_separator">→</span>
+						<span id="equip_after_kuro_agi" class="equip_result_value">999999</span>
+						<span class="equip_result_parenthesis">(</span>
+						<span id="equip_diff_kuro_agi" class="equip_result_value"> +999999</span>
+						<span class="equip_result_parenthesis">)</span>
+					</div>
+				</div>
+			</div>
 			<div id="gacha_menu" class="hidden">
 				<div id="gacha_show_text">おみくじ</div>
 				<div id="gacha_back_button" class="back_button"></div>
@@ -904,67 +1002,67 @@
 					<div id="save_read_confirm_text">セーブ読込み確認</div>
 					<div id="save_info_readed">
 						<p>以下のセーブデータを読込みます。</h2>
-						<p>しろこ：<span id="save_siro_lv">123</span>lv</p>
-						<p>くろこ：<span id="save_kuro_lv">125</span>lv</p>
-						<p>プレイ時間：<span id="save_playtime">231:22:09</span></p>
+							<p>しろこ：<span id="save_siro_lv">123</span>lv</p>
+							<p>くろこ：<span id="save_kuro_lv">125</span>lv</p>
+							<p>プレイ時間：<span id="save_playtime">231:22:09</span></p>
+						</div>
+						<div id="read_save_decide" class="save_menu_btn">読込む</div>
+						<div id="read_save_cancel" class="save_menu_btn">やめる</div>
 					</div>
-					<div id="read_save_decide" class="save_menu_btn">読込む</div>
-					<div id="read_save_cancel" class="save_menu_btn">やめる</div>
 				</div>
-			</div>
 
-			<div class="star_background_rev hidden" id="save_ticker">
-				セーブしました。
-			</div>
-
-			<img src="images/neko/etc/extra.png" class="hidden" id="omake_image">
-
-			<div id="epilogue" class="hidden">
-				<div id="epilogue_dummy"></div>
-				<img src="images/neko/epilogue/2.png" class="epilogue_illust" id="epilogue_1">
-				<img src="images/neko/epilogue/1.png" class="epilogue_illust" id="epilogue_0">
-				<div id="epilogue_text"></div>
-			</div>
-
-			<div id="tutorial" class="hidden shadow_background">
-				<div id="tutorial_title"></div>
-				<div id="tutorial_description"></div>
-			</div>
-			<div id="tutorial_click_cover" class="hidden"></div>
-
-			<div id="fadeouter" class="hidden">
-				<img src="images/neko/bg/st2.png" id="stage_background">
-				<div id="stage_shadow"></div>
-				<div id="stage_number">第三次元層</div>
-				<div id="stage_change_end_button" class="pekapeka">click anywhere to proceed...</div>
-				<div id="stage_title"><span id="title_prev">氷雪と春風の小</span><span class="last_letter">路</span></div>
-				<div id="stage_description">
-					密林を抜けると果ての見えない吹き抜けに出た。<br>
-					僅かに上空から風が吹いているのを感じる。<br>
-					空間の歪んだ塔内部では外界の空気を吸う術などないと諦めていたが、<br>
-					この次元はどうやら外部と物理的につながっている領域もあるようだ。<br>
-					外に繋がる窓を見つけたら手紙を落としてみよう、と、<br>
-					久しく抱くことのなかった気楽な冒険気分を抱きつつ、一行は塔を登り続ける。
+				<div class="star_background_rev hidden" id="save_ticker">
+					セーブしました。
 				</div>
-				<div id="stage_change_tips_text">TIPS:</div>
-				<div id="stage_change_tips">STRとDEXはバランスが大切です。それぞれの値が近いほど効率よく攻撃力が上がります。</div>
-				<div id="changestage_click_cover"></div>
+
+				<img src="images/neko/etc/extra.png" class="hidden" id="omake_image">
+
+				<div id="epilogue" class="hidden">
+					<div id="epilogue_dummy"></div>
+					<img src="images/neko/epilogue/2.png" class="epilogue_illust" id="epilogue_1">
+					<img src="images/neko/epilogue/1.png" class="epilogue_illust" id="epilogue_0">
+					<div id="epilogue_text"></div>
+				</div>
+
+				<div id="tutorial" class="hidden shadow_background">
+					<div id="tutorial_title"></div>
+					<div id="tutorial_description"></div>
+				</div>
+				<div id="tutorial_click_cover" class="hidden"></div>
+
+				<div id="fadeouter" class="hidden">
+					<img src="images/neko/bg/st2.png" id="stage_background">
+					<div id="stage_shadow"></div>
+					<div id="stage_number">第三次元層</div>
+					<div id="stage_change_end_button" class="pekapeka">click anywhere to proceed...</div>
+					<div id="stage_title"><span id="title_prev">氷雪と春風の小</span><span class="last_letter">路</span></div>
+					<div id="stage_description">
+						密林を抜けると果ての見えない吹き抜けに出た。<br>
+						僅かに上空から風が吹いているのを感じる。<br>
+						空間の歪んだ塔内部では外界の空気を吸う術などないと諦めていたが、<br>
+						この次元はどうやら外部と物理的につながっている領域もあるようだ。<br>
+						外に繋がる窓を見つけたら手紙を落としてみよう、と、<br>
+						久しく抱くことのなかった気楽な冒険気分を抱きつつ、一行は塔を登り続ける。
+					</div>
+					<div id="stage_change_tips_text">TIPS:</div>
+					<div id="stage_change_tips">STRとDEXはバランスが大切です。それぞれの値が近いほど効率よく攻撃力が上がります。</div>
+					<div id="changestage_click_cover"></div>
+				</div>
+				<div id="changestage_blight" class="hidden">
+					<div class="whole_screen" id="blight_normal"></div>
+					<div class="whole_screen" id="blight_screen"></div>
+					<div class="whole_screen" id="blight_overlay"></div>
+				</div>
+				<div id="save_load_cover" class="hidden"></div>
 			</div>
-			<div id="changestage_blight" class="hidden">
-				<div class="whole_screen" id="blight_normal"></div>
-				<div class="whole_screen" id="blight_screen"></div>
-				<div class="whole_screen" id="blight_overlay"></div>
-			</div>
-			<div id="save_load_cover" class="hidden"></div>
 		</div>
 	</div>
-</div>
 </div>
 <img src="images/neko/etc/loading_splash5.png" id="loading_splash">
 <div id="death_ie" class="hidden">ごめんなさい。<br>しろことくろこの塔登るやつ は Internet Explorerでは動作しません。<br><a href="https://www.google.co.jp/chrome/browser/desktop/">Google Chrome</a>で遊ぶことを推奨しています。</div>
 <div id="bug_report">
 	<span id="version">
-		version : 1.19 　<a href="nekomanual.html#update">更新履歴</a>
+		version : 1.20 　<a href="nekomanual.html#update">更新履歴</a>
 	</span>
 	<span id="wanna_report">
 		感想・バグ報告は <a href="https://twitter.com/jyll">@jyll</a>か<a href="https://twitter.com/hashtag/%E3%81%97%E3%82%8D%E3%81%93%E3%81%A8%E3%81%8F%E3%82%8D%E3%81%93">#しろことくろこ</a>にお願いします。	

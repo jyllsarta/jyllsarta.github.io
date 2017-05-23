@@ -47,8 +47,21 @@ $("#status_back_button").click(function(){
 
 //装備メニュー戻るボタンクリックで編集を確定しメニュー閉じる
 $("#equipment_back_button").click(function(){
-	completeEditEquip()
+	if(data.equipment_menu.changed){
+		showEquipResultMenu()
+	}
 	fadeEquipmentMenu()
+})
+
+//装備編集を確定
+$("#equip_result_fade_cover").click(function(){
+	completeEditEquip()
+	fadeEquipResultMenu()	
+})
+
+//装備編集を確定
+$("#equip_edit_cancel_button").click(function(){
+	fadeEquipResultMenu()
 })
 
 //装備リストページャの操作:次のページ
@@ -234,14 +247,14 @@ $("#ressurect_button").click(function(){
  })
 
 // セーブ読み込み決定ボタン
- $("#read_save_decide").click(function(){
- 	importSave()
- })
+$("#read_save_decide").click(function(){
+	importSave()
+})
 
 // セーブ読み込みやーめた
- $("#read_save_cancel").click(function(){
- 	fadeSaveConfirmMenu()
- })
+$("#read_save_cancel").click(function(){
+	fadeSaveConfirmMenu()
+})
 
 
 
@@ -265,15 +278,15 @@ $(".achievement_icon_image").mouseout(function(){
  	showOptionMenu()
  })
 
-$("#option_animation_on").click(function(){
+ $("#option_animation_on").click(function(){
  	toggleEnableEventAnimationOption()
  })
 
-$("#option_loitering_on").click(function(){
+ $("#option_loitering_on").click(function(){
  	toggleEnableLoiteringOption()
  })
 
-$("#option_scroll_background").click(function(){
+ $("#option_scroll_background").click(function(){
  	toggleEnableScrollBackgroundOption()
  })
 
@@ -287,76 +300,76 @@ $("#option_scroll_background").click(function(){
  	fadeGachaMenu()
  })
 
-$("#gacha_take_button").click(function(){
-	spinGacha(1)
-})
+ $("#gacha_take_button").click(function(){
+ 	spinGacha(1)
+ })
 
-$("#gacha_take_10_button").click(function(){
-	spinGacha(10)
-})
+ $("#gacha_take_10_button").click(function(){
+ 	spinGacha(10)
+ })
 
-$("#gacha_result_back_button").click(function(){
-	fadeGachaResult()
-})
+ $("#gacha_result_back_button").click(function(){
+ 	fadeGachaResult()
+ })
 
-$("#changestage_click_cover").click(function(){
-	fadeChangeStageView()
-})
+ $("#changestage_click_cover").click(function(){
+ 	fadeChangeStageView()
+ })
 
-$("#tutorial_click_cover").click(function(){
-	fadeTutorial()
-})
+ $("#tutorial_click_cover").click(function(){
+ 	fadeTutorial()
+ })
 
-$("#option_notification").click(function(){
-	toggleNotification()
-})
+ $("#option_notification").click(function(){
+ 	toggleNotification()
+ })
 
-$("#notification_death").click(function(){
-	toggleNotificationDeath()
-})
-$("#notification_clear").click(function(){
-	toggleNotificationClear()
-})
-$("#notification_freespin").click(function(){
-	toggleNotificationFreeSpin()
-})
-$("#notification_jihou").click(function(){
-	toggleNotificationJihou()
-})
+ $("#notification_death").click(function(){
+ 	toggleNotificationDeath()
+ })
+ $("#notification_clear").click(function(){
+ 	toggleNotificationClear()
+ })
+ $("#notification_freespin").click(function(){
+ 	toggleNotificationFreeSpin()
+ })
+ $("#notification_jihou").click(function(){
+ 	toggleNotificationJihou()
+ })
 
-$("#epilogue_button").click(function(){
-	showEpilogue()
-})
+ $("#epilogue_button").click(function(){
+ 	showEpilogue()
+ })
 
-$(".epilogue_illust").click(function(){
-	proceedEpilogue()
-})
+ $(".epilogue_illust").click(function(){
+ 	proceedEpilogue()
+ })
 
-$("#epilogue_text").click(function(){
-	proceedEpilogue()
-})
+ $("#epilogue_text").click(function(){
+ 	proceedEpilogue()
+ })
 
-$("#omake_button").click(function(){
-	showThankyouImage()
-})
-$("#omake_image").click(function(){
-	fadeThankyouImage()
-})
+ $("#omake_button").click(function(){
+ 	showThankyouImage()
+ })
+ $("#omake_image").click(function(){
+ 	fadeThankyouImage()
+ })
 
-$("#rest_button").click(function(){
-	toggleRestMode()
-})
+ $("#rest_button").click(function(){
+ 	toggleRestMode()
+ })
 
-$("#character_hitbox_kuro").click(function(){
-	jumpKuro()
-})
-$("#character_hitbox_siro").click(function(){
-	jumpSiro()
-})
+ $("#character_hitbox_kuro").click(function(){
+ 	jumpKuro()
+ })
+ $("#character_hitbox_siro").click(function(){
+ 	jumpSiro()
+ })
 
 
-/*ミニゲーム関連*/
-$("#jump").click(function(){
-	proceedMiniGame()
-})
+ /*ミニゲーム関連*/
+ $("#jump").click(function(){
+ 	proceedMiniGame()
+ })
 

@@ -231,6 +231,7 @@ function castMessage(message){
 	})
 }
 
+
 //あるきまわるキャラたちの状態を反映
 function updateLoiteringCharactersState(){
 	if(save.status.siro.hp <= 0){
@@ -800,7 +801,8 @@ function resetBattleSprite(){
 	})
 }
 
-function showBattleSprite(){
+//勝ったときのスプライトならis_win=true
+function showBattleSprite(is_win=true){
 
 	//ミニゲームプレイ中も一切スプライトを出さない
 	if(mini_game_data.is_playing){
@@ -824,13 +826,23 @@ function showBattleSprite(){
 	.animate({
 		translateY:0,
 		opacity:1
-	},500,"swing")
-	.delay(3400)
-	.animate({
+	},500,"swing")	
+	.delay(1500)
+	.queue(function(){
+		if(is_win){
+			showBattleWinSprite()
+		}
+		else{
+			showBattleLoseSprite()
+		}
+		$(this).dequeue()
+	})
+	.delay(700)
+	.queue(function(){
+		$(this).css({			
 		translateY:-30,
 		opacity:0
-	},1500,"easeOutQuart")
-	.queue(function(){
+		})
 		$(this).addClass("hidden")
 		$(this).dequeue()
 	})
@@ -842,69 +854,283 @@ function showBattleSprite(){
 	.animate({
 		translateY:0,
 		opacity:1,
-	},800,"easeOutQuart")
+	},600,"easeOutQuart")
 
 	$("#sprite_battle_enemy1")
-	.delay(600)
+	.delay(400)
 	.animate({
 		translateX:0,
 		opacity:1
-	},1500,"easeOutQuart")
-	.delay(1400)
+	},500,"easeOutQuart")
+	.delay(930)
 	.animate({
 		translateY:-100,
 		translateX:160,
-	},2000,"easeOutQuart")	
+	},1330,"easeOutQuart")	
 
 	$("#sprite_battle_enemy2")
+	.delay(560)
+	.animate({
+		translateX:0,
+		opacity:1
+	},500,"easeOutQuart")
 	.delay(800)
 	.animate({
-		translateX:0,
-		opacity:1
-	},1500,"easeOutQuart")
-	.delay(1200)
-	.animate({
 		translateY:-100,
 		translateX:160,
-	},2000,"easeOutQuart")	
+	},1330,"easeOutQuart")	
 
 	$("#sprite_battle_enemy3")
-	.delay(1000)
+	.delay(660)
 	.animate({
 		translateX:0,
 		opacity:1
-	},1500,"easeOutQuart")
-	.delay(1000)
+	},500,"easeOutQuart")
+	.delay(660)
 	.animate({
 		translateY:-100,
 		translateX:160,
-	},2000,"easeOutQuart")	
+	},1330,"easeOutQuart")	
 
 	$("#sprite_battle_siro")
-	.delay(1500)
+	.delay(1000)
 	.animate({
 		translateX:0,
 		opacity:1
-	},1500,"easeOutQuart")
-	.delay(500)
+	},500,"easeOutQuart")
+	.delay(330)
 	.animate({
 		translateY:-100,
 		translateX:-200,
-	},2000,"easeOutQuart")	
+	},1330,"easeOutQuart")	
 
 	$("#sprite_battle_kuro")
-	.delay(1800)
+	.delay(1200)
 	.animate({
 		translateX:60,
 		opacity:1
-	},1500,"easeOutQuart")
-	.delay(200)
+	},500,"easeOutQuart")
+	.delay(130)
 	.animate({
 		translateY:-100,
 		translateX:-100,
-	},2000,"easeOutQuart")	
-	
+	},1330,"easeOutQuart")	
+
 }
+
+function resetBattleWinSprite(){
+	$("#sprite_battle_win_text").css({
+		opacity:0,
+		translateY:50,
+		translateX:0,
+	})
+	$("#sprite_battle_win_filter").css({
+		opacity:0,
+	})
+	$("#sprite_battle_win_star").css({
+		opacity:0,
+		translateY:50,
+		translateX:0,
+	})
+	$("#sprite_battle_win_siro").css({
+		opacity:0,
+		translateX:10,
+		translateY:50,
+	})
+	$("#sprite_battle_win_kuro").css({
+		opacity:0,
+		translateX:-10,
+		translateY:50,
+	})
+}
+
+function showBattleWinSprite(){
+
+	resetBattleWinSprite()
+	$("#battle_win_sprite").removeClass("hidden")
+
+	$("#battle_win_sprite")
+	.css({
+		translateY:0,
+		opacity:0,
+	})
+	.animate({
+		opacity:1
+	},500,"swing")
+	.delay(1200)
+	.animate({
+		translateY:-30,
+		opacity:0
+	},800,"easeOutQuart")
+	.queue(function(){
+		$(this).addClass("hidden")
+		$(this).dequeue()
+	})
+
+	$("#sprite_battle_win_background").css("opacity",1)
+
+	$("#sprite_battle_win_star")
+	.delay(100)
+	.animate({
+		opacity:1,
+	},700,"easeOutQuart")
+
+	$("#sprite_battle_win_filter")
+	.delay(800)
+	.animate({
+		opacity:0.2,
+	},200,"easeOutQuart")
+
+
+	$("#sprite_battle_win_text")
+	.delay(600)
+	.animate({
+		translateY:-20,
+		opacity:1,
+	},300,"easeOutQuart")
+	.animate({
+		translateY:0
+	},100,"linear")
+
+	$("#sprite_battle_win_siro")
+	.delay(100)
+	.animate({
+		translateX:0,
+		translateY:10,
+		opacity:1,
+	},300,"easeOutQuart")
+	.delay(100)
+	.animate({
+		translateY:0
+	},100,"linear")
+	.animate({
+		translateY:30
+	},100,"linear")
+	.animate({
+		translateY:0
+	},100,"linear")
+	.animate({
+		translateY:30
+	},100,"linear")
+
+	$("#sprite_battle_win_kuro")
+	.delay(50)
+	.animate({
+		translateX:0,
+		translateY:10,
+		opacity:1,
+	},200,"easeOutQuart")
+	.delay(50)
+	.animate({
+		translateY:0,
+		translateX:-20,
+	},90,"linear")
+	.animate({
+		translateY:10,
+		translateX:0,
+	},90,"linear")
+	.delay(200)
+	.animate({
+		translateY:0,
+		translateX:20,
+	},90,"linear")
+	.animate({
+		translateY:10,
+		translateX:0,
+	},90,"linear")
+
+}
+
+
+
+function resetBattleLoseSprite(){
+	$("#sprite_battle_lose_text").css({
+		opacity:0,
+		translateY:-50,
+		translateX:0,
+	})
+	$("#sprite_battle_lose_siro").css({
+		opacity:0,
+		translateX:10,
+		translateY:50,
+	})
+	$("#sprite_battle_lose_kuro").css({
+		opacity:0,
+		translateX:-10,
+		translateY:50,
+	})
+	$("#sprite_battle_lose_filter").css({
+		opacity:0,
+	})
+}
+
+function showBattleLoseSprite(){
+
+	resetBattleLoseSprite()
+	$("#battle_lose_sprite").removeClass("hidden")
+
+	$("#battle_lose_sprite")
+	.css({
+		translateY:0,
+		opacity:0,
+	})
+	.animate({
+		opacity:1
+	},500,"swing")
+	.delay(1200)
+	.animate({
+		translateY:-30,
+		opacity:0
+	},800,"easeOutQuart")
+	.queue(function(){
+		$(this).addClass("hidden")
+		$(this).dequeue()
+	})
+
+	$("#sprite_battle_lose_background").css("opacity",1)
+
+	$("#sprite_battle_lose_text")
+	.delay(100)
+	.animate({
+		translateY:-20,
+		opacity:1,
+	},1300,"easeOutQuart")
+
+	$("#sprite_battle_lose_filter")
+	.delay(200)
+	.animate({
+		opacity:0.7,
+	},1000,"easeOutQuart")
+
+
+	$("#sprite_battle_lose_siro")
+	.delay(400)
+	.animate({
+		translateX:0,
+		translateY:5,
+		opacity:1,
+	},300,"easeOutQuart")
+	.animate({
+		translateX:4,
+		translateY:0,
+	},2000,"easeOutQuart")
+
+	$("#sprite_battle_lose_kuro")
+	.delay(50)
+	.animate({
+		translateX:0,
+		translateY:5,
+		opacity:1,
+	},200,"easeOutQuart")
+	.animate({
+		translateX:-6,
+		translateY:0,
+	},2000,"easeOutQuart")
+
+}
+
+
+
 
 function resetStairsSprite(){
 	$("#sprite_stairs_text").css({
@@ -1133,13 +1359,23 @@ function showBossBattleSprite(){
 	.animate({
 		translateY:0,
 		opacity:1
-	},500,"swing")
-	.delay(3000)
-	.animate({
+	},500,"swing")	
+	.delay(1500)
+	.queue(function(){
+		if(is_win){
+			showBattleWinSprite()
+		}
+		else{
+			showBattleLoseSprite()
+		}
+		$(this).dequeue()
+	})
+	.delay(700)
+	.queue(function(){
+		$(this).css({			
 		translateY:-30,
 		opacity:0
-	},1500,"easeOutQuart")
-	.queue(function(){
+		})
 		$(this).addClass("hidden")
 		$(this).dequeue()
 	})
@@ -1151,33 +1387,33 @@ function showBossBattleSprite(){
 	.animate({
 		translateY:0,
 		opacity:1,
-	},800,"easeOutQuart")
+	},500,"easeOutQuart")
 
 	$("#sprite_boss_battle_kuro")
-	.delay(1200)
+	.delay(800)
 	.animate({
 		translateX:0,
 		opacity:1
-	}, 1500,"easeOutQuart")
-	.delay(800)
+	}, 500,"easeOutQuart")
+	.delay(600)
 	.animate({
 		translateY:-170,
 		translateX:-400,
 		opacity:.4
-	}, 1000,"easeOutQuart")
+	}, 400,"easeOutQuart")
 
 	$("#sprite_boss_battle_siro")
-	.delay(1200)
+	.delay(800)
 	.animate({
 		translateX:0,
 		opacity:1
-	}, 1500,"easeOutQuart")
-	.delay(800)
+	}, 500,"easeOutQuart")
+	.delay(600)
 	.animate({
 		translateY:-170,
 		translateX:400,
 		opacity:.4
-	}, 1000,"easeOutQuart")
+	}, 500,"easeOutQuart")
 
 }
 
@@ -1577,6 +1813,7 @@ function prepareEquipMenu(){
 	updateEquipListParameterIndex()
 	updateEquipListParameterIndexCurrentEquipArea()
 	updateEquipBackButton()
+	updateEquipResultArea()
 }
 
 //戻るボタンの状態を更新
@@ -2038,6 +2275,99 @@ function fadeSortOrderChangePopup(){
 	})
 }	
 
+//装備編集結果画面の準備
+function updateEquipResultArea(){
+	var params = ["str","dex","def","agi"]
+	var charas = ["siro","kuro"]
+
+	//現在パラメータ部分の更新
+	for(var param of params){
+		for(var chara of charas){
+			$("#equip_before_"+chara+"_"+param).text(getTotalParameter(chara,param))
+		}
+	}
+
+	//将来のパラメータ部分の更新
+	for(var param of params){
+		for(var chara of charas){
+			$("#equip_after_"+chara+"_"+param).text(getTotalParameterEquipMenuDraft(chara,param))
+			var diff = getTotalParameterEquipMenuDraft(chara,param) - getTotalParameter(chara,param)
+			if(diff > 0){
+				$("#equip_after_"+chara+"_"+param).removeClass("minus")
+				$("#equip_after_"+chara+"_"+param).addClass("plus")
+			}
+			else if(diff==0){
+				$("#equip_after_"+chara+"_"+param).removeClass("minus")	
+				$("#equip_after_"+chara+"_"+param).removeClass("plus")	
+			}
+			else{
+				$("#equip_after_"+chara+"_"+param).addClass("minus")	
+				$("#equip_after_"+chara+"_"+param).removeClass("plus")	
+			}
+		}
+	}
+
+	//パラメータ差分の更新
+	for(var param of params){
+		for(var chara of charas){
+			var diff = getTotalParameterEquipMenuDraft(chara,param) - getTotalParameter(chara,param)
+			$("#equip_diff_"+chara+"_"+param).text(diff)
+			if(diff > 0){
+				$("#equip_diff_"+chara+"_"+param).removeClass("minus")
+				$("#equip_diff_"+chara+"_"+param).addClass("plus")
+			}
+			else if(diff==0){
+				$("#equip_diff_"+chara+"_"+param).removeClass("minus")	
+				$("#equip_diff_"+chara+"_"+param).removeClass("plus")	
+			}
+			else{
+				$("#equip_diff_"+chara+"_"+param).addClass("minus")	
+				$("#equip_diff_"+chara+"_"+param).removeClass("plus")	
+			}
+		}
+	}
+}
+
+//装備編集結果画面
+function showEquipResultMenu(){
+	updateEquipResultArea()
+	$("#equip_edit_result_popup")
+	.css({
+		opacity:0,
+		translateY:0,
+	})
+	.removeClass("hidden")
+	.animate({
+		opacity:0.9,
+		translateY:20,
+	},200,"easeOutQuart")
+	.queue(function(){
+		$("#equip_result_fade_cover").removeClass("hidden")
+		$(this).dequeue()
+	})
+
+	$("#equip_result_animation_dummy")
+	.delay(5000)
+	.queue(function(){
+		fadeEquipResultMenu()
+		$(this).dequeue()
+	})
+}
+
+//装備編集結果画面閉じる
+function fadeEquipResultMenu(){
+	$("#equip_result_fade_cover").addClass("hidden")
+	$("#equip_edit_result_popup")
+	.animate({
+		opacity:0,
+		translateY:0,
+	},300,"easeOutQuart")
+	.queue(function () {
+		$(this).addClass("hidden").dequeue();
+	})
+}
+
+
 
 
 /*******************************************/
@@ -2205,8 +2535,10 @@ function constructStatusBoardAnimation(){
 
 //実績部分を更新
 function updateAchievementArea(){
-	$("#achievement_item_found").text(getSumItemFounded())
-	$("#achievement_item_builded").text(getSumItemFoundedFullBuilded())
+	var item_found = getSumItemFounded()
+	var builded_item = getSumItemFoundedFullBuilded()
+	$("#achievement_item_found").text(item_found + " (" + Math.floor(100*item_found/data.item_data.length) + "%)")
+	$("#achievement_item_builded").text(builded_item + " (" + Math.floor(100*builded_item/data.item_data.length) + "%)")
 	$("#achievement_coin_earned").text(save.total_coin_achieved)
 	$("#achievement_depth").text(getDeepestDepthCrawled())
 }
@@ -2979,6 +3311,7 @@ function importSaveAnimation(){
 	.queue(function () {
 		fadeSaveMenu()
 		fadeSaveConfirmMenu()
+		removeOldLog()
 		castMessage("過去のセーブデータを読み込みました！")
 		initView()
 		$(this).dequeue()
