@@ -60,7 +60,14 @@ $("#equip_result_fade_cover").click(function(){
 })
 
 //装備編集を確定
+$("#equip_edit_complete_button").click(function(){
+	completeEditEquip()
+	fadeEquipResultMenu()	
+})
+
+//装備編集をキャンセル
 $("#equip_edit_cancel_button").click(function(){
+	castMessage("装備編集をキャンセルしました！")
 	fadeEquipResultMenu()
 })
 

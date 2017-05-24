@@ -1621,19 +1621,39 @@ body{
 	position: absolute;
 	right: 5px;
 	top: 5px;
-	width: 240px;
-	height: 26px;
+	width: 120px;
+	padding-top: 10px;
+	height: 40px;
 	font-size: 18px;
 	border-radius: 3px;
 	text-align: center;
 	background-color: #7c568c;
 	animation: cancel_edit 2s linear infinite;
 }
+#equip_edit_complete_button{
+	position: absolute;
+	right: 135px;
+	top: 5px;
+	width: 120px;
+	padding-top: 10px;
+	height: 40px;
+	font-size: 18px;
+	border-radius: 3px;
+	text-align: center;
+	background-color: #7c568c;
+	animation: complete_edit 2s linear infinite;
+}
 
 @keyframes cancel_edit{
 	0% {background-color:#7c568c;}
 	50% {background-color: #8e3473;}
 	0% {background-color:#7c568c;}
+}
+
+@keyframes complete_edit{
+	0% {background-color:#4286f4;}
+	50% {background-color: #1b4ea0;}
+	0% {background-color:#4286f4;}
 }
 
 #equip_edit_cancel_button:hover{

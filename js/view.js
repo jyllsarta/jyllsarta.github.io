@@ -2349,6 +2349,7 @@ function showEquipResultMenu(){
 	$("#equip_result_animation_dummy")
 	.delay(5000)
 	.queue(function(){
+		completeEditEquip()
 		fadeEquipResultMenu()
 		$(this).dequeue()
 	})
