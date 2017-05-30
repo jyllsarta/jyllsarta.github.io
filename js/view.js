@@ -2349,14 +2349,17 @@ function showEquipResultMenu(){
 	$("#equip_result_animation_dummy")
 	.delay(5000)
 	.queue(function(){
-		completeEditEquip()
-		fadeEquipResultMenu()
+		if(data.equipment_menu.canceled == false && data.equipment_menu.changed == true){
+			completeEditEquip()
+			fadeEquipResultMenu()			
+		}
 		$(this).dequeue()
 	})
 }
 
 //装備編集結果画面閉じる
 function fadeEquipResultMenu(){
+	data.equipment_menu.changed = false
 	$("#equip_result_fade_cover").addClass("hidden")
 	$("#equip_edit_result_popup")
 	.animate({

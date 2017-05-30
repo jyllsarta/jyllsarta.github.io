@@ -23,7 +23,8 @@ function calcEnemyHp(rank){
 }
 
 //敵の作成
-function Enemy(rank,type="normal", enchant="none"){
+function Enemy(rank,type="normal",unique_boss_id=null){
+
 	this.atk = calcEnemyAtk(rank) + randInt(1,10)
 	this.sld = 0
 	var enHp =  Math.floor(calcEnemyHp(rank)*randInt(80,100)/100 + randInt(1,20))
@@ -32,6 +33,7 @@ function Enemy(rank,type="normal", enchant="none"){
 	this.isDead  = false
 	this.maxDamagedPersentage = 0
 	this.isBoss = false
+	this.isUniqueBoss = false
 
 	if(rank > 100){
 		this.sld = Math.floor(this.atk/4)
@@ -43,6 +45,17 @@ function Enemy(rank,type="normal", enchant="none"){
 		this.sld = Math.floor(this.atk/2)
 		this.atk = Math.floor(this.atk *1.2)
 		this.isBoss = true
+	}
+
+	//ボスIDの指定があったら
+	if(unique_boss_id !== null){
+		this.hp = extra_boss_data[unique_boss_id].hp
+		this.maxHp = extra_boss_data[unique_boss_id].hp
+		this.atk = extra_boss_data[unique_boss_id].atk
+		this.sld = extra_boss_data[unique_boss_id].sld
+		this.isBoss = true
+		this.isUniqueBoss = true
+		this.skill =  extra_boss_data[unique_boss_id].skill
 	}
 
 }
@@ -74,7 +87,16 @@ function getCurrentEnemyRank(){
 	var start_ir = dungeon_data[save.current_dungeon_id].start_ir
 	var depth = Math.min(save.current_floor,dungeon_data[save.current_dungeon_id].depth)
 
-	return Math.floor(start_ir+( depth/8))
+	//エクストラダンジョン<以外>は8階層ごとにランクアップ
+	if(save.current_dungeon_id <= 4){
+		depth /= 8
+	}
+	//エクストラダンジョンは毎階層ごとにランクアップ
+	else if(save.current_dungeon_id == 5){
+		// nothing
+	}
+
+	return Math.floor(start_ir+depth)
 }
 
 //これまで潜った中で一番強いランクの敵のランクを返す
@@ -85,11 +107,19 @@ function getMaxEnemyRank(){
 			deepest_dungeon_id = i
 		}
 	} 
-
 	var start_ir = dungeon_data[deepest_dungeon_id].start_ir
 	var depth = Math.min(save.dungeon_process[deepest_dungeon_id],dungeon_data[deepest_dungeon_id].depth)
 
-	return Math.floor(start_ir+( depth/8))
+	//エクストラダンジョン<以外>は8階層ごとにランクアップ
+	if(save.deepest_dungeon_id <= 4){
+		depth /= 8
+	}
+	//エクストラダンジョンは毎階層ごとにランクアップ
+	else if(save.deepest_dungeon_id == 5){
+		// nothing
+	}
+
+	return Math.floor(start_ir+depth)
 }
 
 //敵のランクを加味した経験値を計算して返す
@@ -163,6 +193,10 @@ function attackAllCharacterToRandomTarget(from,to){
 //1ターン分の処理を行う
 function take1turn(enemies,allies){
 
+	if(enemies[0].isUniqueBoss){
+		eval(enemies[0].skill)
+	}
+
 	//味方攻撃
 	attackAllCharacterToRandomTarget(allies,enemies)
 
@@ -208,18 +242,25 @@ function getBiggestMaxDamage(enemies){
 }
 
 //バトル処理を行う
-function processBattle(bossBattle=false){
+//通常ボスならbossBattle、エクストラのユニークボスならunique_boss_idを指定
+function processBattle(bossBattle=false,unique_boss_id=null){
 	var enemies  = []
 	var allies = []
 
 	var enemy_rank = getCurrentEnemyRank()
 
 	//敵を追加
-	if(!bossBattle){
+	//ユニークボスの指定があるならそれを追加
+	if(unique_boss_id !== null){
+		enemies.push(new Enemy(enemy_rank,bossBattle=true,unique_boss_id=unique_boss_id))	
+	}
+	//それ以外の通常バトル
+	else if(!bossBattle){
 		enemies.push(new Enemy(enemy_rank))
 		enemies.push(new Enemy(enemy_rank))
 		enemies.push(new Enemy(enemy_rank))
 	}
+	//通常ボス
 	else{
 		enemies.push(new Enemy(enemy_rank,type="boss"))		
 	}
@@ -236,6 +277,15 @@ function processBattle(bossBattle=false){
 	if(bossBattle){
 		battleTurn = 201
 	}
+
+	//ユニークボスなら前口上を話し、スキル発動
+	if(unique_boss_id !==null){
+		for(var ms of extra_boss_data[unique_boss_id].pre_battle_message){
+			castMessage(ms)
+		}
+		eval(extra_boss_data[unique_boss_id].pre_battle_skill)
+	}
+
 
 	//敵と味方どちらかが全滅すると終了
 	while(listupAliveCharacter(enemies).length > 0 && listupAliveCharacter(allies).length > 0 && turnCount< battleTurn){
@@ -360,3 +410,42 @@ function updateMaxHP(){
 	save.status.kuro.max_hp = save.status.kuro.lv * 10 + 100
 }
 
+
+var extra_boss_data = {
+	0 : {
+		name : "エクリテ",
+		pre_battle_message : ["「私は秩序の妖精エクリテ。",
+														"妖精郷に踏み入る資格と実力があるか、",
+														"その腕で証明してみせなさい！」",
+														"エクリテ：HP214m,ATK280k,DEF40k"
+														],
+		hp : 2140000,
+		atk : 278000,
+		sld : 40000,
+		pre_battle_skill : '\
+		castMessage("「これが法の光よ！");\
+		castMessage("耐えてみせなさい！」");\
+		allies[0].hp /= 2;\
+		allies[1].hp /= 2;\
+		castMessage("しろこに"+Math.floor(allies[0].hp)+"、くろこに"+Math.floor(allies[1].hp)+"のダメージ。");\
+		',
+		skill : '\
+			if(getParameterDiffRatio("siro") > 1.2 && allies[0].hp > 0){\
+				var ratio = getParameterDiffRatio("siro");\
+				castMessage("「...パラメータがばらつきすぎです！");\
+				castMessage("　お仕置きでーす！」");\
+				allies[0].hp-=10000;\
+				castMessage("しろこに10000ダメージ！");\
+			}\
+			if(getParameterDiffRatio("kuro") > 1.2 && allies[1].hp > 0){\
+				var ratio = getParameterDiffRatio("siro");\
+				castMessage("「...パラメータがばらつきすぎです！");\
+				castMessage("　お仕置きでーす！」");\
+				allies[1].hp -= 10000;\
+				castMessage("くろこに10000ダメージ！");\
+			}\
+		',
+	},
+
+
+}

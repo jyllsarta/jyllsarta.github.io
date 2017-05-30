@@ -458,6 +458,7 @@ function updateIgaBaseColor(stage_id,landscape_id){
 		2 : ["#444444","#444444","#444444"],
 		3 : ["#676767","#656565","#656565"],
 		4 : ["#444444","#444444","#444444"],
+		5 : ["#444444","#444444","#444444"],
 	}
 	var color = iga_color[stage_id][landscape_id]
 	$(".floor").css("background-color" , color)

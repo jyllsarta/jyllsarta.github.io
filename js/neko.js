@@ -373,6 +373,14 @@ function validateSave(savedata){
 			log("save.status.kuro."+item+"がセーブデータになかったので"+save.status.kuro[item]+"にしました。")
 		}
 	}
+
+	//エクストラダンジョンの開放状況をfix
+	if(savedata.dungeon_process[4] > 9999 && !savedata.dungeon_open[5]){
+		savedata.dungeon_open[5] = 1
+		savedata.dungeon_process[5] = 1
+		log("エクストラダンジョンをこっそり開放しました！")
+	}
+
 }
 
 //セーブ
@@ -395,20 +403,20 @@ function makesave(){
 
 //qiitaから拾ってきた適当な日付フォーマッタ
 var dateFormat = {
-  fmt : {
-    "yyyy": function(date) { return date.getFullYear() + ''; },
-    "MM": function(date) { return ('0' + (date.getMonth() + 1)).slice(-2); },
-    "dd": function(date) { return ('0' + date.getDate()).slice(-2); },
-    "hh": function(date) { return ('0' + date.getHours()).slice(-2); },
-    "mm": function(date) { return ('0' + date.getMinutes()).slice(-2); },
-    "ss": function(date) { return ('0' + date.getSeconds()).slice(-2); }
-  },
-  format:function dateFormat (date, format) {
-    var result = format;
-    for (var key in this.fmt)
-      result = result.replace(key, this.fmt[key](date));
-    return result;
-  }
+	fmt : {
+		"yyyy": function(date) { return date.getFullYear() + ''; },
+		"MM": function(date) { return ('0' + (date.getMonth() + 1)).slice(-2); },
+		"dd": function(date) { return ('0' + date.getDate()).slice(-2); },
+		"hh": function(date) { return ('0' + date.getHours()).slice(-2); },
+		"mm": function(date) { return ('0' + date.getMinutes()).slice(-2); },
+		"ss": function(date) { return ('0' + date.getSeconds()).slice(-2); }
+	},
+	format:function dateFormat (date, format) {
+		var result = format;
+		for (var key in this.fmt)
+			result = result.replace(key, this.fmt[key](date));
+		return result;
+	}
 };
 
 //ロード
@@ -476,26 +484,24 @@ function isCharacterAlive(){
 //イベントの抽選を行い、イベントIDを返す
 function lotEvent(){
 
-	//ランダムアイテムエリアの場合抽選比率を変更
-	var is_random_item_area = getCurrentEnemyRank() >= data.item_data.length
+	//アイテム、階段、バトル、宝箱、粉
+	var events = [EVENT_FREQ_ITEM, EVENT_FREQ_STAIRS, EVENT_FREQ_BATTLE, EVENT_FREQ_ITEM_FLOOD, 0]
 
-	var freq_item = is_random_item_area? EVENT_FREQ_EXD_ITEM : EVENT_FREQ_ITEM
-	var freq_stairs = is_random_item_area? EVENT_FREQ_EXD_STAIRS : EVENT_FREQ_STAIRS
-	var freq_battle = is_random_item_area? EVENT_FREQ_EXD_BATTLE : EVENT_FREQ_BATTLE
-	var freq_flood = is_random_item_area? EVENT_FREQ_EXD_ITEM_FLOOD : EVENT_FREQ_ITEM_FLOOD
+	//ランダムアイテムエリアに入ったらイベント抽選比率を変更
+	if(getCurrentEnemyRank() >= data.item_data.length){
+		events = [EVENT_FREQ_EXD_ITEM, EVENT_FREQ_EXD_STAIRS, EVENT_FREQ_EXD_BATTLE, EVENT_FREQ_EXD_ITEM_FLOOD, 0]
+	}
+
+	//エクストラダンジョンはまた別の比で抽選
+	if(save.current_dungeon_id == 5){
+		events = [EVENT_FREQ_EXTRA_ITEM, EVENT_FREQ_EXTRA_STAIRS, EVENT_FREQ_EXTRA_BATTLE, EVENT_FREQ_EXTRA_ITEM_FLOOD, EVENT_FREQ_EXTRA_POWDER]
+	}
 
 	var event_box = []
-	for(var i=0;i<freq_item;++i){
-		event_box.push(1)
-	}
-	for(var i=0;i<freq_stairs;++i){
-		event_box.push(2)
-	}
-	for(var i=0;i<freq_battle;++i){
-		event_box.push(3)
-	}
-	for(var i=0;i<freq_flood;++i){
-		event_box.push(4)
+	for(var event_kind=0; event_kind<events.length;++event_kind){
+		for(var i=0;i<events[event_kind];++i){
+			event_box.push(event_kind)
+		}
 	}
 	return event_box[randInt(0,event_box.length-1)]
 
@@ -507,17 +513,20 @@ function event(){
 	var event_type = lotEvent()
 
 	switch(event_type){
-		case 1:
+		case 0:
 		eventItem()
 		break
-		case 2:
+		case 1:
 		eventStairs()
 		break
-		case 3:
+		case 2:
 		eventBattle()
 		break
-		case 4:
+		case 3:
 		eventItemFlood()
+		break
+		case 4:
+		eventPowder()
 		break
 		default:
 		castMessage("これはでないはずなので気にしない")
@@ -628,6 +637,12 @@ function aquireRandomItemRank(rank){
 //実装しているぶんより大きなアイテムIDが指定された場合
 //該当ランク相当に強化されたランダムアイテムを取得する
 function aquireItem(item_id){
+
+	//エクストラダンジョンは基準値の7%増し+120ランクの超強いアイテムを拾う
+	if(save.current_dungeon_id == 5){
+		aquireRandomItemRank(item_id *1.07 +120 )
+		return
+	}
 
 	//実装アイテム以上に強化されたアイテムIDを指定された場合
 	if(item_id >= data.item_data.length){
@@ -818,7 +833,13 @@ function eventStairs(){
 	if(save.current_floor % 100 === 99){
 		castMessage("◆◆◆"+(save.current_floor+1)+"Fのボスだ！◆◆◆")
 		//ここでshowBossBattleSpriteを呼んでいたけど戦闘結果によって表示が変わるのでbattle.jsに移動
-		processBattle(bossBattle=true)
+
+		//エクストラダンジョンならユニークボスが出る
+		var unique_boss_id = null 
+		if(save.current_dungeon_id==5 && save.current_floor < dungeon_data[5].depth){
+			unique_boss_id = Math.floor(save.current_floor /100)
+		}
+		processBattle(bossBattle=true,unique_boss_id=unique_boss_id)
 		//生き残っていれば次の階に進む
 		if(isCharacterAlive()){
 			save.current_floor ++
@@ -837,7 +858,7 @@ function eventStairs(){
 				save.dungeon_process[save.current_dungeon_id] = save.current_floor
 			}
 			//次ダンジョン未開放かつその階層のラスボスを倒したら次ダンジョンを開放する
-			if(save.dungeon_open[save.current_dungeon_id+1] == 0 && save.current_floor == dungeon_data[save.current_dungeon_id].depth){
+			if(!save.dungeon_open[save.current_dungeon_id+1] && save.current_floor >= dungeon_data[save.current_dungeon_id].depth){
 				save.dungeon_open[save.current_dungeon_id+1] = 1
 				save.dungeon_process[save.current_dungeon_id+1] = 1
 
@@ -889,6 +910,11 @@ function ressurect(){
 	save.status.siro.hp = save.status.siro.max_hp
 	save.status.kuro.hp = save.status.kuro.max_hp
 
+}
+
+//エクストライベント
+function eventPowder(){
+	castMessage("粉が"+randInt(1,100)+"個手に入った！")
 }
 
 /*******************************************/
@@ -1401,15 +1427,16 @@ function getEquipmentPowerRatio(item_id,rank,parameterName){
 //現在のセーブデータにある装備を編集中ドラフトにコピーする
 function copyCurrentEquipToDraft(){
 	data.equipment_menu.changed = false
+	data.equipment_menu.canceled = false
 	data.equipment_menu.editing_equip.siro=[]
 	data.equipment_menu.editing_equip.kuro=[]
 
 	for(var i=0;i<save.equip.siro.length;++i){
 		data.equipment_menu.editing_equip.siro[i] = save.equip.siro[i]
- 	}
+	}
 	for(var i=0;i<save.equip.kuro.length;++i){
 		data.equipment_menu.editing_equip.kuro[i] = save.equip.kuro[i]
- 	}
+	}
 }
 
 function completeEditEquip(){
@@ -1417,12 +1444,29 @@ function completeEditEquip(){
 	save.equip.kuro=[]
 
 	for(var i=0;i<data.equipment_menu.editing_equip.siro.length;++i){
-		 save.equip.siro[i] = data.equipment_menu.editing_equip.siro[i]
- 	}
+		save.equip.siro[i] = data.equipment_menu.editing_equip.siro[i]
+	}
 	for(var i=0;i<data.equipment_menu.editing_equip.kuro.length;++i){
 		save.equip.kuro[i] = data.equipment_menu.editing_equip.kuro[i]
- 	}
- 	castMessage("装備を編集しました！")
+	}
+	castMessage("装備を編集しました！")
+}
+
+//パラメータの比を取得
+function getParameterDiffRatio(charactername="siro"){
+	var max = 0
+	var min = Infinity
+	var params = ["str","dex","def","agi"]
+	for(var param of params){
+		if(getTotalParameter(charactername,param) >= max){
+			max = getTotalParameter(charactername,param)
+		}
+		if(getTotalParameter(charactername,param) <= min){
+			min = getTotalParameter(charactername,param)
+		}
+	}
+	return max / min
+
 }
 
 /*******************************************/
@@ -1626,6 +1670,8 @@ function lotGachaRarity(){
 	return 0
 }
 
+
+
 //times回ガチャ引いてアイテムを取得する処理
 //コインの減算処理などはspin
 function takeGacha(times=1){
@@ -1636,6 +1682,12 @@ function takeGacha(times=1){
 	for(var i=0;i<times;++i){
 		var rarity = lotGachaRarity()
 		var rank = getMaxEnemyRank() * 1.25  +randInt(1,20)
+
+		//エクストラダンジョンで引けるおみくじアイテムは弱い、そのへんのアイテム並み
+		if(save.dungeon_open[5] == 1){
+			rank = getMaxEnemyRank() +randInt(-200,250)
+		}
+
 		var baseItemId = getCurrentEnemyRank()
 		var itemList = extractItemList(rarity,baseItemId,50)
 		var aquiredItem = itemList[randInt(0,itemList.length-1)]

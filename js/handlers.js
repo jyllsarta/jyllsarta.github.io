@@ -67,6 +67,7 @@ $("#equip_edit_complete_button").click(function(){
 
 //装備編集をキャンセル
 $("#equip_edit_cancel_button").click(function(){
+	data.equipment_menu.canceled = true
 	castMessage("装備編集をキャンセルしました！")
 	fadeEquipResultMenu()
 })
