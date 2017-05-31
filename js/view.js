@@ -2346,13 +2346,6 @@ function showEquipResultMenu(){
 		$(this).dequeue()
 	})
 
-	$("#equip_result_animation_dummy")
-	.delay(5000)
-	.queue(function(){
-		completeEditEquip()
-		fadeEquipResultMenu()
-		$(this).dequeue()
-	})
 }
 
 //装備編集結果画面閉じる
