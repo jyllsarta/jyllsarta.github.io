@@ -239,6 +239,27 @@ function gameOver(){
 		translateY:0,
 	})
 
+	//エクストラダンジョン解放後はイガイガで粉出てくる
+	if(save.dungeon_open[5] == 1){
+		var reward_powder = Math.floor((reward+randInt(1,30)) / 5)
+		save.powder +=  reward_powder
+		$("#earned_powder_value").text("+"+reward_powder)
+		castMessage("妖精の鱗粉を"+reward_powder+"獲得した！")
+		$("#score_popup_powder")
+		.delay(100)
+		.queue(function(){
+			$(this).css({
+				opacity:1,
+				translateY:10,
+			}).dequeue()	
+		})
+		.delay(2000)
+		.animate({
+			opacity:0,
+			translateY:0,
+		})		
+	}
+
 
 	mini_game_data.disable_restart=true
 
@@ -458,6 +479,7 @@ function updateIgaBaseColor(stage_id,landscape_id){
 		2 : ["#444444","#444444","#444444"],
 		3 : ["#676767","#656565","#656565"],
 		4 : ["#444444","#444444","#444444"],
+		5 : ["#888888","#444444","#444444"],
 	}
 	var color = iga_color[stage_id][landscape_id]
 	$(".floor").css("background-color" , color)

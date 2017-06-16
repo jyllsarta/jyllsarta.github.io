@@ -141,6 +141,7 @@ function mainLoop_1sec(){
 
 	checkJihou()
 	checkFreeSpinNotification()
+	updateShopButtonShowState()
 
 }
 
@@ -326,10 +327,10 @@ function __debugDungeonFullOpen(){
 //オート復活・イベント2秒おき
 //スプライトの発生を抑制
 function __debugHyperEventDashMode(){
-	AUTO_RESSURECT_TIME= 5
+	AUTO_RESSURECT_TIME= 1000
 	data.__debughypereventdashmode = true
 	save.next_event_timer = 1
-	save.auto_ressurect_timer = 10
+	save.auto_ressurect_timer = 1000
 	save.options.enable_event_animation = false
 }
 
@@ -373,6 +374,14 @@ function validateSave(savedata){
 			log("save.status.kuro."+item+"がセーブデータになかったので"+save.status.kuro[item]+"にしました。")
 		}
 	}
+
+	//エクストラダンジョンの開放状況をfix
+	if(savedata.dungeon_process[4] > 9999 && !savedata.dungeon_open[5]){
+		savedata.dungeon_open[5] = 1
+		savedata.dungeon_process[5] = 1
+		log("エクストラダンジョンをこっそり開放しました！")
+	}
+
 }
 
 //セーブ
@@ -395,20 +404,20 @@ function makesave(){
 
 //qiitaから拾ってきた適当な日付フォーマッタ
 var dateFormat = {
-  fmt : {
-    "yyyy": function(date) { return date.getFullYear() + ''; },
-    "MM": function(date) { return ('0' + (date.getMonth() + 1)).slice(-2); },
-    "dd": function(date) { return ('0' + date.getDate()).slice(-2); },
-    "hh": function(date) { return ('0' + date.getHours()).slice(-2); },
-    "mm": function(date) { return ('0' + date.getMinutes()).slice(-2); },
-    "ss": function(date) { return ('0' + date.getSeconds()).slice(-2); }
-  },
-  format:function dateFormat (date, format) {
-    var result = format;
-    for (var key in this.fmt)
-      result = result.replace(key, this.fmt[key](date));
-    return result;
-  }
+	fmt : {
+		"yyyy": function(date) { return date.getFullYear() + ''; },
+		"MM": function(date) { return ('0' + (date.getMonth() + 1)).slice(-2); },
+		"dd": function(date) { return ('0' + date.getDate()).slice(-2); },
+		"hh": function(date) { return ('0' + date.getHours()).slice(-2); },
+		"mm": function(date) { return ('0' + date.getMinutes()).slice(-2); },
+		"ss": function(date) { return ('0' + date.getSeconds()).slice(-2); }
+	},
+	format:function dateFormat (date, format) {
+		var result = format;
+		for (var key in this.fmt)
+			result = result.replace(key, this.fmt[key](date));
+		return result;
+	}
 };
 
 //ロード
@@ -476,26 +485,29 @@ function isCharacterAlive(){
 //イベントの抽選を行い、イベントIDを返す
 function lotEvent(){
 
-	//ランダムアイテムエリアの場合抽選比率を変更
-	var is_random_item_area = getCurrentEnemyRank() >= data.item_data.length
+	//99Fのときは必ずボス戦を発生させる
+	if(save.current_floor % 100 == 99 ){
+		return 1 //1=階段
+	}
 
-	var freq_item = is_random_item_area? EVENT_FREQ_EXD_ITEM : EVENT_FREQ_ITEM
-	var freq_stairs = is_random_item_area? EVENT_FREQ_EXD_STAIRS : EVENT_FREQ_STAIRS
-	var freq_battle = is_random_item_area? EVENT_FREQ_EXD_BATTLE : EVENT_FREQ_BATTLE
-	var freq_flood = is_random_item_area? EVENT_FREQ_EXD_ITEM_FLOOD : EVENT_FREQ_ITEM_FLOOD
+	//アイテム、階段、バトル、宝箱、粉
+	var events = [EVENT_FREQ_ITEM, EVENT_FREQ_STAIRS, EVENT_FREQ_BATTLE, EVENT_FREQ_ITEM_FLOOD, 0]
+
+	//ランダムアイテムエリアに入ったらイベント抽選比率を変更
+	if(getCurrentEnemyRank() >= data.item_data.length){
+		events = [EVENT_FREQ_EXD_ITEM, EVENT_FREQ_EXD_STAIRS, EVENT_FREQ_EXD_BATTLE, EVENT_FREQ_EXD_ITEM_FLOOD, 0]
+	}
+
+	//エクストラダンジョンはまた別の比で抽選
+	if(save.current_dungeon_id == 5){
+		events = [EVENT_FREQ_EXTRA_ITEM, EVENT_FREQ_EXTRA_STAIRS, EVENT_FREQ_EXTRA_BATTLE, EVENT_FREQ_EXTRA_ITEM_FLOOD, EVENT_FREQ_EXTRA_POWDER]
+	}
 
 	var event_box = []
-	for(var i=0;i<freq_item;++i){
-		event_box.push(1)
-	}
-	for(var i=0;i<freq_stairs;++i){
-		event_box.push(2)
-	}
-	for(var i=0;i<freq_battle;++i){
-		event_box.push(3)
-	}
-	for(var i=0;i<freq_flood;++i){
-		event_box.push(4)
+	for(var event_kind=0; event_kind<events.length;++event_kind){
+		for(var i=0;i<events[event_kind];++i){
+			event_box.push(event_kind)
+		}
 	}
 	return event_box[randInt(0,event_box.length-1)]
 
@@ -507,17 +519,20 @@ function event(){
 	var event_type = lotEvent()
 
 	switch(event_type){
-		case 1:
+		case 0:
 		eventItem()
 		break
-		case 2:
+		case 1:
 		eventStairs()
 		break
-		case 3:
+		case 2:
 		eventBattle()
 		break
-		case 4:
+		case 3:
 		eventItemFlood()
+		break
+		case 4:
+		eventPowder()
 		break
 		default:
 		castMessage("これはでないはずなので気にしない")
@@ -628,6 +643,12 @@ function aquireRandomItemRank(rank){
 //実装しているぶんより大きなアイテムIDが指定された場合
 //該当ランク相当に強化されたランダムアイテムを取得する
 function aquireItem(item_id){
+
+	//エクストラダンジョンは基準値の10%増し+120ランクの超強いアイテムを拾う
+	if(save.current_dungeon_id == 5){
+		aquireRandomItemRank(item_id *1.1 +120 )
+		return
+	}
 
 	//実装アイテム以上に強化されたアイテムIDを指定された場合
 	if(item_id >= data.item_data.length){
@@ -818,7 +839,13 @@ function eventStairs(){
 	if(save.current_floor % 100 === 99){
 		castMessage("◆◆◆"+(save.current_floor+1)+"Fのボスだ！◆◆◆")
 		//ここでshowBossBattleSpriteを呼んでいたけど戦闘結果によって表示が変わるのでbattle.jsに移動
-		processBattle(bossBattle=true)
+
+		//エクストラダンジョンならユニークボスが出る
+		var unique_boss_id = null 
+		if(save.current_dungeon_id==5 && save.current_floor < dungeon_data[5].depth){
+			unique_boss_id = Math.floor(save.current_floor /100)
+		}
+		processBattle(bossBattle=true,unique_boss_id=unique_boss_id)
 		//生き残っていれば次の階に進む
 		if(isCharacterAlive()){
 			save.current_floor ++
@@ -837,7 +864,7 @@ function eventStairs(){
 				save.dungeon_process[save.current_dungeon_id] = save.current_floor
 			}
 			//次ダンジョン未開放かつその階層のラスボスを倒したら次ダンジョンを開放する
-			if(save.dungeon_open[save.current_dungeon_id+1] == 0 && save.current_floor == dungeon_data[save.current_dungeon_id].depth){
+			if(!save.dungeon_open[save.current_dungeon_id+1] && save.current_floor >= dungeon_data[save.current_dungeon_id].depth && dungeon_data[save.current_dungeon_id+1]){
 				save.dungeon_open[save.current_dungeon_id+1] = 1
 				save.dungeon_process[save.current_dungeon_id+1] = 1
 
@@ -889,6 +916,24 @@ function ressurect(){
 	save.status.siro.hp = save.status.siro.max_hp
 	save.status.kuro.hp = save.status.kuro.max_hp
 
+}
+
+//エクストライベント
+function eventPowder(){
+	showPowderSprite()
+	var gained = randInt(2,50)
+
+	//10%の確率でどばっとあげる
+	//分布を察されたくないので*9+7としておく
+	//超運が良いと 500くらいかな
+	if(randInt(1,10) == 10){
+		gained *= 9
+		gained += 7
+	}
+
+
+	save.powder += gained
+	castMessage("野良妖精から鱗粉を"+gained+"もらった！")
 }
 
 /*******************************************/
@@ -1003,6 +1048,13 @@ function calcItemSLD(item_id){
 //プラス値を考慮したパラメータを返す
 function getBuildedParameter(item_id,paramName){
 	var lv = save.item[item_id] || 0
+	var param = Math.floor(parseInt(data.item_data[item_id][paramName]) * (lv-1+10)/10)
+	return param
+}
+
+//item_idのparamnameをrankに強化した際のパラメータはいくつ
+function getParameterBuildTo(item_id,paramName,rank){
+	var lv = rank
 	var param = Math.floor(parseInt(data.item_data[item_id][paramName]) * (lv-1+10)/10)
 	return param
 }
@@ -1211,7 +1263,7 @@ function toggleEquipEditCharacter(){
 
 //現在の装備のページのインデックスを返す
 function findLatestEquipPageIndex(){
-	return Math.floor(save.item.length / 10)+1
+	return Math.floor((save.item.length-1) / 10)+1
 }
 
 //クリック結果を受取り該当の装備内容で装備強化メニューを開く
@@ -1401,15 +1453,16 @@ function getEquipmentPowerRatio(item_id,rank,parameterName){
 //現在のセーブデータにある装備を編集中ドラフトにコピーする
 function copyCurrentEquipToDraft(){
 	data.equipment_menu.changed = false
+	data.equipment_menu.canceled = false
 	data.equipment_menu.editing_equip.siro=[]
 	data.equipment_menu.editing_equip.kuro=[]
 
 	for(var i=0;i<save.equip.siro.length;++i){
 		data.equipment_menu.editing_equip.siro[i] = save.equip.siro[i]
- 	}
+	}
 	for(var i=0;i<save.equip.kuro.length;++i){
 		data.equipment_menu.editing_equip.kuro[i] = save.equip.kuro[i]
- 	}
+	}
 }
 
 function completeEditEquip(){
@@ -1417,12 +1470,213 @@ function completeEditEquip(){
 	save.equip.kuro=[]
 
 	for(var i=0;i<data.equipment_menu.editing_equip.siro.length;++i){
-		 save.equip.siro[i] = data.equipment_menu.editing_equip.siro[i]
- 	}
+		save.equip.siro[i] = data.equipment_menu.editing_equip.siro[i]
+	}
 	for(var i=0;i<data.equipment_menu.editing_equip.kuro.length;++i){
 		save.equip.kuro[i] = data.equipment_menu.editing_equip.kuro[i]
- 	}
- 	castMessage("装備を編集しました！")
+	}
+	castMessage("装備を編集しました！")
+}
+
+//パラメータの比を取得
+function getParameterDiffRatio(charactername="siro"){
+	var max = 0
+	var min = Infinity
+	var params = ["str","dex","def","agi"]
+	for(var param of params){
+		if(getTotalParameter(charactername,param) >= max){
+			max = getTotalParameter(charactername,param)
+		}
+		if(getTotalParameter(charactername,param) <= min){
+			min = getTotalParameter(charactername,param)
+		}
+	}
+	return max / min
+
+}
+
+//ピリカちゃん装備かどうか
+//フレーバーかな前にピリカって書いてあればピリカ装備だよ
+function isPirikaEquip(item_id){
+	if(data.item_data[item_id].caption.match(/ピリカ/)){
+		return true
+	}
+	if(data.item_data[item_id].name.match(/ピリカ/)){
+		return true
+	}
+}
+
+//文字列から漢字数をカウント
+function countKanji(string){
+	var count = 0
+	for(var letter of string.split("")){
+		if(letter.match(/[一-龠]/)){
+			count ++
+		}
+	}
+	return count
+}
+
+//文字列から非漢字文字数をカウント
+function countNotKanji(string){
+	var count = 0
+	for(var letter of string.split("")){
+		if(!letter.match(/[一-龠]/)){
+			count ++
+		}
+	}
+	return count
+}
+
+
+//ピリカちゃん装備の数を数える
+function countPirikaWeaponEquipped(charactername="siro"){
+	var count = 0
+	for(var equip of save.equip[charactername]){
+		if(isPirikaEquip(equip)){
+			count ++
+		}
+	}
+	return count
+}
+
+//漢字カウント
+function countKanjiWeaponEquipped(charactername="siro"){
+	var count = 0
+	for(var equip of save.equip[charactername]){
+			count += countKanji(data.item_data[equip].name)
+	}
+	return count
+}
+
+//非漢字文字の総数をカウント
+function countNotKanjiStringsEquipped(charactername="siro"){
+	var count = 0
+	for(var equip of save.equip[charactername]){
+			count += countNotKanji(data.item_data[equip].name)
+	}
+	return count
+}
+
+//指定レア度の武器装備数を数える
+function countWeaponEquippedRarityIs(charactername="siro",rarity=0){
+	var count = 0
+	for(var equip of save.equip[charactername]){
+		if(data.item_data[equip].rarity == rarity){
+			count ++
+		}
+	}
+	return count	
+}
+
+//指定武器種類の武器装備数を数える
+function countWeaponEquippedCategoryIs(charactername="siro",category=1){
+	var count = 0
+	for(var equip of save.equip[charactername]){
+		if(parseInt(data.item_data[equip].category) == category){
+			count ++
+		}
+	}
+	return count	
+}
+
+//指定レア度の武器装備数を数える
+function countWeaponEquippedTotalRarity(charactername="siro"){
+	var count = 0
+	for(var equip of save.equip[charactername]){
+		count += parseInt(data.item_data[equip].rarity)
+	}
+	return count	
+}
+
+function isCharacterEquipsNoDuplicateRarity(charactername="siro"){
+	return (
+		countWeaponEquippedRarityIs(charactername,0) <= 1 && 
+		countWeaponEquippedRarityIs(charactername,1) <= 1 && 
+		countWeaponEquippedRarityIs(charactername,2) <= 1 && 
+		countWeaponEquippedRarityIs(charactername,3) <= 1
+		)
+}
+
+function countCharacterEquipKindsOfRarity(charactername="siro"){
+		return [
+		countWeaponEquippedRarityIs(charactername,0) >= 1,
+		countWeaponEquippedRarityIs(charactername,1) >= 1,
+		countWeaponEquippedRarityIs(charactername,2) >= 1,
+		countWeaponEquippedRarityIs(charactername,3) >= 1
+		].filter(x=>x).length
+
+}
+
+//ティターニア戦限定、全9妖精のバフを同時チェック
+function  getFailyBattleAllBuff(){
+	//エクリテの<パラ均一バフ> 
+	//(各々基礎パラの範囲が50%以内で発動)
+	//ピリカの<自社商品宣伝> 
+	//(誰かがピリカ装備を持てば発動)
+	//ラストの<吸精霊力還元> 
+	//(二人とも攻撃力400k達成で発動)
+	//ミミカの<ひらがなバースト> 
+	//(二人で非漢字文字計15文字で発動)
+	//コレットの<苗木支援> 
+	//(二人とも守備力400k達成で発動)
+	//サクラの<カラフルブースト> 
+	//(誰かが3色以上装備に所持で発動)
+	//シールの<防壁増幅> 
+	//(誰かがDEF500k達成で発動)
+	//超然的<漢字爆発> 
+	//(一人装備漢字含拾弐文字発動)
+	//アリスの<低レア戦略> 
+	//(★=3,✰=2,*=1として二人の合計が15以下で発動)
+
+	var results =[0,0,0,0,0,0,0,0,0]
+
+	//エクリテ・パラ均一バフ
+	if(Math.abs(getParameterDiffRatio("siro")) <= 1.5  && Math.abs(getParameterDiffRatio("kuro")) <= 1.5){
+		results[0] = 1
+	}
+
+	//ピリカ・自社商品宣伝
+	if(countPirikaWeaponEquipped("siro") >= 1  || countPirikaWeaponEquipped("kuro") >= 1){
+		results[1] = 1
+	}
+
+	//ラスト・吸精霊力還元
+	if(calcAttack("siro") >= 400000 && calcAttack("kuro") >= 400000){
+		results[2] = 1
+	}
+
+	//ミミカ・ひらがなバースト
+	if(countNotKanjiStringsEquipped("siro") + countNotKanjiStringsEquipped("kuro") >= 15){
+		results[3] = 1
+	}
+
+	//コレット・菓子要求
+	if(countWeaponEquippedCategoryIs("siro",4) >=1 || countWeaponEquippedCategoryIs("kuro",4)>=1 ){
+		results[4] = 1
+	}
+
+	//サクラ・カラフルブースト
+	if(countCharacterEquipKindsOfRarity("siro") >= 3  || countCharacterEquipKindsOfRarity("kuro") >= 3){
+		results[5] = 1
+	}
+
+	//シール・防壁増幅
+	if(getTotalParameter("siro","def") >= 500000  || getTotalParameter("kuro","def") >= 500000){
+		results[6] = 1
+	}
+
+	//チョウゼン・漢字爆発
+	if(countKanjiWeaponEquipped("siro") >= 12  || countKanjiWeaponEquipped("kuro") >= 12){
+		results[7] = 1
+	}
+
+	//アリス・低レア戦略
+	if(countWeaponEquippedTotalRarity("siro") + countWeaponEquippedTotalRarity("kuro") <= 15){
+		results[8] = 1
+	}
+
+	return results
 }
 
 /*******************************************/
@@ -1527,6 +1781,9 @@ function getAchievementIconImageFileName(achievement_id){
 function changeStageTo(stage_id,depth){
 	save.current_dungeon_id = stage_id
 	save.current_floor = depth
+	if(stage_id == 5 && save.visited_extra_dungeon==false){
+		save.visited_extra_dungeon = true
+	}
 	changeStageToView(stage_id,depth)
 }
 
@@ -1626,6 +1883,8 @@ function lotGachaRarity(){
 	return 0
 }
 
+
+
 //times回ガチャ引いてアイテムを取得する処理
 //コインの減算処理などはspin
 function takeGacha(times=1){
@@ -1636,6 +1895,12 @@ function takeGacha(times=1){
 	for(var i=0;i<times;++i){
 		var rarity = lotGachaRarity()
 		var rank = getMaxEnemyRank() * 1.25  +randInt(1,20)
+
+		//エクストラダンジョンで引けるおみくじアイテムは弱い、そのへんのアイテム並み
+		if(save.dungeon_open[5] == 1){
+			rank = getMaxEnemyRank() +randInt(-200,250)
+		}
+
 		var baseItemId = getCurrentEnemyRank()
 		var itemList = extractItemList(rarity,baseItemId,50)
 		var aquiredItem = itemList[randInt(0,itemList.length-1)]
@@ -1755,6 +2020,163 @@ function toggleNotificationFreeSpin(){
 function toggleNotificationJihou(){
 	save.notify.jihou = !save.notify.jihou
 	prepareOptionMenu()
+}
+
+
+/*******************************************/
+/* ショップ関連 */
+/*******************************************/
+
+//xorshiftのseededrandomのコピペ
+var xors = {
+	x: 123456789,
+	y: 362436069,
+	z: 521288629,
+	w: 88675123
+};
+
+xors.rand = function() {
+	var t = xors.x ^ (xors.x << 11);
+	xors.x = xors.y;
+	xors.y = xors.z;
+	xors.z = xors.w;
+	return xors.w = (xors.w^(xors.w>>>19))^(t^(t>>>8));
+}
+
+function setSeed(seed){
+	xors.x = 123456789
+	xors.y = 362436069
+	xors.z =  521288629
+	xors.w = seed 
+
+	//初期値依存性を捨てるために10000回まわす
+	for(var i=0;i<10000;++i){
+		xors.rand()
+	}
+}
+
+//setSeedでシード値を指定した乱数を[min,max]で整えて返す
+function seededRandomInt(min,max){
+	var rand = Math.abs(xors.rand())
+	var INT_MAX = 2147483647
+	var result = rand / (INT_MAX/(max+1))+min
+	return Math.floor(result)
+}
+
+
+
+function isRecentlyOpenedShop(){
+	var current = new Date()
+	var last_time_opened = new Date(save.last_time_shop_open)
+
+	//いま現在の日付と最終メニュー開閉日時が一致するなら今日は引いている
+	if(last_time_opened.getDay() == current.getDay()){
+		return true
+	}
+	//それ以外なら今日は引いてない
+	return false
+}
+
+//本日のアイテムリスト
+// [{id:アイテムID, rank:アイテムランク}] のリストを返す
+//baserank : 武器の強さの基準ランク (現在の最高の敵の強さを基準にしたい)
+function getShopItemListToday(date=null, baserank=0){
+	if(date == null){
+		date = new Date().getTime()
+	}
+	setSeed(date)
+	var items = []
+	//適当なアイテムを5個詰める
+	//適当に線形合同でいいや
+	for(var i=0;i<5;++i){
+		var id = seededRandomInt(0,data.item_data.length-1)
+		var rank = baserank*1.15 + 150
+		var bonus_rank = seededRandomInt(0,300)
+		var cost = data.item_data[id].rarity * 4000 + seededRandomInt(0,2000) + 1000 + bonus_rank *30
+
+		var target_power = getStandardItemParameter(rank+bonus_rank)
+		var base_power = getStandardItemParameter(id)
+		//そのランクでの標準の強さ * 1.1(1.1倍ぶんだけ余裕をちょっと持たせる)
+		var build_rank = Math.floor(10* target_power *1.1 /  base_power) +1
+
+		items.push({rank:build_rank, id: id, cost:cost})
+	}
+	return items
+}
+
+//セーブ欄の本日のアイテムを更新する
+function updateShopItemList(){
+	var current = new Date()
+	var savedata_date = new Date(save.shop.date)
+
+	//日付情報が入っていない = 初めて開く
+	if(save.shop.date == null){
+		save.shop.times_item_refresh_today = 0
+		save.shop.items = getShopItemListToday(time=new Date().getTime(), rank=getMaxEnemyRank())
+	}
+	//いま現在の日付と最終メニュー開閉日時が一致しない = 日付が変わっている場合はショップリストの更新を行う
+	else if(savedata_date.getDay() !== current.getDay()){
+		save.shop.times_item_refresh_today = 0
+		save.shop.items = getShopItemListToday(time=save.shop.date, rank=getMaxEnemyRank())
+	}
+	//日付が入ってて、今日の日付の場合には何もしない
+	else{
+	}
+
+	//日付の更新
+	save.shop.date = current.getTime()
+
+}
+
+
+function buyShopItem(domobject){
+	var shop_item_index = $(domobject).parent().attr("id").slice(-1)
+	var shop_item = save.shop.items[shop_item_index]
+
+	//お金足りない
+	if(save.item[shop_item.id] >= shop_item.rank){
+		talkPirika("あれー、お客さんもうこれより強いの持ってないっす？嬉しいけど、無理して買うことはないっすよー")
+		 return		
+	}
+	if(shop_item.cost > save.powder){
+		talkPirika("妖精の鱗粉が足りないっすよー！ もーうすこしだけ稼いできてね？　ねっ？")
+		 return
+	}
+
+
+	save.powder -= shop_item.cost
+	talkPirika("まいどまいどー！またいっぱい作ってくるから、よろしくっすよーっ！それじゃ、探索がんばってね！")
+
+	//2回ジャンプ
+	jumpPirika()
+	jumpPirika()
+	save.item[shop_item.id] = shop_item.rank
+
+	numerateCurrentPowderAmount()
+	prepareShopMenu()
+
+}
+
+function refreshShopItemList(){
+
+	//連打対策にアニメーション中は動かない
+	if($(".shop_item").is(":animated")){
+		return
+	}
+
+	if(save.coin < 2000){
+		talkPirika("あー...コインがちょっとばかし足んないっす！申し訳ないけど、2000コイン用意してほしいっす～")
+		return
+	}
+
+	if(save.shop.times_item_refresh_today >= 10){
+		talkPirika("今日持ってきた在庫分はこれで全部だよー！また明日ごっそり持ってくるから待っててね！")
+		return		
+	}
+	save.shop.items = getShopItemListToday(date=new Date().getTime(),rank=getMaxEnemyRank())
+	save.coin -= 2000
+	save.shop.times_item_refresh_today++
+	refreshShopItemListAnimation()
 }
 
 

@@ -22,7 +22,7 @@ var data = {
 		dex:300,
 		agi:-255,
 		pow:1000,
-		caption:"誰も掴むことのできない、実体のない剣。"
+		caption:"誰も掴むことのできない、実体のない剣。(バグ剣です。これが見えてしまったらアイテム一覧のダウンロードに失敗しています。)"
 	}
 	],
 	equipment_menu : {
@@ -31,6 +31,7 @@ var data = {
 			kuro : [],
 		},
 		changed:false,
+		canceled : false,
 		current_page : 1,
 		current_character : "siro",
 		sort_order : 1,
@@ -111,7 +112,15 @@ var save = {
 	},
 	seen_epilogue : false,
 	seen_omake : false,
+	visited_extra_dungeon:false,
 	rest_now : false,
+	last_time_shop_open : null,
+	powder : 0,
+	shop : {
+		date : null,
+		items : [],
+		times_item_refresh_today :0,
+	},
 }
 
 var dungeon_data=[
@@ -119,31 +128,37 @@ var dungeon_data=[
 	name:"灰泥の尾根",
 	caption:"最初に出会った次元層。なだらかな湖畔のようだ。",
 	start_ir:0,
-	depth:400
+	depth:400,
 },
 {
 	name:"蜜樹の臨界",
 	caption:"息苦しい湿気に覆われた密林の次元。夜は蔦が一斉に光りだす。",
 	start_ir:50,
-	depth:800
+	depth:800,
 },
 {
 	name:"氷雪と春風の小路",
 	caption:"クリスタルの階段でできた空中橋で構成される次元。",
 	start_ir:150,	
-	depth:1200
+	depth:1200,
 },
 {
 	name:"アスモネア地下道",
 	caption:"くらーい地下道。",
 	start_ir:300,	
-	depth:1600
+	depth:1600,
 },
 {
 	name:"次元の界面",
 	caption:"幾つもの次元が混濁する塔の最上層。空間が安定せず、絶えず構成が変化し続ける。",
 	start_ir:500,
 	depth:9999,
+},
+{
+	name:"天嶺の妖精郷",
+	caption:"【エクストラダンジョン】次元の果てに見つけた異世界の妖精の里。",
+	start_ir:2000,
+	depth:1000,
 },
 ]
 
@@ -239,6 +254,13 @@ var stage_data=[
 	back : "st4.png",
 	last_color : "#fc3535"
 },
+{
+	number : "エクストラダンジョン",
+	title : "天嶺の妖精郷",
+	description: "次元の果てに空間の裂け目を見つけた。塔内部の未探索の空間に通じているようだ。<br>裂け目の中に入ってみると、空が遠く、広い雪原が広がっている。<br>これまでで最も空間の広い次元なようだ。<br>「おお？にんげんさん？だ！...かわいい耳ついてるけどにんげんさんだよね？」<br>「おー、にんげんさんこんにちは！ピリカだよ！私の武器使ってもらえてる？」<br>霊符で召喚していた妖精はここに住んでいたようだ。<br>妖精に渡すお土産は何がいいだろうなんて話しながら、二人は探索を続ける。",
+	back : "st5.png",
+	last_color : "#aff9ff"
+},
 ]
 
 var tips_data=[
@@ -323,6 +345,8 @@ var epilogue_text =[
 	],
 ]
 
+/*エクストラボスのデータはbattles.jsのほうに*/
+
 /*******************************************/
 /* 定数 */
 /*******************************************/
@@ -351,17 +375,26 @@ var LOT_FREQ_LEGENDARY = 2
 
 //イベント抽選関係
 //イベントの出現比率
-var EVENT_FREQ_STAIRS = 35
 var EVENT_FREQ_ITEM = 13
-var EVENT_FREQ_ITEM_FLOOD = 2
+var EVENT_FREQ_STAIRS = 35
 var EVENT_FREQ_BATTLE = 50
+var EVENT_FREQ_ITEM_FLOOD = 2
 
 //イベント抽選関係
 //ランダムアイテムエリアの出現比率
-var EVENT_FREQ_EXD_STAIRS = 40
-var EVENT_FREQ_EXD_ITEM = 9
+var EVENT_FREQ_EXD_ITEM = 14
+var EVENT_FREQ_EXD_STAIRS = 55
+var EVENT_FREQ_EXD_BATTLE = 40
 var EVENT_FREQ_EXD_ITEM_FLOOD = 1
-var EVENT_FREQ_EXD_BATTLE = 50
+
+//イベント抽選関係
+//ランダムアイテムエリアの出現比率
+var EVENT_FREQ_EXTRA_STAIRS = 10
+var EVENT_FREQ_EXTRA_ITEM = 9
+var EVENT_FREQ_EXTRA_ITEM_FLOOD = 1
+var EVENT_FREQ_EXTRA_BATTLE = 40
+var EVENT_FREQ_EXTRA_POWDER = 40
+
 
 //デフォルトのイベント発生間隔(秒)
 var DEFAULT_EVENT_FREQ = 40

@@ -209,12 +209,20 @@
 						</ul>
 						<div id="mini_game_title">イガイガヨケ</div>
 						<div id="jump">はじめる</div>
-						<div id="score_area"><span>　　スコア：</span><span id="score">0</span></div>					
+						<div id="score_area"><span>　　スコア：</span><span id="score">0</span></div>
 						<div id="high_score_area"><span>ハイスコア：</span><span id="high_score">0</span></div>
-						<dic id="score_popup">
+						<div id="score_popup">
 							<img src="images/neko/icons/coin.png" id="score_coin">
 							<div id="earned_coin_value">+12</div>
-						</dic>
+						</div>
+						<div id="score_popup_powder">
+							<img src="images/neko/icons/powder.png" id="score_powder">
+							<div id="earned_powder_value">+12</div>
+						</div>
+					</div>
+					<div id="shop_button" class="hidden">
+						<img src="images/neko/etc/shop_button.png"  id="shop_button_image">
+						<img src="images/neko/etc/shop_button_new.png"  id="shop_button_image_new" class="new">
 					</div>
 
 					<div id="window_frame">
@@ -231,6 +239,17 @@
 				<img src="images/neko/sprite/item/treasure.png" class="sprite" id="sprite_item_treasure">
 				<img src="images/neko/sprite/item/text_window_item.png" class="sprite" id="sprite_item_text">
 			</div>
+			<div id="powder_sprite" class="hidden sprite_unit">
+				<img src="images/neko/sprite/powder/background.png" class="sprite" id="sprite_powder_background">
+				<img src="images/neko/sprite/powder/faily.png" class="sprite" id="sprite_powder_faily">
+				<img src="images/neko/sprite/powder/kuro_hand.png" class="sprite" id="sprite_powder_kuro_hand">
+				<img src="images/neko/sprite/powder/kuro.png" class="sprite" id="sprite_powder_kuro">
+				<img src="images/neko/sprite/powder/dish.png" class="sprite" id="sprite_powder_dish">
+				<img src="images/neko/sprite/powder/feather.png" class="sprite" id="sprite_powder_feather">
+				<img src="images/neko/sprite/powder/powder.png" class="sprite" id="sprite_powder_powder">
+				<img src="images/neko/sprite/powder/light.png" class="sprite" id="sprite_powder_light">
+				<img src="images/neko/sprite/powder/text.png" class="sprite" id="sprite_powder_text">
+			</div>
 			<div id="boss_battle_sprite" class="hidden sprite_unit">
 				<img src="images/neko/sprite/boss_battle/background.png" class="sprite" id="sprite_boss_battle_background">
 				<img src="images/neko/sprite/boss_battle/boss.png" class="sprite" id="sprite_boss_battle_boss">
@@ -246,7 +265,25 @@
 				<img src="images/neko/sprite/battle/siro.png" class="sprite" id="sprite_battle_siro">
 				<img src="images/neko/sprite/battle/text_window_battle.png" class="sprite" id="sprite_battle_text">
 			</div>
-			<div id="battle_win_sprite" class="sprite_unit">
+			<div id="faily_battle_sprite" class="hidden sprite_unit">
+				<img src="images/neko/sprite/faily_battle/background.png" class="sprite" id="sprite_faily_battle_background">
+				<img src="images/neko/sprite/faily_battle/0.png" class="sprite sprite_faily_battle_faily" id="sprite_faily_battle_faily0">
+				<img src="images/neko/sprite/faily_battle/1.png" class="sprite sprite_faily_battle_faily" id="sprite_faily_battle_faily1">
+				<img src="images/neko/sprite/faily_battle/2.png" class="sprite sprite_faily_battle_faily" id="sprite_faily_battle_faily2">
+				<img src="images/neko/sprite/faily_battle/3.png" class="sprite sprite_faily_battle_faily" id="sprite_faily_battle_faily3">
+				<img src="images/neko/sprite/faily_battle/4.png" class="sprite sprite_faily_battle_faily" id="sprite_faily_battle_faily4">
+				<img src="images/neko/sprite/faily_battle/5.png" class="sprite sprite_faily_battle_faily" id="sprite_faily_battle_faily5">
+				<img src="images/neko/sprite/faily_battle/6.png" class="sprite sprite_faily_battle_faily" id="sprite_faily_battle_faily6">
+				<img src="images/neko/sprite/faily_battle/7.png" class="sprite sprite_faily_battle_faily" id="sprite_faily_battle_faily7">
+				<img src="images/neko/sprite/faily_battle/8.png" class="sprite sprite_faily_battle_faily" id="sprite_faily_battle_faily8">
+				<img src="images/neko/sprite/faily_battle/9.png" class="sprite sprite_faily_battle_faily" id="sprite_faily_battle_faily9">
+				<div id="sprite_faily_battle_mark_window"></div>
+				<img src="images/neko/sprite/faily_battle/0-mark-blur.png" class="sprite" id="sprite_faily_battle_mark_blur">
+				<img src="images/neko/sprite/faily_battle/0-mark.png" class="sprite" id="sprite_faily_battle_mark">
+				<img src="images/neko/sprite/faily_battle/text.png" class="sprite" id="sprite_faily_battle_text">
+				<img src="images/neko/sprite/faily_battle/screen.png" class="sprite" id="sprite_faily_battle_screen">
+			</div>
+			<div id="battle_win_sprite" class="hidden sprite_unit">
 				<img src="images/neko/sprite/battle/win/background.png" class="sprite" id="sprite_battle_win_background">
 				<img src="images/neko/sprite/battle/win/star.png" class="sprite" id="sprite_battle_win_star">
 				<img src="images/neko/sprite/battle/win/kuro.png" class="sprite" id="sprite_battle_win_kuro">
@@ -1012,6 +1049,59 @@
 					</div>
 				</div>
 
+				<div id="shop_menu"  class="hidden shadow_background">
+					<div id="shop_text">ピリカショップ</div>
+					<img src="images/neko/etc/shop_back_button.png" id="shop_back_button">
+					<img src="images/neko/etc/pirika.png" id="shop_pirika">
+					<img src="images/neko/etc/words.png" id="shop_words_frame">
+					<div id="pirika_caption"><span class="pirika_small">工房のクラフト妖精</span>　ピリカちゃん</div>
+					<div id="shop_current_powder"><img src="images/neko/icons/powder.png"  id="current_powder_icon"><span id="current_powder_amount">0</span></div>
+					<div id="shop_list_caption_area">
+						<span id="shop_item_caption_name">アイテム名</span>
+						<span id="shop_item_caption_power">つよさ</span>
+						<span id="shop_item_caption_value">価格</span>
+					</div>
+					<div id="shop_item_list">
+						<div class="shop_item" id="shop_item_0">
+							<span class="shop_item_name">-</span><span class="shop_item_power">1123123</span><span class="shop_item_value"><img src="images/neko/icons/powder.png" class="shop_coin"><span class="shop_item_cost">1</span></span>
+						</div>
+						<div class="shop_item" id="shop_item_1">
+							<span class="shop_item_name">-</span><span class="shop_item_power">1123123</span><span class="shop_item_value"><img src="images/neko/icons/powder.png" class="shop_coin"><span class="shop_item_cost">1</span></span>
+						</div>
+						<div class="shop_item" id="shop_item_2">
+							<span class="shop_item_name">-</span><span class="shop_item_power">1123123</span><span class="shop_item_value"><img src="images/neko/icons/powder.png" class="shop_coin"><span class="shop_item_cost">1</span></span>
+						</div>
+						<div class="shop_item" id="shop_item_3">
+							<span class="shop_item_name">-</span><span class="shop_item_power">1123123</span><span class="shop_item_value"><img src="images/neko/icons/powder.png" class="shop_coin"><span class="shop_item_cost">1</span></span>
+						</div>
+						<div class="shop_item" id="shop_item_4">
+							<span class="shop_item_name">-</span><span class="shop_item_power">1123123</span><span class="shop_item_value"><img src="images/neko/icons/powder.png" class="shop_coin"><span class="shop_item_cost">1</span></span>
+						</div>
+					</div>
+					<div id="shop_param_list">
+						<div class="shop_param">
+							<span class="shop_param_name">STR</span><span id="shop_param_value_str" class="shop_param_value">-</span>
+						</div>
+						<div class="shop_param">
+							<span class="shop_param_name">DEX</span><span id="shop_param_value_dex" class="shop_param_value">-</span>
+						</div>
+						<div class="shop_param">
+							<span class="shop_param_name">DEF</span><span id="shop_param_value_def" class="shop_param_value">-</span>
+						</div>
+						<div class="shop_param">
+							<span class="shop_param_name">AGI</span><span id="shop_param_value_agi" class="shop_param_value">-</span>
+						</div>
+					</div>
+					<div id="shop_item_flavor">-</div>
+					<span id="item_refresh_text">品揃えをすぐに入れ替える：</span>
+					<span id="item_refresh_coin_show_area"><span>本日残り：</span><span id="shop_refresh_last">5</span>回　<img src="images/neko/icons/coin.png" id="item_shop_coin_icon"><span id="item_shop_coin_amount">2229181</span></span>
+					<div id="update_shop_item_button">
+						<img src="images/neko/icons/coin.png" id="coin_icon_refresh">
+						<span>2000</span>
+					</div>
+					<div id="pirika_dummy"></div>
+					<div id="pirika_message"></div>
+				</div>
 				<div class="star_background_rev hidden" id="save_ticker">
 					セーブしました。
 				</div>
@@ -1063,7 +1153,7 @@
 <div id="death_ie" class="hidden">ごめんなさい。<br>しろことくろこの塔登るやつ は Internet Explorerでは動作しません。<br><a href="https://www.google.co.jp/chrome/browser/desktop/">Google Chrome</a>で遊ぶことを推奨しています。</div>
 <div id="bug_report">
 	<span id="version">
-		version : 1.22 　<a href="nekomanual.html#update">更新履歴</a>
+		version : 2.00 　<a href="nekomanual.html#update">更新履歴</a>
 	</span>
 	<span id="wanna_report">
 		感想・バグ報告は <a href="https://twitter.com/jyll">@jyll</a>か<a href="https://twitter.com/hashtag/%E3%81%97%E3%82%8D%E3%81%93%E3%81%A8%E3%81%8F%E3%82%8D%E3%81%93">#しろことくろこ</a>にお願いします。	

@@ -28,6 +28,8 @@ function initView(){
 	updateIgaBaseColor(save.current_dungeon_id,save.current_landscape_id)
 	updateHighScore()
 	updateRestMode()
+	updateShopButtonShowState()
+	updateExtraStageVisitedState()
 }
 
 //ゲームモードの切り替え
@@ -465,7 +467,7 @@ function ressurectAnimation(){
 	})
 	.animate({
 		opacity:0
-	},2000,"linear")
+	},500,"linear")
 	.queue(	function(){
 		$(this).addClass("hidden")
 		$(this).dequeue();
@@ -480,7 +482,7 @@ function ressurectAnimation(){
 	.delay(0)
 	.animate({
 		opacity:0
-	},1200,"easeOutQuart")
+	},400,"easeOutQuart")
 	.queue(	function(){
 		$(this).addClass("hidden")
 		$(this).dequeue();
@@ -526,6 +528,12 @@ function getSpliteImageSource(splite_kind){
 		break
 		case "ressurect":
 		return "images/neko/sprite/resurrect/all.png"
+		break
+		case "faily_battle":
+		return "images/neko/sprite/faily_battle/all.png"
+		break
+		case "powder":
+		return "images/neko/sprite/powder/all.png"
 		break
 		case "boss":
 		return "images/neko/sprite/boss_battle/all.png"
@@ -840,8 +848,8 @@ function showBattleSprite(is_win=true){
 	.delay(700)
 	.queue(function(){
 		$(this).css({			
-		translateY:-30,
-		opacity:0
+			translateY:-30,
+			opacity:0
 		})
 		$(this).addClass("hidden")
 		$(this).dequeue()
@@ -946,6 +954,16 @@ function resetBattleWinSprite(){
 
 function showBattleWinSprite(){
 
+	//ミニゲームプレイ中も一切スプライトを出さない
+	if(mini_game_data.is_playing){
+		return
+	}
+
+	//イベント超速再生中は一切スプライトを出さない
+	if(data.hyper_event_dash_mode){
+		return
+	}
+
 	resetBattleWinSprite()
 	$("#battle_win_sprite").removeClass("hidden")
 
@@ -1041,8 +1059,6 @@ function showBattleWinSprite(){
 
 }
 
-
-
 function resetBattleLoseSprite(){
 	$("#sprite_battle_lose_text").css({
 		opacity:0,
@@ -1065,6 +1081,16 @@ function resetBattleLoseSprite(){
 }
 
 function showBattleLoseSprite(){
+
+	//ミニゲームプレイ中も一切スプライトを出さない
+	if(mini_game_data.is_playing){
+		return
+	}
+
+	//イベント超速再生中は一切スプライトを出さない
+	if(data.hyper_event_dash_mode){
+		return
+	}
 
 	resetBattleLoseSprite()
 	$("#battle_lose_sprite").removeClass("hidden")
@@ -1126,6 +1152,297 @@ function showBattleLoseSprite(){
 		translateX:-6,
 		translateY:0,
 	},2000,"easeOutQuart")
+
+}
+
+
+function resetFailyBattleSprite(faily_id){
+	$("#faily_battle_sprite").css({
+		translateY:-50,
+		opacity:0,
+	})
+	$("#sprite_faily_battle_text").css({
+		translateY:-20,
+		opacity:0,
+	})
+	$("#sprite_faily_battle_faily"+faily_id).css({
+		translateX:50,
+		opacity:0,
+	})
+	$("#sprite_faily_battle_filter").css({
+		opacity:0,
+	})
+	$("#sprite_faily_battle_mark").css({
+		opacity:0,
+	})
+	$("#sprite_faily_battle_mark_blur").css({
+		opacity:0,
+	})
+	$(".sprite_faily_battle_faily").css({
+		opacity:0,
+	})
+	$("#sprite_faily_battle_mark_window").css({
+		opacity:0,
+	})
+
+}
+
+function showFailyBattleSprite(faily_id=0,is_win=true){
+
+	//ミニゲームプレイ中も一切スプライトを出さない
+	if(mini_game_data.is_playing){
+		return
+	}
+
+	//イベント超速再生中は一切スプライトを出さない
+	if(data.hyper_event_dash_mode){
+		return
+	}
+
+	if(!save.options.enable_event_animation){
+		spriteSlidein("faily_battle")
+		return
+	}
+
+	resetFailyBattleSprite(faily_id)
+	$("#faily_battle_sprite").removeClass("hidden")
+
+	$("#faily_battle_sprite")
+	.animate({
+		translateY:0,
+		opacity:1
+	},500,"swing")	
+	.delay(1500)
+	.queue(function(){
+		if(is_win){
+			showBattleWinSprite()
+		}
+		else{
+			showBattleLoseSprite()
+		}
+		$(this).dequeue()
+	})
+	.delay(700)
+	.queue(function(){
+		$(this).css({			
+			translateY:-30,
+			opacity:0
+		})
+		$(this).addClass("hidden")
+		$(this).dequeue()
+	})
+
+	$("#sprite_faily_battle_background").css("opacity",1)
+
+	$("#sprite_faily_battle_text")
+	.delay(500)
+	.animate({
+		translateY:0,
+		opacity:1,
+	},400,"easeOutQuart")
+
+	$("#sprite_faily_battle_faily"+faily_id)
+	.delay(300)
+	.animate({
+		translateX:0,
+		opacity:1,
+	},1200,"easeOutQuart")
+
+	$("#sprite_faily_battle_filter")
+	.delay(200)
+	.animate({
+		opacity:0.7,
+	},1000,"easeOutQuart")
+
+	$("#sprite_faily_battle_mark_window")
+	.delay(1000)
+	.animate({
+		opacity:.25,
+	},500,"easeOutQuart")
+
+	$("#sprite_faily_battle_mark")
+	.attr("src","images/neko/sprite/faily_battle/"+faily_id+"-mark.png")
+	.delay(1000)
+	.animate({
+		opacity:1,
+	},500,"easeOutQuart")
+
+	$("#sprite_faily_battle_mark_blur")
+	.attr("src","images/neko/sprite/faily_battle/"+faily_id+"-mark-blur.png")
+	.delay(700)
+	.animate({
+		opacity:1,
+	},1200,"linear")
+
+}
+
+
+function resetPowderSprite(){
+	$("#powder_sprite").css({
+		translateY:-50,
+		opacity:0,
+	})
+	$("#sprite_powder_text").css({
+		translateY:-20,
+		opacity:0,
+	})
+	$("#sprite_powder_light").css({
+		translateY:-10,
+		opacity:0,
+	})
+	$("#sprite_powder_powder").css({
+		translateY:-10,
+		opacity:0,
+	})
+	$("#sprite_powder_faily").css({
+		translateY:-10,
+		opacity:0,
+	})
+	$("#sprite_powder_feather").css({
+		translateY:-10,
+		opacity:0,
+	})
+	$("#sprite_powder_dish").css({
+		translateY:-10,
+		opacity:0,
+	})
+
+}
+
+function showPowderSprite(){
+
+	//ミニゲームプレイ中も一切スプライトを出さない
+	if(mini_game_data.is_playing){
+		return
+	}
+
+	//イベント超速再生中は一切スプライトを出さない
+	if(data.hyper_event_dash_mode){
+		return
+	}
+
+	if(!save.options.enable_event_animation){
+		spriteSlidein("powder")
+		return
+	}
+
+	resetPowderSprite()
+	$("#powder_sprite").removeClass("hidden")
+
+	$("#powder_sprite")
+	.animate({
+		translateY:0,
+		opacity:1
+	},500,"swing")	
+	.delay(1500)
+	.animate({			
+			translateY:-30,
+			opacity:0
+		},400,"linear")
+	.queue(function(){
+		$(this).addClass("hidden")
+		$(this).dequeue()
+	})
+
+	$("#sprite_powder_background").css("opacity",1)
+
+	$("#sprite_powder_text")
+	.delay(500)
+	.animate({
+		translateY:0,
+		opacity:1,
+	},400,"easeOutQuart")
+
+	$("#sprite_powder_faily")
+	.delay(500)
+	.animate({
+		translateX:0,
+		opacity:1,
+	},300,"easeOutQuart")
+	.delay(50)
+	.animate({
+		translateY:10,
+		translateX:5,
+		opacity:1,
+	},200,"easeOutQuart")
+	.animate({
+		translateY:0,
+		translateX:0,
+		opacity:1,
+	},160,"easeOutQuart")
+
+	$("#sprite_powder_kuro")
+	.delay(300)
+	.animate({
+		translateX:0,
+		opacity:1,
+	},300,"easeOutQuart")
+	.delay(550)
+	.animate({
+		translateY:-10,
+	},150,"easeOutQuart")
+	.animate({
+		translateY:0,
+	},150,"easeOutQuart")
+
+	$("#sprite_powder_kuro_hand")
+	.delay(300)
+	.animate({
+		translateX:0,
+		opacity:1,
+	},300,"easeOutQuart")
+
+	$("#sprite_powder_dish")
+	.delay(300)
+	.animate({
+		translateX:0,
+		opacity:1,
+	},300,"easeOutQuart")
+
+	$("#sprite_powder_powder")
+	.delay(1050)
+	.animate({
+		translateX:0,
+		opacity:1,
+	},300,"easeOutQuart")
+
+	$("#sprite_powder_feather")
+	.delay(500)
+	.animate({
+		translateY:0,
+		opacity:1,
+	},300,"easeOutQuart")
+	.delay(100)
+	.animate({
+		translateY:10,
+		opacity:1,
+	},50,"easeOutQuart")
+	.animate({
+		translateY:0,
+		opacity:1,
+	},50,"easeOutQuart")
+	.delay(100)
+	.animate({
+		translateY:10,
+		opacity:1,
+	},50,"easeOutQuart")
+	.animate({
+		translateY:0,
+		opacity:1,
+	},50,"easeOutQuart")
+
+	$("#sprite_powder_light")
+	.delay(950)
+	.animate({
+		translateY:0,
+		opacity:1,
+	},300,"easeOutQuart")
+	.animate({
+		translateY:10,
+		opacity:0,
+	},300,"easeOutQuart")
+
+	//TODO 他のオブジェクトを置く
 
 }
 
@@ -1373,8 +1690,8 @@ function showBossBattleSprite(){
 	.delay(700)
 	.queue(function(){
 		$(this).css({			
-		translateY:-30,
-		opacity:0
+			translateY:-30,
+			opacity:0
 		})
 		$(this).addClass("hidden")
 		$(this).dequeue()
@@ -1786,8 +2103,6 @@ function fadeStatusMenu(){
 }
 
 
-
-
 /*******************************************/
 /* 装備画面 */
 /*******************************************/
@@ -1814,6 +2129,13 @@ function prepareEquipMenu(){
 	updateEquipListParameterIndexCurrentEquipArea()
 	updateEquipBackButton()
 	updateEquipResultArea()
+	updateEquipMenuFontSize()
+}
+
+function updateEquipMenuFontSize(){
+	if(getMaxEnemyRank() > 2000){
+		$(".status_unit").addClass("over_million")
+	}
 }
 
 //戻るボタンの状態を更新
@@ -2346,10 +2668,23 @@ function showEquipResultMenu(){
 		$(this).dequeue()
 	})
 
+<<<<<<< HEAD
+=======
+	$("#equip_result_animation_dummy")
+	.delay(5000)
+	.queue(function(){
+		if(data.equipment_menu.canceled == false && data.equipment_menu.changed == true){
+			completeEditEquip()
+			fadeEquipResultMenu()			
+		}
+		$(this).dequeue()
+	})
+>>>>>>> feature/extra_faily
 }
 
 //装備編集結果画面閉じる
 function fadeEquipResultMenu(){
+	data.equipment_menu.changed = false
 	$("#equip_result_fade_cover").addClass("hidden")
 	$("#equip_edit_result_popup")
 	.animate({
@@ -2613,6 +2948,8 @@ function changeStageToView(stage_id,depth){
 
 	updateTips()
 	changeStageInfoAreaTo(stage_id)
+	updateShopButtonShowState()
+	updateExtraStageVisitedState()
 
 	$("#fadeouter")
 	.removeClass("hidden")
@@ -2621,6 +2958,16 @@ function changeStageToView(stage_id,depth){
 		opacity:1
 	},1000)
 
+}
+
+//メニューのダンジョン選択するとこ
+function updateExtraStageVisitedState(){
+	if(save.dungeon_process[4] > 9999 && save.visited_extra_dungeon == false){
+	$("#dungeon_list_show_button").addClass("is_extra_dungeon_available")
+	}
+	else{
+	$("#dungeon_list_show_button").removeClass("is_extra_dungeon_available")		
+	}
 }
 
 //ステージ変更画面を消す
@@ -3462,7 +3809,7 @@ function fadeThankyouImage(){
 }
 
 function updateOmakeButtonShowState(){
-	if(save.dungeon_process[4] >= 9999){
+	if(save.dungeon_process[4] > 9999){
 		$("#omake_button").removeClass("hidden")
 		$("#rest_button").removeClass("hidden")
 	}
@@ -3476,4 +3823,323 @@ function updateOmakeButtonShowState(){
 	else{
 		$("#omake_button").addClass("epilogue_unseen")	
 	}
+}
+
+
+/**ショップメニュー**/
+
+
+function updateShopButtonShowState(){
+	if(save.current_dungeon_id ==5){ //エクストラダンジョンでのみ表示
+		$("#shop_button").removeClass("hidden")	
+	}
+	else{
+		$("#shop_button").addClass("hidden")	
+	}
+	if(isRecentlyOpenedShop()){
+		$("#shop_button_image").removeClass("hidden")	
+		$("#shop_button_image_new").addClass("hidden")	
+	}
+	else{
+		$("#shop_button_image").addClass("hidden")	
+		$("#shop_button_image_new").removeClass("hidden")	
+	}
+}
+
+//ショップメニューの表示更新
+function prepareShopMenu(){
+	//ショップアイテム名
+	var shop_item_name = $(".shop_item_name")
+	var shop_item_cost = $(".shop_item_cost")
+	var shop_item_power = $(".shop_item_power")
+	var shop_item_value = $(".shop_item_value")
+	var params = ["str","dex","def","agi"]
+	
+	for(var i=0;i<5;++i){
+		var item_id = save.shop.items[i].id
+		var rank = save.shop.items[i].rank
+		var item_name = getRaritySymbol(data.item_data[item_id].rarity) + data.item_data[item_id].name+"+" + save.shop.items[i].rank 
+		$(shop_item_name[i]).text(item_name)
+		$(shop_item_cost[i]).text(save.shop.items[i].cost)
+
+		//つよさ欄の更新
+		var param_total = 0
+		for(var param of params){
+			param_total += getParameterBuildTo(item_id,param,rank)
+		}
+		$(shop_item_power[i]).text(param_total)
+
+		//買えるボタン
+		if(save.powder > save.shop.items[i].cost){
+			$(shop_item_value[i]).addClass("buyable")
+		}
+		else{
+			$(shop_item_value[i]).removeClass("buyable")			
+		}
+
+		//買っても意味ないよ表示
+		if(save.shop.items[i].rank <= save.item[item_id]){
+			$(shop_item_name[i]).addClass("not_effective")
+		}
+		else{
+			$(shop_item_name[i]).removeClass("not_effective")
+		}
+
+		//レア度
+		$(shop_item_name[i]).removeClass("shop_rare")
+		$(shop_item_name[i]).removeClass("shop_epic")
+		$(shop_item_name[i]).removeClass("shop_legendary")
+		$(shop_item_name[i]).addClass("shop_"+getRarityClassName(""+data.item_data[save.shop.items[i].id].rarity))
+
+	}
+
+	//残り何回かな
+	$("#shop_refresh_last").text( 10 - save.shop.times_item_refresh_today)
+
+	//粉更新
+	if(!$("#current_powder_amount").is(":animated")){
+		$("#current_powder_amount").text(save.powder)
+	}
+	//コイン更新
+	if(!$("#item_shop_coin_amount").is(":animated")){
+		$("#item_shop_coin_amount").text(save.coin)
+	}
+}
+
+//ショップアイテムのパラメータ詳細を更新
+function updateShopItemDetailTo(domobject){
+	var shop_item_index = $(domobject).attr("id").slice(-1)
+	var item_id = save.shop.items[shop_item_index].id
+	var rank = save.shop.items[shop_item_index].rank
+
+	var params = ["str","dex","def","agi"]
+	for(var param of params){
+		$("#shop_param_value_"+param).text(getParameterBuildTo(item_id,param,rank))
+	}
+	$("#shop_item_flavor").text(data.item_data[item_id].caption)
+}
+
+function showShopMenu(){
+	save.last_time_shop_open = new Date().getTime()
+	updateShopItemList()
+	updateShopButtonShowState()
+	prepareShopMenu()
+
+	$("#pirika_message").text("")
+
+	$("#shop_menu")
+	.css({
+		translateY:-20,
+		opacity:0,
+	})
+	.removeClass("hidden")
+	.animate({
+		translateY:0,
+		opacity:1,
+	},200,"linear")
+
+	$("#shop_pirika")
+	.css({
+		translateY:-20,
+		opacity:0,
+	})
+	.delay(400)
+	.animate({
+		translateY:0,
+		opacity:1,
+	},200,"linear")
+
+	$("#shop_words_frame")
+	.css({
+		translateY:-20,
+		opacity:0,
+	})
+	.delay(700)
+	.animate({
+		translateY:0,
+		opacity:1,
+	},600,"linear")
+	.queue(function(){
+		talkPirika("やぁやぁ、いらっしゃい！今日クラフトしたアイテムを原価で売るっすよー！")
+		$(this).dequeue()
+	})
+
+	$("#shop_current_powder")
+	.css({
+		opacity:0,
+	})
+	.delay(100)
+	.animate({
+		opacity:1,
+	},800,"linear")
+
+	$("#shop_param_list")
+	.css({
+		opacity:0,
+	})
+	.delay(190)
+	.animate({
+		opacity:1,
+	},800,"linear")
+
+	$("#update_shop_item_button")
+	.css({
+		opacity:0,
+	})
+	.delay(390)
+	.animate({
+		opacity:1,
+	},800,"linear")
+
+	$("#item_refresh_text")
+	.css({
+		opacity:0,
+	})
+	.delay(390)
+	.animate({
+		opacity:1,
+	},800,"linear")
+
+	$("#shop_list_caption_area")
+	.css({
+		opacity:0,
+	})
+	.delay(690)
+	.animate({
+		opacity:1,
+	},800,"linear")
+
+	$("#item_refresh_coin_show_area")
+	.css({
+		opacity:0,
+	})
+	.delay(690)
+	.animate({
+		opacity:1,
+	},800,"linear")
+
+	$("#shop_item_flavor")
+	.css({
+		opacity:0,
+	})
+	.delay(390)
+	.animate({
+		opacity:1,
+	},800,"linear")
+
+	$(".shop_item").css({
+		opacity:0,
+		translateY : 30,
+	})
+
+	for(var i=0;i<5;++i){
+		$($(".shop_item")[i])
+		.delay(300)
+		.delay(100*i)
+		.animate({
+			translateY : 0,
+			opacity:1
+		},1000,"easeOutQuart")
+	}
+
+}
+
+function fadeShopMenu(){
+	$("#shop_menu")
+	.animate({
+		opacity:0,
+		translateY:-20,
+	},500,"easeOutQuart")
+	.queue(function () {
+		$(this).addClass("hidden").dequeue();
+	})
+}
+
+
+function appendTalkLastMessage(l){
+	var message_queue = $("#epilogue_dummy")
+	message_queue
+	.delay(10)
+	.queue(function(){
+		$("#pirika_message").append(l)
+		message_queue.dequeue()
+	})
+	
+}
+
+//ピリカちゃんに喋らせる
+function talkPirika(message){
+
+	if($("#pirika_message").is(":animated")){
+		return
+	}
+
+	var letters = message.split("")
+	$("#pirika_message").text("").animate({opacity:1},message.length * 10,"linear")
+	for(letter of letters){
+		appendTalkLastMessage(letter)
+	}
+}
+
+//現在の粉数をチャリチャリっとアニメーションさせる
+function numerateCurrentPowderAmount(){
+	$("#current_powder_amount").numerator({
+		easing : "linear",
+		duration : 1000,
+		toValue : save.powder
+	})
+}
+
+function jumpPirika(){
+	$("#shop_pirika").delay(20)
+	.animate({
+		translateY:-30,
+	},70,"linear")
+	.animate({
+		translateY:0,
+	},70,"linear")
+}
+
+function talkPirikaRandom(){
+	var messages = [
+	"きゃっ！　もー、触るなら事前に言ってほしいっす...",
+	"粉はイガイガしてもあんまし集まらないっすねー。のーんびりお友達から譲ってもらってくださいっす。",
+	"コインをちょっと頂くっすけど、工房の在庫とすぐ入れ替えることもできるっすよ！",
+	"ショップは日付が変わるごとに新しいやつと入れ替えてるっす！",
+	"うー、なでなでしてくれるのはうれしいっすけどなんか落ち着かないっすよー...",
+	]
+	talkPirika(messages[randInt(0,messages.length-1)])
+	jumpPirika()
+	jumpPirika()
+}
+
+function refreshShopItemListAnimation(){
+	$("#item_shop_coin_amount").numerator({
+		easing : "linear",
+		duration : 1000,
+		toValue : save.coin
+	})
+
+	for(var i=0;i<5;++i){
+		$($(".shop_item")[i])
+		.delay(100*i)
+		.animate({
+			translateX: -50,
+			opacity:0,
+		},1000,"easeOutQuart")
+		.queue(function(){
+			prepareShopMenu()
+			$(this).css({
+				translateX : 50,
+			})
+			.dequeue()
+		})
+		.delay(200)
+		.animate({
+			translateX: 0,
+			opacity:1,
+		},1000,"easeOutQuart")
+	}
+
+	talkPirika("はいっ！　在庫から持ってきたっすよ！　いいのが見つかると良いっすね！")
 }
