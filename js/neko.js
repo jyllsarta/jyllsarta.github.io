@@ -2090,7 +2090,7 @@ function getShopItemListToday(date=null, baserank=0){
 	//適当に線形合同でいいや
 	for(var i=0;i<5;++i){
 		var id = seededRandomInt(0,data.item_data.length-1)
-		var rank = baserank*1.15 + 150
+		var rank = baserank*1.06 + 450
 		var bonus_rank = seededRandomInt(0,300)
 		var cost = data.item_data[id].rarity * 4000 + seededRandomInt(0,2000) + 1000 + bonus_rank *30
 

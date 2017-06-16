@@ -1336,9 +1336,9 @@ function showPowderSprite(){
 	},500,"swing")	
 	.delay(1500)
 	.animate({			
-			translateY:-30,
-			opacity:0
-		},400,"linear")
+		translateY:-30,
+		opacity:0
+	},400,"linear")
 	.queue(function(){
 		$(this).addClass("hidden")
 		$(this).dequeue()
@@ -2960,10 +2960,10 @@ function changeStageToView(stage_id,depth){
 //メニューのダンジョン選択するとこ
 function updateExtraStageVisitedState(){
 	if(save.dungeon_process[4] > 9999 && save.visited_extra_dungeon == false){
-	$("#dungeon_list_show_button").addClass("is_extra_dungeon_available")
+		$("#dungeon_list_show_button").addClass("is_extra_dungeon_available")
 	}
 	else{
-	$("#dungeon_list_show_button").removeClass("is_extra_dungeon_available")		
+		$("#dungeon_list_show_button").removeClass("is_extra_dungeon_available")		
 	}
 }
 
@@ -3957,7 +3957,16 @@ function showShopMenu(){
 		opacity:1,
 	},600,"linear")
 	.queue(function(){
-		talkPirika("やぁやぁ、いらっしゃい！今日クラフトしたアイテムを原価で売るっすよー！")
+		if(save.has_visit_shop == false){
+			talkPirika("鍛冶妖精のピリカっす！作ったアイテムを粉と交換するっすよ！いくらかあげるんで、試してほしいっす！")
+			save.powder += 15000
+			prepareShopMenu()
+			numerateCurrentPowderAmount()
+			save.has_visit_shop = true
+		}
+		else{
+			talkPirika("やぁやぁ、いらっしゃい！今日クラフトしたアイテムを原価で売るっすよー！")
+		}
 		$(this).dequeue()
 	})
 

@@ -115,6 +115,7 @@ var save = {
 	visited_extra_dungeon:false,
 	rest_now : false,
 	last_time_shop_open : null,
+	has_visit_shop : false,
 	powder : 0,
 	shop : {
 		date : null,
