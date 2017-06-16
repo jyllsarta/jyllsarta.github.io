@@ -2147,8 +2147,6 @@ function buyShopItem(domobject){
 	save.powder -= shop_item.cost
 	talkPirika("まいどまいどー！またいっぱい作ってくるから、よろしくっすよーっ！それじゃ、探索がんばってね！")
 
-	//2回ジャンプ
-	jumpPirika()
 	jumpPirika()
 	save.item[shop_item.id] = shop_item.rank
 

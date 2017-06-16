@@ -4097,7 +4097,19 @@ function numerateCurrentPowderAmount(){
 }
 
 function jumpPirika(){
+
+	//無限ぴこぴこ対策のためにアニメーション中は処理しない
+	if($("#shop_pirika").is(":animated")){
+		return
+	}	
+
 	$("#shop_pirika").delay(20)
+	.animate({
+		translateY:-30,
+	},70,"linear")
+	.animate({
+		translateY:0,
+	},70,"linear")
 	.animate({
 		translateY:-30,
 	},70,"linear")
@@ -4115,7 +4127,6 @@ function talkPirikaRandom(){
 	"うー、なでなでしてくれるのはうれしいっすけどなんか落ち着かないっすよー...",
 	]
 	talkPirika(messages[randInt(0,messages.length-1)])
-	jumpPirika()
 	jumpPirika()
 }
 
