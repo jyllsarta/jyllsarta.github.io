@@ -2668,8 +2668,6 @@ function showEquipResultMenu(){
 		$(this).dequeue()
 	})
 
-<<<<<<< HEAD
-=======
 	$("#equip_result_animation_dummy")
 	.delay(5000)
 	.queue(function(){
@@ -2679,7 +2677,6 @@ function showEquipResultMenu(){
 		}
 		$(this).dequeue()
 	})
->>>>>>> feature/extra_faily
 }
 
 //装備編集結果画面閉じる
