@@ -4081,7 +4081,7 @@ function talkPirika(message){
 	}
 
 	var letters = message.split("")
-	$("#pirika_message").text("").animate({opacity:1},message.length * 10,"linear")
+	$("#pirika_message").text("").animate({opacity:1},90+message.length * 10,"linear")
 	for(letter of letters){
 		appendTalkLastMessage(letter)
 	}
