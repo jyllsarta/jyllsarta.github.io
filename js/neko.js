@@ -2176,6 +2176,7 @@ function refreshShopItemList(){
 	save.shop.items = getShopItemListToday(date=new Date().getTime(),rank=getMaxEnemyRank())
 	save.coin -= 2000
 	save.shop.times_item_refresh_today++
+	makesave()
 	refreshShopItemListAnimation()
 }
 
