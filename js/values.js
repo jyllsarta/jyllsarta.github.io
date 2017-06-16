@@ -22,7 +22,7 @@ var data = {
 		dex:300,
 		agi:-255,
 		pow:1000,
-		caption:"誰も掴むことのできない、実体のない剣。"
+		caption:"誰も掴むことのできない、実体のない剣。(バグ剣です。これが見えてしまったらアイテム一覧のダウンロードに失敗しています。)"
 	}
 	],
 	equipment_menu : {
@@ -112,7 +112,15 @@ var save = {
 	},
 	seen_epilogue : false,
 	seen_omake : false,
+	visited_extra_dungeon:false,
 	rest_now : false,
+	last_time_shop_open : null,
+	powder : 0,
+	shop : {
+		date : null,
+		items : [],
+		times_item_refresh_today :0,
+	},
 }
 
 var dungeon_data=[
@@ -249,9 +257,9 @@ var stage_data=[
 {
 	number : "エクストラダンジョン",
 	title : "天嶺の妖精郷",
-	description: "次元の果てに空間の裂け目を見つけた。<br>なんかすごいダンジョンっぽいねーー",
-	back : "st4.png",
-	last_color : "#fc3535"
+	description: "次元の果てに空間の裂け目を見つけた。塔内部の未探索の空間に通じているようだ。<br>裂け目の中に入ってみると、空が遠く、広い雪原が広がっている。<br>これまでで最も空間の広い次元なようだ。<br>「おお？にんげんさん？だ！...かわいい耳ついてるけどにんげんさんだよね？」<br>「おー、にんげんさんこんにちは！ピリカだよ！私の武器使ってもらえてる？」<br>霊符で召喚していた妖精はここに住んでいたようだ。<br>妖精に渡すお土産は何がいいだろうなんて話しながら、二人は探索を続ける。",
+	back : "st5.png",
+	last_color : "#aff9ff"
 },
 ]
 
@@ -374,18 +382,18 @@ var EVENT_FREQ_ITEM_FLOOD = 2
 
 //イベント抽選関係
 //ランダムアイテムエリアの出現比率
-var EVENT_FREQ_EXD_ITEM = 9
-var EVENT_FREQ_EXD_STAIRS = 40
-var EVENT_FREQ_EXD_BATTLE = 50
+var EVENT_FREQ_EXD_ITEM = 14
+var EVENT_FREQ_EXD_STAIRS = 55
+var EVENT_FREQ_EXD_BATTLE = 40
 var EVENT_FREQ_EXD_ITEM_FLOOD = 1
 
 //イベント抽選関係
 //ランダムアイテムエリアの出現比率
-var EVENT_FREQ_EXTRA_STAIRS = 6
-var EVENT_FREQ_EXTRA_ITEM = 5
+var EVENT_FREQ_EXTRA_STAIRS = 10
+var EVENT_FREQ_EXTRA_ITEM = 9
 var EVENT_FREQ_EXTRA_ITEM_FLOOD = 1
-var EVENT_FREQ_EXTRA_BATTLE = 50
-var EVENT_FREQ_EXTRA_POWDER = 38
+var EVENT_FREQ_EXTRA_BATTLE = 40
+var EVENT_FREQ_EXTRA_POWDER = 40
 
 
 //デフォルトのイベント発生間隔(秒)

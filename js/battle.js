@@ -111,11 +111,11 @@ function getMaxEnemyRank(){
 	var depth = Math.min(save.dungeon_process[deepest_dungeon_id],dungeon_data[deepest_dungeon_id].depth)
 
 	//エクストラダンジョン<以外>は8階層ごとにランクアップ
-	if(save.deepest_dungeon_id <= 4){
+	if(deepest_dungeon_id <= 4){
 		depth /= 8
 	}
 	//エクストラダンジョンは毎階層ごとにランクアップ
-	else if(save.deepest_dungeon_id == 5){
+	else if(deepest_dungeon_id == 5){
 		// nothing
 	}
 
@@ -347,8 +347,18 @@ function processBattle(bossBattle=false,unique_boss_id=null){
 		castMessage("経験値"+expEarned+coinMessage+"を獲得！")
 		checkLevelUp()
 
+		//鱗粉がもらえるのは初回のみ
+		if(unique_boss_id !== null && save.dungeon_process[save.current_dungeon_id] <= save.current_floor ){
+			var powder_earned = randInt(4800,7000)
+			castMessage(""+powder_earned+"個の鱗粉を譲り受けた！")
+			save.powder += powder_earned
+		}
+
 		//勝利アニメーションを再生
-		if(bossBattle){
+		if(unique_boss_id !== null){
+			showFailyBattleSprite(unique_boss_id,is_win=true)
+		}
+		else if(bossBattle){
 			showBossBattleSprite(is_win=true)
 		}
 		else{
@@ -361,7 +371,7 @@ function processBattle(bossBattle=false,unique_boss_id=null){
 		for(var enemy of enemies){
 			damageDealedPersentage += Math.min(100-Math.floor(enemy.hp / enemy.maxHp * 100),100)
 		}
-		damageDealedPersentage = Math.floor(damageDealedPersentage/ 3)
+		damageDealedPersentage = Math.max(Math.floor(damageDealedPersentage/ enemies.length),0)
 		//全滅時のメッセージ
 		castMessage( "しろこ" + damage_siro +",くろこ" + damage_kuro + "ダメージ。")
 		castMessage( turnCount+"ターン耐え,"+damageDealedPersentage+"%削ったが全滅した... ") 
@@ -370,7 +380,10 @@ function processBattle(bossBattle=false,unique_boss_id=null){
 			notify(title="全滅した...",body=("(この通知をクリックで全回復します...)"),icon="death",onClick=function(){ressurect()})
 		}
 		//敗北アニメーションを再生
-		if(bossBattle){
+		if(unique_boss_id !== null){
+			showFailyBattleSprite(unique_boss_id,is_win=false)
+		}
+		else if(bossBattle){
 			showBossBattleSprite(is_win=false)
 		}
 		else{
@@ -415,37 +428,366 @@ var extra_boss_data = {
 	0 : {
 		name : "エクリテ",
 		pre_battle_message : ["「私は秩序の妖精エクリテ。",
-														"妖精郷に踏み入る資格と実力があるか、",
-														"その腕で証明してみせなさい！」",
-														"エクリテ：HP214m,ATK280k,DEF40k"
-														],
-		hp : 2140000,
+		"妖精郷に踏み入る資格と実力があるか、",
+		"その腕で証明してみせなさい！」",
+		"エクリテ：HP2.74m,攻280k,守40k"
+		],
+		hp : 2740000,
 		atk : 278000,
 		sld : 40000,
 		pre_battle_skill : '\
-		castMessage("「これが法の光よ！");\
-		castMessage("耐えてみせなさい！」");\
-		allies[0].hp /= 2;\
-		allies[1].hp /= 2;\
+		castMessage("<戦闘開始！>");\
+		castMessage("「これが法の光よ！耐えてみせなさい！」");\
+		allies[0].hp -= Math.floor(allies[0].hp/2);\
+		allies[1].hp -= Math.floor(allies[1].hp/2);\
 		castMessage("しろこに"+Math.floor(allies[0].hp)+"、くろこに"+Math.floor(allies[1].hp)+"のダメージ。");\
 		',
 		skill : '\
-			if(getParameterDiffRatio("siro") > 1.2 && allies[0].hp > 0){\
-				var ratio = getParameterDiffRatio("siro");\
-				castMessage("「...パラメータがばらつきすぎです！");\
-				castMessage("　お仕置きでーす！」");\
-				allies[0].hp-=10000;\
-				castMessage("しろこに10000ダメージ！");\
-			}\
-			if(getParameterDiffRatio("kuro") > 1.2 && allies[1].hp > 0){\
-				var ratio = getParameterDiffRatio("siro");\
-				castMessage("「...パラメータがばらつきすぎです！");\
-				castMessage("　お仕置きでーす！」");\
-				allies[1].hp -= 10000;\
-				castMessage("くろこに10000ダメージ！");\
-			}\
+		if(getParameterDiffRatio("siro") > 1.2 && allies[0].hp > 0){\
+			var ratio = getParameterDiffRatio("siro");\
+			castMessage("「...パラメータがばらつきすぎです！");\
+			castMessage("　お仕置きでーす！」");\
+			allies[0].hp-=10000;\
+			castMessage("しろこに10000ダメージ！");\
+		}\
+		if(getParameterDiffRatio("kuro") > 1.2 && allies[1].hp > 0){\
+			var ratio = getParameterDiffRatio("siro");\
+			castMessage("「...パラメータがばらつきすぎです！");\
+			castMessage("　お仕置きでーす！」");\
+			allies[1].hp -= 10000;\
+			castMessage("くろこに10000ダメージ！");\
+		}\
 		',
 	},
+	1 : {
+		name : "ピリカ",
+		pre_battle_message : ["「やぁやぁ、ショップでおなじみピリカちゃんだよ！",
+		"まぁちょっと、一緒に遊ぼうよ！」",
+		"ピリカ：HP1.4m,攻350k,守350k"
+		],
+		hp : 1400000,
+		atk : 350000,
+		sld : 350000,
+		pre_battle_skill : '\
+		castMessage("「さーてさて、私オリジナルの武器は持ってきてくれたかな？」");\
+		castMessage("「ピリカちゃん装備はこの戦闘でのみ大ボーナスだよー！」");\
+		var siro_pirika = countPirikaWeaponEquipped("siro");\
+		var kuro_pirika = countPirikaWeaponEquipped("kuro");\
+		if(siro_pirika){\
+			castMessage("「おぉー！しろこさんまいどっす！"+siro_pirika+"つ持ってきてくれたんすね！」");\
+			allies[0].atk += 200000 * siro_pirika;\
+			castMessage("しろこの攻撃力が"+(siro_pirika*200000)+"上昇！");\
+		};\
+		if(kuro_pirika){\
+			castMessage("「おほー！くろこさんまいどっす！"+kuro_pirika+"つ持ってきてくれたんすね！」");\
+			allies[1].sld += 200000 * kuro_pirika;\
+			castMessage("くろこの防御力が"+(kuro_pirika*200000)+"上昇！");\
+		}\
+		if(!siro_pirika && !kuro_pirika){\
+			castMessage("もー、持ってきてくれてないじゃないっすかー！ざんねんだなー！");\
+		}\
+		castMessage("<戦闘開始！>");\
+		',
+		skill : '\
+		castMessage("「『天地砕く唯一の雷光』！さぁ、どんどん強くなるっすよー！」");\
+		castMessage("ピリカの全パラメータが25000上昇！");\
+		enemies[0].atk += 25000;\
+		enemies[0].sld += 25000;\
+		',
+	},
+	2 : {
+		name : "ラスト",
+		pre_battle_message : ["「序盤に召喚されたラストです...",
+		"腐食しちゃります...よろしくね...」",
+		"ラスト：HP2.5m,攻250k,守0"
+		],
+		hp : 2500000,
+		atk : 250000,
+		sld : 0,
+		pre_battle_skill : '\
+		castMessage("「おおいなる、だいちのめぐみよ、そのちにあしをつけるもののちからを、ことごとくうばいされい...！」");\
+		allies[0].atk = Math.max(allies[0].atk - 500000,0);\
+		allies[1].atk = Math.max(allies[1].atk - 500000,0);\
+		castMessage("二人の攻撃力が500000減少！");\
+		if(allies[0].atk == 0 || allies[1].atk == 0){\
+			castMessage("「おお、ちからをすいつくしてしまったか...ふふ...」");\
+			enemies[0].hp += 10000000;\
+			castMessage("ラストのHPが1000万上昇！");\
+		}\
+		castMessage("<戦闘開始！>");\
+		',
+		skill : '\
+		enemies[0].atk += 1000;\
+		',
+	},
+	3 : {
+		name : "ミミカ",
+		pre_battle_message : ["「ミミカだよー！　えっとねー、なんだっけ... ...んーよろしく！！！」",
+		"ミミカ：HP1m,攻420k,守420k"
+		],
+		hp : 1000000,
+		atk : 420000,
+		sld : 420000,
+		pre_battle_skill : '\
+		castMessage("(ミミカちゃんは漢字が読めないので、かんたんな文字の装備で挑みましょう。)");\
+		var kanjis = countKanjiWeaponEquipped("siro") + countKanjiWeaponEquipped("kuro");\
+		if(kanjis >0){\
+			castMessage("もぉー！なにそのもじ！よめないんですけど！！！！やだー！");\
+			castMessage("ミミカの全パラメータが"+(kanjis * 50000)+"上昇！");\
+			enemies[0].atk += kanjis * 50000;\
+			enemies[0].sld += kanjis * 50000;\
+			enemies[0].hp += kanjis * 50000;\
+		}\
+		castMessage("<戦闘開始！>");\
+		',
+		skill : '\
+		enemies[0].atk += 2000;\
+		',
+	},
+	4 : {
+		name : "コレット",
+		pre_battle_message : ["「はいはーい！はじめまして！",
+		"造園担当のコレットだよ！」",
+		"コレット：HP0.5m,攻680k,守600k"
+		],
+		hp : 500000,
+		atk : 680000,
+		sld : 600000,	
+		pre_battle_skill : '\
+		castMessage("「苗木さんたちにあげるごはん、持ってませんかー？」");\
+		var okashi_count = countWeaponEquippedCategoryIs("siro",4) +countWeaponEquippedCategoryIs("kuro",4);\
+		if(okashi_count > 0){\
+			castMessage("「二人で"+okashi_count+"個持ってきてくださったのですね！」");\
+			castMessage("「お返しにサービスです！どうぞ！」");\
+			allies[0].atk += okashi_count*40000;\
+			allies[0].sld += okashi_count*40000;\
+			allies[1].atk += okashi_count*40000;\
+			allies[1].sld += okashi_count*40000;\
+			castMessage("二人の攻守が"+(okashi_count*40000)+"上昇！");\
+		}\
+		else{\
+			castMessage("「ごはん！ごはんです！具体的に言うとケーキアイコンです！分けてくれたらちょっと協力してあげるのになー！")\
+		}\
+		castMessage("<戦闘開始！>");\
+		',
+		skill : '\
+		enemies[0].atk += 2000;\
+		',
+	},
+	5 : {
+		name : "サクラ",
+		pre_battle_message : ["「はーい、サクラですっ！カラフルに、鮮やかに楽しみましょう！」",
+		"サクラ：HP1m,攻610k,守640k"
+		],
+		hp : 1000000,
+		atk : 610000,
+		sld : 640000,
+		pre_battle_skill : '\
+		var siro_equips_no_duplicate_rarity = isCharacterEquipsNoDuplicateRarity("siro");\
+		if(siro_equips_no_duplicate_rarity){\
+			castMessage("「素敵ですしろこさんっ！素晴らしい鮮やかさです！」");\
+			castMessage("しろこの攻撃力が300000、防御力が200000上昇！");\
+			allies[0].atk += 300000;\
+			allies[0].sld += 200000;\
+		}\
+		else{\
+			castMessage("しろこさんの装備欄もっとレアリティバラけさせるべきだと思いますぅー！");\
+		}\
+		var kuro_equips_no_duplicate_rarity = isCharacterEquipsNoDuplicateRarity("kuro");\
+		if(kuro_equips_no_duplicate_rarity){\
+			castMessage("「くろこさん...素晴らしいです...！カラフルさ大事ですよねぇ...!");\
+			castMessage("くろこの攻撃力が200000、防御力が300000上昇！");\
+			allies[1].atk += 200000;\
+			allies[1].sld += 300000;\
+		}\
+		else{\
+			castMessage("くろこさんの装備欄もっとレアリティバラけさせるべきだと思いますぅー！");\
+		}\
+		castMessage("<戦闘開始！>");\
+		',
+		skill : '\
+		enemies[0].atk += 2000;\
+		',
+	},
+	6 : {
+		name : "シール",
+		pre_battle_message : ["「封魔の妖精シールでーぇす...",
+		"......超ぅすごい硬いバリア貼れるんで、ささーぁがんばって割ってみてください....」",
+		"シール：HP1k,攻150k,守800k"
+		],
+		hp : 1000,
+		atk : 150000,
+		sld : 800000,
+		pre_battle_skill : '\
+		castMessage("<戦闘開始！>");\
+		if(allies[0].sld < 150000 || allies[1].sld < 150000){\
+			castMessage("「あ、でも無茶な装備はしないでくださいね、あぶないから...」");\
+			castMessage("しろことくろこに50000ダメージ！");\
+			allies[0].hp =0;\
+			allies[1].hp =0;\
+		}\
+		',
+		skill : '\
+		enemies[0].atk += 2000;\
+		',
+	},
+
+	7 : {
+		name : "チョウゼン",
+		pre_battle_message : ["「我超然。我漢字大好。夜露死苦！」",
+		"超然：体力伍百萬,破六十伍萬,防伍十萬"
+		],
+		hp : 5000000,
+		atk : 650000,
+		sld : 500000,
+		pre_battle_skill : '\
+		castMessage("(チョウゼンさんは嘘中国語にハマっているようなので、漢字をたくさん集めましょう。喜んでくれるはずです。)");\
+		var kanjis_siro = countKanjiWeaponEquipped("siro");\
+		var kanjis_kuro = countKanjiWeaponEquipped("kuro");\
+		if(kanjis_siro >= 10){\
+			castMessage("「好！白子、汝使用超拾伍的漢字！汝良理解漢字的魅力！直譲汝＜圧倒的防御壁＞」");\
+			castMessage("弥弥！白子的防御能今参倍！");\
+			allies[0].sld *= 3\
+		}\
+		else{\
+			castMessage("「白子！！！汝不理解漢字的魅力！！！汝必要合計拾伍超的漢字於所持道具！");\
+			castMessage("白子今受超絶呪被害。白子防御能只今一点。即死不可避。");\
+			allies[0].sld = 1;\
+		}\
+		if(kanjis_kuro >= 10){\
+			castMessage("「好！黑子、汝使用超拾伍的漢字！汝良理解漢字的魅力！直譲汝＜圧倒的破壊能＞」");\
+			castMessage("弥弥！黑子的破壊能今参倍！");\
+			allies[1].atk *= 3\
+		}\
+		else{\
+			castMessage("「黑子！！！汝不理解漢字的魅力！！！汝必要合計拾伍超的漢字於所持道具！");\
+			castMessage("黑子今受超絶呪被害。黑子破壊能只今一点。雑魚同然。");\
+			allies[0].atk = 1;\
+		}\
+		castMessage("<戦闘開始！>");\
+		',
+		skill : '\
+		enemies[0].atk += 2000;\
+		if(allies[0].isDead){\
+			castMessage("「弥ー！白子今気絶！二人揃戦闘非常重要！我夢想共闘友情親愛！我倒限定二人共生存状況！汝必要出直！」");\
+			castMessage("黑子今受超絶呪被害！黑子即気絶！");\
+			allies[1].isDead=true;\
+			allies[1].hp=0;\
+		}\
+		if(allies[1].isDead){\
+			castMessage("「弥弥！黑子今気絶！二人揃戦闘非常重要！我夢想共闘友情親愛！我倒限定二人共生存状況！汝必要出直！」");\
+			castMessage("白子今受超絶呪被害！白子即気絶！");\
+			allies[0].isDead=true;\
+			allies[0].hp=0;\
+		}\
+		',
+	},
+	8 : {
+		name : "アリス",
+		pre_battle_message : ["「アリス...です。あまり派手なのは好きじゃないです...」",
+		"★✰*装備をなるべく抑えて挑もう！(少しだけならセーフ)",
+		"アリス：HP3m,攻800k,守840k"
+		],
+		hp : 3000000,
+		atk : 800000,
+		sld : 840000,
+		pre_battle_skill : '\
+		var siro_cost_count = countWeaponEquippedTotalRarity("siro");\
+		if(siro_cost_count < 6 ){\
+			castMessage("「しろこさん...いいですね...。レア装備に頼らないそのこだわり、素敵です...」");\
+			castMessage("しろこの攻撃力が400000、防御力が200000上昇！");\
+			allies[0].atk += 400000;\
+			allies[0].sld += 200000;\
+		}\
+		else{\
+			castMessage("しろこさんのアイテム、キラキラしてますねぇー...そういうのあんまり良くないと思いますぅー...");\
+		}\
+		var kuro_cost_count = countWeaponEquippedTotalRarity("kuro");\
+		if(kuro_cost_count < 6 ){\
+			castMessage("「くろこさん...それいいです...！低レア装備をかわいがってもらえてるみたいで何よりです...」");\
+			castMessage("くろこの攻撃力が200000、防御力が400000上昇！");\
+			allies[1].atk += 200000;\
+			allies[1].sld += 400000;\
+		}\
+		else{\
+			castMessage("くろこさんの装備、キラキラしてますねぇー...そういうのあんまり良くないと思いますぅー...");\
+		}\
+		castMessage("<戦闘開始！>");\
+		',
+		skill : '\
+		enemies[0].atk += 2000;\
+		if(allies[0].isDead){\
+			castMessage("「しろこさんが倒れてしまったようですね...まだまだですね。一人相手に遅れを取るほど腑抜けていません。」");\
+			castMessage("くろこに30000ダメージ！");\
+			allies[1].isDead=true;\
+			allies[1].hp-=30000;\
+		}\
+		if(allies[1].isDead){\
+			castMessage("「くろこさんが倒れてしまったようですね...まだまだですね。一人相手に遅れを取るほど腑抜けていません。」");\
+			castMessage("しろこに30000ダメージ！");\
+			allies[0].isDead=true;\
+			allies[0].hp-=30000;\
+		}\
+		',
+	},
+
+	9 : {
+		name : "ティターニア",
+		pre_battle_message : ["「女王、ティターニア。よくぞ9体の妖精を伸した！...まあセールス根性モリモリだったり漢字かぶれの中二病だったり気の抜けた奴らもいたが、ここまで辿りつけたのは真に実力があってのことだろう！その力、我にも示してみせよ！」",
+		"ティターニア：HP3m,攻1.48m,守1.4m"
+		],
+		hp : 3000000,
+		atk : 1480000,
+		sld : 1400000,
+		pre_battle_skill : '\
+		var buff_succeeded = getFailyBattleAllBuff();\
+		var buff_succeeded_text = buff_succeeded.map(x=>x?"成功！":"失敗！");\
+		castMessage("「まあ我は強い！いくらでも助けを呼ぶが良い！郷で仲良くなった者もいるだろう！一気にかかってこい！」");\
+		castMessage("二人は妖精たちに協力を仰いだ！");\
+		castMessage("エクリテの<パラ均一バフ> ..." + buff_succeeded_text[0]);\
+		castMessage("(各々基礎パラの範囲が50%以内で発動)");\
+		castMessage("ピリカの<自社商品宣伝> ..." + buff_succeeded_text[1]);\
+		castMessage("(誰かがピリカ装備を持てば発動)");\
+		castMessage("ラストの<吸精霊力還元> ..." + buff_succeeded_text[2]);\
+		castMessage("(二人とも攻撃力400k達成で発動)");\
+		castMessage("ミミカの<ひらがなバースト> ..." + buff_succeeded_text[3]);\
+		castMessage("(二人で非漢字文字計15文字で発動)");\
+		castMessage("コレットの<菓子要求> ..." + buff_succeeded_text[4]);\
+		castMessage("(誰か食物カテゴリを装備で発動)");\
+		castMessage("サクラの<カラフルブースト> ..." + buff_succeeded_text[5]);\
+		castMessage("(誰かが3色以上装備に所持で発動)");\
+		castMessage("シールの<防壁増幅> ..." + buff_succeeded_text[6]);\
+		castMessage("(誰かがDEF500k達成で発動)");\
+		castMessage("超然的<漢字爆発> ..." + buff_succeeded_text[7]);\
+		castMessage("(一人装備漢字含拾弐文字発動)");\
+		castMessage("アリスの<低レア戦略> ..." + buff_succeeded_text[8]);\
+		castMessage("(★=3,✰=2,*=1として二人の合計が15以下で発動)");\
+		castMessage("...");\
+		var buff_count = buff_succeeded.filter(x=>x).length;\
+		castMessage(buff_count + "個のバフを受けられた！");\
+		castMessage("一つにつき、攻守1.1倍の強化を付与！");\
+		allies[0].atk = Math.floor(allies[0].atk * Math.pow(1.1,buff_count));\
+		allies[0].sld = Math.floor(allies[0].sld * Math.pow(1.1,buff_count));\
+		allies[1].atk = Math.floor(allies[1].atk * Math.pow(1.1,buff_count));\
+		allies[1].sld = Math.floor(allies[1].sld * Math.pow(1.1,buff_count));\
+		castMessage("しろこ:攻"+allies[0].atk+",守"+allies[0].sld);\
+		castMessage("くろこ:攻"+allies[1].atk+",守"+allies[1].sld);\
+		castMessage("<戦闘開始！>");\
+		',
+		skill : '\
+		enemies[0].atk += 2000;\
+		if(allies[0].isDead){\
+			castMessage("「しろこが倒れたので追加攻撃！」");\
+			castMessage("くろこに7000ダメージ！");\
+			allies[1].hp-=7000;\
+		}\
+		if(allies[1].isDead){\
+			castMessage("「くろこが倒れたので追加攻撃！」");\
+			castMessage("しろこに7000ダメージ！");\
+			allies[0].hp-=7000;\
+		}\
+		',
+	},	
 
 
 }

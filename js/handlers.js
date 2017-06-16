@@ -375,6 +375,36 @@ $(".achievement_icon_image").mouseout(function(){
  	jumpSiro()
  })
 
+//ショップ関連
+ $("#shop_button").click(function(){
+ 	showShopMenu()
+ })
+
+//ショップとじる
+ $("#shop_back_button").click(function(){
+ 	fadeShopMenu()
+ })
+
+//ショップ詳細
+ $(".shop_item").mouseover(function(){
+ 	updateShopItemDetailTo(this)
+ })
+
+//購入
+ $(".shop_item_value").click(function(){
+ 	buyShopItem(this)
+ })
+
+//ピリカちゃんつつく
+ $("#shop_pirika").click(function(){
+ 	talkPirikaRandom()
+ })
+
+//品揃えリセットしてくだちー
+ $("#update_shop_item_button").click(function(){
+ 	refreshShopItemList()
+ })
+
 
  /*ミニゲーム関連*/
  $("#jump").click(function(){

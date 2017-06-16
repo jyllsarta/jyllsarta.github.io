@@ -211,6 +211,10 @@
 	100% {transform: rotate(360deg);}
 }
 
+
+
+/*バトル勝利・敗北*/
+
 #sprite_battle_win_background{
 	width: 700px;
 	height: 467px;
@@ -280,3 +284,123 @@
 	top: 0px;
 	left: 0px;	
 }
+
+/*妖精戦*/
+#sprite_faily_battle_background{
+	width: 700px;
+	height: 467px;
+	top: 0px;
+	left: 0px;		
+}
+.sprite_faily_battle_faily{
+	width: 720px;
+	height: 600px;
+	top: 0px;
+	left: 60px;	
+}
+#sprite_faily_battle_text{
+	width: 181px;
+	height: 43px;
+	top: 20px;
+	left: 30px;		
+}
+#sprite_faily_battle_screen{
+	mix-blend-mode: screen;
+	width: 700px;
+	height: 467px;
+	top: 0px;
+	left: 0px;		
+}
+
+
+#sprite_faily_battle_mark_window{
+	position: absolute;
+	mix-blend-mode: multiply;	
+	width: 410px;
+	height: 150px;
+	top: 300px;
+	left: 20px;
+	border-radius: 4px 4px;
+	box-shadow: 0px 0px 6px 3px #15233a;
+	background-color: #15233a;
+}
+#sprite_faily_battle_mark_blur{
+	mix-blend-mode: multiply;	
+	width: 450px;
+	height: 150px;
+	top: 300px;
+	left: 20px;		
+}
+#sprite_faily_battle_mark{
+	mix-blend-mode: screen;	
+	width: 450px;
+	height: 150px;
+	top: 300px;
+	left: 20px;		
+}
+
+/*粉*/
+#sprite_powder_background{
+	width: 700px;
+	height: 467px;
+	top: 0px;
+	left: 0px;		
+}
+
+#sprite_powder_faily{
+	width: 378px;
+	height: 401px;
+	top: 10px;
+	left: 300px;		
+}
+
+#sprite_powder_kuro_hand{
+	width: 174px;
+	height: 179px;
+	top: 330px;
+	left: 200px;		
+}
+
+#sprite_powder_kuro{
+	width: 250px;
+	height: 223px;
+	top: 260px;
+	left: 20px;		
+}
+
+#sprite_powder_dish{
+	width: 138px;
+	height: 109px;
+	top: 310px;
+	left: 275px;		
+}
+
+#sprite_powder_feather{
+	width: 330px;
+	height: 319px;
+	top: 10px;
+	left: 120px;		
+}
+
+#sprite_powder_powder{
+	width: 174px;
+	height: 153px;
+	top: 280px;
+	left: 250px;		
+}
+
+#sprite_powder_light{
+	mix-blend-mode: screen;
+	width: 374px;
+	height: 341px;
+	top: 100px;
+	left: 160px;		
+}
+
+#sprite_powder_text{
+	width: 401px;
+	height: 95px;
+	top: 10px;
+	left: 10px;		
+}
+
