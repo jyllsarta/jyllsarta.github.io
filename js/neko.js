@@ -849,7 +849,7 @@ function eventStairs(){
 		//生き残っていれば次の階に進む
 		if(isCharacterAlive()){
 			save.current_floor ++
-			if(save.dungeon_process[save.current_dungeon_id] <= save.current_floor ){
+			if(save.dungeon_process[save.current_dungeon_id] < save.current_floor ){
 				castMessage("ボスの初回討伐ボーナス！")
 				var coinEarned = getCurrentEnemyRank()  + randInt(1,20)
 				save.coin += coinEarned
