@@ -241,6 +241,14 @@ function getBiggestMaxDamage(enemies){
 	return max
 }
 
+function getRewardCoin(){
+	var coins =  randInt(0,2)
+	if(save.current_dungeon_id == 5){
+		coins += randInt(5,10)
+	}
+	return coins
+}
+
 //バトル処理を行う
 //通常ボスならbossBattle、エクストラのユニークボスならunique_boss_idを指定
 function processBattle(bossBattle=false,unique_boss_id=null){
@@ -322,7 +330,7 @@ function processBattle(bossBattle=false,unique_boss_id=null){
 
 		//コインを獲得(ボス戦では初回討伐ボーナスのみ)
 		if(!bossBattle){
-			var coinEarned = randInt(0,2)
+			var coinEarned = getRewardCoin()
 			save.coin += coinEarned
 			save.total_coin_achieved += coinEarned
 		}
@@ -348,7 +356,7 @@ function processBattle(bossBattle=false,unique_boss_id=null){
 		checkLevelUp()
 
 		//鱗粉がもらえるのは初回のみ
-		if(unique_boss_id !== null && save.dungeon_process[save.current_dungeon_id] <= save.current_floor ){
+		if(unique_boss_id !== null && save.dungeon_process[save.current_dungeon_id] < save.current_floor ){
 			var powder_earned = randInt(4800,7000)
 			castMessage(""+powder_earned+"個の鱗粉を譲り受けた！")
 			save.powder += powder_earned
@@ -509,10 +517,17 @@ var extra_boss_data = {
 		allies[0].atk = Math.max(allies[0].atk - 500000,0);\
 		allies[1].atk = Math.max(allies[1].atk - 500000,0);\
 		castMessage("二人の攻撃力が500000減少！");\
-		if(allies[0].atk == 0 || allies[1].atk == 0){\
+		if(allies[0].atk == 0){\
 			castMessage("「おお、ちからをすいつくしてしまったか...ふふ...」");\
-			enemies[0].hp += 10000000;\
-			castMessage("ラストのHPが1000万上昇！");\
+			castMessage("しろこは力を吸い尽くされてぐんにゃりした！");\
+			enemies[0].hp += 5000000;\
+			castMessage("ラストのHPが500万上昇！");\
+		}\
+		if(allies[1].atk == 0){\
+			castMessage("「おお、ちからをすいつくしてしまったか...ふふ...」");\
+			castMessage("くろこは力を吸い尽くされてぐんにゃりした！");\
+			enemies[0].hp += 5000000;\
+			castMessage("ラストのHPが500万上昇！");\
 		}\
 		castMessage("<戦闘開始！>");\
 		',
@@ -759,7 +774,7 @@ var extra_boss_data = {
 		castMessage("シールの<防壁増幅> ..." + buff_succeeded_text[6]);\
 		castMessage("(誰かがDEF500k達成で発動)");\
 		castMessage("超然的<漢字爆発> ..." + buff_succeeded_text[7]);\
-		castMessage("(一人装備漢字含拾弐文字発動)");\
+		castMessage("(任意一人装備漢字含拾弐文字発動)");\
 		castMessage("アリスの<低レア戦略> ..." + buff_succeeded_text[8]);\
 		castMessage("(★=3,✰=2,*=1として二人の合計が15以下で発動)");\
 		castMessage("...");\
