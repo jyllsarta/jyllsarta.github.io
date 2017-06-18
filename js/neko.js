@@ -142,6 +142,7 @@ function mainLoop_1sec(){
 	checkJihou()
 	checkFreeSpinNotification()
 	updateShopButtonShowState()
+	updateLoiteringCharactersState()
 
 }
 
