@@ -636,7 +636,7 @@ var extra_boss_data = {
 		pre_battle_skill : '\
 		castMessage("<戦闘開始！>");\
 		if(allies[0].sld < 150000 || allies[1].sld < 150000){\
-			castMessage("「あ、でも無茶な装備はしないでくださいね、あぶないから...」");\
+			castMessage("「あ、でもボクの攻撃で沈むくらいの無茶な装備はダメですよ、あぶないから... ...ってしてるし...」");\
 			castMessage("しろことくろこに50000ダメージ！");\
 			allies[0].hp =0;\
 			allies[1].hp =0;\
@@ -659,8 +659,8 @@ var extra_boss_data = {
 		castMessage("(チョウゼンさんは嘘中国語にハマっているようなので、漢字をたくさん集めましょう。喜んでくれるはずです。)");\
 		var kanjis_siro = countKanjiWeaponEquipped("siro");\
 		var kanjis_kuro = countKanjiWeaponEquipped("kuro");\
-		if(kanjis_siro >= 10){\
-			castMessage("「好！白子、汝使用超拾伍的漢字！汝良理解漢字的魅力！直譲汝＜圧倒的防御壁＞」");\
+		if(kanjis_siro >= 15){\
+			castMessage("「好！白子、汝使用超拾伍的漢字！汝良理解漢字的魅力！譲汝＜圧倒的防御壁＞」");\
 			castMessage("弥弥！白子的防御能今参倍！");\
 			allies[0].sld *= 3\
 		}\
@@ -669,8 +669,8 @@ var extra_boss_data = {
 			castMessage("白子今受超絶呪被害。白子防御能只今一点。即死不可避。");\
 			allies[0].sld = 1;\
 		}\
-		if(kanjis_kuro >= 10){\
-			castMessage("「好！黑子、汝使用超拾伍的漢字！汝良理解漢字的魅力！直譲汝＜圧倒的破壊能＞」");\
+		if(kanjis_kuro >= 15){\
+			castMessage("「好！黑子、汝使用超拾伍的漢字！汝良理解漢字的魅力！譲汝＜圧倒的破壊能＞」");\
 			castMessage("弥弥！黑子的破壊能今参倍！");\
 			allies[1].atk *= 3\
 		}\
