@@ -356,7 +356,7 @@ function processBattle(bossBattle=false,unique_boss_id=null){
 		checkLevelUp()
 
 		//鱗粉がもらえるのは初回のみ
-		if(unique_boss_id !== null && save.dungeon_process[save.current_dungeon_id] < save.current_floor ){
+		if(unique_boss_id !== null && save.dungeon_process[save.current_dungeon_id] <= save.current_floor ){
 			var powder_earned = randInt(4800,7000)
 			castMessage(""+powder_earned+"個の鱗粉を譲り受けた！")
 			save.powder += powder_earned
