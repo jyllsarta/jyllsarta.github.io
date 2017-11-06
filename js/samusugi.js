@@ -81,11 +81,15 @@ function makeTweetContent(){
 function setCopyPasteAreaText(){	
 	var tweets = makeTweetContent()
 	$("#copypastearea").val(tweets)
+	$("#shadowcopypastearea").text(tweets)
 }
 
 function copyToClipboard(){
-    var textarea = document.getElementById("copypastearea")
+    var textarea = document.getElementById("shadowcopypastearea")
     textarea.select()
+    var range = document.createRange();
+    range.selectNode(textarea);
+    window.getSelection().addRange(range);
     document.execCommand("copy")
     showCopiedTicker()
 }

@@ -18,3 +18,7 @@ hr{
 #copied{
 	opacity: 0;
 }
+
+#shadowcopypastearea{
+	display: none;
+}
