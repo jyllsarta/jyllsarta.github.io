@@ -85,13 +85,17 @@ function setCopyPasteAreaText(){
 }
 
 function copyToClipboard(){
-    var textarea = document.getElementById("shadowcopypastearea")
-    textarea.select()
+    var copyarea = document.getElementById("shadowcopypastearea")
     var range = document.createRange();
-    range.selectNode(textarea);
+    range.selectNode(copyarea);
     window.getSelection().addRange(range);
     document.execCommand("copy")
     showCopiedTicker()
+
+    //PC用
+    var textarea = document.getElementById("copypastearea")
+    textarea.select()
+    document.execCommand("copy")
 }
 
 //コピーしたよって出す
