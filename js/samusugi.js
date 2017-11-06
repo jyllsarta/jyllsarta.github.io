@@ -85,11 +85,11 @@ function setCopyPasteAreaText(){
 }
 
 function copyToClipboard(){
-    var copyarea = document.getElementById("shadowcopypastearea")
+    var copyarea = document.getElementById('shadowcopypastearea')
     var range = document.createRange();
     range.selectNode(copyarea);
     window.getSelection().addRange(range);
-    document.execCommand("copy")
+    document.execCommand('copy')
     showCopiedTicker()
 
 }
