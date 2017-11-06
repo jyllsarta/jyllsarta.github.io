@@ -13,12 +13,3 @@ h1{
 hr{
 	margin-top:50px;
 }
-
-
-#copied{
-	opacity: 0;
-}
-
-#shadowcopypastearea{
-	opacity: 0;
-}
