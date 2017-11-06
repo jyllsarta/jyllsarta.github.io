@@ -84,15 +84,6 @@ function setCopyPasteAreaText(){
 	$("#shadowcopypastearea").text(tweets)
 }
 
-function copyToClipboard(){
-    var copyarea = document.getElementById('shadowcopypastearea')
-    var range = document.createRange();
-    range.selectNode(copyarea);
-    window.getSelection().addRange(range);
-    document.execCommand('copy')
-    showCopiedTicker()
-
-}
 
 //コピーしたよって出す
 function showCopiedTicker(){
@@ -110,6 +101,18 @@ function showCopiedTicker(){
 //最初に実行する
 fetch()
 start()
+
+//iOSのコピペ用コード
+ var button = document.getElementById('copy');
+ button.addEventListener('click', function(){
+    var copyarea = document.getElementById('shadowcopypastearea')
+    var range = document.createRange();
+    range.selectNode(copyarea);
+    window.getSelection().addRange(range);
+    document.execCommand('copy')
+    showCopiedTicker()
+});
+
 
 $("#control").click(toggle)
 $("#tweet").click(tweet)
