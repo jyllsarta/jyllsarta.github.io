@@ -1,20 +1,20 @@
 h1{
 	font-size:20px;	
 }
-div{
+
+.btn{
 	margin : 5px 5px;
-}
-
-#control{
 	border: 1px solid #514114;
 	background: linear-gradient(to bottom, #FFFFFF 45%, #bebebe 82%);
 	width: 100px;
 	height: 40px;
 }
 
-#tweet{
-	border: 1px solid #514114;
-	background: linear-gradient(to bottom, #FFFFFF 45%, #bebebe 82%);
-	width: 100px;
-	height: 40px;
+hr{
+	margin-top:50px;
+}
+
+
+#copied{
+	opacity: 0;
 }

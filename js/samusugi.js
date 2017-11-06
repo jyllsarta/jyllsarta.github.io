@@ -51,6 +51,7 @@ function start(){
 function stop(){
 	is_working = false
 	clearInterval(loop)
+	setCopyPasteAreaText()
 }
 
 function toggle(){
@@ -66,10 +67,41 @@ function toggle(){
 
 function tweet(){
 	var baseurl = "http://twitter.com/home?status="
+	var tweets = makeTweetContent()
+	window.open(encodeURI(baseurl + tweets))
+}
+
+function makeTweetContent(){
 	var text = $("#samusugi").text()
 	var suffix = " - 寒すぎて%sになった - https://jyllsarta.github.io/samusugi.html"
-	window.open(encodeURI(baseurl+text+" "+suffix))
+	return text+" "+suffix
 }
+
+//コピペエリアの内容を更新する
+function setCopyPasteAreaText(){	
+	var tweets = makeTweetContent()
+	$("#copypastearea").val(tweets)
+}
+
+function copyToClipboard(){
+    var textarea = document.getElementById("copypastearea")
+    textarea.select()
+    document.execCommand("copy")
+    showCopiedTicker()
+}
+
+//コピーしたよって出す
+function showCopiedTicker(){
+	$("#copied")
+	.stop() //連打時最初からアニメーションさせ直す
+	.css({
+		opacity:1,
+	})
+	.animate({
+		opacity:0,
+	},1300,"linear")
+}
+
 
 //最初に実行する
 fetch()
@@ -77,3 +109,4 @@ start()
 
 $("#control").click(toggle)
 $("#tweet").click(tweet)
+$("#copy").click(copyToClipboard)
