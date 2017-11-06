@@ -3,6 +3,9 @@ h1{
 }
 
 .btn{
+	display: block;
+	text-align: left;
+	padding: 0;
 	margin : 5px 5px;
 	border: 1px solid #514114;
 	background: linear-gradient(to bottom, #FFFFFF 45%, #bebebe 82%);
@@ -12,4 +15,15 @@ h1{
 
 hr{
 	margin-top:50px;
+}
+
+.button{
+}
+
+#copied{
+	opacity: 0;
+}
+
+#shadowcopypastearea{
+	opacity: 0;
 }

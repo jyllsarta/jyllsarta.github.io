@@ -84,6 +84,20 @@ function setCopyPasteAreaText(){
 	$("#shadowcopypastearea").text(tweets)
 }
 
+
+//コピーしたよって出す
+function showCopiedTicker(){
+	$("#copied")
+	.stop() //連打時最初からアニメーションさせ直す
+	.css({
+		opacity:1,
+	})
+	.animate({
+		opacity:0,
+	},1300,"linear")
+}
+
+
 //最初に実行する
 fetch()
 start()
