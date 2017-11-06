@@ -92,10 +92,6 @@ function copyToClipboard(){
     document.execCommand("copy")
     showCopiedTicker()
 
-    //PC用
-    var textarea = document.getElementById("copypastearea")
-    textarea.select()
-    document.execCommand("copy")
 }
 
 //コピーしたよって出す
