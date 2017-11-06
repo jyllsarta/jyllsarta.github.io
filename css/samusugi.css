@@ -20,5 +20,5 @@ hr{
 }
 
 #shadowcopypastearea{
-	display: none;
+	opacity: 0;
 }

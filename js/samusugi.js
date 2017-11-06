@@ -113,7 +113,5 @@ start()
     showCopiedTicker()
 });
 
-
 $("#control").click(toggle)
 $("#tweet").click(tweet)
-$("#copy").click(copyToClipboard)
