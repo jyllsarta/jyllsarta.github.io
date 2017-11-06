@@ -29,11 +29,24 @@
 <p>(つぶやくボタンがうまく効かない人用　コピーボタンを押して手動でツイートしてね)</p>
 <textarea name="" id="copypastearea" cols="50" rows="3">(止めるボタンを押してね)</textarea>
 <div id="copy" class="btn">コピー</div>
-<div id="copied" class="hidden">クリップボードにコピーしました...！</div>
+<div id="copied" class="hidden">クリップボードにコピーしました！</div>
 
 <span id="shadowcopypastearea"></span>
 
 <script src="js/samusugi.js"></script>
+
+<script type="text/javascript">
+	//iOSのコピペ用コード
+ var button = document.getElementById('copy');
+ button.addEventListener('click', function(){
+    var copyarea = document.getElementById('shadowcopypastearea')
+    var range = document.createRange();
+    range.selectNode(copyarea);
+    window.getSelection().addRange(range);
+    document.execCommand('copy')
+    showCopiedTicker()
+});
+</script>
 
 </body>
 </html>
