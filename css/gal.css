@@ -1,7 +1,7 @@
 .floating_thumbnail{
 	border:1px solid #aaaaaa;
-	margin: 2px 2px;
-	width: 486px;
+	margin: 25px 43px;
+	width: 400px;
 	position: float;
 }
 .floating_thumbnail:hover{

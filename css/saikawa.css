@@ -1,0 +1,129 @@
+#game_screen{
+	position: relative;
+	width: 800px;
+	height: 600px;
+	border: 2px solid #2f343d;
+	font-size: 14px;
+	overflow : hidden;
+}
+
+#namearea{
+	position: relative;
+	top: 13px;
+	left: 5px;
+	border: 1px solid #2f343d;
+}
+
+#namedisp{
+	position: relative;
+	top: 5px;
+	left: 5px;
+}
+
+#targetselect{
+	position: relative;
+	top: 33px;
+	left: 5px;
+	border: 1px solid #2f343d;
+}
+
+#namedisp_t{
+	position: relative;
+	top: 35px;
+	left: 5px;
+}
+
+#add{
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	width: 240px;
+	height: 160px;
+}
+
+
+#ranking{
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	width: 200px;
+	height: 300px;	
+	border: 1px solid #FAFAFF;
+}
+
+.rankuser{
+	font-size: 0;
+	width: 200px;
+}
+
+.username{
+	display: inline-block;
+	width: 100px;
+	font-size: 14px;
+}
+
+.score{
+	display: inline-block;
+	width: 50px;
+	font-size: 12px;
+}
+
+.crashed{
+	display: inline-block;
+	width: 50px;
+	font-size: 12px;
+}
+
+.emphasise_name{
+	animation: 	color_red_loop 1s linear infinite alternate;
+}
+
+@keyframes color_red_loop{
+	0% {color: #000000;}
+	80% {color: #ff4221;}
+	100% {color: #c6891f;}
+}
+
+#player, .user{
+	position: absolute;
+}
+
+#myname{
+	color: #f71d37;
+}
+
+.name{
+	position: relative;
+	top: 30px;
+	left: 5px;
+	font-size: 9px;
+}
+.player_icon{
+	position: relative;
+	width: 16px;
+	height: 16px;
+}
+.stones{
+	position: relative;
+	transform: translateY(-200px);
+	top: -7px;
+	left: 18px;
+	background-image: url("../images/saikawa/stone.png");
+	background-repeat : repeat-y;
+	width: 1px;
+	height: 200px;
+}
+#add_btn{
+	position: absolute;
+	width: 240px;
+	height: 160px;
+}
+#add_btn:hover{
+	filter: brightness(120%);
+}
+#add_btn_cover{
+	position: absolute;
+	width: 240px;
+	height: 160px;
+}
+

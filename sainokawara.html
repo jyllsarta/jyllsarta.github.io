@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>賽の河原</title>
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.transform.js"></script>
+	<link href="css/saikawa.css" rel="stylesheet" type="text/css">
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-85276428-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+</head>
+<body>
+	<h1>賽の河原</h1>
+	<div>石を好きなだけ積めるwebサービスです。今のところ鬼は来ません。</div>
+
+	<div id="game_screen">
+		<div id="player">
+			<div id="myname" class="name"></div>
+			<img src="images/saikawa/1p.png" class="player_icon">
+			<div id="mystones" class="stones"></div>			
+		</div>
+
+		<div id="friends">
+			
+		</div>
+
+
+		<div id="namedisp" class="emphasise_name">ユーザ名を決めてね(最大4文字、他人に表示されます)</div>
+		<textarea name="username" id="namearea" cols="30" rows="1"></textarea>
+		<div id="add">
+			<img src="images/saikawa/plus1_hov.png" alt="" id="add_btn_cover">
+			<img src="images/saikawa/plus1.png" alt="" id="add_btn">
+		</div>
+		<div id="ranking">
+			<div class="rankuser">
+				<div class="username">Rank</div>
+				<div class="score">積んだ数</div>
+				<div class="crashed">崩した数</div>
+			</div>
+			<div id="rankusers">
+			</div>
+		</div>
+
+		
+	</div>
+
+
+
+	<script src="js/md5.js"></script>
+	<script src="js/object_array_sort.js"></script>
+	<script src="js/saikawa_logic.js"></script>
+	<script src="js/saikawa_connection.js"></script>
+	<script src="js/saikawa_view.js"></script>
+</body>
+</html>

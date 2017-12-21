@@ -57,12 +57,12 @@ h2{
 	width: 850px;
 }
 .illust_thumbnail{
-	width: 600px;
+	width: 400px;
 	border:1px solid transparent;
 }
 
 .illust_thumbnail:hover{
-	opacity: 0.8;
+	filter: brightness(110%) blur(1px);
 	border:1px solid #DD90E8;
 }
 
@@ -102,10 +102,18 @@ dd{
 	margin-left: 20em;
 }
 
-.ul_in_text{
-	list-style: none;
+
+#top_image_gallery{
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
 }
 
+.ul_in_text{
+	list-style: none;
+	width: 400px;
+	margin : 5px 10px; 
+}
 
 .em_link{
 	font-size: 1.5em;
