@@ -1,0 +1,1304 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"fle",
+				"flex-wrap"
+			],
+			[
+				"back",
+				"background-size"
+			],
+			[
+				"get",
+				"getStoneAmount"
+			],
+			[
+				"dom",
+				"domUser"
+			],
+			[
+				"ran",
+				"randInt"
+			],
+			[
+				"lo",
+				"local_score"
+			],
+			[
+				"usr",
+				"username"
+			],
+			[
+				"username",
+				"checkUsername"
+			],
+			[
+				"update",
+				"updateUserState"
+			],
+			[
+				"ad",
+				"add_stones"
+			],
+			[
+				"trans",
+				"translateY()"
+			],
+			[
+				"transla",
+				"translate()"
+			],
+			[
+				"add",
+				"addStone"
+			],
+			[
+				"use",
+				"username"
+			],
+			[
+				"user",
+				"username"
+			],
+			[
+				"re",
+				"retrieveAndRefreshState"
+			],
+			[
+				"rep",
+				"replacePair"
+			],
+			[
+				"pos",
+				"postParameters"
+			],
+			[
+				"tar",
+				"targetUsername"
+			],
+			[
+				"po",
+				"posts"
+			],
+			[
+				"ta",
+				"targetUser"
+			],
+			[
+				"curre",
+				"currentCluster"
+			],
+			[
+				"curr",
+				"currentCluster"
+			],
+			[
+				"MAIL",
+				"MAILS_PER_PAGE"
+			],
+			[
+				"cu",
+				"currentPage"
+			],
+			[
+				"se",
+				"selectedMails"
+			],
+			[
+				"clu",
+				"clusterIndex"
+			],
+			[
+				"MAILS",
+				"mails"
+			],
+			[
+				"padd",
+				"padding-top"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"border",
+				"border"
+			],
+			[
+				"margi",
+				"margin-right"
+			],
+			[
+				"getd",
+				"getDateString"
+			],
+			[
+				"mail",
+				"mail"
+			],
+			[
+				"clus",
+				"clusterIndex"
+			],
+			[
+				"co",
+				"color"
+			],
+			[
+				"in",
+				"inline"
+			],
+			[
+				"da",
+				"data"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"plo",
+				"plotClusters"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"cluser",
+				"clusterIndex"
+			],
+			[
+				"plot",
+				"plot_clusters"
+			],
+			[
+				"data",
+				"dataIndex"
+			],
+			[
+				"colo",
+				"colorCodes"
+			],
+			[
+				"TEXT",
+				"text-align"
+			],
+			[
+				"mar",
+				"margin-top"
+			],
+			[
+				"bor",
+				"border"
+			],
+			[
+				"sente",
+				"sentense"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"enemy",
+				"enemy_rank"
+			],
+			[
+				"fai",
+				"faily_battle"
+			],
+			[
+				"anima",
+				"animate"
+			],
+			[
+				"dungeon",
+				"dungeon_process"
+			],
+			[
+				"sta",
+				"stage_id"
+			],
+			[
+				"result",
+				"results"
+			],
+			[
+				"buff",
+				"buff_count"
+			],
+			[
+				"item",
+				"item_data"
+			],
+			[
+				"is",
+				"isDead"
+			],
+			[
+				"eq",
+				"equip"
+			],
+			[
+				"count",
+				"countKanji"
+			],
+			[
+				"kuro",
+				"kuro_pirika"
+			],
+			[
+				"cha",
+				"charactername"
+			],
+			[
+				"ca",
+				"castMessage"
+			],
+			[
+				"siro",
+				"siro_pirika"
+			],
+			[
+				"prepare",
+				"prepareShopMenu"
+			],
+			[
+				"fl",
+				"float"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"pow",
+				"powder_earned"
+			],
+			[
+				"eve",
+				"eventStairs"
+			],
+			[
+				"getRa",
+				"getRarityClassName"
+			],
+			[
+				"curren",
+				"current_powder_amount"
+			],
+			[
+				"vl",
+				"value"
+			],
+			[
+				"shop",
+				"shop_item_index"
+			],
+			[
+				"append",
+				"appendTalkLastMessage"
+			],
+			[
+				"lette",
+				"letters"
+			],
+			[
+				"seed",
+				"seededRandomInt"
+			],
+			[
+				"param",
+				"param_total"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"e",
+				"equip"
+			],
+			[
+				"make",
+				"makeFullEquipName"
+			],
+			[
+				"getDa",
+				"getDate"
+			],
+			[
+				"sa",
+				"savedata_date"
+			],
+			[
+				"getM",
+				"getMaxEnemyRank"
+			],
+			[
+				"diff",
+				"diff_ms"
+			],
+			[
+				"s",
+				"scale()"
+			],
+			[
+				"pre",
+				"pre_battle_skill"
+			],
+			[
+				"du",
+				"dungeon_process"
+			],
+			[
+				"dunge",
+				"dungeon_open"
+			],
+			[
+				"dun",
+				"dungeon_open"
+			],
+			[
+				"chan",
+				"changed"
+			],
+			[
+				"boss",
+				"bossBattle"
+			],
+			[
+				"ex",
+				"extra_boss_data"
+			],
+			[
+				"event",
+				"event_kind"
+			],
+			[
+				"getTotalParameterE",
+				"getTotalParameterEquipMenuDraft"
+			],
+			[
+				"getT",
+				"getTotalParameter"
+			],
+			[
+				"star_background_",
+				"star_background_rev"
+			],
+			[
+				"equi",
+				"equipment_menu"
+			],
+			[
+				"bacl",
+				"background-color"
+			],
+			[
+				"b",
+				"brightness()"
+			],
+			[
+				"fil",
+				"filter"
+			],
+			[
+				"build",
+				"builded"
+			],
+			[
+				"fae",
+				"fadeSortOrderChangePopup"
+			],
+			[
+				"fade",
+				"fadeSortOrderChangePopup"
+			],
+			[
+				"backg",
+				"background-color"
+			],
+			[
+				"iga",
+				"iga_color"
+			],
+			[
+				"current_",
+				"current_landscape_id"
+			],
+			[
+				"ene",
+				"enemy"
+			],
+			[
+				"epilo",
+				"epilogue_line"
+			],
+			[
+				"epi",
+				"epilogue_text"
+			],
+			[
+				"ep",
+				"epilogue_scene"
+			],
+			[
+				"miniga",
+				"minigame"
+			],
+			[
+				"mini",
+				"mini_game_data"
+			],
+			[
+				"on",
+				"on_click"
+			],
+			[
+				"cal",
+				"calcReward"
+			],
+			[
+				"tra",
+				"translateY"
+			],
+			[
+				"ob",
+				"ob_dom"
+			],
+			[
+				"ov",
+				"overflow"
+			],
+			[
+				"o",
+				"obstacles"
+			],
+			[
+				"ba",
+				"background-color"
+			],
+			[
+				"to",
+				"top"
+			],
+			[
+				"no",
+				"notify"
+			],
+			[
+				"tuto",
+				"tutorial_data"
+			],
+			[
+				"opti",
+				"option_background"
+			],
+			[
+				"mp",
+				"Mplus"
+			],
+			[
+				"cure",
+				"current_floor"
+			],
+			[
+				"tip",
+				"tips_data"
+			],
+			[
+				"la",
+				"last_letter"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "new_illusts.html",
+			"settings":
+			{
+				"buffer_size": 1358,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "illusts.html",
+			"settings":
+			{
+				"buffer_size": 15530,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "css/top.css",
+			"settings":
+			{
+				"buffer_size": 1446,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "css/illusts.css",
+			"settings":
+			{
+				"buffer_size": 426,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "js/loadIllusts.js",
+			"settings":
+			{
+				"buffer_size": 273,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "ma",
+		"selected_items":
+		[
+			[
+				"ma",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"install \t",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 452.0
+	},
+	"console":
+	{
+		"height": 246.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/css/illusts.css",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/neko.html",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/css/works.css",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/css/panels.css",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/sainokawara.html",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/css/neko.css",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/css/saikawa.css",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/saikawa_connection.js",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/saikawa_logic.js",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/saikawa_view.js",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/neko.js",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/saikawa.js",
+		"/C/Users/3wari/OneDrive/text/all_cluster_sammary.json",
+		"/C/Users/3wari/OneDrive/github/THE/view/cluster_summary.json",
+		"/C/Users/3wari/.mongorc.js",
+		"/C/Users/3wari/nuuid.ini",
+		"/C/Users/3wari/psv.ini",
+		"/C/Users/3wari/inittk.ini",
+		"/C/Users/3wari/mercurial.ini",
+		"/C/Users/3wari/inst.ini",
+		"/C/Users/3wari/Documents/@LongLink",
+		"/C/Users/3wari/OneDrive/github/THE/view/the.js",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/object_array_sort.js",
+		"/C/Users/3wari/Documents/daih/list.txt",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/samusugi.js",
+		"/C/Users/3wari/OneDrive/github/THE/view/the.css",
+		"/C/Users/3wari/OneDrive/github/THE/view/index.html",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/etc/samusugi.txt",
+		"/C/Users/3wari/OneDrive/github/THE/view/the.sublime-workspace",
+		"/C/Users/3wari/OneDrive/text/1118打ち合わせ.md",
+		"/C/Users/3wari/OneDrive/daihinmin/2017-171118/index.html",
+		"/C/Users/3wari/OneDrive/daihinmin/2017-171118/entry.html",
+		"/C/Users/3wari/OneDrive/daihinmin/2017-171118/submitform.html",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/samusugi.html",
+		"/C/Users/3wari/OneDrive/github/THE/data.json",
+		"/C/Users/3wari/OneDrive/github/THE/all.json",
+		"/C/Users/3wari/OneDrive/text/1030打ち合わせ.md",
+		"/C/Users/3wari/OneDrive/github/game_programmer_book_reading/6/NimotsyuKunFont/outline.md",
+		"/C/Users/3wari/OneDrive/github/before_game_programmer/GameProgrammerBook/src/NonFree/README.txt",
+		"/C/Users/3wari/OneDrive/github/game_programmer_book_reading/5/NimotsuKunSequence/outline.md",
+		"/C/Users/3wari/OneDrive/github/game_programmer_book_reading/README.md",
+		"/C/Users/3wari/OneDrive/github/game_programmer_book_reading/4/NimotsuKunConstantFrameRate/outline.md",
+		"/C/Users/3wari/OneDrive/github/game_programmer_book_reading/4/NimotsuKunRealTimeAnimation/NimotsuKunRealTimeAnimation.cpp",
+		"/C/Users/3wari/AppData/Local/Temp/2017.11.07しろことくろこセーブデータ.txt",
+		"/C/Users/3wari/OneDrive/text/修論タイトル",
+		"/C/Users/3wari/OneDrive/daihinmin/2017-171107/index.html",
+		"/C/Users/3wari/OneDrive/daihinmin/2017-171107/entry.html",
+		"/C/Users/3wari/OneDrive/daihinmin/2017-171106/entry.html",
+		"/C/Users/3wari/OneDrive/github/THE/log/3つにIED_LAB_SHUで分類.log",
+		"/C/Users/3wari/OneDrive/github/THE/log/10つに分類.log",
+		"/C/Users/3wari/OneDrive/text/akatukitest.py",
+		"/C/Users/3wari/OneDrive/github/THE/log/3つに分類.log",
+		"/C/Users/3wari/OneDrive/projects/biscla/biscla/searchresult.txt",
+		"/C/Users/3wari/OneDrive/github/game_programmer_book_reading/3/NimotsuKunAlphaBlend/outline.md",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/top.html",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/css/samusugi.css",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/values.js",
+		"/C/Users/3wari/OneDrive/daihinmin/2017-171012/schedule.html",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/articles.html",
+		"/C/Users/3wari/OneDrive/github/THE/testdict.dict",
+		"/C/Users/3wari/OneDrive/github/THE/testdict.txt",
+		"/C/Users/3wari/OneDrive/text/1018打ち合わせ.md",
+		"/C/GameProgrammerBook/src/04_RealTime/NimotsuKunConstantFrameRate/NimotsuKunConstantFrameRate.vcxproj",
+		"/C/Users/3wari/OneDrive/github/game_programmer_book_reading/4/NimotsuKunRealTimeAnimation/outline.md",
+		"/C/Users/3wari/OneDrive/github/game_programmer_book_reading/4/outline.md",
+		"/C/Users/3wari/OneDrive/github/game_programmer_book_reading/3/outline.md",
+		"/C/GameProgrammerBook/src/GameLibs/build.pl",
+		"/C/GameProgrammerBook/src/GameLibs/buildTmp.bat",
+		"/C/GameProgrammerBook/slnファイルを開けない時に.txt",
+		"/C/GameProgrammerBook/2010以降固有の問題について.txt",
+		"/C/Users/3wari/FIles/Downloads/過去議事録等/20161022UECda隴ｰ莠矩鹸.txt",
+		"/C/Users/3wari/OneDrive/daihinmin/2017-171012/index.html",
+		"/C/Users/3wari/FIles/Downloads/過去議事録等/20161029UECda隴ｰ莠矩鹸.txt",
+		"/C/Users/3wari/FIles/Downloads/過去議事録等/20161105UECda隴ｰ莠矩鹸.txt",
+		"/C/Users/3wari/FIles/Downloads/過去議事録等/20161112UECda隴ｰ莠矩鹸.txt",
+		"/C/Users/3wari/FIles/Downloads/過去議事録等/20161119UECda隴ｰ莠矩鹸.txt",
+		"/C/Users/3wari/FIles/Downloads/過去議事録等/20161203UECda隴ｰ莠矩鹸.txt",
+		"/C/Users/3wari/OneDrive/github/before_game_programmer/MyNimotsuKunImage/GameProgrammerBook.sln",
+		"/C/Users/3wari/OneDrive/github/game_programmer_book_reading/1/NimotsukunConsole/outline.md",
+		"/C/Users/3wari/OneDrive/github/before_game_programmer/DrawImage/img/baggage.png",
+		"/C/Users/3wari/OneDrive/github/before_game_programmer/DrawImage/img/baggage.dds",
+		"/C/Users/3wari/OneDrive/github/game_programmer_book_reading/2/nimotsukun16pxCell.cpp",
+		"/C/Users/3wari/OneDrive/daihinmin/2017-171010/entryform.html",
+		"/C/Users/3wari/OneDrive/daihinmin/2017-171010/entry.html",
+		"/C/Users/3wari/OneDrive/daihinmin/2017-171010/index.html",
+		"/C/Users/3wari/OneDrive/github/THE/mybursts.py",
+		"/C/Users/3wari/OneDrive/text/shuron/1/umami.tex",
+		"/C/Users/3wari/OneDrive/text/shuron/2/reference.bib",
+		"/C/Users/3wari/another_folder/git-tutorial/README.md",
+		"/C/Users/3wari/OneDrive/text/shuron/2/midlab.tex",
+		"/C/Users/3wari/.ssh/id_rsa.pub",
+		"/C/Users/3wari/git-tutorial/README.md",
+		"/C/Users/3wari/OneDrive/text/shuron/2/doublespace.sty",
+		"/C/Users/3wari/OneDrive/text/shuron/1/reference.bib",
+		"/C/Users/3wari/OneDrive/text/-201603/B4_soturon/03.texts/02.thesis/thesis/05experiment.tex",
+		"/C/Users/3wari/OneDrive/text/-201703/nishi_9/n9_2.tex",
+		"/C/Users/3wari/OneDrive/github/before_game_programmer/GameProgrammerBook/src/cmake/CMakeCache.txt",
+		"/C/Users/3wari/OneDrive/github/before_game_programmer/GameProgrammerBook/src/GameLibs/build/CMakeCache.txt",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/minigame.js",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/nekomanual.html",
+		"/C/Users/3wari/OneDrive/text/9_9の山田先生のフィードバック.txt",
+		"/C/Users/3wari/OneDrive/github/before_game_programmer/GameProgrammerBook/2DGraphics1/include/GameLib/Framework.h",
+		"/C/Python34/Lib/site-packages/pybursts/pybursts.py",
+		"/C/Users/3wari/Downloads/予備実験.txt",
+		"/D/papers/注意書き.txt",
+		"/C/Users/3wari/OneDrive/github/before_game_programmer/GameProgrammerBook/src/GameLibs/cmake/GameLib.cmake",
+		"/C/Users/3wari/OneDrive/github/before_game_programmer/GameProgrammerBook/src/GameLibs/2DGraphics1/CMakeLists.txt",
+		"/C/Users/3wari/OneDrive/github/before_game_programmer/GameProgrammerBook/src/cmake/SampleBase.cmake",
+		"/C/Users/3wari/OneDrive/github/before_game_programmer/GameProgrammerBook/src/02_2DGraphics1/drawPixels/CMakeLists.txt",
+		"/C/Users/3wari/OneDrive/github/before_game_programmer/GameProgrammerBook/src/25_UsingFinalLibrary/CMakeLists.txt",
+		"/C/Users/3wari/OneDrive/github/before_game_programmer/GameProgrammerBook/src/CMakeLists.txt",
+		"/C/Users/3wari/OneDrive/github/before_game_programmer/GameProgrammerBook/src/02_2DGraphics1/NimotsuKunTextOnly/CMakeLists.txt",
+		"/C/Users/3wari/OneDrive/github/before_game_programmer/GameProgrammerBook/src/GameLibs/2DGraphics1/src/Framework.h",
+		"/C/Users/3wari/OneDrive/github/before_game_programmer/GameProgrammerBook/src/cmake/CMakeFiles/3.9.2/CompilerIdC/Debug/CompilerIdC.tlog/link-VCTIP.delete.1.tlog",
+		"/C/Users/3wari/OneDrive/github/before_game_programmer/GameProgrammerBook/src/02_2DGraphics1/CMakeLists.txt",
+		"/C/Users/3wari/OneDrive/github/before_game_programmer/GameProgrammerBook/src/build/02_2DGraphics1/NimotsuKunTextOnly/stageData.txt",
+		"/C/Users/3wari/FIles/Downloads/game-programmer-book-build-master/slnファイルを開けない時に.txt",
+		"/C/Users/3wari/OneDrive/github/before_game_programmer/GameProgrammerBook/clean.sh",
+		"/C/Users/3wari/OneDrive/text/個人仕様書.md",
+		"/C/Users/3wari/OneDrive/text/なんにもならないDF値(固有名詞).txt",
+		"/C/Users/3wari/OneDrive/text/0826打ち合わせメモ.txt",
+		"/C/Users/3wari/OneDrive/text/テスト計画.md",
+		"/C/Users/3wari/OneDrive/github/THE/all/4月23日のNLPゼミ資料(香曽我部) - (t-kousokabe@uec.ac.jp) - 2016-04-23 0013.meta",
+		"/C/Users/3wari/OneDrive/github/THE/all/１０日の実践ソフトウェア開発概論 II について - Nishino Tetsuro (nishino_tetsuro@yahoo.co.jp) - 2016-09-09 1537.eml",
+		"/C/Users/3wari/OneDrive/github/Servant/servants/o",
+		"/C/Users/3wari/OneDrive/text/なんにもならないDF値.txt",
+		"/C/Users/3wari/takigawa.txt",
+		"/C/Users/3wari/OneDrive/github/THE/test_pool/ut.txt"
+	],
+	"find":
+	{
+		"height": 50.0
+	},
+	"find_in_files":
+	{
+		"height": 176.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"putFriends",
+			"transla",
+			"[\\(\\)]",
+			", [0-9]+\\.[0-9]+",
+			"\\],",
+			"clusterIndex",
+			"console",
+			".*2 ",
+			"$",
+			"^",
+			"\\n+",
+			"寒すぎてSUM ?41になった",
+			".*SAM.*",
+			".*[sS]amsung.*",
+			".*[sS]amsung",
+			".*サムゲタンになった.*",
+			"\\n+",
+			".*サムになった.*",
+			"\\n+",
+			".*サムス.*",
+			"\\n+",
+			"^(?!寒すぎて.*になった).*$",
+			"\\n+",
+			"^(?!.*になった$).*$",
+			"^",
+			"}",
+			".*: ",
+			"\n        ",
+			"^ +",
+			"\\t",
+			"$",
+			"^",
+			"}",
+			".*: ",
+			"2016",
+			"2015",
+			"},",
+			"'",
+			"}",
+			"\\}",
+			"^",
+			"\\n+",
+			"^\\n+",
+			"^4",
+			"^9",
+			"^8",
+			"^7",
+			"^6",
+			"^5",
+			"^4",
+			"^3",
+			"^2",
+			"linear-",
+			"linear",
+			"ITEM_LI",
+			"randI",
+			"CSV",
+			"\\n+",
+			".*@.*",
+			"\\n+",
+			"^(?!.*になった$).*$",
+			"\\n+",
+			"^(?!寒すぎて.*になった).*$",
+			"\\n+",
+			".*@.*",
+			"\\n+",
+			"^(?!.*になった$).*$",
+			"\\n+",
+			"^(?!寒すぎて.*になった).*$",
+			"^(?!寒すぎて).*$",
+			"\\n+",
+			"^(?!.*寒すぎて).*$",
+			"$",
+			"^",
+			" ",
+			".*?\"(.*?)\".*?",
+			".*?\"(.*?)\".+?$",
+			".*?\"(.*?)\".*?",
+			"  +",
+			"\\.\\.\\.",
+			"*}[",
+			".*'(.*)', (\\d+).*",
+			"\\n[\\n ]+",
+			"<.*?>",
+			"\\\\n",
+			" +",
+			"^",
+			"....$",
+			" : ",
+			"(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2})(\\d{2})",
+			"2012-04-09 1418",
+			"(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2})(\\d{2})",
+			"2012-04-09 1418",
+			"(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2})(\\d{2})",
+			";\n",
+			"    ",
+			"well",
+			"\\n+",
+			"\\t\\t\\t.*",
+			" +",
+			" *",
+			"\\n",
+			",",
+			"\\], \\[",
+			" - .*",
+			"\\n+",
+			"\\n*",
+			".*\\.txt",
+			".*\\.mecab",
+			"オプション",
+			"param_uni",
+			"TotalP",
+			"pager",
+			"count",
+			"powder",
+			"Shop",
+			"100",
+			"sprite",
+			"({\n",
+			"shop",
+			"1sec",
+			"ダンジョン",
+			"dungeon_op",
+			"__",
+			"ressure",
+			" - ",
+			"\\.eml",
+			" - "
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"",
+			"],\\n",
+			"clusterId",
+			"",
+			"\",",
+			"\"",
+			"\\n",
+			"",
+			"\"",
+			"\",",
+			"\"",
+			"",
+			"    ",
+			",",
+			"\"",
+			"",
+			"2017",
+			"2016",
+			"},\\n",
+			"\"",
+			"}\\n",
+			"}^n",
+			">",
+			"\\n",
+			"",
+			"\\n",
+			"",
+			"\\n",
+			"",
+			"\"]",
+			"]",
+			"[",
+			"\", \"",
+			"\",\"",
+			"\\1 ",
+			"\\t",
+			"",
+			"DDSファイルを読み込めるようにする。",
+			"\\1\\t\\2",
+			"\\n",
+			"\\t",
+			"mkdir ",
+			"",
+			"\\t",
+			"\\1/\\2/\\3 \\4:\\5",
+			"\\1年\\2月\\3日 \\4:\\5",
+			"\\1年\\2月\\3日\\t\\4:\\5",
+			"\\n",
+			"",
+			"\\t",
+			"\\n",
+			"",
+			"\\n",
+			"",
+			"\\t",
+			"",
+			"\\t",
+			".\\n",
+			"  ",
+			" ",
+			"\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t",
+			"",
+			"\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t",
+			"\\t\\t\\t\\t\\t\\t\\t\\t\\t",
+			"unachieved.png",
+			"\\t",
+			"\\t\\t\\t\\t",
+			"dungeon_select_menu",
+			"",
+			"\\t",
+			"",
+			"\\t",
+			"/",
+			"\\n",
+			"\\n\\n\\n",
+			".\\n ",
+			" ",
+			"\\n\\n\\n",
+			" .\\n",
+			" ",
+			".\\n\\n",
+			" ",
+			", ",
+			". ",
+			", ",
+			" $\\1$ ",
+			"\\\\epsilon ",
+			"\\\\beta ",
+			"\\\\alpha ",
+			"\\\\phi ",
+			"\\\\rightarrow ",
+			"\\\\circ ",
+			"\\circ ",
+			".\\n",
+			"\\n",
+			", ",
+			"",
+			":",
+			", ",
+			"",
+			"\"\\1\" : \"\",",
+			"\"\\1\" : \"\"",
+			"\\1\\n",
+			".\\n",
+			"hinshi[\"\"] = hinshi_container[] #",
+			"hinshi[\"\"] = ",
+			"\\n",
+			"\\1",
+			"\\\\delta",
+			"\\\\Delta",
+			"\\\\delta",
+			"\\\\Delta",
+			"\\Delta",
+			"\\1.",
+			"\\1 ",
+			"$\\1$ ",
+			"",
+			"\\n",
+			"",
+			"\\t",
+			"オーダー",
+			"連結",
+			"非連結",
+			"\\\\leqq",
+			"\\leqq",
+			"length ",
+			"distance ",
+			"distance"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "new_illusts.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1358,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1268,
+								1268
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 528.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "illusts.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15530,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1226,
+								1226
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 577.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": "css/top.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1446,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								785,
+								876
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "ASCII",
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1296.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "css/illusts.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 426,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								270,
+								270
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "ASCII",
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 4,
+					"file": "js/loadIllusts.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 273,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								270,
+								270
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 61.0
+	},
+	"input":
+	{
+		"height": 69.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			],
+			[
+				2,
+				0,
+				3,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.417388047152,
+			0.626199962128,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 246.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.markdown":
+	{
+		"height": 282.0
+	},
+	"pinned_build_system": "",
+	"project": "",
+	"replace":
+	{
+		"height": 80.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 1000.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				""
+			]
+		],
+		"width": 760.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 1,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 300.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

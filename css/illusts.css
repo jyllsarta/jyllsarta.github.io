@@ -1,0 +1,22 @@
+.thumb{
+	width: 198px;
+	height: 198px;
+	background-image: url("../images/illust_thumbnails/124.png");
+	background-size: 400px;
+	background-position: center;
+	background-repeat: no-repeat;
+	box-shadow:inset -1px -1px 2px 3px rgba(242,240,255,2);
+	filter: brightness(105%);
+}
+
+#illustBox{
+	display: flex;
+	width: 990px;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.thumb:hover{
+	filter: none;
+	filter: brightness(120%) blur(2px);
+}

@@ -520,131 +520,38 @@
 	"buffers":
 	[
 		{
-			"file": "neko.html",
+			"file": "sainokawara.html",
 			"settings":
 			{
-				"buffer_size": 55040,
+				"buffer_size": 1123,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "nekomanual.html",
+			"file": "css/saikawa.css",
 			"settings":
 			{
-				"buffer_size": 7741,
+				"buffer_size": 325,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "js/saikawa.js",
+			"settings":
+			{
+				"buffer_size": 555,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "しろこ\nFGO\nエロゲ\nお絵かき\nそうじ\n\n一日は加速無しで2880イベント\n加速ありなら4000くらいかな?\n→一日に1-2個のレリックを排出するなら1/2000 → 0.05%\n\n\nアイテムをまた100個増やす\n\n\nしろことくろこ 追加コンテンツ\n天嶺の妖精郷\n6つめのダンジョン\n階層 1000\n階段率がすごく低い\nここ以降はおみくじ武器が弱く・拾得武器が強くなる\nこれで見かけの深さよりもすごく深くなる(20倍程度の深さを持たせられる→20000Fの超ボリュームに... してうれしいかどうかはデバッグで判断)\n\t階段 2\n\tアイテム 10\n\t宝箱 0.9\n\tレリック 0.1\n\t敵 35\n\t粉 35\n妖精の粉的ななんかドロップするかな\n粉使ってレリック生成\n敵ランク\n\nレリックアイテム\nレリックはなんかカッコいい呼び名に直す\n5-10種の超強い特別枠武器\nしろことくろこそれぞれが1つずつ装備可能\nリーダースキルみたいなもの 各々にユニークな効果が付いてる\n\t戦闘後HP500回復とか\n\t全パラメータ1.3倍とか\n\n\t...これは実装大変そうだな\nボスドロップ・超々低確率で拾得・粉集めで交換\n装備メニューにタブボタンを作ってそこで制御する\n妖精郷にいるときのみ交換ポップアップが常設される\n重ねることでのみ強化可能...だが重なっても各パラメータの強化値がちょいちょい強くなるだけに留める\n\n※レリックの実装は掘りのモチベ確保でしかないので割に合わないかもしれない\nUIもすげえたくさんいじることになるし粉の便利な使いみちが思いつけば...\n...任意装備のさらなる強化、かなあ\n粉ショップか\n法外に強い武器をランダムに展示すりゃいいか\n第二のおみくじになるしこれでいいな\n\n粉イベント\n妖精郷限定のイベント\n妖精郷で価値のある粉を数個拾う\n規定の個数でレリックと交換\n\n粉ショップ\n妖精郷限定で開く露店\nピリカちゃんの打ち直した超強い武器をランダムに展示してくれるよ\n一日一回展示切り替え、4-5個のアイテムが表示される\nこいつが新しいおみくじ武器のポジションに座るけど、交換レートが法外でしんどいはず\n\nユニークボス\n妖精郷のボスは全部個別パラメータ設定がされてる\nボスごとに固有の登場セリフ・ボス登場カットインを持つ\n\n\tエクリテさん\n\t\t秩序の妖精なのでパラメータのバランスを重要視する\n\t\tパラメータの尖りを検知すると固定ダメージの追加攻撃を食らう→死ぬ\n\tラストさん\n\t\t腐食の妖精なので常時スリップダメージをもらう\n\t\t防御は程々に全力パンチを要求される\n\tピリカちゃん\n\t\tピリカなんとかの個数分弱体化\n\t・超攻撃力要求\n\t・超耐久要求(SLD高く、HP固定値40とかでうまくいくと思う)\n\t・しろこのパラメータにバフ\n\t・パラメータの0の個数ぶんだけ弱体化\n\n\n38%\n3000 → 1200イベント程度\n一日に15000程度あげたいので\n妖精の討伐で5000くらいかな\n1イベントは2~22くらい?\n10%くらいでドバっと増やそ\n\n323039\nneko.js:8 352760\nneko.js:8 383638\nneko.js:8 415661\nneko.js:8 448819\nneko.js:8 483102\nneko.js:8 518502\nneko.js:8 555009\nneko.js:8 592615\nneko.js:8 631313\nneko.js:8 671094\n\t",
-			"file": "/C/Users/3wari/OneDrive/text/しろことくろこ6月のアップデート.txt",
-			"file_size": 3234,
-			"file_write_time": 131405467420000000,
+			"file": "/C/Users/3wari/OneDrive/github/THE/view/the.sublime-workspace",
 			"settings":
 			{
-				"buffer_size": 1461,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "save={\"status\":{\"siro\":{\"hp\":27156,\"max_hp\":30030,\"lv\":2993,\"exp\":86},\"kuro\":{\"hp\":25798,\"max_hp\":30030,\"lv\":2993,\"exp\":86}},\"current_dungeon_id\":5,\"current_landscape_id\":1,\"current_floor\":999,\"equip\":{\"siro\":[\"105\",\"331\",\"119\",\"511\"],\"kuro\":[\"127\",\"405\",\"461\",\"453\"]},\"item\":[19153,19515,19024,18620,18668,19037,18579,18515,19054,18441,19066,18931,18976,19050,20171,18591,19169,18687,19030,18458,18834,18837,18689,18665,17771,20687,20435,18157,18559,19501,18867,18851,17427,20141,19169,19054,18560,18131,19001,18988,19923,17011,null,14909,14274,14027,13246,13124,11899,12102,11041,11020,10854,10530,12015,10950,9243,9179,8497,8640,null,8183,7311,7086,7159,8737,6901,6722,6889,6505,6269,12873,6091,5808,5693,5644,5518,9395,5203,4789,5022,4847,4784,4728,4463,4451,5148,4134,4074,4044,4005,3949,4396,3841,3715,3644,3388,3564,null,3230,3333,3237,3169,3152,3122,7284,2934,2973,2864,2866,2782,2769,2719,2646,2649,2988,2519,2471,2308,5384,2367,2388,2409,2217,2207,2203,2139,4590,2122,2115,2108,4560,2042,2009,1984,1966,1899,1891,1876,2072,1762,1783,1759,1725,1723,1691,1655,1659,1853,1639,1575,1556,1490,1566,1497,1482,1522,1483,1668,1387,1440,1417,1601,null,1378,1319,1338,1374,1311,1566,1272,1262,1264,1229,1192,1164,1204,1202,1098,1173,1161,1154,1141,1132,1098,1110,1093,1080,1286,1046,1049,1053,1014,2060,995,967,951,992,988,966,940,939,921,1037,927,904,915,911,877,887,885,855,866,841,802,839,845,834,915,790,812,799,789,780,778,772,756,756,738,748,751,741,734,732,723,716,693,711,643,697,772,688,675,678,652,669,646,625,672,643,649,677,628,629,615,622,576,646,604,592,581,566,598,571,555,567,574,575,538,531,553,525,552,551,526,527,541,532,522,493,515,523,563,517,508,501,497,503,986,482,485,462,481,463,477,473,477,463,556,468,451,457,456,450,542,450,448,438,901,437,397,427,424,397,497,423,393,452,416,493,402,null,412,404,394,411,394,371,395,383,385,813,389,369,382,365,380,378,422,373,365,361,360,366,358,353,357,335,347,330,348,323,324,228,341,323,337,335,325,336,332,330,317,323,322,309,326,320,316,320,317,289,309,305,305,312,301,302,305,null,296,286,299,297,286,294,290,291,270,281,289,285,285,334,283,283,279,278,273,274,300,275,273,273,273,596,269,267,266,258,260,262,260,260,272,257,null,240,244,254,238,252,237,244,246,247,242,242,270,232,243,236,241,231,239,228,269,231,253,228,229,232,232,222,342,229,219,226,224,225,221,219,257,212,294,218,214,217,200,213,213,475,208,210,212,204,210,209,207,208,206,206,200,205,210,226,198,140,195,195,203,198,193,193,193,195,390,194,218,190,189,207,190,185,186,188,178,192,177,185,184,183,175,183,181,209,181,173,180,179,169,292],\"dungeon_open\":[1,1,1,1,1,1],\"dungeon_process\":[400,800,1200,1600,9999,1000],\"next_event_timer\":8,\"auto_ressurect_timer\":5000,\"coin\":35015,\"total_coin_achieved\":34431,\"achievement_clear\":[0,0,0,0,0,0,0,0,0,0],\"playtime\":11344,\"total_death\":461,\"total_2kill\":0,\"total_treasurebox_open\":104,\"options\":{\"enable_event_animation\":false,\"enable_loitering\":true,\"enable_scroll_background\":true},\"free_spin_last_take\":0,\"last_login\":1497265963365,\"extra_event_time_remain\":0,\"notify\":{\"enabled\":false,\"working_mode\":false,\"onDeath\":true,\"onClearDungeon\":true,\"onFreeSpin\":true,\"jihou\":true},\"tutorial\":{\"notify\":false,\"equip\":true,\"rest\":false},\"minigame\":{\"igaiga\":2021},\"seen_epilogue\":false,\"seen_omake\":false,\"rest_now\":false,\"last_time_shop_open\":1497265673992,\"powder\":51210,\"shop\":{\"date\":1497265673992,\"items\":[{\"rank\":1115,\"id\":286,\"cost\":28395},{\"rank\":4590,\"id\":127,\"cost\":3200},{\"rank\":2506,\"id\":178,\"cost\":3998},{\"rank\":596,\"id\":405,\"cost\":20873},{\"rank\":1167,\"id\":276,\"cost\":16237}],\"times_item_refresh_today\":7}}\ninitView()",
-			"settings":
-			{
-				"buffer_size": 3610,
-				"line_ending": "Windows",
-				"name": "save={\"status\":{\"siro\":{\"hp\":27156,\"max_hp\":30030,"
-			}
-		},
-		{
-			"contents": "save={\"status\":{\"siro\":{\"hp\":213,\"max_hp\":4540,\"lv\":444,\"exp\":79},\"kuro\":{\"hp\":0,\"max_hp\":470,\"lv\":37,\"exp\":60}},\"current_dungeon_id\":5,\"current_landscape_id\":2,\"current_floor\":1,\"equip\":{\"siro\":[\"511\",\"426\",\"224\",\"331\"],\"kuro\":[]},\"item\":[13819,1,13819,10908,null,null,null,1,10886,null,null,10864,13856,13819,13868,13844,13769,10852,10875,null,10886,10897,13794,13769,13831,10852,null,13757,13844,null,null,13794,null,null,10886,13782,13794,13794,13819,null,10026,null,11686,8705,null,null,9862,null,7248,8754,8485,null,null,null,7351,null,6928,6723,null,null,null,5955,5737,null,5439,null,5122,5003,4903,null,null,3535,4397,4314,4198,null,695,null,null,null,3633,3562,3489,3397,null,3242,null,2458,null,2990,null,null,2820,null,2709,2681,2623,null,null,null,2424,null,1868,2304,null,2218,2178,null,2116,null,null,353,1973,null,1919,1898,null,null,null,1392,null,null,1347,1682,1643,null,null,1246,null,1543,1185,1495,null,1453,1125,1113,1103,null,1071,1337,1325,1308,null,1008,null,973,null,null,1202,1185,null,1160,null,null,1120,1102,1091,null,1071,null,null,null,1022,1010,994,777,null,961,null,null,935,null,912,905,896,889,881,869,863,851,844,836,827,null,638,802,null,null,613,null,null,null,null,null,null,729,726,null,712,null,548,null,null,null,671,null,664,513,null,647,null,null,null,621,616,483,608,null,null,592,null,null,null,575,571,null,560,null,551,547,424,null,533,530,null,522,null,514,null,506,null,498,null,null,null,486,478,null,471,472,465,null,null,null,453,356,null,349,440,null,null,null,428,null,424,null,null,null,null,410,null,405,401,null,null,67,null,387,303,302,null,379,null,372,371,null,367,285,null,null,null,354,277,349,null,273,344,null,null,null,null,334,333,329,258,null,325,323,null,null,316,null,314,null,null,null,306,304,303,null,300,null,296,null,292,291,null,null,null,285,222,280,219,279,null,null,216,null,null,270,268,266,null,265,null,262,260,null,258,null,254,null,251,null,null,196,42,null,null,243,null,null,239,237,null,236,234,233,233,232,230,null,228,179,226,176,224,222,221,220,null,null,null,null,216,214,null,212,212,null,208,208,163,null,null,204,204,202,null,201,201,198,197,null,196,195,null,194,192,null,191,190,null,149,187,188,186,null,145,183,null,null,null,142,180,null,178,178,141,null,null,null,174,null,173,null,null,null,170,132,null,167,null,null,null,null,129,163,163,163,161,161,null,125,null,159,null,124,null,null,122,null,null,null,null,152,151,119,null,150,149,null,null,147,null,null,146,145,null,145,112,144,143,null,142,111,141,141,null,null,null,138,138,137,null,135,135,135,134,null,null,null,null,null,null,131,null,130,129,null,null,128],\"dungeon_open\":[1,0,0,0,1,1],\"dungeon_process\":[1,0,0,0,10012,1],\"next_event_timer\":40,\"auto_ressurect_timer\":5000,\"coin\":101767,\"total_coin_achieved\":2536,\"achievement_clear\":[0,0,0,0,0,0,0,0,0,0],\"playtime\":2634,\"total_death\":2,\"total_2kill\":0,\"total_treasurebox_open\":1,\"options\":{\"enable_event_animation\":true,\"enable_loitering\":true,\"enable_scroll_background\":true},\"free_spin_last_take\":0,\"last_login\":1497327289967,\"extra_event_time_remain\":0,\"notify\":{\"enabled\":true,\"working_mode\":false,\"onDeath\":true,\"onClearDungeon\":true,\"onFreeSpin\":true,\"jihou\":true},\"tutorial\":{\"notify\":true,\"equip\":true,\"rest\":false},\"minigame\":{\"igaiga\":0},\"seen_epilogue\":true,\"seen_omake\":false,\"rest_now\":false,\"last_time_shop_open\":1497327253703,\"powder\":21,\"shop\":{\"date\":1497327253703,\"items\":[{\"rank\":483,\"id\":312,\"cost\":10162},{\"rank\":18290,\"id\":44,\"cost\":27974},{\"rank\":5987,\"id\":83,\"cost\":23719},{\"rank\":393,\"id\":371,\"cost\":21688},{\"rank\":322,\"id\":383,\"cost\":15224}],\"times_item_refresh_today\":0},\"visited_extra_dungeon\":true}\ninitView()",
-			"settings":
-			{
-				"buffer_size": 3657,
-				"line_ending": "Windows",
-				"name": "save={\"status\":{\"siro\":{\"hp\":213,\"max_hp\":4540,\"lv"
-			}
-		},
-		{
-			"contents": "マニュアルはこちら\n  \n時刻： 現在の次元： フロア： 次イベントまで：\n6 月 12 日  16 : 29 : 04  天嶺の妖精郷 301 / 1000 F  0 秒\n回復\n装備\nステータス\n次元層選択\nおみくじ（1）\nセーブ\nオプション\nエピローグ\nおまけ\n休憩\nしろこ：\n　2294 Lv  \nHP : 14291 / 23040\nEXP : 95 / 100\nくろこ：\n　2294 Lv  \nHP : 0 / 23040\nEXP : 24 / 100\n16:28:20ラスト：HP2.5m,ATK250k,DEF0\n16:28:20「おおいなる、だいちのめぐみよ、そのちにあしをつけるもののちからを、ことごとくうばいされい...！」\n16:28:20二人の攻撃力が400000減少！\n16:28:20「おお、ちからをすいつくしてしまったか...ふふ...」\n16:28:20ラストのHPが100万上昇！\n16:28:20<戦闘開始！>\n16:28:20しろこ0,くろこ0ダメージ。\n16:28:200ターン耐え,-14%削ったが全滅した...\n16:28:20◆◆◆300Fのボスだ！◆◆◆\n16:28:20「序盤に召喚されたラストです...\n16:28:20腐食しちゃります...よろしくね...」\n16:28:20ラスト：HP2.5m,ATK250k,DEF0\n16:28:20「おおいなる、だいちのめぐみよ、そのちにあしをつけるもののちからを、ことごとくうばいされい...！」\n16:28:20二人の攻撃力が400000減少！\n16:28:20「おお、ちからをすいつくしてしまったか...ふふ...」\n16:28:20ラストのHPが100万上昇！\n16:28:20<戦闘開始！>\n16:28:20しろこ0,くろこ0ダメージ。\n16:28:200ターン耐え,-14%削ったが全滅した...\n16:28:20◆◆◆300Fのボスだ！◆◆◆\n16:28:20「序盤に召喚されたラストです...\n16:28:20腐食しちゃります...よろしくね...」\n16:28:20ラスト：HP2.5m,ATK250k,DEF0\n16:28:20「おおいなる、だいちのめぐみよ、そのちにあしをつけるもののちからを、ことごとくうばいされい...！」\n16:28:20二人の攻撃力が400000減少！\n16:28:20「おお、ちからをすいつくしてしまったか...ふふ...」\n16:28:20ラストのHPが100万上昇！\n16:28:20<戦闘開始！>\n16:28:20しろこ0,くろこ0ダメージ。\n16:28:200ターン耐え,-14%削ったが全滅した...\n16:28:20◆◆◆300Fのボスだ！◆◆◆\n16:28:20「序盤に召喚されたラストです...\n16:28:20腐食しちゃります...よろしくね...」\n16:28:20ラスト：HP2.5m,ATK250k,DEF0\n16:28:20「おおいなる、だいちのめぐみよ、そのちにあしをつけるもののちからを、ことごとくうばいされい...！」\n16:28:20二人の攻撃力が400000減少！\n16:28:20「おお、ちからをすいつくしてしまったか...ふふ...」\n16:28:20ラストのHPが100万上昇！\n16:28:20<戦闘開始！>\n16:28:20しろこ0,くろこ0ダメージ。\n16:28:200ターン耐え,-14%削ったが全滅した...\n16:28:20◆◆◆300Fのボスだ！◆◆◆\n16:28:20「序盤に召喚されたラストです...\n16:28:20腐食しちゃります...よろしくね...」\n16:28:20ラスト：HP2.5m,ATK250k,DEF0\n16:28:20「おおいなる、だいちのめぐみよ、そのちにあしをつけるもののちからを、ことごとくうばいされい...！」\n16:28:20二人の攻撃力が400000減少！\n16:28:20「おお、ちからをすいつくしてしまったか...ふふ...」\n16:28:20ラストのHPが100万上昇！\n16:28:21<戦闘開始！>\n16:28:21しろこ0,くろこ0ダメージ。\n16:28:210ターン耐え,-14%削ったが全滅した...\n16:28:21◆◆◆300Fのボスだ！◆◆◆\n16:28:21「序盤に召喚されたラストです...\n16:28:21腐食しちゃります...よろしくね...」\n16:28:21ラスト：HP2.5m,ATK250k,DEF0\n16:28:21「おおいなる、だいちのめぐみよ、そのちにあしをつけるもののちからを、ことごとくうばいされい...！」\n16:28:21二人の攻撃力が400000減少！\n16:28:21「おお、ちからをすいつくしてしまったか...ふふ...」\n16:28:21ラストのHPが100万上昇！\n16:28:21<戦闘開始！>\n16:28:21しろこ0,くろこ0ダメージ。\n16:28:210ターン耐え,-14%削ったが全滅した...\n16:28:21◆◆◆300Fのボスだ！◆◆◆\n16:28:21「序盤に召喚されたラストです...\n16:28:21腐食しちゃります...よろしくね...」\n16:28:21ラスト：HP2.5m,ATK250k,DEF0\n16:28:21「おおいなる、だいちのめぐみよ、そのちにあしをつけるもののちからを、ことごとくうばいされい...！」\n16:28:21二人の攻撃力が400000減少！\n16:28:21「おお、ちからをすいつくしてしまったか...ふふ...」\n16:28:21ラストのHPが100万上昇！\n16:28:21<戦闘開始！>\n16:28:21しろこ0,くろこ0ダメージ。\n16:28:210ターン耐え,-14%削ったが全滅した...\n16:28:21◆◆◆300Fのボスだ！◆◆◆\n16:28:21「序盤に召喚されたラストです...\n16:28:21腐食しちゃります...よろしくね...」\n16:28:21ラスト：HP2.5m,ATK250k,DEF0\n16:28:21「おおいなる、だいちのめぐみよ、そのちにあしをつけるもののちからを、ことごとくうばいされい...！」\n16:28:21二人の攻撃力が400000減少！\n16:28:21「おお、ちからをすいつくしてしまったか...ふふ...」\n16:28:21ラストのHPが100万上昇！\n16:28:21<戦闘開始！>\n16:28:21しろこ0,くろこ0ダメージ。\n16:28:210ターン耐え,-14%削ったが全滅した...\n16:28:21◆◆◆300Fのボスだ！◆◆◆\n16:28:21「序盤に召喚されたラストです...\n16:28:21腐食しちゃります...よろしくね...」\n16:28:21ラスト：HP2.5m,ATK250k,DEF0\n16:28:21「おおいなる、だいちのめぐみよ、そのちにあしをつけるもののちからを、ことごとくうばいされい...！」\n16:28:21二人の攻撃力が400000減少！\n16:28:21「おお、ちからをすいつくしてしまったか...ふふ...」\n16:28:21ラストのHPが100万上昇！\n16:28:21<戦闘開始！>\n16:28:21しろこ0,くろこ0ダメージ。\n16:28:210ターン耐え,-14%削ったが全滅した...\n16:28:21◆◆◆300Fのボスだ！◆◆◆\n16:28:21「序盤に召喚されたラストです...\n16:28:21腐食しちゃります...よろしくね...」\n16:28:21ラスト：HP2.5m,ATK250k,DEF0\n16:28:21「おおいなる、だいちのめぐみよ、そのちにあしをつけるもののちからを、ことごとくうばいされい...！」\n16:28:21二人の攻撃力が400000減少！\n16:28:21「おお、ちからをすいつくしてしまったか...ふふ...」\n16:28:21ラストのHPが100万上昇！\n16:28:21<戦闘開始！>\n16:28:21しろこ0,くろこ0ダメージ。\n16:28:210ターン耐え,-14%削ったが全滅した...\n16:28:21◆◆◆300Fのボスだ！◆◆◆\n16:28:21「序盤に召喚されたラストです...\n16:28:21腐食しちゃります...よろしくね...」\n16:28:21ラスト：HP2.5m,ATK250k,DEF0\n16:28:21「おおいなる、だいちのめぐみよ、そのちにあしをつけるもののちからを、ことごとくうばいされい...！」\n16:28:21二人の攻撃力が400000減少！\n16:28:21「おお、ちからをすいつくしてしまったか...ふふ...」\n16:28:21ラストのHPが100万上昇！\n16:28:21<戦闘開始！>\n16:28:21しろこ0,くろこ0ダメージ。\n16:28:210ターン耐え,-14%削ったが全滅した...\n16:28:21◆◆◆300Fのボスだ！◆◆◆\n16:28:21「序盤に召喚されたラストです...\n16:28:21腐食しちゃります...よろしくね...」\n16:28:21ラスト：HP2.5m,ATK250k,DEF0\n16:28:21「おおいなる、だいちのめぐみよ、そのちにあしをつけるもののちからを、ことごとくうばいされい...！」\n16:28:21二人の攻撃力が400000減少！\n16:28:21「おお、ちからをすいつくしてしまったか...ふふ...」\n16:28:21ラストのHPが100万上昇！\n16:28:21<戦闘開始！>\n16:28:21しろこ0,くろこ0ダメージ。\n16:28:210ターン耐え,-14%削ったが全滅した...\n16:28:21◆◆◆300Fのボスだ！◆◆◆\n16:28:21「序盤に召喚されたラストです...\n16:28:21腐食しちゃります...よろしくね...」\n16:28:21ラスト：HP2.5m,ATK250k,DEF0\n16:28:21「おおいなる、だいちのめぐみよ、そのちにあしをつけるもののちからを、ことごとくうばいされい...！」\n16:28:21二人の攻撃力が400000減少！\n16:28:21「おお、ちからをすいつくしてしまったか...ふふ...」\n16:28:21ラストのHPが100万上昇！\n16:28:21<戦闘開始！>\n16:28:21しろこ0,くろこ0ダメージ。\n16:28:210ターン耐え,-14%削ったが全滅した...\n16:28:21全回復！\n16:28:21◆◆◆300Fのボスだ！◆◆◆\n16:28:21「序盤に召喚されたラストです...\n16:28:21腐食しちゃります...よろしくね...」\n16:28:21ラスト：HP2.5m,ATK250k,DEF0\n16:28:21「おおいなる、だいちのめぐみよ、そのちにあしをつけるもののちからを、ことごとくうばいされい...！」\n16:28:21二人の攻撃力が400000減少！\n16:28:21「おお、ちからをすいつくしてしまったか...ふふ...」\n16:28:21ラストのHPが100万上昇！\n16:28:21<戦闘開始！>\n16:28:21しろこ23164,くろこ23387ダメージ。\n16:28:2162ターン耐え,18%削ったが全滅した...\n16:29:01装備を編集しました！\n16:29:04全回復！\n16:29:05◆◆◆300Fのボスだ！◆◆◆\n16:29:05「序盤に召喚されたラストです...\n16:29:05腐食しちゃります...よろしくね...」\n16:29:05ラスト：HP2.5m,ATK250k,DEF0\n16:29:05「おおいなる、だいちのめぐみよ、そのちにあしをつけるもののちからを、ことごとくうばいされい...！」\n16:29:05二人の攻撃力が400000減少！\n16:29:05<戦闘開始！>\n16:29:0517T戦い, しろこ7003,くろこ5546ダメージ。\n16:29:05経験値32を獲得！\n16:29:05しろこは2294レベルになった！\n16:29:05くろこは2294レベルになった！\n16:29:056847個の鱗粉を譲り受けた！\n16:29:05ボスの初回討伐ボーナス！\n16:29:052301枚のコインを獲得！\n16:29:05ボスの隠し持っていた宝箱を見つけた！\n16:29:05(通常よりレア装備が出やすくなります)\n16:29:05おたま+17742を拾った！\n16:29:05カプリコーン+245を拾った！\n16:29:05もちもちワッフル+215を拾った！\n16:29:05ねこみみはもう強いものを持ってるので捨てた...\n16:29:05アロンダイト+6841を拾った！\n16:29:05丸太+1696を拾った！\n16:29:05みかわしの服+2076を拾った！\n16:29:05フランクフルト+266を拾った！\n16:29:05堅パンはもう強いものを持ってるので捨てた...\n16:29:05火炎放射器+750を拾った！\n16:29:06◆何か落ちている！\n16:29:06ピリカライトニング+445を拾った！\n16:29:07◆何か落ちている！\n16:29:07堅パン+4382を拾った！\n16:29:08野良妖精から鱗粉を45もらった！\n16:29:09野良妖精から鱗粉を20もらった！\n16:29:10野良妖精から鱗粉を29もらった！\n16:29:11◆階段を見つけた！\n16:29:12野良妖精から鱗粉を26もらった！\n16:29:13野良妖精から鱗粉を45もらった！\n16:29:14野良妖精から鱗粉を10もらった！\n16:29:15◆バトルが発生した！\n16:29:158T戦い, しろこ728,くろこ94451ダメージ。\n16:29:15最大50%ダメージ！12秒加速します！\n16:29:15経験値36を獲得！\n16:29:16野良妖精から鱗粉を33もらった！\n16:29:17◆バトルが発生した！\n16:29:179T戦い, しろこ1008,くろこ0ダメージ。\n16:29:17最大47%ダメージ！11秒加速します！\n16:29:17経験値37を獲得！\n\nぶえー\nイガイガヨケはじめる　　スコア：0ハイスコア：2021 +12  +12 \n\n\n\nセーブしました。\n\n\n\n\n\n\n\nversion : 1.21 　更新履歴  感想・バグ報告は @jyllか#しろことくろこにお願いします。",
-			"settings":
-			{
-				"buffer_size": 6040,
-				"line_ending": "Windows",
-				"name": "マニュアルはこちら"
-			}
-		},
-		{
-			"file": "css/neko.css",
-			"settings":
-			{
-				"buffer_size": 44542,
+				"buffer_size": 21569,
 				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "css/sprites.css",
-			"settings":
-			{
-				"buffer_size": 4299,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "js/battle.js",
-			"settings":
-			{
-				"buffer_size": 20431,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "js/neko.js",
-			"settings":
-			{
-				"buffer_size": 49337,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "js/minigame.js",
-			"settings":
-			{
-				"buffer_size": 8483,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "js/view.js",
-			"settings":
-			{
-				"buffer_size": 82316,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "js/values.js",
-			"settings":
-			{
-				"buffer_size": 8160,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "js/handlers.js",
-			"settings":
-			{
-				"buffer_size": 7380,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -689,6 +596,18 @@
 	},
 	"file_history":
 	[
+		"/C/Users/3wari/OneDrive/github/THE/all_i.json",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/neko.html",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/nekomanual.html",
+		"/C/Users/3wari/OneDrive/text/しろことくろこ6月のアップデート.txt",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/css/sprites.css",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/css/neko.css",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/handlers.js",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/values.js",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/view.js",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/minigame.js",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/battle.js",
+		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/neko.js",
 		"/C/Users/3wari/OneDrive/text/クリアセーブ.txt",
 		"/C/Users/3wari/OneDrive/text/research/il_4-5/out",
 		"/C/Users/3wari/OneDrive/text/research/jh_4-5/out",
@@ -697,18 +616,8 @@
 		"/C/Users/3wari/OneDrive/projects/nyanko/na.txt",
 		"/C/Users/3wari/OneDrive/projects/nyanko/set-proxy-uec.bat",
 		"/C/Users/3wari/OneDrive/projects/nyanko/set-proxy-lab.bat",
-		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/values.js",
-		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/handlers.js",
-		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/battle.js",
-		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/neko.js",
-		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/view.js",
-		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/css/sprites.css",
 		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/css/nekomanual.css",
-		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/css/neko.css",
-		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/neko.html",
-		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/nekomanual.html",
 		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/pushnotification.js",
-		"/C/Users/3wari/OneDrive/github/www/jyllsarta.github.io/js/minigame.js",
 		"/C/Users/3wari/OneDrive/text/0506の研究発表に向けて.txt",
 		"/C/Users/3wari/OneDrive/text/0513の打ち合わせに向けて.txt",
 		"/C/Users/3wari/OneDrive/text/次どうしようかなってメモ.txt",
@@ -814,13 +723,11 @@
 		"/C/Users/3wari/OneDrive/text/面接確認事項まとめ.txt",
 		"/C/Users/3wari/OneDrive/text/エントリーシート項目.txt",
 		"/C/Users/3wari/Desktop/mygame/DQ/DQPlayer/bat.txt",
-		"/C/Users/3wari/Desktop/mygame/DQ/DQSimu/blog.txt",
-		"/C/Users/3wari/Desktop/mygame/DQ/DQPlayer/logtext.csv",
-		"/C/Users/3wari/Desktop/mygame/PHPの真偽判定/savedata"
+		"/C/Users/3wari/Desktop/mygame/DQ/DQSimu/blog.txt"
 	],
 	"find":
 	{
-		"height": 64.0
+		"height": 44.0
 	},
 	"find_in_files":
 	{
@@ -835,6 +742,10 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"sublime",
+			"neko",
+			"neko.su",
+			"neko",
 			"ダンジョン",
 			"dungeon_op",
 			"__",
@@ -958,11 +869,7 @@
 			"sawa",
 			"86c9c9",
 			"gacha_result_background",
-			"\"#gacha_result_background",
-			"gacha_result_fade",
-			"prepareG",
-			"getRarityClassName",
-			"アイテム"
+			"\"#gacha_result_background"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1061,24 +968,24 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "neko.html",
+					"file": "sainokawara.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 55040,
+						"buffer_size": 1123,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								51797,
-								51818
+								794,
+								794
 							]
 						],
 						"settings":
@@ -1086,161 +993,13 @@
 							"is_init_dirty_state": false,
 							"origin_encoding": "UTF-8",
 							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 1,
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1058.0,
+						"translation.y": 23.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "nekomanual.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7741,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								342,
-								342
-							]
-						],
-						"settings":
-						{
-							"is_init_dirty_state": false,
-							"origin_encoding": "UTF-8",
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 1,
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/C/Users/3wari/OneDrive/text/しろことくろこ6月のアップデート.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1461,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1421,
-								1421
-							]
-						],
-						"settings":
-						{
-							"is_init_dirty_state": true,
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 748.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3610,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1516,
-								1516
-							]
-						],
-						"settings":
-						{
-							"auto_name": "save={\"status\":{\"siro\":{\"hp\":27156,\"max_hp\":30030,",
-							"is_init_dirty_state": true,
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3657,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3657,
-								0
-							]
-						],
-						"settings":
-						{
-							"auto_name": "save={\"status\":{\"siro\":{\"hp\":213,\"max_hp\":4540,\"lv",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6040,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6040,
-								6040
-							]
-						],
-						"settings":
-						{
-							"auto_name": "マニュアルはこちら",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 6760.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -1250,52 +1009,20 @@
 			"sheets":
 			[
 				{
-					"buffer": 6,
-					"file": "css/neko.css",
+					"buffer": 1,
+					"file": "css/saikawa.css",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 44542,
+						"buffer_size": 325,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								44219,
-								44219
-							]
-						],
-						"settings":
-						{
-							"is_init_dirty_state": false,
-							"origin_encoding": "UTF-8",
-							"syntax": "Packages/CSS/CSS.sublime-syntax",
-							"tab_size": 1,
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 106514.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "css/sprites.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4299,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4299,
-								4299
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1303,14 +1030,13 @@
 							"is_init_dirty_state": false,
 							"origin_encoding": "ASCII",
 							"syntax": "Packages/CSS/CSS.sublime-syntax",
-							"tab_size": 1,
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 9636.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -1320,20 +1046,20 @@
 			"sheets":
 			[
 				{
-					"buffer": 8,
-					"file": "js/battle.js",
+					"buffer": 2,
+					"file": "js/saikawa.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 20431,
+						"buffer_size": 555,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								19682,
-								19682
+								225,
+								225
 							]
 						],
 						"settings":
@@ -1341,168 +1067,44 @@
 							"is_init_dirty_state": false,
 							"origin_encoding": "UTF-8",
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 1,
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 26558.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "js/neko.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 49337,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								39601,
-								39601
-							]
-						],
-						"settings":
-						{
-							"is_init_dirty_state": true,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 1,
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 62906.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
-					"file": "js/minigame.js",
+					"buffer": 3,
+					"file": "/C/Users/3wari/OneDrive/github/THE/view/the.sublime-workspace",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8483,
+						"buffer_size": 21569,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5014,
-								5014
+								6612,
+								6612
 							]
 						],
 						"settings":
 						{
 							"is_init_dirty_state": false,
 							"origin_encoding": "UTF-8",
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 11232.0,
+						"translation.y": 14993.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "js/view.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 82316,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								58911,
-								58911
-							]
-						],
-						"settings":
-						{
-							"is_init_dirty_state": false,
-							"origin_encoding": "UTF-8",
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 1,
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 96690.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "js/values.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8160,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1503,
-								1503
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 3024.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "js/handlers.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7380,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7284,
-								7303
-							]
-						],
-						"settings":
-						{
-							"is_init_dirty_state": false,
-							"origin_encoding": "UTF-8",
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 9936.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -1565,7 +1167,7 @@
 	"project": "neko.sublime-project",
 	"replace":
 	{
-		"height": 120.0
+		"height": 80.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1599,7 +1201,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 2,
 	"settings":
 	{
 	},
