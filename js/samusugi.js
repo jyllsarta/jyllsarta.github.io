@@ -73,7 +73,7 @@ function tweet(){
 
 function makeTweetContent(){
 	var text = $("#samusugi").text()
-	var suffix = " - 寒すぎて%sになった - https://jyllsarta.github.io/samusugi.html"
+	var suffix = " - https://jyllsarta.github.io/samusugi.html"
 	return text+" "+suffix
 }
 
