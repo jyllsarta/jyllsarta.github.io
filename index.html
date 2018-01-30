@@ -7,30 +7,11 @@
 	<link href="css/enter.css" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="lib/jquery.easing.1.3.js"></script>
-
-	<script type="text/javascript">
-		ILLUST_NUM = 7;
-		rnd = Math.floor( Math.random()*(ILLUST_NUM) )+1;
-		$(document).ready(function(){
-			$("#top_illust").attr('src','images/random_top/'+rnd+'.png');
-			$("#top_illust").animate({'left':'0px','opacity':'1'},4000,'easeOutExpo');
-			$("#top_link").animate({'bottom':'10%','opacity':'1'},1000,'easeOutExpo');	    	
-		});
-	</script>
-	<script>
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-		ga('create', 'UA-85276428-1', 'auto');
-		ga('send', 'pageview');
-
-	</script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/ga.js"></script>
 </head>
 <body>
-	<img id="top_illust" src="images/random_top/1.png">
-	<div id="gradient"></div>
+	<img id="top_illust" src="images/illust_all/105.png">
 	<div id="top_link">
 		<a href="top.html">
 			<div id="top_text">sarta house:</div>
