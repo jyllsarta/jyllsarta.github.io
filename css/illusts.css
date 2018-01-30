@@ -1,6 +1,6 @@
 .thumb{
-	width: 198px;
-	height: 198px;
+	width: 248px;
+	height: 248px;
 	background-image: url("../images/illust_thumbnails/124.png");
 	background-size: 400px;
 	background-position: center;
@@ -11,7 +11,7 @@
 
 #illustBox{
 	display: flex;
-	width: 990px;
+	width: 100%;
 	flex-direction: row;
 	flex-wrap: wrap;
 }

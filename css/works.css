@@ -1,16 +1,18 @@
 .title_image{
 	align:right;
-	width: 	320px;	
+	width: 	640px;	
+}
+.title_image:hover{
+	filter: brightness(130%);
 }
 
 .screenshot{
 	width: 	180px;
 }
+.screenshot:hover{
+	filter: brightness(130%);
+}
 
 .screenshot_box{
 	margin-left: 30px;
-}
-
-h2{
-	font-size: 20px;
 }
