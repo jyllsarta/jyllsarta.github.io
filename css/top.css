@@ -2,6 +2,10 @@ body{
 	color:#6b7a91;
 	font-size: 18px;
 }
+li{
+	list-style: none;
+}
+
 #top_banner{
 	width: 100%;
 	font-size: 0px;
@@ -69,7 +73,7 @@ h2:before{
 	font-weight: bold;
 }
 
-.section_contents{
+.contents{
 	margin-bottom: 20px;
 	padding-left: 20px;
 	width: 95%;
@@ -85,32 +89,31 @@ h2:before{
 }
 
 
-dl{
-	margin: 5px 5px;
+.flex_dl{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
-dt{
-	float: left;
+.flex_item{
+	width: 100%;
+	margin : 5px;
 }
 
-dd{
-	margin: 5px 5px;
-	margin-left: 20em;
+.flex_dt{
+	display: inline-block;
+	width: 25%;
 }
-
+.flex_dd{
+	display: inline-block;
+	width: 70%;
+}
 
 #top_image_gallery{
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
 }
-
-.ul_in_text{
-	list-style: none;
-	width: 400px;
-	margin : 5px 10px; 
-}
-
 .em_link{
 	font-size: 1.5em;
 }
