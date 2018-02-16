@@ -1,0 +1,27 @@
+#mailform{
+	margin-left: 10px;
+}
+#submit{
+	margin-left: 10px;
+	width: 150px;
+	height: 40px;
+	background-color: #7fb2e0;
+	border: 2px solid #eaf2ff;
+	color: #FFFFFF;
+	box-shadow: 3px 3px 2px 2px #5e81ba;
+	float: left;
+}
+
+#sending{
+	display: inline-block;
+	opacity: 0;
+	margin-left: 40px;
+	font-size: 1em;
+}
+#error{
+	display: inline-block;
+	opacity: 0;
+	margin-left: 40px;
+	font-size: 1em;
+	color: #e29351;	
+}
