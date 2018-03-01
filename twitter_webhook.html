@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>さーたはうす/なぜtwitterはUserStreamを停止したがるのか</title>
+	<meta name="description" content="じぃるの制作物をまとめるサイトです。ブラウザゲーとお絵かきログを置いてます。" />
+	<meta property="og:title" content="さーたはうす/なぜtwitterはUserStreamを停止したがるのか">
+	<meta property="og:url" content="https://jyllsarta.github.io/top.html">
+	<meta property="og:image" content="https://jyllsarta.github.io/images/icon/ogp_image.png">
+	<meta property="og:site_name" content="さーたはうす">
+	<meta property="og:description" content="じぃるの制作物をまとめるサイトです。ブラウザゲーとお絵かきログを置いてます。">
+
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:site" content="@jyll" />
+
+	<link href="css/common.css" rel="stylesheet" type="text/css">
+	<link href="css/top.css" rel="stylesheet" type="text/css">
+	<script src="js/ga.js"></script>
+</head>
+<body>
+	<header>
+		<div id="top_banner">
+			<a href="top.html"><img id="top_banner" src="images/top_banner.png"></a>
+		</div>
+		<div id="nav_menu">
+			<a href="top.html" class="menu_item here">Top</a>
+			<a href="top.html#sec_about" class="menu_item">About</a>
+			<a href="top.html#sec_text" class="menu_item">Text</a>
+			<a href="illusts.html" class="menu_item">Illust</a>
+			<a href="works.html" class="menu_item">Works</a>
+			<a href="contact.html" class="menu_item">Contact</a>
+		</div>
+	</header>
+	<h1>なぜTwitterはUserStreamを廃止したがるのか</h1>
+	<p>
+		そのほうがTwitter社が楽だからです。以下で解説します。
+	</p>
+	<h1>
+		UserStream
+	</h1>
+	<img  class="big_illust" src="images/articles/userstream.png" alt="userstreamが辛い感じの画像">
+	<p>
+		UserStreamは、<b>各ユーザ</b>が一人ひとりコネクションを持ち、送信するデータが発生し次第それぞれにデータを送ります。
+	</p>
+	<p>
+		UserStreamの場合、Twitterは<b>要求を受ける側</b>となり、基本的に常に待ち構えている必要があります。また、フォロー数が少なかったりしてあまりデータを送信しなくてもいい人とのコネクションもずっと保ち続けなければなりません。
+	</p>
+	<h1>Account Activity API(Webhook)</h1>
+	<img class="big_illust" src="images/articles/webhook.png" alt="webhookは(twitterにとって)いいぞ">
+	<p>
+		Webhookは、各サードパーティアプリが「こいつらのアカウントに関してなんかあったらここに教えてくれ」というデータの送信先を登録する仕組みになっています。
+	</p>
+	<p>
+		今度は<b>アプリ側</b>がいつでもTwitterからの連絡を受け取れるようにしなければなりません。Twitterは要求を送信する側となり、連絡すべき何かが発生したときだけ動けばよくなります。フォロー数が少ない人はその人がフォローしてる人の発言があるまで放置できるようになります。UserStreamと比べて、こっちのほうがサーバーの通信能力を使い切れそうですね。
+	</p>
+	<p>
+		Webhookではアプリ側がいつでも指定の場所でデータを受信できる必要があります。
+		この仕組みでデータをやり取りするには、各アプリの開発者が自分のアプリ用のサーバーを立てっぱなしにしておく必要があります。ユーザ数の多いアプリの場合、サーバーの維持費がかかりそうですね。
+	</p>
+	<p>
+		それとは別に、<a href="https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/overview">このAPIは1アプリにつき35アカウント以上を登録する場合にはお金がかかります。</a> 一般の人に開放するとなると無料枠では高々35人までしか使えないアプリになってしまうので、無料でアプリを配信するのは難しそうです。
+	</p>
+	<hr>
+	<p>
+		UserStreamには仕組みの面で古くなっていたほかにも、プロモツイートを流し込めないという欠点がありました。現状サードパーティのアプリで使われるぶんにはTwitter社には負荷でしかないので、無料で見るならwebや公式アプリで広告を見てもらい、広告なしのサードパーティアプリを使うならその分のお金は払ってもらう、という意図があるのでしょう。
+	</p>
+	<p>
+		そういうわけで、アプリ開発者はサーバーを立ててユーザからお金を取る仕組みを作るという大工事をするか、このままUserStreamの終了に任せて配信を終了するかを迫られている状況になり、少しずつ騒ぎになってきているという事態なのでした。
+	</p>
+</body>
+</html>

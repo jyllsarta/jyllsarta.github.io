@@ -1,5 +1,5 @@
 body{
-	color:#6b7a91;
+	color:#4b5a71;
 	font-size: 1.1em;
 }
 li{
@@ -76,7 +76,7 @@ h2:before{
 	font-weight: bold;
 }
 
-.contents{
+p{
 	margin-bottom: 20px;
 	padding-left: 20px;
 	width: 95%;
@@ -91,6 +91,9 @@ h2:before{
 	border:1px solid #d8e7ff;
 }
 
+.big_illust{
+	width: 90%;
+}
 
 .flex_dl{
 	width: 100%;
