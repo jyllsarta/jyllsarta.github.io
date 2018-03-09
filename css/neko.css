@@ -65,11 +65,11 @@ body{
 #death_ie{
 	position: absolute;
 	top : 200px;
-	left: 500px;
-	width: 950px;
+	left: 100px;
+	width: 800px;
 	color: #e87171;
 	font-weight: 700;
-	font-size: 40px;
+	font-size: 35px;
 }
 
 /****************************************/
