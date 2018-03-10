@@ -1963,25 +1963,39 @@ function prepareEquipBuildMenu(item_id){
 	var param_prevs = $(".param_prev")
 	var param_afters = $(".param_after")
 	var param_diffs = $(".param_diff")
-	param_prevs[0].textContent = (getBuildedParameter(item_id,"str"))
-	param_prevs[1].textContent = (getBuildedParameter(item_id,"dex"))
-	param_prevs[2].textContent = (getBuildedParameter(item_id,"def"))
-	param_prevs[3].textContent = (getBuildedParameter(item_id,"agi"))
-	if(save.item[item_id] < MAX_EQUIP_BUILD){
-		param_afters[0].textContent = (Math.floor(getBuildedParameter(item_id,"str")*1.1))
-		param_afters[1].textContent = (Math.floor(getBuildedParameter(item_id,"dex")*1.1))
-		param_afters[2].textContent = (Math.floor(getBuildedParameter(item_id,"def")*1.1))
-		param_afters[3].textContent = (Math.floor(getBuildedParameter(item_id,"agi")*1.1))
-		param_diffs[0].textContent = (Math.floor(getBuildedParameter(item_id,"str")*0.1))
-		param_diffs[1].textContent = (Math.floor(getBuildedParameter(item_id,"dex")*0.1))
-		param_diffs[2].textContent = (Math.floor(getBuildedParameter(item_id,"def")*0.1))
-		param_diffs[3].textContent = (Math.floor(getBuildedParameter(item_id,"agi")*0.1))
 
-		if((Math.floor(getBuildedParameter(item_id,"str")*0.1)) < 0){
+	var prev_str = getBuildedParameter(item_id,"str")
+	var prev_dex = getBuildedParameter(item_id,"dex")
+	var prev_def = getBuildedParameter(item_id,"def")
+	var prev_agi = getBuildedParameter(item_id,"agi")
+	var after_str = getParameterBuildTo(item_id,"str",save.item[item_id]+1)
+	var after_dex = getParameterBuildTo(item_id,"dex",save.item[item_id]+1)
+	var after_def = getParameterBuildTo(item_id,"def",save.item[item_id]+1)
+	var after_agi = getParameterBuildTo(item_id,"agi",save.item[item_id]+1)
+	var diff_str = after_str - prev_str
+	var diff_dex = after_dex - prev_dex
+	var diff_def = after_def - prev_def
+	var diff_agi = after_agi - prev_agi
+
+	param_prevs[0].textContent = prev_str
+	param_prevs[1].textContent = prev_dex
+	param_prevs[2].textContent = prev_def
+	param_prevs[3].textContent = prev_agi
+	if(save.item[item_id] < MAX_EQUIP_BUILD){
+		param_afters[0].textContent =after_str
+		param_afters[1].textContent = after_dex
+		param_afters[2].textContent = after_def
+		param_afters[3].textContent = after_agi
+		param_diffs[0].textContent = diff_str
+		param_diffs[1].textContent = diff_dex
+		param_diffs[2].textContent =  diff_def
+		param_diffs[3].textContent = diff_agi
+
+		if(diff_str < 0){
 			$(param_diffs[0]).addClass("minus")
 			$(param_diffs[0]).removeClass("plus")
 		}
-		else if((Math.floor(getBuildedParameter(item_id,"str")*0.1)) > 0){
+		else if(diff_str > 0){
 			$(param_diffs[0]).removeClass("minus")
 			$(param_diffs[0]).addClass("plus")			
 		}
@@ -1990,11 +2004,11 @@ function prepareEquipBuildMenu(item_id){
 			$(param_diffs[0]).removeClass("plus")				
 		}
 
-		if((Math.floor(getBuildedParameter(item_id,"dex")*0.1)) < 0){
+		if(diff_dex < 0){
 			$(param_diffs[1]).addClass("minus")
 			$(param_diffs[1]).removeClass("plus")
 		}
-		else if((Math.floor(getBuildedParameter(item_id,"dex")*0.1)) > 0){
+		else if(diff_dex > 0){
 			$(param_diffs[1]).removeClass("minus")
 			$(param_diffs[1]).addClass("plus")			
 		}
@@ -2003,11 +2017,11 @@ function prepareEquipBuildMenu(item_id){
 			$(param_diffs[1]).removeClass("plus")				
 		}
 
-		if((Math.floor(getBuildedParameter(item_id,"def")*0.1)) < 0){
+		if(diff_def < 0){
 			$(param_diffs[2]).addClass("minus")
 			$(param_diffs[2]).removeClass("plus")
 		}
-		else if((Math.floor(getBuildedParameter(item_id,"def")*0.1)) > 0){
+		else if(diff_def > 0){
 			$(param_diffs[2]).removeClass("minus")
 			$(param_diffs[2]).addClass("plus")			
 		}
@@ -2016,11 +2030,11 @@ function prepareEquipBuildMenu(item_id){
 			$(param_diffs[2]).removeClass("plus")				
 		}
 
-		if((Math.floor(getBuildedParameter(item_id,"agi")*0.1)) < 0){
+		if(diff_agi < 0){
 			$(param_diffs[3]).addClass("minus")
 			$(param_diffs[3]).removeClass("plus")
 		}
-		else if((Math.floor(getBuildedParameter(item_id,"agi")*0.1)) > 0){
+		else if(diff_agi > 0){
 			$(param_diffs[3]).removeClass("minus")
 			$(param_diffs[3]).addClass("plus")			
 		}
