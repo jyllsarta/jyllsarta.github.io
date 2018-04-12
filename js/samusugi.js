@@ -73,6 +73,7 @@ function tweet(){
 
 function makeTweetContent(){
 	var text = $("#samusugi").text()
+	text = text.replace(/;/g, "；")
 	var suffix = "https://jyllsarta.github.io/samusugi.html"
 	return text+" "+suffix
 }
