@@ -14,17 +14,37 @@
 	<meta name="twitter:site" content="@jyll" />
 
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<link href="css/common.css" rel="stylesheet" type="text/css">
-	<link href="css/enter.css" rel="stylesheet" type="text/css">
+	<link href="css/neko2.css" rel="stylesheet" type="text/css">
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="lib/jquery.easing.1.3.js"></script>
-	<script type="text/javascript" src="js/ga.js"></script>
-    <script src="game/nekofade/UnityLoader.js"></script>
-    <script>
-      var gameInstance = UnityLoader.instantiate("gameContainer", "game/nekofade/Build.json");
-    </script>
+	<script src="js/ga.js"></script>
+	<script src="game/nekofade/UnityLoader.js"></script>
+	<script src="js/neko2.js"></script>
 </head>
 <body>
-    <div id="gameContainer" style="width: 1280px; height: 720px; margin: auto"></div>
+
+	<div id="mainContents">
+		<div id="title">たいとるだよ</div>
+		<div id="gameContainer"></div>
+		<div id="addComment">
+			<span>物申すエリア(開発者にコメントを届けられます)</span>
+			<textarea name="" id="comment" cols="100" rows="1">こめんとをかいてね</textarea>
+			<span id="send">送信</span>
+		</div>
+		<p>
+			簡易マニュアル
+		</p>
+		<ul>
+			<li>ダンジョンの奥にいる魔王を倒してゴールを目指すゲームです。</li>
+			<li>しろこの近くの明るいマスは移動できます。</li>
+			<li>少ないターン数でクリアするほど・たくさんお金を持ち帰るほど良い評価を得られます。がんばってください。</li>
+		</ul>
+		<p>
+			戦闘指南
+		</p>
+		<ul>
+			<li>敵の魔法攻撃には詠唱時間があります。詠唱時間中に攻撃を当てると行動をキャンセルさせられます。</li>
+		</ul>
+	</div>
 </body>
 </html>

@@ -1,0 +1,46 @@
+body{
+	background-color: #2c2e33;
+	color: #FFFFFF;	
+}
+
+#title{
+	height: 130px;
+}
+
+#gameContainer{
+	width: 1280px;
+	height: 720px;
+	border: 1px solid #C0FFEE;
+	margin: 0px auto;
+}
+
+#mainContents{
+	width: 1320px;
+	margin: 0px auto;
+	border: 1px solid #C0FFEE;
+}
+
+p{
+	margin-left: 30px;
+	width: 800px;
+}
+
+ul{
+}
+
+#addComment{
+	margin: 0px auto;
+	width: 1280px;
+	height: 40px;
+	border: 1px solid #C0FFEE;	
+}
+
+#comment{
+	display: inline-block;
+	position: relative;
+	top: 5px;
+	margin-top: 5px;
+	height: 16px;
+	background-color: #575c68;
+	color: #FFFFFF;
+}
