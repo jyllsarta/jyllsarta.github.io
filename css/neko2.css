@@ -5,17 +5,18 @@ body{
 
 #title{
 	height: 130px;
+	border-bottom: 1px solid #C0FFEE;
 }
 
 #gameContainer{
 	width: 1280px;
 	height: 720px;
-	border: 1px solid #C0FFEE;
+	border-bottom: 1px solid #C0FFEE;
 	margin: 0px auto;
 }
 
 #mainContents{
-	width: 1320px;
+	width: 1280px;
 	margin: 0px auto;
 	border: 1px solid #C0FFEE;
 }
@@ -30,12 +31,13 @@ ul{
 
 #addComment{
 	margin: 0px auto;
-	width: 1280px;
+	padding-left: 10px;
+	width: 1270px;
 	height: 40px;
-	border: 1px solid #C0FFEE;	
+	border-bottom: 1px solid #C0FFEE;	
 }
 
-#comment{
+#comment, #userName{
 	display: inline-block;
 	position: relative;
 	top: 5px;
@@ -43,4 +45,13 @@ ul{
 	height: 16px;
 	background-color: #575c68;
 	color: #FFFFFF;
+}
+
+#send{
+	border: 1px solid #C0FFEE;
+	margin: 2px;
+	padding: 5px 20px;
+}
+#send:hover{
+	background-color: #727a8e;
 }
