@@ -7,10 +7,10 @@ function isPlayedInLocalFile(){
 }
 
 function loadGame(){
-	if(isPlayedInLocalFile()){
-		console.log("ローカル環境なのでゲームの読み込みをキャンセルしました");
-		return
-	}
+	//if(isPlayedInLocalFile()){
+	//	console.log("ローカル環境なのでゲームの読み込みをキャンセルしました");
+	//	return
+	//}
 	var gameInstance = UnityLoader.instantiate("gameContainer", "game/nekofade/Build.json");
 }
 
