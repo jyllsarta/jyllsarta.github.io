@@ -22,6 +22,12 @@ body{
 	background-color: #2c2e33;
 }
 
+h2{
+	font-size: 20px;
+	margin-left: 30px;
+	font-weight: 500;
+}
+
 p{
 	margin-left: 30px;
 	width: 800px;
@@ -29,6 +35,17 @@ p{
 
 ul{
 }
+
+a{
+	color: #7fdeff;
+}
+a:visited{
+	color: #238db2;
+}
+a:hover{
+	color: #f7fdff;
+}
+
 
 #addComment{
 	margin: 0px auto;
@@ -56,3 +73,19 @@ ul{
 #send:hover{
 	background-color: #727a8e;
 }
+
+.question:before{
+	content: ">"
+}
+.answer:before{
+	content: "→"
+}
+.question{
+	color: #ffe4d8;
+	margin-bottom: 0px;
+}
+.answer{
+	margin-top: 0px;
+	color: #d8f5ff;
+}
+
