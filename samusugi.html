@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1">
@@ -19,41 +20,47 @@
 	<link href="css/samusugi.css?201801250029" rel="stylesheet" type="text/css">
 	<script src="js/ga.js"></script>
 </head>
+
 <body>
-<h1>寒すぎて%sになった</h1>
+	<script>
+		location.href = "http://jyllsarta.net/samusugi"
+	</script>
 
-<p id="samusugi">寒すぎて%sになった</p>
+	<h1>寒すぎて%sになった</h1>
 
-<button id="control" class="btn">止める</button>
-<button id="tweet" class="btn">つぶやく</button>
+	<p id="samusugi">寒すぎて%sになった</p>
 
-<hr>
-<p>iPhone用コピペエリア</p>
-<p>(つぶやくボタンがうまく効かない人用　コピーボタンを押して手動でツイートしてね)</p>
-<textarea name="" id="copypastearea" cols="45" rows="3">(止めるボタンを押してね)</textarea>
+	<button id="control" class="btn">止める</button>
+	<button id="tweet" class="btn">つぶやく</button>
 
-<button id="copy" class="btn">コピー</button>
-<div id="copied" class="hidden">クリップボードにコピーしました...！</div>
+	<hr>
+	<p>iPhone用コピペエリア</p>
+	<p>(つぶやくボタンがうまく効かない人用　コピーボタンを押して手動でツイートしてね)</p>
+	<textarea name="" id="copypastearea" cols="45" rows="3">(止めるボタンを押してね)</textarea>
 
-<p>
-制作：<a href="top.html">さーたはうす</a>
-</p>
+	<button id="copy" class="btn">コピー</button>
+	<div id="copied" class="hidden">クリップボードにコピーしました...！</div>
 
-<span id="shadowcopypastearea"></span>
+	<p>
+		制作：<a href="top.html">さーたはうす</a>
+	</p>
 
-<script>//iOSのコピペ用コード
- var button = document.getElementById('copy');
- button.addEventListener('click', function(){
-    var copyarea = document.getElementById('shadowcopypastearea')
-    var range = document.createRange();
-    range.selectNode(copyarea);
-    window.getSelection().addRange(range);
-    document.execCommand('copy')
-    showCopiedTicker()
-});
-</script>
+	<span id="shadowcopypastearea"></span>
 
-<script src="js/samusugi.js"></script>
+	<script>//iOSのコピペ用コード
+		var button = document.getElementById('copy');
+		button.addEventListener('click', function () {
+			var copyarea = document.getElementById('shadowcopypastearea')
+			var range = document.createRange();
+			range.selectNode(copyarea);
+			window.getSelection().addRange(range);
+			document.execCommand('copy')
+			showCopiedTicker()
+		});
+	</script>
+
+	<script src="js/samusugi.js"></script>
 
 </body>
+
 </html>

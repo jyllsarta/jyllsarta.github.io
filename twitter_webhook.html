@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,7 +19,12 @@
 	<link href="css/top.css" rel="stylesheet" type="text/css">
 	<script src="js/ga.js"></script>
 </head>
+
 <body>
+	<script>
+		location.href = "http://jyllsarta.net/twitter_webhook"
+	</script>
+
 	<header>
 		<div id="top_banner">
 			<a href="top.html"><img id="top_banner" src="images/top_banner.png"></a>
@@ -39,7 +45,7 @@
 	<h1>
 		UserStream
 	</h1>
-	<img  class="big_illust" src="images/articles/userstream.png" alt="userstreamが辛い感じの画像">
+	<img class="big_illust" src="images/articles/userstream.png" alt="userstreamが辛い感じの画像">
 	<p>
 		UserStreamは、<b>各ユーザ</b>が一人ひとりコネクションを持ち、送信するデータが発生し次第それぞれにデータを送ります。
 	</p>
@@ -59,7 +65,8 @@
 		この仕組みでデータをやり取りするには、各アプリの開発者が自分のアプリ用のサーバーを立てっぱなしにしておく必要があります。ユーザ数の多いアプリの場合、サーバーの維持費がかかりそうですね。
 	</p>
 	<p>
-		それとは別に、<a href="https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/overview">このAPIは1アプリにつき35アカウント以上を登録する場合にはお金がかかります。</a> 一般の人に開放するとなると無料枠では高々35人までしか使えないアプリになってしまうので、無料でアプリを配信するのは難しそうです。
+		それとは別に、<a href="https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/overview">このAPIは1アプリにつき35アカウント以上を登録する場合にはお金がかかります。</a>
+		一般の人に開放するとなると無料枠では高々35人までしか使えないアプリになってしまうので、無料でアプリを配信するのは難しそうです。
 	</p>
 	<hr>
 	<p>
@@ -78,8 +85,11 @@
 		廃止予定がなく、代用できるAPIがあったみたいです。 通知が受信できないこと、鍵アカウントを対象に含められないことなど制約はありますが、とりあえずの対策としては有効かもしれません。
 	</p>
 	<p>
-		<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="なぜtwitterはUserStreamを停止したがるのか / さーたはうす" data-url="https://jyllsarta.github.io/twitter_webhook.html" data-related="jyll" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+		<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="なぜtwitterはUserStreamを停止したがるのか / さーたはうす"
+		 data-url="https://jyllsarta.github.io/twitter_webhook.html" data-related="jyll" data-show-count="false">Tweet</a>
+		<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 	</p>
 
 </body>
+
 </html>
